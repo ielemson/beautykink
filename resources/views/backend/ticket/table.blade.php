@@ -1,0 +1,33 @@
+
+@foreach ($datas as $data)
+<tr>
+    <td>{{ $loop->iteration }}</td>
+    <td>{{ $data->user->first_name }}</td>
+    <td>
+        <span class="badge badge-primary">{{ $data->status }}</span>
+    </td>
+    <td>
+        @if ($data->lastMessage)
+            {{ $data->lastMessage->created_at->diffForHumans() }}
+        @else
+            {{ __('No Reply') }}
+        @endif
+    </td>
+    <td>
+        <div class="btn-group">
+            <a class="btn btn-info btn-sm mr-1"
+                href="{{ route('backend.ticket.edit',$data->id) }}">
+                <i class="fas fa-eye"></i>
+            </a>
+            <a class="btn btn-danger btn-sm delete-record" data-toggle="modal"
+                data-title="{{ __('Confirm Delete?') }}"
+                data-text="{{ __('You are going to delete this Ticket. All contents related with this Ticket will be lost.') }} {{ __('Do you want to delete it?') }}"
+                data-cancel_btn="{{ __('Cancel') }}"
+                data-ok_btn="{{ __('Delete') }}"
+                data-href="{{ route('backend.ticket.destroy', $data->id) }}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+@endforeach
