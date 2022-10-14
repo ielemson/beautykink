@@ -587,10 +587,21 @@ class FrontendController extends Controller
     // ------------ Review End ----------
 
     // ------------ Subscribe ----------
-    public function subscribeSubmit(SubscribeRequest $request)
+    public function subscribeSubmit(Request $request)
+    
     {
+        $request->validate([
+            'email' => 'required|unique:subscribers,email'
+        ],
+     [
+           'email.required' => __('Email field is requried'),
+            'email.unique' => __('This email has already been taken.'),
+     ]
+     );
+
         Subscriber::create($request->all());
-        return response()->json(__('You Have Subscribed Successfully.'));
+        // return response()->json(__('You Have Subscribed Successfully.'));
+        return redirect()->back()->withSuccess(__('You Have Subscribed Successfully'));
     }
     // ------------ Subscribe End ------
 

@@ -66,9 +66,10 @@
                   <div id="dividerId-2" class="collapse">
                     <div class="newsletter-content-wrap">
                       <div class="newsletter-form">
-                        <form>
-                          <input type="email" class="form-control" placeholder="Your email address">
-                          <button class="btn btn-submit" type="button">Sign up</button>
+                        <form method="POST" action="{{ route('frontend.subscriber.submit') }}">
+                          @csrf
+                          <input type="email" name="email" class="form-control" placeholder="Your email address" required>
+                          <button class="btn btn-submit" type="submit">Sign up</button>
                         </form>
                       </div>
                     </div>

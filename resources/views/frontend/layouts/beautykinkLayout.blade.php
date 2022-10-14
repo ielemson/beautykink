@@ -669,26 +669,26 @@ var mainbs = {!! $mainbs !!};
         let mainurl = '{{ route('frontend.index') }}';
 
         let view_extra_index = 0;
-        
-        // Notifications
-        const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 3000
+    
+
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
                 })
 
         function SuccessNotification(title) {
            Toast.fire({
-                        type: 'success',
+                         icon: 'success',
                         title: `${title}`,
                     })
         }
 
         function DangerNotification(title) {
             Toast.fire({
-                        type: 'danger',
+                        icon: 'danger',
                         title: `${title}`,
                     })
         }

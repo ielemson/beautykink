@@ -21,6 +21,8 @@
         "mercadopago/dx-php": "^2.4",
         "mollie/laravel-mollie": "^2.18",
         "paypal/rest-api-sdk-php": "*",
+        "php-flasher/flasher": "^1.7",
+        "php-flasher/flasher-laravel": "^1.7",
         "phpmailer/phpmailer": "^6.5",
         "razorpay/razorpay": "2.*",
         "spatie/laravel-sitemap": "^5.9",

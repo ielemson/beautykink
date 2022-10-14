@@ -40,4 +40,10 @@
           </div>
         </div>
       </section>
+@include('frontend._inc.divider')
+
 @endsection
+
+{{-- @section('styleplugins')
+    <link id="mainStyles" rel="stylesheet" media="screen" href="{{ asset('frontend/css/styles.min.css') }}">
+@endsection --}}

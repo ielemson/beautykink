@@ -48,7 +48,7 @@ class SubscribeRequest extends FormRequest
      *
      * @return array
     */
-    protected function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json(array('errors' => $validator->getMessageBag()->toArray())));
-    }
+    // protected function failedValidation(Validator $validator){
+    //     throw new HttpResponseException(response()->json(array('errors' => $validator->getMessageBag()->toArray())));
+    // }
 }

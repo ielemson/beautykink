@@ -30,6 +30,12 @@
                 $('.cart-count').html(response.cart_qty);
                 $('.popup-product-list').html(miniCart);
 
+                if(response.sub_total == 0){
+                    $('.checkout').css('display','none')
+                }else{
+                    $('.checkout').css('display','block')
+
+                }
             }
         })
     }
