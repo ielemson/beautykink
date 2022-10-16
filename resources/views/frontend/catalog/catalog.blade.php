@@ -55,11 +55,13 @@ function renderStarRating($rating, $maxRating = 5)
                                         {{ __('out of stock') }}</div>
                                 @endif
                             </li>
-                            <li class="discount">
+                           
                                 @if ($item->previous_price && $item->previous_price != 0)
+                                <li class="discount">
                                     {{ PriceHelper::DiscountPercentage($item) }}
+                                </li>
                                 @endif
-                            </li>
+                        
                         </ul>
                     </div>
                     <div class="product-desc">

@@ -44,9 +44,9 @@
                                                 
                                                     @if ($newitem->previous_price && $newitem->previous_price != 0)
                                                     <li class="discount">
-                                                    - {{ PriceHelper::DiscountPercentage($newitem) }} 
+                                                    {{ PriceHelper::DiscountPercentage($newitem) }} 
                                                    </li>
-                                                @endif
+                                                   @endif
                                                
                                             </ul>
                                         </div>

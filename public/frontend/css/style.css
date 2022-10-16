@@ -952,7 +952,7 @@ section .container-fluid {
 .scroll-to-top {
   -webkit-box-shadow: 0 30px 50px rgba(0, 0, 0, 0.04);
           box-shadow: 0 30px 50px rgba(0, 0, 0, 0.04);
-  bottom: -60px;
+  margin-bottom:45px;
   background-color: #cc0066;
   color: #fff;
   position: fixed;

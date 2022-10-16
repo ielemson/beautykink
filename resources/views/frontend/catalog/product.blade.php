@@ -51,7 +51,12 @@
                                                     <a class="lightbox-image" data-fancybox="gallery"
                                                         href="{{ asset($gallery->photo) }}">
                                                         <img src="{{ asset($gallery->photo) }}"
-                                                            alt="slider-{{ $key }}" >
+                                                            alt="slider-{{ $key }}"
+                                                             style=" 
+                                                             width: 100%;
+                                                            height: auto;
+                                                            object-fit: cover;
+                                                            object-position: bottom;">
                                                         <span class="product-flag-new">{{$item->is_type}}</span>
                                                     </a>
                                                 </div>
@@ -63,7 +68,7 @@
                                             @foreach ($galleries as $key => $gallery)
                                                 {{-- <li><a href="#gallery{{ $key }}"><img src="{{ asset($gallery->photo) }}" alt="Product"></a></li> --}}
                                                 <div class="swiper-slide">
-                                                    <img src="{{ asset($gallery->photo) }}" alt="{{ asset($gallery->name) }}">
+                                                    <img src="{{ asset($gallery->photo) }}" alt="{{ asset($gallery->name) }}" style="width:100%;height:100px;">
                                                 </div>
                                             @endforeach
 
@@ -94,31 +99,31 @@
                                                     
                                             <li>
                                                 <a class="popup-youtube" href="https://www.youtube.com/watch?v={{$video}}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br>
-                                {{-- <a href="javascript:;" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;https://www.youtube.com/embed/{{ $video }}&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a>
-                                                
-                                                <a href="javascript:;" data-toggle="tooltip" data-type="video" class="comment" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;https://www.youtube.com/embed/{{ $video }}&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"><i class="fa fa-youtube-play text-danger"></i>Play video</a></li> --}}
-
+                                
                                                 @endif
                                         </ul>
                                     </div>
+                                    
                                     <div class="prices">
-                                        {{-- <span class="price">€14.52</span>
-<div class="tax-label">Tax included</div> --}}
-                                        <span class="h3 d-block">
-                                            @if ($item->previous_price != 0)
-                                                <small
-                                                    class="d-inline-block"><del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del></small>
-                                            @endif
-                                            <span id="main_price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
-                                        </span>
+                                        @if ($item->previous_price != 0)
+                                            <span class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                        @endif
+                                      
+                                        <span class="price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                        @if ($item->previous_price != 0)
+                                        <span class="discount-percentage">Save {{PriceHelper::discountPercentage($item)}}</span>
 
-                                        @if ($item->is_stock())
+                                        @endif
+                                    
+                                        <div class="tax-label">
+                                            @if ($item->is_stock())
                                             <span class="text-success  d-inline-block">{{ __('In Stock') }}</span>
                                         @else
                                             <span class="text-danger  d-inline-block">{{ __('Out of stock') }}</span>
                                         @endif
+                                        </div>
                                     </div>
-
+                                  
                                     <div class="row margin-top-1x">
                                         @foreach ($attributes as $attribute)
                                             @if ($attribute->options->count() != 0)
@@ -267,6 +272,7 @@
 	});
 });
 </script>
+
 
 @endsection
 
