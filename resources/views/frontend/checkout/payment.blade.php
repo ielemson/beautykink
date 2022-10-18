@@ -5,7 +5,8 @@
 @section('content')
     <!-- Page Title-->
     @include('frontend._inc.header_single_page',['title_1'=>'Checkout','title_2'=>'Review and Pay'])''
-      <!--== End Page Header Area Wrapper ==-->
+      
+    <!--== End Page Header Area Wrapper ==-->
       <section class="product-area">
         <div class="container" data-padding-top="62">
           <div class="shopping-cart-wrap">
@@ -185,10 +186,10 @@
       </section>
       <!--== End Product Area Wrapper ==-->
   
-        <!--== Start Contact Info Area Wrapper ==-->
+      <!--== Start Contact Info Area Wrapper ==-->
     @include('frontend._inc.divider',[])
     <!--== End Contact Info Area Wrapper ==-->
-      @include('frontend._inc.checkout_modal')
+    @include('frontend._inc.checkout_modal')
 @endsection
 @section('styleplugins')
 <link id="mainStyles" rel="stylesheet" media="screen" href="{{ asset('frontend/css/styles.min.css') }}">

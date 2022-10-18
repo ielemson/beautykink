@@ -295,86 +295,89 @@ class CheckoutController extends Controller
     */
     public function checkout(PaymentRequest $request)
     {
-        $input = $request->all();
+        // // dd(Cart::content());
+        // $input = $request->all();
 
-        $checkout         = false;
-        $payment_redirect = false;
-        $payment          = null;
+        // $checkout         = false;
+        // $payment_redirect = false;
+        // $payment          = null;
 
-        if (Session::has('currency')) {
-            $currency = Currency::findOrFail(Session::get('currency'));
-        } else {
-            $currency = Currency::where('is_default', 1)->first();
-        }
+        // if (Session::has('currency')) {
+        //     $currency = Currency::findOrFail(Session::get('currency'));
+        // } else {
+        //     $currency = Currency::where('is_default', 1)->first();
+        // }
 
-        // Use currency check
-        $usd_supported = [ 'USD', 'EUR' ];
-        $paystack_supported = [ 'NGN' ];
-        switch ($input['payment_method']) {
-            case 'Stripe':
-                if (!in_array($currency->name, $usd_supported)) {
-                    return redirect()->back()->withError(__('Currency Not Supported.'));
-                }
-                $checkout = true;
-                $payment = $this->stripeSubmit($input);
-                break;
+        // // Use currency check
+        // $usd_supported = [ 'USD', 'EUR' ];
+        // $paystack_supported = [ 'NGN' ];
+        // switch ($input['payment_method']) {
+        //     // case 'Stripe':
+        //     //     if (!in_array($currency->name, $usd_supported)) {
+        //     //         return redirect()->back()->withError(__('Currency Not Supported.'));
+        //     //     }
+        //     //     $checkout = true;
+        //     //     $payment = $this->stripeSubmit($input);
+        //     //     break;
 
-            case 'Paypal':
-                if (!in_array($currency->name, $usd_supported)) {
-                    return redirect()->back()->withError(__('Currency Not Supported.'));
-                }
-                $checkout = true;
-                $payment_redirect = true;
-                $payment = $this->paypalSubmit($input);
-                break;
+        //     // case 'Paypal':
+        //     //     if (!in_array($currency->name, $usd_supported)) {
+        //     //         return redirect()->back()->withError(__('Currency Not Supported.'));
+        //     //     }
+        //     //     $checkout = true;
+        //     //     $payment_redirect = true;
+        //     //     $payment = $this->paypalSubmit($input);
+        //     //     break;
 
-            case 'Mollie':
-                if (!in_array($currency->name, $usd_supported)) {
-                    return redirect()->back()->withError(__('Currency Not Supported.'));
-                }
-                $checkout = true;
-                $payment_redirect = true;
-                $payment = $this->mollieSubmit($input);
-                break;
+        //     // case 'Mollie':
+        //     //     if (!in_array($currency->name, $usd_supported)) {
+        //     //         return redirect()->back()->withError(__('Currency Not Supported.'));
+        //     //     }
+        //     //     $checkout = true;
+        //     //     $payment_redirect = true;
+        //     //     $payment = $this->mollieSubmit($input);
+        //     //     break;
 
-            case 'Paystack':
-                if (!in_array($currency->name, $paystack_supported)) {
-                    return redirect()->back()->withError(__('Currency Not Supported.'));
-                }
-                $checkout = true;
-                $payment = $this->paystackSubmit($input);
-                break;
+        //     case 'Paystack':
+        //         if (!in_array($currency->name, $paystack_supported)) {
+        //             return redirect()->back()->withError(__('Currency Not Supported.'));
+        //         }
+        //         $checkout = true;
+        //         $payment = $this->paystackSubmit($input);
+        //         break;
 
-            case 'Bank':
-                $checkout = true;
-                $payment = $this->bankSubmit($input);
-                break;
+        //     case 'Bank':
+        //         $checkout = true;
+        //         $payment = $this->bankSubmit($input);
+        //         break;
 
-            case 'Cash On Delivery':
-                $checkout = true;
-                $payment = $this->cashOnDeliverySubmit($input);
-                break;
-        }
+        //     case 'Cash On Delivery':
+        //         $checkout = true;
+        //         $payment = $this->cashOnDeliverySubmit($input);
+        //         break;
+        // }
 
-        if ($checkout) {
-            if ($payment_redirect) {
-                if ($payment['status']) {
-                    return redirect()->away($payment['link']);
-                } else {
-                    Session::put('message', $payment['message']);
-                    return redirect()->route('frontend.checkout.cancel');
-                }
-            } else {
-                if($payment['status']){
-                    return redirect()->route('frontend.checkout.success');
-                }else{
-                    Session::put('message',$payment['message']);
-                    return redirect()->route('frontend.checkout.cancel');
-                }
-            }
-        } else {
-            return redirect()->route('frontend.checkout.cancel');
-        }
+        // if ($checkout) {
+        //     if ($payment_redirect) {
+        //         if ($payment['status']) {
+        //             return redirect()->away($payment['link']);
+        //         } else {
+        //             Session::put('message', $payment['message']);
+        //             return redirect()->route('frontend.checkout.cancel');
+        //         }
+        //     } else {
+        //         if($payment['status']){
+        //             return redirect()->route('frontend.checkout.success');
+        //         }else{
+        //             Session::put('message',$payment['message']);
+        //             return redirect()->route('frontend.checkout.cancel');
+        //         }
+        //     }
+        // } else {
+        //     return redirect()->route('frontend.checkout.cancel');
+        // }
+
+        return "<b style='text-align:center'>Thank you for your order, page is still under construction<b/>";
     }
 
     /**

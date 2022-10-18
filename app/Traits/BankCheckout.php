@@ -14,22 +14,27 @@ use App\Models\ShippingService;
 use App\Models\TrackOrder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 trait BankCheckout
 {
     public function bankSubmit($data)
     {
         $user = Auth::user();
         $setting = Setting::first();
-        $cart = Session::get('cart');
+        $cart = Cart::content();
         $total_tax = 0;
         $cart_total = 0;
         $total = 0;
         $option_price = 0;
-        foreach ($cart as $key => $item) {
-            $total += $item['main_price'] * $item['qty'];
-            $option_price += $item['attribute_price'];
-            $cart_total = $total + $option_price;
+
+        // $cart_qty = Cart::count();
+        // $cart_total = Cart::total();
+        // $subtotal = Cart::subtotal();
+
+        foreach (Cart::content() as $key => $item) {
+            // $total += $item['main_price'] * $item['qty'];
+            // $option_price += $item['attribute_price'];
+            // $cart_total = $total + $option_price;
             $item = Item::findOrFail($key);
             if ($item->tax) {
                 $total_tax += $item->taxCalculate($item);
