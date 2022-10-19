@@ -26,20 +26,16 @@ trait BankCheckout
         $cart_total = 0;
         $total = 0;
         $option_price = 0;
-
-        // $cart_qty = Cart::count();
-        // $cart_total = Cart::total();
-        // $subtotal = Cart::subtotal();
-
-        foreach (Cart::content() as $key => $item) {
-            // $total += $item['main_price'] * $item['qty'];
-            // $option_price += $item['attribute_price'];
-            // $cart_total = $total + $option_price;
-            $item = Item::findOrFail($key);
-            if ($item->tax) {
-                $total_tax += $item->taxCalculate($item);
-            }
-        }
+      
+        // foreach ($cart as $key => $item) {
+        //     $total += $item['main_price'] * $item['qty'];
+        //     $option_price += $item['attribute_price'];
+        //     $cart_total = $total + $option_price;
+        //     $item = Item::findOrFail($key);
+        //     if ($item->tax) {
+        //         $total_tax += $item->taxCalculate($item);
+        //     }
+        // }
 
         $shipping = [];
         if (ShippingService::whereStatus(1)->exists()) {
@@ -50,14 +46,17 @@ trait BankCheckout
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-        $grand_total = ($cart_total + ($shipping ? $shipping->price : 0)) + $total_tax;
-        $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
-        $total_amount = PriceHelper::setConvertPrice($grand_total);
+        // $data['cart_total'] = 
+        // $data['cart_count'] = Cart::count();
+        // $data['grand_total'] = Cart::subtotal();
+        $grand_total = Cart::total();
+        // $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
+        $total_amount = $grand_total;
 
         $order_data['cart']               = json_encode($cart, true);
         $order_data['discount']           = json_encode($discount, true);
         $order_data['shipping']           = json_encode($shipping, true);
-        $order_data['tax']                = $total_tax;
+        $order_data['tax']                = 0;
         $order_data['shipping_info']      = json_encode(Session::get('shipping_address'), true);
         $order_data['billing_info']       = json_encode(Session::get('billing_address'), true);
         $order_data['payment_method']     = 'Bank Transfer';
@@ -66,7 +65,8 @@ trait BankCheckout
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
         $order_data['currency_value']     = PriceHelper::setCurrencyValue();
         $order_data['payment_status']     = 'Unpaid';
-        $order_data['txnid']              = $data['txn_id'];
+        // $order_data['txnid']              = $data['txn_id'];
+        $order_data['txnid']              = 'txn_id';
         $order_data['order_status']       = 'Pending';
         $order                            = Order::create($order_data);
         TrackOrder::create([
@@ -74,8 +74,9 @@ trait BankCheckout
             'order_id' => $order->id
         ]);
 
-        PriceHelper::transaction($order->id, $order->transaction_number, $user->email, PriceHelper::orderTotal($order));
-        PriceHelper::licenseQtyDecrease($cart);
+        // PriceHelper::transaction($order->id, $order->transaction_number, $user->email, 
+        // PriceHelper::orderTotal($order));
+        // PriceHelper::licenseQtyDecrease($cart);
         Notification::create([
             'order_id' => $order->id
         ]);
@@ -85,7 +86,7 @@ trait BankCheckout
             'type'               => 'Order',
             'user_name'          => $user->displayName(),
             'order_cost'         => $total_amount,
-            'transaction_number' => $order->transaction_number,
+            'transaction_number' => 'transaction_number',
             'site_title'         => Setting::first()->title,
         ];
 
