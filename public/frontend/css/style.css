@@ -1302,7 +1302,7 @@ section .container-fluid {
     font-size: 26px;
   }
 }
-.section-title .title:before {
+/* .section-title .title:before {
   color: #cc0066;
   font-family: "Line Awesome Brands";
   content: "";
@@ -1310,12 +1310,12 @@ section .container-fluid {
   line-height: 0.8;
   display: block;
   margin-bottom: 18px;
-}
+} */
 @media only screen and (max-width: 1199px) {
-  .section-title .title:before {
+  /* .section-title .title:before {
     font-size: 42px;
     margin-bottom: 14px;
-  }
+  } */
 }
 .section-title .desc {
   color: #918e8e;

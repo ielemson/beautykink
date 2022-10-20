@@ -26,6 +26,7 @@
                       <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">{{ __('3 column banner First') }}</a>
 
+                        
                         {{-- <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">{{ __('Popular Categories') }}</a> --}}
 
                         {{-- <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">{{ __('3 column banner Second') }}</a> --}}
@@ -39,7 +40,7 @@
                         {{-- <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false">{{ __('Home Page 4 Banner 5 Column') }}</a> --}}
 
                         {{-- <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#tab8" role="tab" aria-controls="tab8" aria-selected="false">{{ __('Home Page 4 Popular Categories') }}</a> --}}
-
+                        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab9" role="tab" aria-controls="tab9" aria-selected="false">{{ __('Footer Pages') }}</a>
                       </div>
                     </div>
                     <div class="col-7 col-sm-9">
@@ -156,6 +157,199 @@
                             </form>
                         </div>
 
+                        <div class="tab-pane fade" id="tab9" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                            <form action="{{ route('backend.popular.category.update') }}" method="POST" id="quickForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class=" row">
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                        <label for="popular_title">{{ __('Delivery') }} *</label>
+                                        <textarea name="popular_title" class="form-control " id="popular_title" placeholder="{{ __('Popular Category Section Title') }}" value="{{ $popular_category['popular_title'] }}" ></textarea>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 border-bottom mb-4"></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 mb-2"><h2 class="">{{ __('Category 1 :') }}</h2></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="category_id1">{{ __('Select Category') }} *</label>
+                                        <select name="category_id1" id="category_id1" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2" required>
+                                            <option value="" disabled>{{ __('Select One') }}</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $popular_category['category_id1'] ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="subcategory_id1">{{ __('Select Sub-Category') }} </label>
+                                        <select name="subcategory_id1" id="subcategory_id1" data-href="{{ route('backend.get.childcategories') }}" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('subcategories')->where('category_id', $popular_category['category_id1'])->whereStatus(1)->get() as $subcat)
+                                                <option value="{{ $subcat->id }}" {{ $subcat->id == $popular_category['subcategory_id1'] ? 'selected' : '' }}>{{ $subcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="childcategory_id1">{{ __('Select Child-Category') }} </label>
+                                        <select name="childcategory_id1" id="childcategory_id1" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('child_categories')->where('category_id',$popular_category['category_id1'])->whereStatus(1)->get() as $childcat)
+                                                <option value="{{ $childcat->id }}" {{ $childcat->id == $popular_category['childcategory_id1'] ? 'selected' : '' }}>{{ $childcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 border-bottom mb-4"></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 mb-2"><h2 class="">{{ __('Category 2 :') }}</h2></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="category_id2">{{ __('Select Category') }} *</label>
+                                        <select name="category_id2" id="category_id2" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2" required>
+                                            <option value="" disabled>{{ __('Select One') }}</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $popular_category['category_id2'] ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="subcategory_id2">{{ __('Select Sub-Category') }} </label>
+                                        <select name="subcategory_id2" id="subcategory_id2" data-href="{{ route('backend.get.childcategories') }}" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('subcategories')->where('category_id',$popular_category['category_id2'])->whereStatus(1)->get() as $subcat)
+                                                <option value="{{ $subcat->id }}" {{ $subcat->id == $popular_category['subcategory_id2'] ? 'selected' : '' }}>{{ $subcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="childcategory_id2">{{ __('Select Child-Category') }} </label>
+                                        <select name="childcategory_id2" id="childcategory_id2" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('child_categories')->where('category_id',$popular_category['category_id2'])->whereStatus(1)->get() as $childcat)
+                                                <option value="{{ $childcat->id }}" {{ $childcat->id == $popular_category['childcategory_id2'] ? 'selected' : '' }}>{{ $childcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 border-bottom mb-4"></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 mb-2"><h2 class="">{{ __('Category 3 :') }}</h2></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="category_id3">{{ __('Select Category') }} *</label>
+                                        <select name="category_id3" id="category_id3" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2" required>
+                                            <option value="" disabled>{{ __('Select One') }}</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $popular_category['category_id3'] ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="subcategory_id3">{{ __('Select Sub-Category') }} </label>
+                                        <select name="subcategory_id3" id="subcategory_id3" data-href="{{ route('backend.get.childcategories') }}" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('subcategories')->where('category_id',$popular_category['category_id3'])->whereStatus(1)->get() as $subcat)
+                                                <option value="{{ $subcat->id }}" {{ $subcat->id == $popular_category['subcategory_id3'] ? 'selected' : '' }}>{{ $subcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="childcategory_id3">{{ __('Select Child-Category') }} </label>
+                                        <select name="childcategory_id3" id="childcategory_id3" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('child_categories')->where('category_id',$popular_category['category_id3'])->whereStatus(1)->get() as $childcat)
+                                                <option value="{{ $childcat->id }}" {{ $childcat->id == $popular_category['childcategory_id3'] ? 'selected' : '' }}>{{ $childcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 mb-2"><h2 class="">{{ __('Category 4 :') }}</h2></div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="category_id4">{{ __('Select Category') }} *</label>
+                                        <select name="category_id4" id="category_id4" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2" required>
+                                            <option value="" disabled>{{ __('Select One') }}</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}" {{ $cat->id == $popular_category['category_id4'] ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="subcategory_id4">{{ __('Select Sub-Category') }} </label>
+                                        <select name="subcategory_id4" id="subcategory_id4" data-href="{{ route('backend.get.childcategories') }}" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('subcategories')->where('category_id',$popular_category['category_id4'])->whereStatus(1)->get() as $subcat)
+                                                <option value="{{ $subcat->id }}" {{ $subcat->id == $popular_category['subcategory_id4'] ? 'selected' : '' }}>{{ $subcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                      <label for="childcategory_id4">{{ __('Select Child-Category') }} </label>
+                                        <select name="childcategory_id4" id="childcategory_id4" class="form-control select2" >
+                                            <option value="" >{{ __('Select One') }}</option>
+                                            @foreach (DB::table('child_categories')->where('category_id',$popular_category['category_id4'])->whereStatus(1)->get() as $childcat)
+                                                <option value="{{ $childcat->id }}" {{ $childcat->id == $popular_category['childcategory_id4'] ? 'selected' : '' }}>{{ $childcat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                  <div class="col-md-2"></div>
+                                  <div class="form-group  col-md-8">
+                                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                                  </div>
+
+                                </div>
+
+                            </form>
+                        </div>
                         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
                             <form action="{{ route('backend.popular.category.update') }}" method="POST" id="quickForm" enctype="multipart/form-data">
                                 @csrf

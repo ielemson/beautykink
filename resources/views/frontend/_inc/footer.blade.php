@@ -29,7 +29,8 @@
                             <div class="widget-item">
                                 <div class="widget-menu-wrap">
                                     <ul class="nav-menu">
-                                        <li><a href="#/">Delivery</a></li>
+
+                                        {{-- <li><a href="#/">Privacy Policy</a></li>
                                         <li><a href="#/">Legal Notice</a></li>
                                         <li><a href="{{ route('frontend.aboutus') }}">About us</a></li>
                                         <li><a href="#/">Secure payment</a></li>
@@ -37,7 +38,14 @@
                                         <li><a href="#/">Sitemap</a></li>
                                         <li><a href="{{ route('backend.login') }}">Login</a></li>
                                         <li><a href="{{ route('user.login') }}">My account</a></li>
-                                        <li><a href="shop.html">Stores</a></li>
+                                        <li><a href="shop.html">Stores</a></li> --}}
+                                        {{-- <a  href="{{ route('frontend.page', $page->slug) }}">{{ $page->title }}</a> --}}
+                                        @foreach(DB::table('pages')
+                                        ->wherePos(1)->get() as $page)
+                                        <li><a href="{{ route('frontend.page', $page->slug) }}">{{ $page->title }}</a></li>
+                                        @endforeach
+                                        {{-- <li><a href="{{ route('backend.login') }}">Login</a></li> --}}
+                                        {{-- <li><a href="{{ route('user.login') }}">My account</a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -53,7 +61,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="copyright">{{ $setting->copy_right }} <i class="fa fa-heart-o"></i> by <a target="_blank"
+                    <p class="copyright"> {{ $setting->copy_right }} <i class="fa fa-heart-o"></i> by <a target="_blank"
                             href="https://www.ielemson.com">Hash360</a></p>
                 </div>
                 <div class="col-lg-6">

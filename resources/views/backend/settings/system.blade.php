@@ -303,17 +303,6 @@
                                 <div class="form-group  col-md-8">
                                    <div class="form-group clearfix">
                                       <div class="icheck-success d-inline">
-                                        <input type="checkbox" id="is_pages" class="" name="is_pages" value="1" {{ $setting->is_pages == 1 ? 'checked' : '' }}>
-                                        <label for="is_pages">{{ __('Display Pages') }}</label>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2"></div>
-
-                                <div class="col-md-2"></div>
-                                <div class="form-group  col-md-8">
-                                   <div class="form-group clearfix">
-                                      <div class="icheck-success d-inline">
                                         <input type="checkbox" id="is_blog" class="" name="is_blog" value="1" {{ $setting->is_blog == 1 ? 'checked' : '' }}>
                                         <label for="is_blog">{{ __('Display Blog') }}</label>
                                       </div>
