@@ -212,7 +212,8 @@
                                 @include('frontend._inc.categories')
 
                                 {{-- Pages dynamic lists --}}
-                                @php
+                               @if ($setting->is_pages == 1)
+                                    @php
                                     $pages = DB::table('pages')
                                         ->wherePos(0)
                                         ->orwhere('pos', 2)
@@ -233,6 +234,7 @@
 
                                     </li>
                                 @endif
+                               @endif
                                 </li>
                                 @if ($setting->is_shop == 1)
                                     <li class="{{ request()->routeIs('frontend.catalog*') ? 'active' : '' }}">

@@ -111,6 +111,7 @@ class Setting extends Model
         'banner_text',
         'is_banner',
         'about_us_img',
-        'inc_hdr_banner'
+        'inc_hdr_banner',
+        'is_pages'
     ];
 }
