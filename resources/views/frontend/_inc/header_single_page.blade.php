@@ -1,4 +1,5 @@
- <!--== Start Page Header Area Wrapper ==-->
+@if ($setting->inc_hdr_banner)
+  <!--== Start Page Header Area Wrapper ==-->
  <div class="page-header-area bg-img" data-bg-img="{{asset('uploads/banners/banner.jpg')}}">
     <div class="container">
       <div class="row">
@@ -21,3 +22,5 @@
     </div>
   </div>
   <!--== End Page Header Area Wrapper ==-->
+
+@endif
