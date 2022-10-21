@@ -81,8 +81,10 @@
         <i class="icon-home icon fa-2x"></i>
     </a>
     @if (!Auth::user())
-        <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><b><i
-                    class="icon-user fa-2x"></i></b> </a>
+        {{-- <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><b><i
+                    class="icon-user fa-2x"></i></b> </a> --}}
+                    <a href="{{ route('user.login') }}" class="btn-cart bloc-icon"><i class="icon-user icon fa-2x"></i>
+                        <span class=""></span></a>
     @else
         <a href="{{ route('user.dashboard') }}" class="btn-cart bloc-icon"><b><i class="icon-speedometer fa-2x"></i></b>
         </a>

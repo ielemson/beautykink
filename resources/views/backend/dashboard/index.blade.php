@@ -1,6 +1,6 @@
 @extends('backend.layouts.backend')
 @section('content')
-      <!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -8,6 +8,12 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard </li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -17,473 +23,213 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        @include('alerts.alerts')
+    <!-- Small boxes (Stat box) -->
+    @include('alerts.alerts')
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-success"><i class="fa fa-shopping-cart"></i></span>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ $totalPendingOrders }}</h3>
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Orders') }}</span>
-                    <span class="info-box-number">{{ $totalOrders }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
+                <p>{{ __('Pending Orders') }}</p>
+              </div>
+              <div class="icon">
+                <i class="icon icon-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-success"><i class="fa fa-shopping-cart"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Pending Orders') }}</span>
-                    <span class="info-box-number">{{ $totalPendingOrders }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ $totalProductSale }}</h3>
+               
+                <p>{{ __('Total Sale') }}</p>
+              </div>
+              <div class="icon">
+                <i class="icon icon-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-success"><i class="fa fa-shopping-cart"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Delivered Orders') }}</span>
-                    <span class="info-box-number">{{ $totalDeliveredOrders }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ $totalUsers }}</h3>
+                <p>{{ __('Total Customers') }}</p>
+              </div>
+              <div class="icon">
+                <i class="icon icon-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <!-- ./col -->
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
 
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-success"><i class="fa fa-shopping-cart"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Canceld Orders') }}</span>
-                    <span class="info-box-number">{{ $totalCanceledOrders }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="icon icon-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-primary"><i class="fa fa-chart-bar"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Product Sale') }}</span>
-                    <span class="info-box-number">{{ $totalProductSale }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-primary"><i class="fa fa-chart-bar"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Today Product Order') }}</span>
-                    <span class="info-box-number">{{ $totalTodayProductSale }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-primary"><i class="fa fa-chart-bar"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('This Month Sale') }}</span>
-                    <span class="info-box-number">{{ $totalCurrentMonthProductSale }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-primary"><i class="fa fa-chart-bar"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('This Year Product Sale') }}</span>
-                    <span class="info-box-number">{{ $totalLastYearProductSale }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-danger"><i class="fa fa-money-bill-wave"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Earning') }}</span>
-                    <span class="info-box-number">{{ $totalEarning }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-danger"><i class="fa fa-money-bill-wave"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Pending Earning') }}</span>
-                    <span class="info-box-number">{{ $totalTodayEarning }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-danger"><i class="fa fa-money-bill-wave"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('This Month Earning') }}</span>
-                    <span class="info-box-number">{{ $totalMonthEarning }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-danger"><i class="fa fa-money-bill-wave"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('This Year Earning') }}</span>
-                    <span class="info-box-number">{{ $totalYearEarning }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Products') }}</span>
-                    <span class="info-box-number">{{ $totalItems }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Customers') }}</span>
-                    <span class="info-box-number">{{ $totalUsers }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Categories') }}</span>
-                    <span class="info-box-number">{{ $totalCategories }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Brands') }}</span>
-                    <span class="info-box-number">{{ $totalBrands }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Reviews') }}</span>
-                    <span class="info-box-number">{{ $totalReviews }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Transactions') }}</span>
-                    <span class="info-box-number">{{ $totalTransactions }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Tickets') }}</span>
-                    <span class="info-box-number">{{ $totalTickets }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Pending Tickets') }}</span>
-                    <span class="info-box-number">{{ $totalPendingTickets }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Open Tickets') }}</span>
-                    <span class="info-box-number">{{ $totalTickets }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Blogs') }}</span>
-                    <span class="info-box-number">{{ $totalBlogs }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total Subscribers') }}</span>
-                    <span class="info-box-number">{{ $totalSubscribers }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box shadow-sm">
-                  <span class="info-box-icon bg-info"><i class="fa fa-check-circle"></i></span>
-
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ __('Total System Users') }}</span>
-                    <span class="info-box-number">{{ $totalSystemUsers }}</span>
-                  </div>
-                  <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- ./col -->
-
+          </div>
+          <!-- ./col -->
         </div>
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <div class="col-md-6">
-            <!-- Line chart -->
-            <div class="card card-primary card-outline">
+          <section class="col-lg-7 connectedSortable">
+           
+            <!-- TO DO List -->
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="far fa-chart-bar"></i>
-                  {{ __('Monthly Product Sales Report') }}
+                  <i class="ion ion-clipboard mr-1"></i>
+                  To Do List
                 </h3>
 
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                  <ul class="pagination pagination-sm">
+                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                  </ul>
                 </div>
               </div>
+              <!-- /.card-header -->
               <div class="card-body">
-                <div class="chart">
-                    <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
+                <ul class="todo-list" data-widget="todo-list">
+                  <li>
+                    <!-- drag handle -->
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <!-- checkbox -->
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                      <label for="todoCheck1"></label>
+                    </div>
+                    <!-- todo text -->
+                    <span class="text">Design a nice theme</span>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                    <!-- General tools such as edit or delete-->
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
+                      <label for="todoCheck2"></label>
+                    </div>
+                    <span class="text">Make the theme responsive</span>
+                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
+                    </div>
+                    <span class="text">Let theme shine like a star</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                      <label for="todoCheck4"></label>
+                    </div>
+                    <span class="text">Let theme shine like a star</span>
+                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                      <label for="todoCheck5"></label>
+                    </div>
+                    <span class="text">Check your messages and notifications</span>
+                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
+                      <label for="todoCheck6"></label>
+                    </div>
+                    <span class="text">Let theme shine like a star</span>
+                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <!-- /.card-body-->
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+              </div>
             </div>
             <!-- /.card -->
-
-          </div>
-          <!-- /.Left col -->
-
-          <!-- Right col -->
-          <div class="col-md-6">
-            <!-- Line chart -->
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="far fa-chart-bar"></i>
-                  {{ __('Monthly Earnings Report') }}
-                </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                    <canvas id="lineChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-              </div>
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.Right col -->
+          </section>
+       
         </div>
         <!-- /.row (main row) -->
-
-        <!-- Main row -->
-        <div class="row">
-            <!-- col -->
-            <div class="col-md-12">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                    <h3 class="card-title">{{__('Recent Orders')}}</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                    @if ($recentOrders->count() > 0)
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>{{ __('Customer') }}</th>
-                                <th>{{ __('Order ID') }}</th>
-                                <th>{{ __('Payment Method') }}</th>
-                                <th>{{ __('Total') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recentOrders as $data)
-                                    <tr>
-                                        <td><a href="{{ route('backend.user.show', $data->user_id) }}">{{ $data->user->displayName() }}</a></td>
-                                        <td><a href="{{ route('backend.order.index', $data->id) }}">{{ $data->transaction_number }}</a></td>
-                                        <td>{{ $data->payment_method }}</td>
-                                        <td>{{ PriceHelper::orderTotal($data) }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p class="text-center">
-                            {{ __('No Order Found.') }}
-                        </p>
-                    @endif
-
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-                </div>
-            <!-- /. col -->
-
-        </div>
-        <!-- /.row (main row) -->
-
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 @endsection
 @section('script')
 <script>

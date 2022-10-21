@@ -22,12 +22,16 @@ $categories = App\Models\Category::with('subcategories')
                                         <li><a
                                                 href="{{ route('frontend.catalog') . '?childcategory=' . $childcategory->slug }}">{{ $childcategory->name }}</a>
                                         </li>
+                                        
                                     @endforeach
                                 @endif
                             </ul>
                         </li>
                     @endforeach
+                    <li class="mega-menu-item"><a  class="mega-title" href="#"><img src="{{asset($pcategory->photo)}}" alt=""></a></li>
+
                 @endif
+                
             </ul>
         </li>
     @endforeach

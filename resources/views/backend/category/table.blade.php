@@ -2,9 +2,13 @@
 @foreach ($datas as $data)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>
-            <img src="{{ $data->photo ? asset($data->photo) : asset('backend/images/placeholder.png') }}" alt="Image Not Found">
-        </td>
+        @if ($data->photo)
+            <td>
+            <img src="{{asset($data->photo)}}">
+         </td>
+         @else
+         {{''}}
+        @endif
         <td>{{ $data->name }}</td>
         <td>
             <div class="input-group-prepend">

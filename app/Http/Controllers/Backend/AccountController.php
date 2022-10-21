@@ -99,6 +99,69 @@ class AccountController extends Controller
         ]);
     }
 
+    public function advance(){
+        $days = "";
+        $sales = "";
+
+        for ($i = 0; $i < 30; $i++) {
+            $days .= "'" . date("d M", strtotime('-' . $i . ' days')) . "',";
+            $sales .= "'". Order::where('order_status', '=', 'Delivered')->whereDate('created_at', '=', date("Y-m-d", strtotime('-' . $i . ' days')))->count() ."',";
+        }
+
+        $earning_days = "";
+        $total_incomes = "";
+        $income = "";
+        $check = 0;
+
+        for ($i = 0; $i < 30; $i++) {
+            $earning_days .= "'" . date("d M", strtotime('-' . $i . ' days')) . "',";
+            $incomes = Order::where('order_status', '=', 'Delivered')->whereDate('created_at', '=', date("Y-m-d", strtotime('-' . $i . ' days')))->get();
+
+            if ($incomes->count() > 0) {
+                foreach ($incomes as $income) {
+                    $check += PriceHelper::orderTotalChart($income);
+                }
+                $total_incomes .= "'" . $check . "',";
+            }else{
+                $total_incomes .= "'". '0' . "',";
+            }
+        }
+
+        $earning_days = rtrim($earning_days, ", ");
+        $check_income = rtrim($total_incomes, ", ");
+
+        return view('backend.dashboard.maindasboard', [
+            'totalUsers' => $this->repository->getTotalUsers(),
+            'totalItems' => $this->repository->getTotalItems(),
+            'totalOrders' => $this->repository->getTotalOrders(),
+            'totalPendingOrders' => $this->repository->getPendingOrders(),
+            'totalDeliveredOrders' => $this->repository->getDeliveredOrders(),
+            'totalCanceledOrders' => $this->repository->getCanceledOrders(),
+            'recentUsers' => $this->repository->getRecentUsers(),
+            'recentOrders' => $this->repository->getRecentOrders(),
+            'totalBrands' => $this->repository->getTotalBrands(),
+            'totalCategories' => $this->repository->getTotalCategories(),
+            'totalReviews' => $this->repository->getTotalReviews(),
+            'totalTransactions' => $this->repository->getTotalTransactions(),
+            'totalPendingTickets' => $this->repository->getTotalPendingTickets(),
+            'totalTickets' => $this->repository->getTotalTickets(),
+            'totalBlogs' => $this->repository->getTotalBlogs(),
+            'totalSubscribers' => $this->repository->getTotalSubscribers(),
+            'totalProductSale' => $this->repository->getTotalProductSale(),
+            'totalCurrentMonthProductSale' => $this->repository->getcurrentMonthProductSale(),
+            'totalTodayProductSale' => $this->repository->getTodayProductSale(),
+            'totalLastYearProductSale' => $this->repository->getYearProductSale(),
+            'totalEarning' => $this->repository->getTotalEarning(),
+            'totalTodayEarning' => $this->repository->getTodayEarning(),
+            'totalMonthEarning' => $this->repository->getMonthEarning(),
+            'totalYearEarning' => $this->repository->getYearEarning(),
+            'totalSystemUsers' => $this->repository->getSystemUser(),
+            'order_days' => $days,
+            'earning_days' => $earning_days,
+            'order_sales' => $sales,
+            'total_incomes' => $check_income,
+        ]);
+    }
     /**
      * Display listing of the resource
      *

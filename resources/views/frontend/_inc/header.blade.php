@@ -226,6 +226,7 @@
                                                     <a
                                                         href="{{ route('frontend.page', $page->slug) }}">{{ $page->title }}</a>
                                                 </li>
+                                               
                                             @endforeach
                                         </ul>
 
