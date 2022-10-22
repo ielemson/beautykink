@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeOptionRequest;
 use App\Models\AttributeOption;
 use App\Models\Attribute;
+use Intervention\Image\Facades\Image;
 
 class AttributeOptionController extends Controller
 {
@@ -36,7 +37,7 @@ class AttributeOptionController extends Controller
             'curr'  => Currency::where('is_default', 1)->first(),
             'datas' => $item->join('attributes', 'attributes.item_id', '=', 'items.id')
                             ->join('attribute_options', 'attribute_options.attribute_id', '=', 'attributes.id')
-                            ->select('attribute_options.id', 'attribute_options.attribute_id', 'attribute_options.name', 'attribute_options.keyword', 'attribute_options.price', DB::raw('attributes.name as attribute'))
+                            ->select('attribute_options.id', 'attribute_options.attribute_id', 'attribute_options.name', 'attribute_options.keyword', 'attribute_options.price','attribute_options.image', DB::raw('attributes.name as attribute'))
                             ->where('items.id', '=', $item->id)
                             ->latest('id')
                             ->get()
@@ -65,17 +66,36 @@ class AttributeOptionController extends Controller
     */
     public function store(AttributeOptionRequest $request, Item $item)
     {
+
         $attributeOptionValidation = AttributeOption::where('attribute_id', $request->attribute_id)->where('name' , $request->name)->first();
         if (!is_null($attributeOptionValidation)) {
             return redirect()->back()->withErrors(__('This name has already been taken.'))->withInput($request->all());
         }
-        $input = $request->all();
+       
+                // $upload_location = 'uploads/items/attributes';
+                // $file = $request->file('image');
+                // $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+                // Image::make($file)->resize(50,50)->save($upload_location.$name_gen);
+                // $save_url = $upload_location.$name_gen;
+                $image = time().'.'.$request->image->extension();
+                $path = public_path('uploads/items/attributes');
+                $request->image->move($path, $image);
+
         $curr = Currency::where('is_default', 1)->first();
         $input['price'] = $request->price / $curr->value;
+        $input = [
+            'name'=>$request->name,
+            'image'=>$image,
+            'attribute_id'=>$request->attribute_id,
+            'price'=>$request->price,
+            'keyword'=>$request->keyword,
+
+        ];
         AttributeOption::create($input);
 
         return redirect()->route('backend.option.index', $item->id)->withSuccess(__('New Attribute Option Added Successfully.'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -106,7 +126,22 @@ class AttributeOptionController extends Controller
         if (!is_null($attributeOptionValidation)) {
             return redirect()->back()->withErrors(__('The name: '. $request->name .' has already been taken.'))->withInput($request->all());
         }
-        $input = $request->all();
+        // $input = $request->all();
+        
+
+                $image = time().'.'.$request->image->extension();
+                $path = public_path('uploads/items/attributes');
+                $request->image->move($path, $image);
+                
+                $input = [
+                    'name'=>$request->name,
+                    'image'=>$image,
+                    'attribute_id'=>$request->attribute_id,
+                    'price'=>$request->price,
+                    'keyword'=>$request->keyword,
+        
+                ];
+
         $curr = Currency::where('is_default', 1)->first();
         $input['price'] = $request->price / $curr->value;
         $option->update($input);

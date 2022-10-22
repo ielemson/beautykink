@@ -1,7 +1,7 @@
 @foreach ($datas as $data)
     <tr>
         <td>{{ $data->name }}</td>
-        <td>{{ $data->attribute }}</td>
+        <td>{{ $data->attribute }}: <img src="{{asset("uploads/items/attributes/$data->image")}}" alt=""> </td>
         <td>{{ $data->price == 0 ? __('Free') : PriceHelper::adminCurrencyPrice($data->price) }}</td>
         <td>
             <div class="btn-group">

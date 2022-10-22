@@ -123,28 +123,62 @@
                                         @endif
                                         </div>
                                     </div>
-                                  
-                                    <div class="row margin-top-1x">
+                                    
+                                    <div class="product-variants">
+                                        
+                                        {{-- <div class="product-variants-item">
+                                          <h6 class="title mb-20">COLOR</h6>
+                                          <div id="product" class="product-options">        
+                                            <div class="form-group required">
+
+                                            <div id="input-option238">               
+                                                              
+                                               <div class="radio">
+                                                <label>
+                                                  <span class="radio-wrapper"><input type="radio" name="option[238]" value="56" class="radioid"></span> 
+                                                  <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail"> Rose Glow 
+                                                </label>
+                                              </div> 
+                                              
+                                            </div>
+                                          </div>			
+                                          </div>
+                                        </div> --}}
                                         @foreach ($attributes as $attribute)
-                                            @if ($attribute->options->count() != 0)
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="{{ $attribute->name }}">{{ $attribute->name }}</label>
-                                                        <select class="form-control attribute_option"
-                                                            id="{{ $attribute->name }}">
-                                                            @foreach ($attribute->options as $option)
-                                                                <option value="{{ $option->name }}"
-                                                                    data-type="{{ $attribute->id }}"
-                                                                    data-href="{{ $option->id }}"
-                                                                    data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
-                                                                    {{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
+                                        @if ($attribute->options->count() != 0)
+                                        @if (strtolower($attribute->name) =="color")
+                                        <div class="product-variants-item">
+                                            <h6 class="title mb-20">COLOR</h6>
+                                            
+                                                    <label for="{{ $attribute->name }}">{{ $attribute->name }}</label>
+                                                   
+                                                        @foreach ($attribute->options as $option)
+                                                            {{-- <option value="{{ $option->name }}" data-type="{{ $attribute->id }}"
+                                                                data-href="{{ $option->id }}"
+                                                                data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
+                                                  <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
+                                                  {{ $option->name }}
+                                                            </option> --}}
+                                                            <div id="input-option238">               
+                                                              
+                                               <div class="radio">
+                                                <label>
+                                                  <span class="radio-wrapper"><input type="radio" name="option[238]" value="{{ $option->name }}" class="radioid"></span> 
+                                                  <img src="{{asset("uploads/items/attributes/$option->image")}}" alt="Rose Glow" class="img-thumbnail"> {{ $option->name }}
+                                                </label>
+                                              </div> 
+                                              
+                                            </div>
+                                                @endforeach
+                                                   
+                                               
+                                            </div>
+                                        @endif
+                                        @endif
+                                    @endforeach
+
+                                      </div>
+
                                     <div class="product-description">
                                         {!! $item->details !!}
                                     </div>
@@ -244,21 +278,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-
-    // fetch qtymy-cart/single/{pid}
-    // $(document).ready(function(){
-    //     miniCart()
-    //     $.get('/my-cart/single' + '/' + {{$item->id}} , function (data) {
-    //        if(data.cart){
-    //         $('.qty-btn').parent().find('input').val(data.cart.qty)
-    //         $('#cartId').val(data.cart.rowId)
-    //        }else{
-    //         $('.qty-btn').parent().find('input').val(1)
-
-    //        }
-    //         // end message
-    //     })
-    // })
     $(document).ready(function() {
 	$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
 		disableOn: 700,
@@ -272,11 +291,57 @@
 	});
 });
 </script>
-
-
 @endsection
 
 
 @section('styleplugins')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    /*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
+.custom-control.image-checkbox {
+  position: relative;
+  padding-left: 0;
+}
+
+.custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:after, .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:before {
+  opacity: 1;
+}
+
+.custom-control.image-checkbox label {
+  cursor: pointer;
+}
+
+.custom-control.image-checkbox label:before {
+  border-color: #007bff;
+  background-color: #007bff;
+}
+
+.custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
+  transition: opacity .3s ease;
+  opacity: 0;
+  left: .25rem;
+}
+
+.custom-control.image-checkbox label:focus, .custom-control.image-checkbox label:hover {
+  opacity: .8;
+}
+
+.custom-control.image-checkbox label img {
+  border-radius: 2.5px;
+}
+
+.form-group-image-checkbox.is-invalid label {
+  color: #dc3545;
+}
+
+.form-group-image-checkbox.is-invalid .invalid-feedback {
+  display: block;
+}
+
+/*# sourceMappingURL=bootstrap-image-checkbox.css.map */
+</style>
 @endsection

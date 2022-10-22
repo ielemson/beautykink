@@ -63,8 +63,16 @@ class AccountController extends Controller
      * @param \App\Http\Requests\UserRequest $request
      * @return \Illuminate\Http\Response
     */
-    public function profileUpdate(UserRequest $request)
+    public function profileUpdate(Request $request)
     {
+        $request->validate([
+            'first_name'            => 'required|max:255',
+            'photo'                 => 'image|max:2075',
+            'last_name'             => 'required|max:255',
+            'phone'                 => 'required|max:255',
+            'email'                 => 'required|email',
+            'password'              => 'nullable'
+        ]);
         $this->repository->profileUpdate($request);
         return redirect()->back()->withSuccess(__('Profile Updated Successfully.'));
     }

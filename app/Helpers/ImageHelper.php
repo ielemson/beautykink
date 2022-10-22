@@ -25,6 +25,7 @@ class ImageHelper
         }
     }
 
+
     public static function itemHandleUploadedimage($file, $path, $delete = null){
         if ($file) {
             // Delete Image Which Exists In Directory
@@ -37,7 +38,7 @@ class ImageHelper
             if (!file_exists($path . '/' . 'thumbnails')) {
                 mkdir(public_path($path . '/' . 'thumbnails'), 0777, true);
             }
-
+        
             $thumb = time() . '.' . $file->getClientOriginalExtension();
             $image = Image::make($file)->resize(230, 230);
             $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;

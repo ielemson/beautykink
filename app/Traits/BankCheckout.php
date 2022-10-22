@@ -22,21 +22,25 @@ trait BankCheckout
         $user = Auth::user();
         $setting = Setting::first();
         $cart = Cart::content();
+        $cartArr = [];
+        // dd($cart);
         $total_tax = 0;
         $cart_total = 0;
         $total = 0;
         $option_price = 0;
       
-        // foreach ($cart as $key => $item) {
-        //     $total += $item['main_price'] * $item['qty'];
-        //     $option_price += $item['attribute_price'];
-        //     $cart_total = $total + $option_price;
-        //     $item = Item::findOrFail($key);
-        //     if ($item->tax) {
-        //         $total_tax += $item->taxCalculate($item);
-        //     }
-        // }
+        foreach ($cart as $key => $item) {
+            // $total += $item['main_price'] * $item['qty'];
+            // $option_price += $item['attribute_price'];
+            // $cart_total = $total + $option_price;
+            // $item = Item::findOrFail($key);
+            // if ($item->tax) {
+            //     $total_tax += $item->taxCalculate($item);
+            // }
+            array_push($cartArr, ['id'=>$item->id,'attribute'=>[],'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
+        }
 
+        dd($cart);
         $shipping = [];
         if (ShippingService::whereStatus(1)->exists()) {
             $shipping = ShippingService::whereStatus(1)->first();
@@ -53,7 +57,7 @@ trait BankCheckout
         // $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
         $total_amount = $grand_total;
 
-        $order_data['cart']               = json_encode($cart, true);
+        $order_data['cart']               = json_encode($cartArr, true);
         $order_data['discount']           = json_encode($discount, true);
         $order_data['shipping']           = json_encode($shipping, true);
         $order_data['tax']                = 0;

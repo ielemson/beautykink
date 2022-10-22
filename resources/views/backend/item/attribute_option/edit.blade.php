@@ -47,6 +47,11 @@
                   </div>
 
                   <div class="form-group  col-md-12">
+                    <label for="attr_image">{{ __('Image') }} *</label>
+                    <input type="file" name="image" class="form-control" id="attr_image" placeholder="{{ __('Select image') }}" value="{{ old('image') }}">
+                  </div>
+                  
+                  <div class="form-group  col-md-12">
                     <label for="price">{{ __('Price') }} *</label>
                     <small>({{ __('Set 0 to make it free') }})</small>
                     <div class="input-group mb-3">
