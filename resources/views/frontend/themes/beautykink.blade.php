@@ -1,121 +1,125 @@
-@extends('frontend.layouts.beautykinkLayout',['home_classs'=>'wrapper home-default-wrapper'])
+@extends('frontend.layouts.beautykinkLayout', ['home_classs' => 'wrapper home-default-wrapper'])
 
 @section('meta')
-<meta name="keywords" content="{{ $setting->meta_keywords }}">
-<meta name="description" content="{{ $setting->meta_description }}">
+    <meta name="keywords" content="{{ $setting->meta_keywords }}">
+    <meta name="description" content="{{ $setting->meta_description }}">
 @endsection
 @section('title')
-{{ __('Home') }}
+    {{ __('Home') }}
 @endsection
 
 
 @section('content')
-@php
-function renderStarRating($rating, $maxRating = 5)
-{
-// $fullStar = "<i class='far fa-star filled'></i>";
-// $halfStar = "<i class='far fa-star-half filled'></i>";
-// $emptyStar = "<i class='far fa-star'></i>";
-$fullStar = "<i class='ion-md-star'></i>";
-$halfStar = "<i class='ion-md-star icon-color-gray'></i>";
-$emptyStar = "<i class='ion-md-star icon-color-gray'></i>";
-$rating = $rating <= $maxRating ? $rating : $maxRating;
+    @php
+        function renderStarRating($rating, $maxRating = 5)
+        {
+            // $fullStar = "<i class='far fa-star filled'></i>";
+            // $halfStar = "<i class='far fa-star-half filled'></i>";
+            // $emptyStar = "<i class='far fa-star'></i>";
+            $fullStar = "<i class='ion-md-star'></i>";
+            $halfStar = "<i class='ion-md-star icon-color-gray'></i>";
+            $emptyStar = "<i class='ion-md-star icon-color-gray'></i>";
+            $rating = $rating <= $maxRating ? $rating : $maxRating;
+        
+            $fullStarCount = (int) $rating;
+            $halfStarCount = ceil($rating) - $fullStarCount;
+            $emptyStarCount = $maxRating - $fullStarCount - $halfStarCount;
+        
+            $html = str_repeat($fullStar, $fullStarCount);
+            $html .= str_repeat($halfStar, $halfStarCount);
+            $html .= str_repeat($emptyStar, $emptyStarCount);
+            return $html;
+        }
+    @endphp
 
-$fullStarCount = (int) $rating;
-$halfStarCount = ceil($rating) - $fullStarCount;
-$emptyStarCount = $maxRating - $fullStarCount - $halfStarCount;
+    @if ($setting->is_slider == 1)
+        <!--== Start Hero Area Wrapper ==-->
+        <section class="home-slider-area">
+            <div
+                class="swiper-container swiper-pagination-style dots-bg-light home-slider-container default-slider-container">
+                <div class="swiper-wrapper home-slider-wrapper slider-default">
+                    @foreach ($sliders as $slider)
+                        <div class="swiper-slide">
+                            <div class="slider-content-area" data-bg-img="{{ asset($slider->photo) }}">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-10 col-sm-6 col-md-5">
+                                            <div class="slider-content slider-content-light animate-pulse">
+                                                <h5 class="sub-title transition-slide-0">{{ $slider->title }}</h5>
+                                                <h2 class="title transition-slide-1 mb-0"><span
+                                                        class="font-weight-400">{{ $slider->details }}</span></h2>
+                                                {{-- <h2 class="title transition-slide-2">WITH BEAUTYKINK</h2> --}}
+                                                <a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop
+                                                    Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <!--== Add Swiper Pagination ==-->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
 
-$html = str_repeat($fullStar, $fullStarCount);
-$html .= str_repeat($halfStar, $halfStarCount);
-$html .= str_repeat($emptyStar, $emptyStarCount);
-return $html;
-}
-@endphp
+        <!--== End Hero Area Wrapper ==-->
+    @endif
 
-@if ($setting->is_slider == 1)
-<!--== Start Hero Area Wrapper ==-->
-<section class="home-slider-area">
-<div class="swiper-container swiper-pagination-style dots-bg-light home-slider-container default-slider-container">
-<div class="swiper-wrapper home-slider-wrapper slider-default">
-@foreach ($sliders as $slider)
-<div class="swiper-slide">
-<div class="slider-content-area" data-bg-img="{{asset($slider->photo)}}">
-<div class="container">
-<div class="row">
-<div class="col-10 col-sm-6 col-md-5">
-<div class="slider-content slider-content-light animate-pulse">
-<h5 class="sub-title transition-slide-0">{{ $slider->title }}</h5>
-<h2 class="title transition-slide-1 mb-0"><span class="font-weight-400">{{ $slider->details }}</span></h2>
-{{-- <h2 class="title transition-slide-2">WITH BEAUTYKINK</h2> --}}
-<a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop Now</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-@endforeach   
-</div>
-<!--== Add Swiper Pagination ==-->
-<div class="swiper-pagination"></div>
-</div>
-</section>
+    {{-- Brands  Starts --}}
+    <!--== Start Product Area Wrapper ==-->
+    @if ($extra_settings->is_t2_3_column_banner_first == 1)
+        <section>
+            <div class="container-fluid pt-30 pt-sm-15 pb-15 pb-lg-5">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="images-col3-slider owl-carousel owl-theme">
 
-<!--== End Hero Area Wrapper ==-->
-@endif
+                            <div class="item">
+                                <div class="thumb thumb-scale-hover-style">
+                                    <a href="{{ $banner_first['firsturl1'] }}">
+                                        <img src="{{ asset($banner_first['img1']) }}" loading="lazy" class="hover-img lazy">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="thumb thumb-scale-hover-style">
+                                    <a href="{{ $banner_first['firsturl2'] }}">
+                                        <img src="{{ $banner_first['img2'] ? $banner_first['img2'] : asset($setting->loader) }}"
+                                            class="hover-img lazy" data-src="{{ asset($banner_first['img2']) }}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="thumb thumb-scale-hover-style">
+                                    <a href="{{ $banner_first['firsturl3'] }}">
+                                        <img src="{{ $banner_first['img2'] ? $banner_first['img2'] : asset($setting->loader) }}"
+                                            class="hover-img lazy" data-src="{{ asset($banner_first['img3']) }}">
+                                    </a>
+                                </div>
+                            </div>
 
-
-{{-- Brands  Starts--}}
-<!--== Start Product Area Wrapper ==-->
-@if ($extra_settings->is_t2_3_column_banner_first == 1)
-<section>
-<div class="container-fluid pt-30 pt-sm-15 pb-15 pb-lg-5">
-<div class="row">
-<div class="col-12">
-<div class="images-col3-slider owl-carousel owl-theme">
-
-<div class="item">
-<div class="thumb thumb-scale-hover-style">
-<a href="{{ $banner_first['firsturl1'] }}">
-<img src="{{ asset($banner_first['img1']) }}" loading="lazy"  class="hover-img lazy">
-</a>
-</div>
-</div>
-<div class="item">
-<div class="thumb thumb-scale-hover-style">
-<a href="{{ $banner_first['firsturl2'] }}">
-<img src="{{$banner_first['img2'] ? $banner_first['img2'] :  asset($setting->loader)  }}"  class="hover-img lazy" data-src="{{ asset($banner_first['img2']) }}">
-</a>
-</div>
-</div>
-<div class="item">
-<div class="thumb thumb-scale-hover-style">
-<a href="{{ $banner_first['firsturl3'] }}">
-<img src="{{$banner_first['img2'] ? $banner_first['img2'] :  asset($setting->loader)  }}"  class="hover-img lazy" data-src="{{ asset($banner_first['img3']) }}">
-</a>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</section>
-@endif
-<!--== End Product Area Wrapper ==-->
-{{-- Brands  Ends--}}
-
-
-{{-- All Product starts--}}
-@include('frontend.catalog.allproducts')
-{{-- All Product ends--}}
-
-{{--  New Product Arrivals Starts--}}
-@include('frontend.catalog.latestproducts')
-{{--  New Product Arrivals Ends--}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+    <!--== End Product Area Wrapper ==-->
+    {{-- Brands  Ends --}}
 
 
-{{-- <div class="popup-product-quickview">
+    {{-- All Product starts --}}
+    @include('frontend.catalog.allproducts')
+    {{-- All Product ends --}}
+
+    {{--  New Product Arrivals Starts --}}
+    @include('frontend.catalog.latestproducts')
+    {{--  New Product Arrivals Ends --}}
+
+
+    {{-- <div class="popup-product-quickview">
 <div class="product-single-item">
 <div class="row">
 <div class="col-md-6">
@@ -178,28 +182,27 @@ return $html;
 </div>
 <div class="popup-product-overlay"></div>
 <button class="popup-product-close"><i class="la la-close"></i></button> --}}
-<!--== End Popup Product  ==-->
+    <!--== End Popup Product  ==-->
 @endsection
 
 @section('script')
-<script>
+    <script>
+        function Quickview(id) {
+            // Product Quick View Starsts Here ::::::::::::::::::::::::::::::::::
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: 'product/quck_view/' + id,
+                success: function(response) {
 
-function Quickview(id){
-// Product Quick View Starsts Here ::::::::::::::::::::::::::::::::::
-$.ajax({
-type: 'GET',
-dataType: 'json',
-url: 'product/quck_view/'+id,
-success: function(response){
-
-$('.prod_name').text(response.product.name);
-$('.product-description').html(response.product.details);
-$('.price').html('&#8358;'+response.product.discount_price);
-// console.log(response)
-var miniGallery = "";
-var miniGallery_1 = "";
-$.each(response.galleries, function(key,value){
-miniGallery += `
+                    $('.prod_name').text(response.product.name);
+                    $('.product-description').html(response.product.details);
+                    $('.price').html('&#8358;' + response.product.discount_price);
+                    // console.log(response)
+                    var miniGallery = "";
+                    var miniGallery_1 = "";
+                    $.each(response.galleries, function(key, value) {
+                        miniGallery += `
 <div class="swiper-slide">
 <a href="#/">
 <img src="${value.photo}" alt="${response.product.name}">
@@ -207,33 +210,28 @@ miniGallery += `
 </a>
 </div>
 `;
-});
+                    });
 
-$.each(response.galleries, function(key,value){
-miniGallery_1 += `
+                    $.each(response.galleries, function(key, value) {
+                        miniGallery_1 += `
 <div class="swiper-slide">
 <img src="${value.photo}" alt="${response.product.name}">
 </div>
 `;
-});
+                    });
 
-$('.gallery_1').html(miniGallery);
-$('.gallery_2').html(miniGallery_1);
+                    $('.gallery_1').html(miniGallery);
+                    $('.gallery_2').html(miniGallery_1);
 
-}
-})
+                }
+            })
 
 
-}
+        }
 
-// $(document).ready(function(){
-//   var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
-// myModal.show();
-// })
-
-</script>
-
+        // $(document).ready(function(){
+        //   var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        // myModal.show();
+        // })
+    </script>
 @endsection
-
-
-

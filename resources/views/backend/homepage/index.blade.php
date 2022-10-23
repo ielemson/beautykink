@@ -40,7 +40,7 @@
                         {{-- <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false">{{ __('Home Page 4 Banner 5 Column') }}</a> --}}
 
                         {{-- <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#tab8" role="tab" aria-controls="tab8" aria-selected="false">{{ __('Home Page 4 Popular Categories') }}</a> --}}
-                        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab9" role="tab" aria-controls="tab9" aria-selected="false">{{ __('Footer Pages') }}</a>
+                        {{-- <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab9" role="tab" aria-controls="tab9" aria-selected="false">{{ __('Footer Pages') }}</a> --}}
                       </div>
                     </div>
                     <div class="col-7 col-sm-9">

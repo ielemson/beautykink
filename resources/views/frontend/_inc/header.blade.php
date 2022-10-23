@@ -196,16 +196,14 @@
     <!--== End Header Middle ==-->
 
     <!--== Start Header Bottom ==-->
-    <div class="header-bottom sticky-header hidden-md-down">
+    <div class="header-bottom  hidden-md-down main-header header-last">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col col-12 position-relative">
                     <div class="header-align align-default justify-content-center">
                         <div class="header-navigation-area hidden-md-down">
                             <ul class="main-menu nav">
-                                <li><a href="{{ route('frontend.index') }}">Home</a>
-
-                                </li>
+                                <li><a href="{{ route('frontend.index') }}">Home</a> </li>
                                 <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
 
                                 {{-- Categories drop-down-list --}}
@@ -276,28 +274,28 @@
                     </div>
                 </div>
                 {{-- mobile- view stats starts --}}
-                {{-- <div class="col-4">
+                                        {{-- <div class="col-4">
 
 
-@if (!Auth::user())
-<div class="header-item justify-content-end">
-<button class="btn-user" onclick="window.location.href='{{ route('user.login') }}'"><i
-class="icon-user"></i></button>
-<button class="btn-cart"
-onclick="window.location.href='{{ route('frontend.checkout.billing') }}'"><i
-class="icon-bag"></i> <span class="item-count cart-count">0</span></button>
-</div>
-@else
+                        @if (!Auth::user())
+                        <div class="header-item justify-content-end">
+                        <button class="btn-user" onclick="window.location.href='{{ route('user.login') }}'"><i
+                        class="icon-user"></i></button>
+                        <button class="btn-cart"
+                        onclick="window.location.href='{{ route('frontend.checkout.billing') }}'"><i
+                        class="icon-bag"></i> <span class="item-count cart-count">0</span></button>
+                        </div>
+                        @else
 
-<div class="header-item justify-content-end">
-<button class="btn-user" onclick="window.location.href='{{ route('user.dashboard') }}'"><i
-class="icon-speedometer"></i></button>
-<button class="btn-cart"
-onclick="window.location.href='{{ route('frontend.checkout.billing') }}'"><i
-class="icon-bag"></i> <span class="item-count cart-count">0</span></button>
-</div>
-@endif
-</div> --}}
+                        <div class="header-item justify-content-end">
+                        <button class="btn-user" onclick="window.location.href='{{ route('user.dashboard') }}'"><i
+                        class="icon-speedometer"></i></button>
+                        <button class="btn-cart"
+                        onclick="window.location.href='{{ route('frontend.checkout.billing') }}'"><i
+                        class="icon-bag"></i> <span class="item-count cart-count">0</span></button>
+                        </div>
+                        @endif
+                        </div> --}}
                 {{-- mobile- view stats ends --}}
                 <div class="col-12 mt-10">
                     <div class="responsive-search-content">

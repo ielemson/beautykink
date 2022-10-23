@@ -14,40 +14,13 @@
     <meta name="distribution" content="web">
     <!-- Mobile Specific Meta Tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon Icons-->
     <link rel="icon" type="image/png" href="{{ asset($setting->favicon) }}">
     <link rel="apple-touch-icon" href="{{ asset($setting->favicon) }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset($setting->favicon) }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset($setting->favicon) }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset($setting->favicon) }}">
-
-    <style>
-        .mobile-nav {
-  /* background: #fff; */
-  background: hsl(0, 0%, 98%);
-  position: fixed;
-  bottom: 0;
-  height: 50px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  z-index: 999;
-}
-.bloc-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bloc-icon img {
-  width: 30px;
-}
-@media screen and (min-width: 600px) {
-  .mobile-nav {
-  display: none;
-  }
-}
-    </style>
 
     @yield('styleplugins')
 
@@ -72,7 +45,6 @@
         {!! $setting->facebook_pixel !!}
     @endif
     {{-- Facebook pixel End --}}
-
     <!--== Bootstrap CSS ==-->
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" />
     <!--== Ionicon CSS ==-->
@@ -83,6 +55,7 @@
     <link href="{{ asset('frontend/css/lineIcons.css') }}" rel="stylesheet" />
     <!--== Font Awesome Icon CSS ==-->
     <link href="{{ asset('frontend/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('backend/css/plugins/fontawesome/css/all.min.css') }}" rel="stylesheet" />
     <!--== Animate CSS ==-->
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet" />
     <!--== Swiper CSS ==-->
@@ -215,8 +188,6 @@
 
     <!--=======================Javascript============================-->
 
-
-
     {{-- <script>
 var mainbs = {!! $mainbs !!};
 </script> --}}
@@ -249,7 +220,6 @@ var mainbs = {!! $mainbs !!};
     <!--=== Countdown Js ===-->
     <script src="{{ asset('frontend/js/countdown.js') }}"></script>
    
-
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
     integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="

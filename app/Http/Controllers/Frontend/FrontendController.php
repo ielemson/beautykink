@@ -632,8 +632,15 @@ class FrontendController extends Controller
     // ------------ Subscribe ----------
     public function subscriberSubmit(SubscribeRequest $request)
     {
-        Subscriber::create($request->all());
-        return response()->json(__('You have subscribed successfully.'));
+        
+        if(Subscriber::create($request->all())){
+            return response()->json([
+                        'success'=>"You have subscribed successfully"
+                    ]);
+        }
+        return response()->json([
+            'error'=>"You have subscribed successfully"
+        ]);
     }
     // ------------ Subscribe End ------
 

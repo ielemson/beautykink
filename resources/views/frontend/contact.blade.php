@@ -129,7 +129,7 @@
                   @php
                   $links = json_decode($setting->social_link, true)['links'];
                   $icons = json_decode($setting->social_link, true)['icons'];
-              @endphp
+                 @endphp
                   @foreach ($links as $link_key => $link)
                   <a class="social-button shape-circle sb-facebook" href="{{ $link }}" data-toggle="tooltip" data-placement="top"><i class="{{ $icons[$link_key] }} fa-2x p-2"></i></a>
               @endforeach
