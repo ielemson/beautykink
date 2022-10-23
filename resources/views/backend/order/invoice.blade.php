@@ -34,7 +34,7 @@
                <div class="row invoice-info">
                 <div class="col-sm-12 invoice-col">
                   <h5><b>{{__('Order Details :')}}</b></h5>
-                  <span>{{ __('Transaction Id : ') }}</span>{{ $order->txnid }} <br>
+                  <span><b>{{ __('Transaction Id : ') }}</b></span>{{ $order->txnid }} <br>
                   <span>{{ __('Order Id : ') }}</span>{{ $order->transaction_number }} <br>
                   <span>{{ __('Order Date : ') }}</span>{{ $order->created_at->format('M d, Y') }} <br>
                   <span>{{ __('Payment Status : ') }}</span>
@@ -126,9 +126,10 @@
                             <tr>
                                 <td>{{ $item['name'] }}</td>
                                 <td>
-                                    @if ($item['attribute']['option_name'])
+                                    {{-- @if ($item['attribute']['option_name'])
                                         @foreach ($item['attribute']['option_name'] as $optionKey => $option_name)
                                             <span>
+                                                <b>{{ $option_name }}</b> :
                                                 <b>{{ $option_name }}</b> :
                                                 @if ($setting->currency_direction == 1)
                                                     {{ $order->currency_sign }}{{ round($item['attribute']['option_price'][$optionKey] * $order->currency_value, 2) }}
@@ -139,7 +140,15 @@
                                         @endforeach
                                     @else
                                         --
+                                    @endif --}}
+                                    @if ($item['attribute_name'])
+                                             color: {{$item['attribute_name']}}
+                                        @else
+
+                                        None
+
                                     @endif
+                                    
                                 </td>
                                 <td>{{ $item['qty'] }}</td>
                                 <td>

@@ -32,8 +32,13 @@ $option_price = 0;
                     <span class="value cart_total">0</span>
                 </div>
             </div>
-            <div class="checkout">
-                <a href="{{route('frontend.checkout.billing')}}" class="btn-Checkout">Checkout</a>
+            <div class="btn-group">
+                <div class="checkout">
+                    <a href="{{route('frontend.cart')}}" class="btn-Checkout">Go to Cart</a>
+                </div>
+                <div class="checkout">
+                    <a href="{{route('frontend.checkout.billing')}}" class="btn-Checkout">Checkout</a>
+                </div>
             </div>
         {{-- @else
             <div class="price-content">

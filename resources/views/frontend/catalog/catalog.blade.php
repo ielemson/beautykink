@@ -51,8 +51,7 @@ function renderStarRating($rating, $maxRating = 5)
                                 {{   ucfirst(str_replace('_',' ',$item->is_type))   }}
                                    
                                 @else
-                                    <div class="product-badge bg-secondary border-default text-body">
-                                        {{ __('out of stock') }}</div>
+                                {{ __('out of stock') }}
                                 @endif
                             </li>
                            

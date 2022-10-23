@@ -10,9 +10,9 @@
         <div class="container">
             <div class="column">
                 <ul class="breadcrumbs">
-                    <li><a href="{{ route('frontend.index') }}">{{ __('Home') }}</a> </li>
-                    <li class="separator"></li>
-                    <li>{{ __('Success') }}</li>
+                    {{-- <li><a href="{{ route('frontend.index') }}">{{ __('Home') }}</a> </li> --}}
+                    {{-- <li class="separator"></li> --}}
+                    {{-- <li>{{ __('Success') }}</li> --}}
                 </ul>
             </div>
         </div>

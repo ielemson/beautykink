@@ -52,9 +52,9 @@ class PriceHelper
 
         $setting = Setting::first();
         if ($setting->currency_direction == 1) {
-            return $curr->sign  . round($price * $curr->value, 2);
+            return $curr->sign  .$price * $curr->value;
         } else {
-            return round($price * $curr->value, 2);
+            return $price * $curr->value;
         }
     }
 
@@ -275,10 +275,10 @@ class PriceHelper
     public static function cartTotal($cart)
     {
         $total = 0;
-
+        $attribute_price = 0;
         foreach ($cart as $key => $product) {
-            $total += $product['price'] * $product['qty'];
-            $total += + $product['attribute_price'];
+            $total += $product->price * $product->qty;
+            $total += + $attribute_price;
         }
 
         if (Session::has('currency')) {
@@ -328,7 +328,7 @@ class PriceHelper
         $transaction->order_id       = $order_id;
         $transaction->txn_id         = $txn_id;
         $transaction->user_email     = $user_email;
-        $transaction->amount         = round($amount / $curr->value);
+        $transaction->amount         = $amount;
         $transaction->currency_sign  = $curr->sign;
         $transaction->currency_value = $curr->value;
         $transaction->save();

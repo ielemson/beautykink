@@ -9,7 +9,7 @@ use App\Models\AttributeOption;
 use Illuminate\Support\Facades\Session;
 use App\Models\Attribute as ModelsAttribute;
 use App\Models\PromoCode;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 class CartRepository {
     /**
      * Store Cart.
@@ -157,14 +157,18 @@ class CartRepository {
         $input = $request->all();
         $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->first();
 
+        // dd($promo_code);
         if ($promo_code) {
-            $cart = Session::get('cart');
+            $cart = Cart::content();
             $cart_total = PriceHelper::cartTotal($cart);
+            // dd($cart_total);
             $discount = $this->getDiscount($promo_code->discount, $promo_code->type, $cart_total);
+            // dd($discount);
             $coupon = [
                 'discount' => $discount['sub'],
                 'code'     => $promo_code
             ];
+            // dd($coupon);
             Session::put('coupon', $coupon);
             return [
                 'status'  => true,

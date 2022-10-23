@@ -94,8 +94,8 @@
         <span class="item-count cart-count">0</span></a>
 
     <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-heart icon fa-2x"></i>
-        <span class="item-count cart-count">0</span></a>
+        <span class="wishlist_count">0</span></a>
 
-    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i
-            class="icon-shuffle icon fa-2x"></i> <span class="item-count cart-count">0</span></a>
+    <a href="{{ route('frontend.compare') }}" class="btn-cart bloc-icon"><i
+            class="icon-shuffle icon fa-2x"></i> <span class="compare_count">0</span></a>
 </nav>

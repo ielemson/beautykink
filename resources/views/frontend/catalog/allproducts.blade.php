@@ -26,17 +26,30 @@
                   
                 <div class="product-action">
                   <div class="addto-wrap">
-                    <a class="add-wishlist" href="#" title="Add to wishlist">
+                    <a class="add-wishlist" href="javascript:;" title="Add to wishlist" data-id="{{$item->id}}">
                       <i class="icon-heart icon"></i>
                     </a>
-                    <a class="add-compare" href="#" title="Add to compare">
+                    <a class="add-compare" href="javascript:;" title="Add to compare" data-id="{{$item->id}}">
                       <i class="icon-shuffle icon"></i>
                     </a>
                   </div>
                 </div>
                 <ul class="product-flag">
-                  <li class="{{strtolower($item->is_type)}}"> {{   ucfirst(str_replace('_',' ',$item->is_type))   }}</li>
-                  {{-- <li class="discount visually-hidden">-20%</li> --}}
+                  
+                  @if ($item->is_stock())
+                   
+                       <li class="{{strtolower($item->is_type)}}">
+                      {{   ucfirst(str_replace('_',' ',$item->is_type))   }}
+                     </li>
+                    @else
+                    <li class="new">{{ __('out of stock') }}</li>
+                    
+                    @endif
+                    @if ($item->previous_price && $item->previous_price != 0)
+                    <li class="discount">
+                        {{ PriceHelper::DiscountPercentage($item) }}
+                    </li>
+                    @endif
                 </ul>
               </div>
               <div class="product-desc">
@@ -60,9 +73,14 @@
                   </div>
                 </div>
                 <div class="product-footer">
+                  @if ($item->is_stock())
                   <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}" href="javascript:;">Add to cart</a>
                   {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
                   <a class="btn-quick-view" href="{{ route('frontend.product', $item->slug) }}" title="view product">Product details</a>
+                  @else
+                  <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $item->slug) }}" title="view product">Remind me when restocked</a>
+                  @endif
+                 
                 </div>
               </div>
             </div>

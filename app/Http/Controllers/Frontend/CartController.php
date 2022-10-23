@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Repositories\Frontend\CartRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -105,6 +106,7 @@ class CartController extends Controller
     */
     public function promoStore(Request $request)
     {
+        // dd(Cart::content());
         return response()->json($this->repository->promoStore($request));
     }
 
@@ -199,44 +201,133 @@ class CartController extends Controller
     }
 
     // NEW MODIFIED ROUTES FOR CART CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::::::
-    public function addCart($id,$qty){
+    public function addCart($id,$qty,$attribute_name=null){
 
        $product = Item::where('id',$id)->first();
-            if(Session::has('coupon')){
-                Session::forget('coupon');
+
+        if($attribute_name){
+            $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
+            $attribute_color = $atrributename->image;
+            }else{
+                $attribute_color = null;
             }
+        if(Session::has('coupon')){
+                    Session::forget('coupon');
+                }
     
                     Cart::add([
                     'id' => $product->id,
                     'name' => $product->name,
                     'qty' => $qty,
                     'price' => $product->discount_price,
-                    // 'weight' => 1,
                     'options' => [
                     'image' => $product->photo,
                     'slug' => $product->slug,
-                    // 'color' => $request->color,
+                    'attribute_name' => $attribute_name ?? '',
+                    'attribute_color' => $attribute_color ?? '',
                     ]
                     ]);
-                return response()->json(['success' => 'Item added to cart.'],200); 
+
+            return response()->json(['success' => 'Item added to cart.'],200); 
         
     }
 
+    // ADD TO WISHLIST
+    public function addToWishlist($id,$qty,$attribute_name=null){
+        // Cart::instance('wishlist')->add('sdjk922', 'Product 2', 1, 19.95, ['size' => 'medium']);
+        $product = Item::where('id',$id)->first();
+
+        if($attribute_name){
+            $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
+            $attribute_color = $atrributename->image;
+            }else{
+                $attribute_color = null;
+            }
+        if(Session::has('coupon')){
+                    Session::forget('coupon');
+                }
+    
+                Cart::instance('wishlist')->add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                    'image' => $product->photo,
+                    'slug' => $product->slug,
+                    'attribute_name' => $attribute_name ?? '',
+                    'attribute_color' => $attribute_color ?? '',
+                    ]
+                    ]);
+
+            return response()->json(['success' => 'Item added to wishlist.'],200); 
+    }
+
+
+// ADD TO COMPARE LSIT
+    public function addToCompare($id,$qty,$attribute_name=null){
+        // Cart::instance('wishlist')->add('sdjk922', 'Product 2', 1, 19.95, ['size' => 'medium']);
+        $product = Item::where('id',$id)->first();
+
+        if($attribute_name){
+            $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
+            $attribute_color = $atrributename->image;
+            }else{
+                $attribute_color = null;
+            }
+        if(Session::has('coupon')){
+                    Session::forget('coupon');
+                }
+    
+                Cart::instance('compare')->add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                    'image' => $product->photo,
+                    'slug' => $product->slug,
+                    'attribute_name' => $attribute_name ?? '',
+                    'attribute_color' => $attribute_color ?? '',
+                    ]
+                    ]);
+
+            return response()->json(['success' => 'Item added to compare.'],200); 
+    }
+
+// SHOW COMPARED PRODUCTS HERE :::::::::::::::::::
+    public function compare(){
+        $items = Cart::instance('compare')->content();
+        // dd($items);
+        return view('frontend.catalog.compare',compact('items'));
+    }
+    public function compareRemove($rowId){
+        Cart::instance('compare')->remove($rowId);
+        return response()->json(['success' => 'Product removed'],200); 
+        
+    }
+
+//  SHOW MY CART DETAILS
     public function myCart(){
         
         $carts = Cart::content();
         $cart_qty = Cart::count();
         $cart_total = Cart::total();
         $subtotal = Cart::subtotal();
+        $wishlist = Cart::instance('wishlist')->count();
+        $compare = Cart::instance('compare')->count();
 
         return response()->json([
-            'carts' => $carts,
-            'cart_qty' => $cart_qty,
-            'cart_total' => $cart_total,
-            'sub_total' => $subtotal
+        'carts' => $carts,
+        'cart_qty' => $cart_qty,
+        'cart_total' => $cart_total,
+        'sub_total' => $subtotal,
+        'wishlist' => $wishlist,
+        'compare' => $compare
         ], 200);
     }
 
+// SHOW COMPARED PRODUCTS HERE :::::::::::::::::::
     public function updateCart($rowId,$qty){
         Cart::update($rowId,$qty);
         return response()->json(['success' => 'Cart updated.','qty'=>Cart::count()],200);

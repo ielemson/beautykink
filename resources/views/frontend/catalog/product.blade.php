@@ -10,14 +10,14 @@
 @endsection
 
 @section('content')
-    @include('frontend._inc.header_single_page',['title_1'=>'Shop','title_2'=>$item->name])
+    @include('frontend._inc.header_single_page', ['title_1' => 'Shop', 'title_2' => $item->name])
 
     @php
         function renderStarRating($rating, $maxRating = 5)
         {
             $fullStar = "<i class='ion-md-star'>";
-    $halfStar = "<i class ='ion-md-star icon-color-gray'></i>";
-    $emptyStar = "<i class ='ion-md-star'></i>";
+            $halfStar = "<i class ='ion-md-star icon-color-gray'></i>";
+            $emptyStar = "<i class ='ion-md-star'></i>";
             $rating = $rating <= $maxRating ? $rating : $maxRating;
         
             $fullStarCount = (int) $rating;
@@ -34,7 +34,7 @@
 
     <!--== Start Product Single Area Wrapper ==-->
     <section class="product-area product-single-area">
-        
+
         <div class="container pt-60 pb-0">
             <div class="row">
                 <div class="col-12">
@@ -52,12 +52,12 @@
                                                         href="{{ asset($gallery->photo) }}">
                                                         <img src="{{ asset($gallery->photo) }}"
                                                             alt="slider-{{ $key }}"
-                                                             style=" 
-                                                             width: 100%;
-                                                            height: auto;
-                                                            object-fit: cover;
-                                                            object-position: bottom;">
-                                                        <span class="product-flag-new">{{$item->is_type}}</span>
+                                                            style=" 
+                                                                width: 100%;
+                                                                height: auto;
+                                                                object-fit: cover;
+                                                                object-position: bottom;">
+                                                        <span class="product-flag-new">{{ $item->is_type }}</span>
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -68,11 +68,10 @@
                                             @foreach ($galleries as $key => $gallery)
                                                 {{-- <li><a href="#gallery{{ $key }}"><img src="{{ asset($gallery->photo) }}" alt="Product"></a></li> --}}
                                                 <div class="swiper-slide">
-                                                    <img src="{{ asset($gallery->photo) }}" alt="{{ asset($gallery->name) }}" style="width:100%;height:100px;">
+                                                    <img src="{{ asset($gallery->photo) }}"
+                                                        alt="{{ asset($gallery->name) }}" style="width:100%;height:100px;">
                                                 </div>
                                             @endforeach
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -85,99 +84,79 @@
                                     <div class="product-info">
                                         <div class="star-content">
                                             {{-- <i class="ion-md-star"></i>
-<i class="ion-md-star"></i>
-<i class="ion-md-star"></i>
-<i class="ion-md-star"></i> --}}
+                                            <i class="ion-md-star"></i>
+                                            <i class="ion-md-star"></i>
+                                            <i class="ion-md-star"></i> --}}
                                             {{-- <i class="ion-md-star icon-color-gray"></i> --}}
                                             {!! renderStarRating($item->reviews->avg('rating')) !!}
                                         </div>
                                         <ul class="comments-advices">
                                             <li><a href="#/" class="reviews"><i class="fa fa-commenting-o"></i>Read
                                                     reviews (1)</a></li>
-                                                    @if ($item->video)
-                                                   
-                                                    
-                                            <li>
-                                                <a class="popup-youtube" href="https://www.youtube.com/watch?v={{$video}}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br>
-                                
-                                                @endif
+                                            @if ($item->video)
+                                                <li>
+                                                    <a class="popup-youtube"
+                                                        href="https://www.youtube.com/watch?v={{ $video }}"><i
+                                                            class="fa fa-youtube-play text-danger"></i> Play Video</a><br>
+                                            @endif
                                         </ul>
                                     </div>
-                                    
+
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
-                                            <span class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                            <span
+                                                class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
                                         @endif
-                                      
+
                                         <span class="price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
                                         @if ($item->previous_price != 0)
-                                        <span class="discount-percentage">Save {{PriceHelper::discountPercentage($item)}}</span>
-
+                                            <span class="discount-percentage">Save
+                                                {{ PriceHelper::discountPercentage($item) }}</span>
                                         @endif
-                                    
+
                                         <div class="tax-label">
                                             @if ($item->is_stock())
-                                            <span class="text-success  d-inline-block">{{ __('In Stock') }}</span>
-                                        @else
-                                            <span class="text-danger  d-inline-block">{{ __('Out of stock') }}</span>
-                                        @endif
+                                                <span class="text-success  d-inline-block">{{ __('In Stock') }}</span>
+                                            @else
+                                                <span class="text-danger  d-inline-block">{{ __('Out of stock') }}</span>
+                                            @endif
                                         </div>
                                     </div>
-                                    
-                                    <div class="product-variants">
-                                        
-                                        {{-- <div class="product-variants-item">
-                                          <h6 class="title mb-20">COLOR</h6>
-                                          <div id="product" class="product-options">        
-                                            <div class="form-group required">
 
-                                            <div id="input-option238">               
-                                                              
-                                               <div class="radio">
-                                                <label>
-                                                  <span class="radio-wrapper"><input type="radio" name="option[238]" value="56" class="radioid"></span> 
-                                                  <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail"> Rose Glow 
-                                                </label>
-                                              </div> 
-                                              
-                                            </div>
-                                          </div>			
-                                          </div>
-                                        </div> --}}
+                                    <div class="product-variants">
+
                                         @foreach ($attributes as $attribute)
-                                        @if ($attribute->options->count() != 0)
-                                        @if (strtolower($attribute->name) =="color")
-                                        <div class="product-variants-item">
-                                            <h6 class="title mb-20">COLOR</h6>
-                                            
-                                                    <label for="{{ $attribute->name }}">{{ $attribute->name }}</label>
-                                                   
+                                            @if ($attribute->options->count() != 0)
+                                                @if (strtolower($attribute->name) == 'color')
+                                                    <div class="product-variants-item">
+                                                        <h6 class="title mb-20">{{ $attribute->name }}</h6>
                                                         @foreach ($attribute->options as $option)
                                                             {{-- <option value="{{ $option->name }}" data-type="{{ $attribute->id }}"
-                                                                data-href="{{ $option->id }}"
-                                                                data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
-                                                  <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
-                                                  {{ $option->name }}
+                                                            data-href="{{ $option->id }}"
+                                                            data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
+                                                            <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
+                                                            {{ $option->name }}
                                                             </option> --}}
-                                                            <div id="input-option238">               
-                                                              
-                                               <div class="radio">
-                                                <label>
-                                                  <span class="radio-wrapper"><input type="radio" name="option[238]" value="{{ $option->name }}" class="radioid"></span> 
-                                                  <img src="{{asset("uploads/items/attributes/$option->image")}}" alt="Rose Glow" class="img-thumbnail"> {{ $option->name }}
-                                                </label>
-                                              </div> 
-                                              
-                                            </div>
-                                                @endforeach
-                                                   
-                                               
-                                            </div>
-                                        @endif
-                                        @endif
-                                    @endforeach
+                                                 
+                                                                    <label>
+                                                                        <span class="radio-wrapper">
+                                                                            <input type="radio"
+                                                                                name="attribute_name"
+                                                                                value="{{ $option->name }}"
+                                                                                id="radioid"/>
+                                                                            </span>
+                                                                        <img src="{{ asset("uploads/items/attributes/$option->image") }}"
+                                                                            alt="{{$option->name}}" class="img-thumbnail" data-color="{{$option->image}}">
+                                                                        {{ $option->name }}
+                                                                    </label>
+                                                                
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            @endif
+                                        @endforeach
 
-                                      </div>
+                                    </div>
 
                                     <div class="product-description">
                                         {!! $item->details !!}
@@ -185,28 +164,38 @@
                                     <div class="product-quick-action">
                                         {{-- <div class="product-quick-qty">
 
-                                            
                                             <div class="pro-qty">
-                                                <div class="inc qty-btn"><i class="fa fa-angle-up"></i></div>
-                                                <input type="text" id="quantity2" class="qty" title="Quantity"  data-item-id="{{$item->id}}">
-                                                <div class= "dec qty-btn"><i class="fa fa-angle-down"></i></div>
+                                           
+                                                <input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
+      
                                             </div>
                                         </div> --}}
                                         {{-- <input type="text" id="cartId"> --}}
 
-                                        <a class="btn-product-add btn-product-addTo-cart" data-item-id="{{$item->id}}" href="javascript:;">Add to cart</a>
+                                        
+                                            @if ($item->is_stock())
+                                            <a class="btn-product-add btn-product-addTo-cart"
+                                            data-item-id="{{ $item->id }}" href="javascript:;">Add to cart</a>
+                                            @else
+                                            <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $item->slug) }}" title="view product">Remind me when restocked</a>
+                                            @endif
                                     </div>
                                     <div class="product-wishlist-compare">
-                                        <a href="" class="btn-wishlist"><i class="icon-heart"></i>Add to
+                                        <a href="javascript:;" class="btn-wishlist add-wishlist" data-id="{{$item->id}}"><i class="icon-heart"></i>Add to
                                             wishlist</a>
-                                        <a href="" class="btn-compare"><i class="icon-shuffle"></i>Add to
+                                        <a href="javascript:;" class="btn-compare add-compare" data-id="{{$item->id}}"><i class="icon-shuffle"></i>Add to
                                             compare</a>
                                     </div>
                                     <div class="social-sharing">
                                         <span>Share</span>
                                         <div class="social-icons">
-                                            <a href="#/"><i class="la la-facebook"></i></a>
-                                            <a href="#/"><i class="la la-twitter"></i></a>
+                                            @php
+                                                $links = json_decode($setting->social_link, true)['links'];
+                                                $icons = json_decode($setting->social_link, true)['icons'];
+                                            @endphp
+                                            @foreach ($links as $link_key => $link)
+                                                <a href="{{ $link }}"><i class="{{ $icons[$link_key] }}"></i></a>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -216,132 +205,23 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-review-tabs-content">
-                        <ul class="nav product-tab-nav" id="ReviewTab" role="tablist">
-                            <li role="presentation">
-                                <a class="active" id="description-tab" data-bs-toggle="pill" href="#description"
-                                    role="tab" aria-controls="description" aria-selected="true">Description</a>
-                            </li>
-                          
-                            <li role="presentation">
-                                <a id="reviews-tab" data-bs-toggle="pill" href="#reviews" role="tab"
-                                    aria-controls="reviews" aria-selected="false">Reviews</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content product-tab-content" id="ReviewTabContent">
-                            <div class="tab-pane fade show active" id="description" role="tabpanel"
-                                aria-labelledby="description-tab">
-                                <div class="product-description">
-                                    {!! $item->details !!}
-                                </div>
-                            </div>
-                           
-                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                <div class="product-comments-content">
-                                    <div class="comment clearfix">
-                                        <div class="comment-author">
-                                            <span class="grade">Grade</span>
-                                            <div class="star-content">
-                                                <i class="ion-md-star"></i>
-                                                <i class="ion-md-star"></i>
-                                                <i class="ion-md-star"></i>
-                                                <i class="ion-md-star"></i>
-                                                <i class="ion-md-star icon-color-gray"></i>
-                                            </div>
-                                            <div class="comment-author-info">
-                                                <span class="title">posthemes</span>
-                                                <span class="date">05/19/2021</span>
-                                            </div>
-                                            <div class="comment-details">
-                                                <span class="title">Demo</span>
-                                                <p class="desc">0 out of 1 people found this review useful.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#/" class="btn-review">Write your review !</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{-- Write Product Review --}}
+            @include('frontend._inc.product_review',['item_id'=>$item->id ])
+            {{-- Write Product Review --}}
         </div>
-
-        
     </section>
     <!--== End Product Single Area Wrapper ==-->
 @endsection
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-    $(document).ready(function() {
-	$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-		disableOn: 700,
-		type: 'iframe',
-		mainClass: 'mfp-fade',
-		removalDelay: 160,
-		preloader: true,
-        fixedContentPos: true,
-        focus: '#username',
-        //   modal: true
-	});
-});
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
+        integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 
 
 @section('styleplugins')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-    /*!
- * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
- * Copyright 2019 Iqbal Fauzi
- * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
- */
-.custom-control.image-checkbox {
-  position: relative;
-  padding-left: 0;
-}
-
-.custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:after, .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:before {
-  opacity: 1;
-}
-
-.custom-control.image-checkbox label {
-  cursor: pointer;
-}
-
-.custom-control.image-checkbox label:before {
-  border-color: #007bff;
-  background-color: #007bff;
-}
-
-.custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
-  transition: opacity .3s ease;
-  opacity: 0;
-  left: .25rem;
-}
-
-.custom-control.image-checkbox label:focus, .custom-control.image-checkbox label:hover {
-  opacity: .8;
-}
-
-.custom-control.image-checkbox label img {
-  border-radius: 2.5px;
-}
-
-.form-group-image-checkbox.is-invalid label {
-  color: #dc3545;
-}
-
-.form-group-image-checkbox.is-invalid .invalid-feedback {
-  display: block;
-}
-
-/*# sourceMappingURL=bootstrap-image-checkbox.css.map */
-</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+        integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection

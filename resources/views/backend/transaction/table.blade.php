@@ -21,11 +21,12 @@
         <span class="badge badge-primary">{{ $data->order->payment_status }}</span>
     </td>
     <td>
-        @if ($setting->currency_direction == 1)
+        {{-- @if ($setting->currency_direction == 1)
             {{ $data->currency_sign }}{{ round($data->amount * $data->currency_value, 2) }}
         @else
             {{ round($data->amount * $data->currency_value, 2) }}{{ $data->currency_sign }}
-        @endif
+        @endif --}}
+        {{ $data->currency_sign }} {{$data->amount}}
     </td>
     <td>
         <div class="btn-group">

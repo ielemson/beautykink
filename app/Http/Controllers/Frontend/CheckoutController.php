@@ -95,7 +95,7 @@ class CheckoutController extends Controller
         $data['cart_total'] = Cart::total();
         $data['cart_count'] = Cart::count();
         $data['grand_total'] = Cart::subtotal();
-        // $data['discount'] = $discount;
+        $data['discount'] = $discount;
         // $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
@@ -197,7 +197,7 @@ class CheckoutController extends Controller
         // $data['cart'] = $cart;
         // $data['cart_total'] = $cart_total;
         // $data['grand_total'] = $total_amount;
-        // $data['discount'] = $discount;
+        $data['discount'] = $discount;
         // $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
 
@@ -264,10 +264,10 @@ class CheckoutController extends Controller
             $shipping = ShippingService::whereStatus(1)->first();
         }
 
-        // $discount = [];
-        // if (Session::has('coupon')) {
-        //     $discount = Session::get('coupon');
-        // }
+        $discount = [];
+        if (Session::has('coupon')) {
+            $discount = Session::get('coupon');
+        }
         // $grand_total = ($cart_total + ($shipping ? $shipping->price : 0)) + $total_tax;
         // $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
         // $total_amount = $grand_total;
@@ -275,7 +275,7 @@ class CheckoutController extends Controller
         // $data['cart'] = $cart;
         // $data['cart_total'] = $cart_total;
         // $data['grand_total'] = $total_amount;
-        // $data['discount'] = $discount;
+        $data['discount'] = $discount;
         $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
         $data['cart'] = $cart;

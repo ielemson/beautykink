@@ -617,14 +617,22 @@ Route::group(['middleware' => 'maintainance'], function(){
 
 
         // NEW CART ROUTES
-        Route::get('/cart/add/{id}/{qty}', [CartController::class, 'addCart'])->name('frontend.addcart');
+        Route::get('/cart/add/{id}/{qty}/{name?}', [CartController::class, 'addCart'])->name('frontend.addcart');
         Route::get('/cart/update/{rowId}/{qty}', [CartController::class, 'updateCart'])->name('frontend.addcart');
         Route::get('/my-cart', [CartController::class, 'myCart'])->name('frontend.myCart');
         Route::get('/my-cart/single/{pid}', [CartController::class, 'mySingleCart'])->name('frontend.mySingleCart');
         Route::get('/my-cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('frontend.removeFromCart');
-
+        
+        // CART ADD WISH LIST ROUTE
+        Route::get('/add/whishlist/{id}/{qty}/{name?}', [CartController::class, 'addToWishlist'])->name('frontend.addToWishlist');
+       
+        // CART ADD COMPARE LIST ROUTE
+        Route::get('/add/compare/{id}/{qty}/{name?}', [CartController::class, 'addToCompare'])->name('frontend.addToCompare');
+        Route::get('/cart/compare', [CartController::class, 'compare'])->name('frontend.compare');
+        Route::get('/compare/remove/{id}', [CartController::class, 'compareRemove'])->name('frontend.compareRemove');
+       
         // INSTAGRAM FEED ROUTES
-        Route::get('/my-cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('frontend.removeFromCart');
+        // Route::get('/my-cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('frontend.removeFromCart');
 
         Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart');
         Route::get('/front/cart/clear', [CartController::class, 'cartClear'])->name('frontend.cart.clear');

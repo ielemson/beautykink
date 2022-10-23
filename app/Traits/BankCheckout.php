@@ -24,10 +24,10 @@ trait BankCheckout
         $cart = Cart::content();
         $cartArr = [];
         // dd($cart);
-        $total_tax = 0;
-        $cart_total = 0;
-        $total = 0;
-        $option_price = 0;
+        // $total_tax = 0;
+        // $cart_total = 0;
+        // $total = 0;
+        // $option_price = 0;
       
         foreach ($cart as $key => $item) {
             // $total += $item['main_price'] * $item['qty'];
@@ -37,10 +37,10 @@ trait BankCheckout
             // if ($item->tax) {
             //     $total_tax += $item->taxCalculate($item);
             // }
-            array_push($cartArr, ['id'=>$item->id,'attribute'=>[],'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
+            array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'attribute_name'=>$item->options->attribute_name,'attribute_color'=>$item->options->attribute_color,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
         }
 
-        dd($cart);
+        // dd($cart);
         $shipping = [];
         if (ShippingService::whereStatus(1)->exists()) {
             $shipping = ShippingService::whereStatus(1)->first();
@@ -69,8 +69,7 @@ trait BankCheckout
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
         $order_data['currency_value']     = PriceHelper::setCurrencyValue();
         $order_data['payment_status']     = 'Unpaid';
-        // $order_data['txnid']              = $data['txn_id'];
-        $order_data['txnid']              = 'txn_id';
+        $order_data['txnid']              = $data['txn_id'];
         $order_data['order_status']       = 'Pending';
         $order                            = Order::create($order_data);
         TrackOrder::create([
@@ -78,9 +77,8 @@ trait BankCheckout
             'order_id' => $order->id
         ]);
 
-        // PriceHelper::transaction($order->id, $order->transaction_number, $user->email, 
-        // PriceHelper::orderTotal($order));
-        // PriceHelper::licenseQtyDecrease($cart);
+        PriceHelper::transaction($order->id, $order->transaction_number, $user->email, $total_amount);
+
         Notification::create([
             'order_id' => $order->id
         ]);
@@ -91,7 +89,7 @@ trait BankCheckout
             'user_name'          => $user->displayName(),
             'order_cost'         => $total_amount,
             'transaction_number' => 'transaction_number',
-            'site_title'         => Setting::first()->title,
+            'site_title'         => $setting->title,
         ];
 
         $email = new EmailHelper();

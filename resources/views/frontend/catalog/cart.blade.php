@@ -31,6 +31,11 @@
                         <div class="product-content">
                           <h5 class="title"><a href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
                           <h6 class="product-price">&#8358;{{$item->price}}</h6>
+                         
+                          @if ($item->options->attribute_color != '')
+                          Color: {{$item->options->attribute_name}} <img class="img-thumbnail" src="/uploads/items/attributes/{{$item->options->attribute_color}}" alt="{{$item->options->attribute_name}}" style="width: 25px; height:25px">
+                          @endif
+                          
                         </div>
                       </div>
                       <div class="col-6 offset-4 offset-md-0 col-md-5">
@@ -61,7 +66,8 @@
                     </div>
                   </div>
                  @endforeach
-                <a class="btn-primary" href="{{route('frontend.index')}}">Continue shopping</a>
+                @include('frontend._inc.coupon',['cart'=>$cart])
+                {{-- <a class="btn-primary" href="{{route('frontend.index')}}">Continue shopping</a> --}}
                 </div>
               </div>
               <div class="col-lg-4">
@@ -123,9 +129,13 @@
         <div class="card text-center">
           <div class="card-body padding-top-2x">
             <h3 class="card-title">{{ __('Your shopping cart is empty.') }}</h3>
-          <a class="btn-theme" href="{{ route('frontend.catalog') }}"><i class="icon-package pr-2"></i> {{ __('View our products') }}</a></div>
+          <button class="btn-theme" onclick="window.location.href='{{ route('frontend.catalog') }}'"><i class="icon-package pr-2"></i> {{ __('View our products') }}</button></div>
           </div>
         </div>
       @endif
     
+@endsection
+
+@section('styleplugins')
+<link id="mainStyles" rel="stylesheet" media="screen" href="{{ asset('frontend/css/styles.min.css') }}">
 @endsection

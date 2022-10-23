@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="col-5 col-sm-3">
                       <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#facebook" role="tab" aria-controls="facebook" aria-selected="true">{{ _('Facebook') }}</a>
+                        <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#facebook" role="tab" aria-controls="facebook" aria-selected="true">{{ __('Facebook') }}</a>
 
                         <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#google" role="tab" aria-controls="google" aria-selected="false">{{ __('Google') }}</a>
                       </div>

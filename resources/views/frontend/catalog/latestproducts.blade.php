@@ -29,25 +29,27 @@
                                             </a>
                                             <div class="product-action">
                                                 <div class="addto-wrap">
-                                                    <a class="add-wishlist" href="" title="Add to wishlist">
+                                                    <a class="add-wishlist" href="javascript:;" data-id="{{$newitem->id}}" title="Add to wishlist">
                                                         <i class="icon-heart icon"></i>
                                                     </a>
-                                                    <a class="add-compare" href="" title="Add to compare">
+                                                    <a class="add-compare" href="javascript:;" data-id="{{$newitem->id}}" title="Add to compare">
                                                         <i class="icon-shuffle icon"></i>
                                                     </a>
                                                 </div>
                                             </div>
                                             <ul class="product-flag">
-                                                <li class="new">
-                                                    {{   ucfirst(str_replace('_',' ',$newitem->is_type))   }}
-                                                </li>
-                                                
-                                                    @if ($newitem->previous_price && $newitem->previous_price != 0)
+                                                @if ($newitem->is_stock())
+                                                    <li class="{{ strtolower($newitem->is_type) }}">
+                                                        {{ ucfirst(str_replace('_', ' ', $newitem->is_type)) }}
+                                                    </li>
+                                                @else
+                                                    <li class="new">{{ __('out of stock') }}</li>
+                                                @endif
+                                                @if ($newitem->previous_price && $newitem->previous_price != 0)
                                                     <li class="discount">
-                                                    {{ PriceHelper::DiscountPercentage($newitem) }} 
-                                                   </li>
-                                                   @endif
-                                               
+                                                        {{ PriceHelper::DiscountPercentage($newitem) }}
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                         <div class="product-desc">
@@ -65,16 +67,16 @@
                                                 <div class="prices">
                                                     @if ($newitem->previous_price != 0)
                                                         {{-- <del></del> --}}
-                                                        <span
-                                                            class="price-old">
-                                                    {{ PriceHelper::setPreviousPrice($newitem->previous_price) }}</span>
+                                                        <span class="price-old">
+                                                            {{ PriceHelper::setPreviousPrice($newitem->previous_price) }}</span>
                                                     @endif
                                                     <span class="price text-black">
                                                         {{ PriceHelper::grandCurrencyPrice($newitem) }}</span>
                                                 </div>
                                             </div>
                                             <div class="product-footer">
-                                                <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}" href="javascript:;">Add to cart</a>
+                                                <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}"
+                                                    href="javascript:;">Add to cart</a>
                                                 <a class="btn-quick-view"
                                                     href="{{ route('frontend.product', $newitem->slug) }}"
                                                     title="Quick view">Product Details</a>
