@@ -43,6 +43,7 @@
     }
 
     
+    
 // Add to cart starts here
     $('body').on('click', '.add_to_cart', function () {
         var id = $(this).attr("data-id");
