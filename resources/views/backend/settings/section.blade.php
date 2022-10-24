@@ -158,11 +158,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group  col-md-3 ">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_pages" class="" name="is_pages" value="1" {{ $setting->is_pages == 1 ? 'checked' : '' }}>
+                                                <label for="is_pages">{{ __('Header Pages') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                   
 
                                 </div>
                     
-
                             <div class="row">
                               
                                 <div class="form-group  col-md-3 ">

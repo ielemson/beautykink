@@ -351,7 +351,7 @@ $('body').on('click', '.remove_from_compare', function () {
             })
           
                 Toast.fire({
-                    icon: 'success',
+                    icon: 'error',
                     title: 'Select color shades',
                 })
                 return
