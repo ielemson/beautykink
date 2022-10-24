@@ -22,6 +22,34 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset($setting->favicon) }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset($setting->favicon) }}">
 
+    <style>
+/* Custom Mobile menu :::::::::::::::::::::::::::: */
+.mobile-nav {
+  /* background: #fff; */
+  background: hsl(0, 0%, 98%);
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 999;
+}
+.bloc-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bloc-icon img {
+  width: 30px;
+}
+@media screen and (min-width: 600px) {
+  .mobile-nav {
+  display: none;
+  }
+}
+/* Custom Mobile menu :::::::::::::::::::::::::::: */
+</style>
     @yield('styleplugins')
 
     @if (App\Models\Language::where('is_default', 1)->first()->rtl == 1)
@@ -112,46 +140,13 @@
                 </div>
             </div>
 
-            {{-- <div id="preloader">
-<img src="{{ asset($setting->loader) }}" alt="">
-</div> --}}
-            <!-- Preloader endif -->
         @endif
-        <!--== End Preloader Content ==-->
-        {{-- <div class="container-fluid marqueeslider"> <div class="ticker"> <div class="title"><h5>Breaking News</h5></div> <div class="news"> <marquee class="news-content"> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p> <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto </p> <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam </p> </marquee> </div> </div> </div> --}}
-        <!--== Start Header Wrapper ==-->
         @include('frontend._inc.header')
         <!--== End Header Wrapper ==-->
         <main class="main-content">
             @yield('content')
 
         </main>
-
-        <!--    announcement banner section start   -->
-        {{-- <a class="announcement-banner" href="#announcement-modal"></a>
-<div id="announcement-modal" class="mfp-hide white-popup">
-<a href="{{ $setting->announcement_link }}">
-<img src="{{ asset($setting->announcement) }}" alt="">
-</a>
-</div> --}}
-
-        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-Launch static backdrop modal
-</button> --}}
-
-        <!-- Modal -->
-        {{-- <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-
-<div class="modal-body">
-<img src="{{ asset($setting->announcement) }}" alt="">
-</div>
-
-</div>
-</div>
-</div> --}}
 
         <!--== Start Footer Area Wrapper ==-->
         @include('frontend._inc.footer')

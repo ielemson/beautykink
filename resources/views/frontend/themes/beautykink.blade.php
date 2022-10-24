@@ -60,62 +60,32 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-
         <!--== End Hero Area Wrapper ==-->
     @endif
+ 
+   {{-- service information area --}}
+   @include('frontend._inc.service')
+   {{--service  information area --}}
 
-    {{-- Brands  Starts --}}
-    <!--== Start Product Area Wrapper ==-->
-    @if ($extra_settings->is_t2_3_column_banner_first == 1)
-        <section>
-            <div class="container-fluid pt-30 pt-sm-15 pb-15 pb-lg-5">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="images-col3-slider owl-carousel owl-theme">
-
-                            <div class="item">
-                                <div class="thumb thumb-scale-hover-style">
-                                    <a href="{{ $banner_first['firsturl1'] }}">
-                                        <img src="{{ asset($banner_first['img1']) }}" loading="lazy" class="hover-img lazy">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb thumb-scale-hover-style">
-                                    <a href="{{ $banner_first['firsturl2'] }}">
-                                        <img src="{{ $banner_first['img2'] ? $banner_first['img2'] : asset($setting->loader) }}"
-                                            class="hover-img lazy" data-src="{{ asset($banner_first['img2']) }}">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb thumb-scale-hover-style">
-                                    <a href="{{ $banner_first['firsturl3'] }}">
-                                        <img src="{{ $banner_first['img2'] ? $banner_first['img2'] : asset($setting->loader) }}"
-                                            class="hover-img lazy" data-src="{{ asset($banner_first['img3']) }}">
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
-    <!--== End Product Area Wrapper ==-->
-    {{-- Brands  Ends --}}
-
-
-    {{-- All Product starts --}}
-    @include('frontend.catalog.allproducts')
-    {{-- All Product ends --}}
-
-    {{--  New Product Arrivals Starts --}}
+   {{--  New Product Arrivals Starts --}}
     @include('frontend.catalog.latestproducts')
     {{--  New Product Arrivals Ends --}}
 
 
+    {{-- Flash deal products starts --}}
+    @include('frontend.catalog.flash_deal')
+    {{-- Flash deal products ends --}}
+
+  {{-- All Product starts --}}
+    @include('frontend.catalog.allproducts')
+    {{-- All Product ends --}}
+
+      {{-- banner first starts --}}
+  @if ($extra_settings->is_t2_3_column_banner_first == 1)
+  @include('frontend._inc.banner_first')
+  @endif
+  {{-- banner first end --}}
+  
     {{-- <div class="popup-product-quickview">
 <div class="product-single-item">
 <div class="row">

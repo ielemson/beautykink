@@ -537,6 +537,17 @@
   }
   scrollToTop();
   
+  $("[data-date-time]").each(function () {
+    var $this = $(this),
+        finalDate = $(this).attr("data-date-time");
+    $this.countdown(finalDate, function (event) {
+        $this.html(
+            event.strftime(
+                "<span>%D<small>Days</small></span></small> <span>%H<small>Hrs</small></span> <span>%M<small>Min</small></span> <span>%S<small>Sec</small></span>"
+            )
+        );
+    });
+});
 /* ==========================================================================
    When document is loading, do
    ========================================================================== */

@@ -141,15 +141,23 @@
                                   
 
                                   
-                                    <div class="form-group  col-md-3 ">
+                                    {{-- <div class="form-group  col-md-3 ">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_service" class="" name="is_service" value="1" {{ $setting->is_service == 1 ? 'checked' : '' }}>
                                                 <label for="is_service">{{ __('Service Section') }}</label>
                                             </div>
                                         </div>
+                                    </div> --}}
+
+                                    <div class="form-group  col-md-3">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_t2_service_section" class="" name="is_t2_service_section" value="1" {{ $extra_settings->is_t2_service_section == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_service_section">{{ __('Service Section') }}</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                  
                                     <div class="form-group  col-md-3 ">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
@@ -167,7 +175,31 @@
                                         </div>
                                     </div>
                                   
-
+                                    {{-- <div class="col-md-3"></div> --}}
+                                    <div class="form-group  col-md-3">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_t2_flashdeal" class="" name="is_t2_flashdeal" value="1" {{ $extra_settings->is_t2_flashdeal == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_flashdeal">{{ __('Flash Deal') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  col-md-3">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_t2_featured_product" class="" name="is_t2_featured_product" value="1" {{ $extra_settings->is_t2_featured_product == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_featured_product">{{ __('Featured Product Section') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  col-md-3">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_t2_3_column_banner_first" class="" name="is_t2_3_column_banner_first" value="1" {{ $extra_settings->is_t2_3_column_banner_first == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_3_column_banner_first">{{ __('3 column banner First') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                     
                             <div class="row">

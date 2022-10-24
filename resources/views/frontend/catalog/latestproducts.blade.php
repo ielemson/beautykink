@@ -71,18 +71,18 @@
                                                 </div>
                                             </div>
                                             <div class="product-footer">
-                                                {{-- <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}"
+                                                @if ($newitem->is_stock())
+                                                <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}"
                                                     href="javascript:;">Add to cart</a>
+                                                {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
                                                 <a class="btn-quick-view"
                                                     href="{{ route('frontend.product', $newitem->slug) }}"
-                                                    title="Quick view">Product Details</a> --}}
-                                                    @if ($newitem->is_stock())
-                                                    <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}" href="javascript:;">Add to cart</a>
-                                                    {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $newitem>id }}" title="view product" onclick="Quickview({{ $newitem>id }})">Quick View</a> --}}
-                                                    <a class="btn-quick-view" href="{{ route('frontend.product', $newitem->slug) }}" title="view product">Product details</a>
-                                                    @else
-                                                    <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $newitem->slug) }}" title="view product">Remind me when restocked</a>
-                                                    @endif
+                                                    title="view product">Product details</a>
+                                            @else
+                                                <a class="btn-quick-view btn-block remind_me_when_restock"
+                                                    href="javascript:;" title="view product"
+                                                    data-id="{{ $newitem->id }}">Remind me when restocked</a>
+                                            @endif
                                             </div>
                                         </div>
                                     </div>
