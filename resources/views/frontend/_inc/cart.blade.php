@@ -95,7 +95,7 @@ $option_price = 0;
                     <form class="coupon-form" method="post" id="coupon_form" action="{{ route('frontend.promo.submit') }}">
                         @csrf
                         <input class="form-control form-control-sm" name="code" type="text" placeholder="{{ __('Coupon code') }}" required>
-                        <button class="btn btn-outline-primary btn-sm" type="submit">{{ __('Apply Coupon') }}</button>
+                        <button class="btn btn-primary btn-sm applyCoupon" type="submit">{{ __('Apply Coupon') }}</button>
                     </form>
                 </div>
 

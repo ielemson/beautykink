@@ -70,49 +70,11 @@
                 {{-- <a class="btn-primary" href="{{route('frontend.index')}}">Continue shopping</a> --}}
                 </div>
               </div>
-              <div class="col-lg-4">
-                <div class="shopping-cart-summary mt-md-70">
-                  <div class="cart-detailed-totals">
-                    <div class="card-block">
-                      <div class="card-block-item">
-                        <span class="label">{{$cart_qty}} items</span>
-                        <span class="value">&#8358;{{$subtotal}}</span>
-                      </div>
-                      <div class="card-block-item">
-                        <span class="label">Shipping</span>
-                        <span class="value">Free</span>
-                      </div>
-                    </div>
-                    <div class="separator"></div>
-                    <div class="card-block">
-                      <div class="card-block-item">
-                        <span class="label">Total (Tax Incl.)</span>
-                        <span class="value">&#8358;{{$cart_total}}</span>
-                      </div>
-                    </div>
-                    <div class="separator"></div>
-                  </div>
-                  <div class="checkout-shopping">
-                    <a class="btn-checkout" href="{{ route('frontend.checkout.billing') }}">Proceed to checkout</a>
-                  </div>
-                </div>
-                <div class="block-reassurance">
-                  <ul>
-                    <li>
-                      <img src="{{asset('frontend/img/shop/cart/verified-user.png')}}" alt="security policy">
-                      <span>Security Policy (Edit With Customer Reassurance Module)</span>
-                    </li>
-                    <li>
-                      <img src="{{asset('frontend/img/shop/cart/local-shipping.png')}}" alt="delivery policy">
-                      <span>Delivery Policy (Edit With Customer Reassurance Module)</span>
-                    </li>
-                    <li>
-                      <img src="{{asset('frontend/img/shop/cart/swap-horiz.png')}}" alt="return policy">
-                      <span>Return Policy (Edit With Customer Reassurance Module)</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+             
+                 {{-- Cart summary --}}
+                 @include('frontend.checkout.cartsummary',['cart_count'=>$cart_qty,'cart'=>$cart])
+                 {{-- Cart summary --}}
+                
             </div>
           </div>
         </div>
@@ -125,7 +87,7 @@
 
      <!-- Page Content-->       
       @else
-      <div class="container padding-bottom-3x mb-1">
+      <div class="container padding-bottom-2x mt-10">
         <div class="card text-center">
           <div class="card-body padding-top-2x">
             <h3 class="card-title">{{ __('Your shopping cart is empty.') }}</h3>

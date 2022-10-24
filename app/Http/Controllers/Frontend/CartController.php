@@ -30,21 +30,22 @@ class CartController extends Controller
 
     public function index()
     {
-        // if (Session::has('cart')) {
-        //     $cart = Session::get('cart');
-        // } else {
-        //     $cart = [];
-        // }
-        // dd(Cart::content());
+       
         $cart = Cart::content();
         $cart_qty = Cart::count();
         $cart_total = Cart::total();
         $subtotal = Cart::subtotal();
+        $discount = [];
+        if (Session::has('coupon')) {
+            $discount = Session::get('coupon');
+        }
+       
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
             'cart_total' => $cart_total,
             'subtotal' => $subtotal,
+            'discount'=>$discount
         ]);
     }
 

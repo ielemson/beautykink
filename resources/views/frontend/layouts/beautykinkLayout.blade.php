@@ -75,6 +75,9 @@
 
     <!--== Theme Font CSS ==-->
     <link href="{{ asset('frontend/css/theme-font.css') }}" rel="stylesheet" />
+    <!--== JQUERY ALERT THEME CSS ==-->
+    <link rel="stylesheet" href="{{ asset('frontend/css/jquery-confirm.min.css') }}">
+
 
     <!--== Main Style CSS ==-->
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet" />
@@ -82,17 +85,17 @@
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-            <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <!--[if lt IE 9]>
+<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 </head>
 
 <body>
 
     <!--wrapper start-->
-    <div class="{{$home_classs ?? ''}}">
+    <div class="{{ $home_classs ?? '' }}">
 
         <!--== Start Preloader Content ==-->
 
@@ -121,37 +124,37 @@
         <!--== End Header Wrapper ==-->
         <main class="main-content">
             @yield('content')
-          
+
         </main>
 
         <!--    announcement banner section start   -->
         {{-- <a class="announcement-banner" href="#announcement-modal"></a>
-        <div id="announcement-modal" class="mfp-hide white-popup">
-            <a href="{{ $setting->announcement_link }}">
-                <img src="{{ asset($setting->announcement) }}" alt="">
-            </a>
-        </div> --}}
+<div id="announcement-modal" class="mfp-hide white-popup">
+<a href="{{ $setting->announcement_link }}">
+<img src="{{ asset($setting->announcement) }}" alt="">
+</a>
+</div> --}}
 
         {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Launch static backdrop modal
-          </button> --}}
+Launch static backdrop modal
+</button> --}}
 
         <!-- Modal -->
         {{-- <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
 
-                    <div class="modal-body">
-                        <img src="{{ asset($setting->announcement) }}" alt="">
-                    </div>
+<div class="modal-body">
+<img src="{{ asset($setting->announcement) }}" alt="">
+</div>
 
-                </div>
-            </div>
-        </div> --}}
+</div>
+</div>
+</div> --}}
 
         <!--== Start Footer Area Wrapper ==-->
-       @include('frontend._inc.footer')
+        @include('frontend._inc.footer')
         <!--== End Footer Area Wrapper ==-->
 
         <!--== Scroll Top Button ==-->
@@ -219,16 +222,16 @@ var mainbs = {!! $mainbs !!};
     <script src="{{ asset('frontend/js/jquery-zoom.min.js') }}"></script>
     <!--=== Countdown Js ===-->
     <script src="{{ asset('frontend/js/countdown.js') }}"></script>
-   
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-    crossorigin="anonymous"></script>
-
-  <!--=== Custom Js ===-->
-    <script src="{{ asset('frontend/js/custom.js') }}"></script>
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous"></script>
+    <!--=== Custom Js ===-->
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
- 
+    <script src="{{ asset('frontend/js/jquery-confirm.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    
     @yield('script')
 
     @if ($setting->is_facebook_messenger == '1')
@@ -240,46 +243,42 @@ var mainbs = {!! $mainbs !!};
 
         let view_extra_index = 0;
 
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                })
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        })
 
         function SuccessNotification(title) {
-           Toast.fire({
-                         icon: 'success',
-                        title: `${title}`,
-                    })
+            Toast.fire({
+                icon: 'success',
+                title: `${title}`,
+            })
         }
 
         function DangerNotification(title) {
             Toast.fire({
-                        icon: 'danger',
-                        title: `${title}`,
-                    })
+                icon: 'danger',
+                title: `${title}`,
+            })
         }
         // Notifications Ends
-    </script>
 
-    @if (Session::has('error'))
-        <script>
+        @if (Session::has('error'))
+
             $(document).ready(function() {
                 DangerNotification('{{ Session::get('error') }}')
             })
-        </script>
-    @endif
-    @if (Session::has('success'))
-        <script>
+        @endif
+        @if (Session::has('success'))
+
             $(document).ready(function() {
                 SuccessNotification('{{ Session::get('success') }}');
             })
-        </script>
+    </script>
     @endif
-
-
 </body>
 
 </html>

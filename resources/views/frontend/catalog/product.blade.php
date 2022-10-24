@@ -15,9 +15,9 @@
     @php
         function renderStarRating($rating, $maxRating = 5)
         {
-            $fullStar = "<i class='ion-md-star'>";
-            $halfStar = "<i class ='ion-md-star icon-color-gray'></i>";
-            $emptyStar = "<i class ='ion-md-star'></i>";
+            $fullStar = "<i class = 'far fa-star filled'></i>";
+            $halfStar = "<i class = 'far fa-star-half filled'></i>";
+            $emptyStar = "<i class = 'far fa-star'></i>";
             $rating = $rating <= $maxRating ? $rating : $maxRating;
         
             $fullStarCount = (int) $rating;
@@ -177,7 +177,7 @@
                                             <a class="btn-product-add btn-product-addTo-cart"
                                             data-item-id="{{ $item->id }}" href="javascript:;">Add to cart</a>
                                             @else
-                                            <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $item->slug) }}" title="view product">Remind me when restocked</a>
+                                            <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="remind me on restock" data-id="{{$item->id}}">Remind me when restocked</a>
                                             @endif
                                     </div>
                                     <div class="product-wishlist-compare">
@@ -209,19 +209,38 @@
             @include('frontend._inc.product_review',['item_id'=>$item->id ])
             {{-- Write Product Review --}}
         </div>
+        
     </section>
     <!--== End Product Single Area Wrapper ==-->
+@endsection
+@section('styleplugins')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+        integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
         integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+        <script>
+             // Product Details Page Add to Cart ::::::::::::::::::::::::::
+    $(document).ready(function() {
+        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: true,
+            fixedContentPos: true,
+            focus: '#username',
+            //   modal: true
+        });
+    });
+        </script>
+@include('frontend._inc.restock_form')
 @endsection
 
 
-@section('styleplugins')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
-        integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-@endsection

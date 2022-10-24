@@ -5,7 +5,7 @@
                 <form class="coupon-form" method="post" id="coupon_form" action="{{ route('frontend.promo.submit') }}">
                     @csrf
                     <input class="form-control form-control-sm" name="code" type="text" placeholder="{{ __('Coupon code') }}" required>
-                    <button class="btn btn-outline-primary btn-sm" type="submit">{{ __('Apply Coupon') }}</button>
+                    <button class="btn btn-outline-primary btn-sm applyCoupon" type="submit">{{ __('Apply Coupon') }}</button>
                 </form>
             </div>
 
@@ -16,7 +16,7 @@
 
             <div class="text-right column text-lg">
                 <span class="text-muted">{{ __('Subtotal') }}: </span>
-                <span class="text-gray-dark">₦{{ PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0)}}</span>
+                <span class="text-gray-dark">&#8358;{{ PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0)}}</span>
             </div>
 
         </div>
@@ -32,3 +32,48 @@
         </div>
     </div>
 </div>
+
+@section('script')
+<script>
+  
+   $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+ 
+  $(".applyCoupon").click(function(e){
+      e.preventDefault();
+      var code = $("input[name=code]").val();
+      $.ajax({
+         type:'POST',
+         url:"{{ route('frontend.promo.submit') }}",
+         data:{ code:code},
+         success:function(data){
+          // initialize the toast
+          const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3500
+          })
+       
+        if(data.status == false){
+            Toast.fire({
+                  icon: 'error',
+                  title: data.message,
+              })
+        }else{
+            Toast.fire({
+                  icon: 'success',
+                  title: data.message,
+              }) 
+            // Reload Page
+            location.reload()
+        }
+         }
+      });
+
+  });
+</script>
+@endsection

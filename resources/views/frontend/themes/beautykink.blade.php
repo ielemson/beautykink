@@ -13,12 +13,9 @@
     @php
         function renderStarRating($rating, $maxRating = 5)
         {
-            // $fullStar = "<i class='far fa-star filled'></i>";
-            // $halfStar = "<i class='far fa-star-half filled'></i>";
-            // $emptyStar = "<i class='far fa-star'></i>";
-            $fullStar = "<i class='ion-md-star'></i>";
-            $halfStar = "<i class='ion-md-star icon-color-gray'></i>";
-            $emptyStar = "<i class='ion-md-star icon-color-gray'></i>";
+            $fullStar = "<i class = 'far fa-star filled'></i>";
+            $halfStar = "<i class = 'far fa-star-half filled'></i>";
+            $emptyStar = "<i class = 'far fa-star'></i>";
             $rating = $rating <= $maxRating ? $rating : $maxRating;
         
             $fullStarCount = (int) $rating;

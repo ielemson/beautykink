@@ -13,12 +13,6 @@
             <span class="value">&#8358;{{$cart_total}}</span>
           </div>
           @if ($discount)
-        {{-- <tr>
-            <td>{{ __('Coupon discount') }}:</td>
-            <td class="text-danger">-
-                </td>
-        </tr> --}}
-
         <div class="card-block-item">
           <span class="label">Discount</span>
           <span class="value text-danger">-{{ PriceHelper::setCurrencyPrice($discount ? $discount['discount'] : 0) }}</span>
@@ -30,8 +24,16 @@
         <div class="card-block">
           <div class="card-block-item">
             <span class="label">Order Total</span>
-            <span class="value">&#8358;{{ PriceHelper::cartTotal($cart) - Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0}}</span>
-            {{-- <span class="value">&#8358;{{$grand_total}}</span> --}}
+            @php
+          $total = 0;
+          $attribute_price = 0;
+          foreach ($cart as $key => $product) {
+          $total += $product->price * $product->qty;
+          $total += + $attribute_price;
+          }
+          $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2): 0;
+          @endphp
+          <span class="value">&#8358;{{ $total - $coupon}}</span>
           </div>
         </div>
       </div>

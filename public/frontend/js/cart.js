@@ -9,7 +9,7 @@
             dataType: 'json',
             url: "/my-cart",
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 var miniCart = ""
                 $.each(response.carts, function (key, cart) {
                     miniCart += `
@@ -55,18 +55,18 @@
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'success',
+                // icon: 'success',
                 showConfirmButton: false,
                 timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: data.success,
                 })
             } else {
                 Toast.fire({
-                    type: 'error',
+                    icon: 'error',
                     title: data.error,
                 })
             }
@@ -88,18 +88,18 @@
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'success',
+                // icon: 'success',
                 showConfirmButton: false,
                 timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: data.success,
                 })
             } else {
                 Toast.fire({
-                    type: 'error',
+                    icon: 'error',
                     title: data.error,
                 })
             }
@@ -121,18 +121,18 @@
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'success',
+                // icon: 'success',
                 showConfirmButton: false,
                 timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: data.success,
                 })
             } else {
                 Toast.fire({
-                    type: 'error',
+                    icon: 'error',
                     title: data.error,
                 })
             }
@@ -155,19 +155,19 @@ $('body').on('click', '.remove_from_compare', function () {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'success',
+                // icon: 'success',
                 showConfirmButton: false,
                 timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: data.success,
                 })
                 location.reload()
             } else {
                 Toast.fire({
-                    type: 'error',
+                    icon: 'error',
                     title: data.error,
                 })
             }
@@ -190,18 +190,20 @@ $('body').on('click', '.remove_from_compare', function () {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
+                    // icon: 'success',
                     showConfirmButton: false,
                     timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toast.fire({
-                        type: 'success',
+                        icon: 'success',
                         title: data.success,
                     })
+                    // Reload Page
+                 location.reload()
                 } else {
                     Toast.fire({
-                        type: 'error',
+                        icon: 'error',
                         title: data.error,
                     })
                 }
@@ -228,19 +230,19 @@ $('body').on('click', '.remove_from_compare', function () {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
-                        icon: 'success',
+                        // icon: 'success',
                         showConfirmButton: false,
                         timer: 3000
                     })
                     if ($.isEmptyObject(data.error)) {
                         Toast.fire({
-                            type: 'success',
+                            icon: 'success',
                             title: data.success,
                         })
                         location.reload()
                     } else {
                         Toast.fire({
-                            type: 'error',
+                            icon: 'error',
                             title: data.error,
                         })
                     }
@@ -275,19 +277,19 @@ $('body').on('click', '.remove_from_compare', function () {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
+                    // icon: 'success',
                     showConfirmButton: false,
                     timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toast.fire({
-                        type: 'success',
+                        icon: 'success',
                         title: data.success,
                     })
                     location.reload()
                 } else {
                     Toast.fire({
-                        type: 'error',
+                        icon: 'error',
                         title: data.error,
                     })
                 }
@@ -306,19 +308,19 @@ $('body').on('click', '.remove_from_compare', function () {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
+                    // icon: 'success',
                     showConfirmButton: false,
                     timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toast.fire({
-                        type: 'success',
+                        icon: 'success',
                         title: data.success,
                     })
                 location.reload()
                 } else {
                     Toast.fire({
-                        type: 'error',
+                        icon: 'error',
                         title: data.error,
                     })
                 }
@@ -334,20 +336,6 @@ $('body').on('click', '.remove_from_compare', function () {
     // Shopping Cart Page ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-    // Product Details Page Add to Cart ::::::::::::::::::::::::::
-    $(document).ready(function() {
-        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-            disableOn: 700,
-            type: 'iframe',
-            mainClass: 'mfp-fade',
-            removalDelay: 160,
-            preloader: true,
-            fixedContentPos: true,
-            focus: '#username',
-            //   modal: true
-        });
-    });
-
     // Add to cart for single product starts here
     $('body').on('click', '.btn-product-addTo-cart', function() {
         var pid = $(this).attr("data-item-id");
@@ -357,13 +345,13 @@ $('body').on('click', '.remove_from_compare', function () {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'error',
+                // icon: 'error',
                 showConfirmButton: false,
                 timer: 3000
             })
           
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: 'Select color shades',
                 })
                 return
@@ -375,18 +363,18 @@ $('body').on('click', '.remove_from_compare', function () {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
-                icon: 'success',
+                // icon: 'success',
                 showConfirmButton: false,
                 timer: 3000
             })
             if ($.isEmptyObject(data.error)) {
                 Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title: data.success,
                 })
             } else {
                 Toast.fire({
-                    type: 'error',
+                    icon: 'error',
                     title: data.error,
                 })
             }
@@ -410,25 +398,25 @@ $('body').on('click', '.remove_from_compare', function () {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
-            icon: 'success',
+            // icon: 'success',
             showConfirmButton: false,
             timer: 3000
         })
         if ($.isEmptyObject(data.error)) {
             Toast.fire({
-                type: 'success',
+                icon: 'success',
                 title: data.success,
             })
         } else {
             Toast.fire({
-                type: 'error',
+                icon: 'error',
                 title: data.error,
             })
         }
         // end message
     })
         }else{
-            console.log(cartId)
+            // console.log(cartId)
             
             // $.get('/cart/update' + '/' + cartId + '/' + qtyvalue, function (data) {
             //     miniCart()
@@ -442,12 +430,12 @@ $('body').on('click', '.remove_from_compare', function () {
             //     })
             //     if ($.isEmptyObject(data.error)) {
             //         Toast.fire({
-            //             type: 'success',
+            //             icon: 'success',
             //             title: data.success,
             //         })
             //     } else {
             //         Toast.fire({
-            //             type: 'error',
+            //             icon: 'error',
             //             title: data.error,
             //         })
             //     }
@@ -463,4 +451,9 @@ $('body').on('click', '.remove_from_compare', function () {
     // ::::::::::::::::::::::::::::::::::::::::::::::::::
     
     // Product Details Page Add to Cart ::::::::::::::::::::::::::
+
+    // subscribe to newsletter ::::::
+    // subscribe to newsletter ::::::
+
+
 })(window.jQuery);

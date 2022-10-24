@@ -8,11 +8,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="breadcrumbs">
+                    {{-- <ul class="breadcrumbs">
                         <li><a href="{{ __('frontend.index') }}">{{ __('Home') }}</a> </li>
                         <li class="separator"></li>
                         <li>{{ __('Tickets') }} </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>

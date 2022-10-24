@@ -603,6 +603,7 @@ Route::group(['middleware' => 'maintainance'], function(){
 
         // Extra Routes
         Route::get('product/quck_view/{pid}',[FrontendController::class,'quick_view']);
+        Route::post('restock/remind',[FrontendController::class,'restock_reminder'])->name('frontend.remind_on_restock.submit');
 
         // -------- Extra Index Route --------------
         Route::get('/popular/category/get/{slug}/{type}/{check}', [HomeCustomizeController::class, 'getCategory'])->name('frontend.popular.category');

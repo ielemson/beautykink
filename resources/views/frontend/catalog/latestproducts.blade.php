@@ -58,11 +58,7 @@
                                                         href="{{ route('frontend.product', $newitem->slug) }}">{{ strlen(strip_tags($newitem->name)) > 35 ? substr(strip_tags($newitem->name), 0, 35) : strip_tags($newitem->name) }}</a>
                                                 </h4>
                                                 <div class="star-content">
-                                                    <i class="ion-md-star"></i>
-                                                    <i class="ion-md-star"></i>
-                                                    <i class="ion-md-star"></i>
-                                                    <i class="ion-md-star"></i>
-                                                    <i class="ion-md-star"></i>
+                                                    {!!renderStarRating($newitem->reviews->avg('rating'))!!}
                                                 </div>
                                                 <div class="prices">
                                                     @if ($newitem->previous_price != 0)
@@ -75,11 +71,18 @@
                                                 </div>
                                             </div>
                                             <div class="product-footer">
-                                                <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}"
+                                                {{-- <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}"
                                                     href="javascript:;">Add to cart</a>
                                                 <a class="btn-quick-view"
                                                     href="{{ route('frontend.product', $newitem->slug) }}"
-                                                    title="Quick view">Product Details</a>
+                                                    title="Quick view">Product Details</a> --}}
+                                                    @if ($newitem->is_stock())
+                                                    <a class="btn-product-add add_to_cart" data-id="{{ $newitem->id }}" href="javascript:;">Add to cart</a>
+                                                    {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $newitem>id }}" title="view product" onclick="Quickview({{ $newitem>id }})">Quick View</a> --}}
+                                                    <a class="btn-quick-view" href="{{ route('frontend.product', $newitem->slug) }}" title="view product">Product details</a>
+                                                    @else
+                                                    <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $newitem->slug) }}" title="view product">Remind me when restocked</a>
+                                                    @endif
                                             </div>
                                         </div>
                                     </div>
@@ -93,3 +96,6 @@
 
     </section>
 @endif
+@section('script')
+@include('frontend._inc.restock_form')
+@endsection

@@ -91,19 +91,19 @@
   });
 
   // Popup Quick View JS
-  var popupProduct = $(".popup-product-quickview");
-  $(".btn-quick-view").on('click', function() {
-    popupProduct.addClass('active');
-    $(".popup-product-overlay").addClass('active');
-    $(".popup-product-close").addClass('active');
-    $("body").addClass("fix");
-  });
-  $(".popup-product-overlay,.popup-product-close").on('click', function() {
-    popupProduct.removeClass('active');
-    $(".popup-product-overlay").removeClass('active');
-    $(".popup-product-close").removeClass('active');
-    $("body").removeClass("fix");
-  });
+  // var popupProduct = $(".popup-product-quickview");
+  // $(".btn-quick-view").on('click', function() {
+  //   popupProduct.addClass('active');
+  //   $(".popup-product-overlay").addClass('active');
+  //   $(".popup-product-close").addClass('active');
+  //   $("body").addClass("fix");
+  // });
+  // $(".popup-product-overlay,.popup-product-close").on('click', function() {
+  //   popupProduct.removeClass('active');
+  //   $(".popup-product-overlay").removeClass('active');
+  //   $(".popup-product-close").removeClass('active');
+  //   $("body").removeClass("fix");
+  // });
 
   // Hero Slider Js
     var carouselSlider = new Swiper('.default-slider-container', {

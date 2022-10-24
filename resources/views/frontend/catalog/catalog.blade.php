@@ -37,10 +37,10 @@ function renderStarRating($rating, $maxRating = 5)
                         </a>
                         <div class="product-action">
                             <div class="addto-wrap">
-                                <a class="add-wishlist" href="" title="Add to wishlist">
+                                <a class="add-wishlist" href="javascript:;" title="Add to wishlist" data-id="{{$item->id}}">
                                     <i class="icon-heart icon"></i>
                                 </a>
-                                <a class="add-compare" href="" title="Add to compare">
+                                <a class="add-compare" href="javascript:;" title="Add to compare" data-id="{{$item->id}}">
                                     <i class="icon-shuffle icon"></i>
                                 </a>
                             </div>
@@ -82,10 +82,17 @@ function renderStarRating($rating, $maxRating = 5)
                             </div>
                         </div>
                         <div class="product-footer">
-                            <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}"href="javascript:;">Add
+                            {{-- <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}"href="javascript:;">Add
                                 to cart</a>
                             <a class="btn-quick-view" href="{{ route('frontend.product', $item->slug) }}"
-                                title="Quick view">Product Details</a>
+                                title="Quick view">Product Details</a> --}}
+                                @if ($item->is_stock())
+                                <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}" href="javascript:;" title="add to cart">Add to cart</a>
+                                {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
+                                <a class="btn-quick-view" href="{{ route('frontend.product', $item->slug) }}" title="view product">Product details</a>
+                                @else
+                                <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $item->slug) }}" title="out of stock">Remind me when restocked</a>
+                                @endif
                         </div>
                     </div>
                 </div>

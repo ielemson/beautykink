@@ -4,22 +4,6 @@
 @endsection
 @section('content')
 
-    <!-- Page Title-->
-    <div class="page-title">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="breadcrumbs">
-                        <li><a href="{{ route('user.order.index') }}">{{ __('Orders') }}</a> </li>
-                        <li class="separator"></li>
-                        <li>{{ __('Order Invoice') }}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Page Content-->
     <div class="container padding-bottom-3x mb-1 print_invoice">
         <div class="card card-body p-5">
             <div class="row">

@@ -172,7 +172,7 @@ class CartRepository {
             Session::put('coupon', $coupon);
             return [
                 'status'  => true,
-                'message' => __('Promo code found!')
+                'message' => __('Promo code applied!')
             ];
         } else {
             return [

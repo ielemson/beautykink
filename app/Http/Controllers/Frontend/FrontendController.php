@@ -21,6 +21,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
+use App\Models\RestockReminder;
 use App\Models\TrackOrder;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\Frontend\FrontRepository;
@@ -662,6 +663,24 @@ class FrontendController extends Controller
             'product'=>$item,
             'galleries'=> $item->galleries,
         ]);
+    }
+
+    public function restock_reminder(Request $request){
+        $input = $request->all();
+        $check = RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->first();
+        if($check){
+             return response()->json([
+            'message'=>'We have you on the list'
+        ],200);
+        }
+       RestockReminder::create([
+        'prod_id'=>$request->id,
+        'email'=>$request->email
+       ]);
+
+       return response()->json([
+        'message'=>'You email is well recieved'
+    ],200);
     }
 }
 
