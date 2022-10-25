@@ -95,9 +95,8 @@
                                                     reviews (1)</a></li>
                                             @if ($item->video)
                                                 <li>
-                                                    <a class="popup-youtube"
-                                                        href="https://www.youtube.com/watch?v={{ $video }}"><i
-                                                            class="fa fa-youtube-play text-danger"></i> Play Video</a><br>
+            {{-- <a class="popup-youtube" href="https://www.youtube.com/watch?v={{ $video }}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br> --}}
+            <a class="popup-youtube" href="{{ $item->video }}"><i class="fab fa-youtube fa-2x text-danger"></i> Play Video</a><br>
                                             @endif
                                         </ul>
                                     </div>
