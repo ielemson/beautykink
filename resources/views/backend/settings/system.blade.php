@@ -168,7 +168,7 @@
                                                     <a class="nav-link" id="loader-tab" data-toggle="pill" href="#loader" role="tab" aria-controls="loader" aria-selected="false">{{ __('Loader') }}</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="footer-tab" data-toggle="pill" href="#footer" role="tab" aria-controls="loader" aria-selected="false">{{ __('Footer Image') }}</a>
+                                                    <a class="nav-link" id="foot-tab" data-toggle="pill" href="#foot" role="tab" aria-controls="foot" aria-selected="false">{{ __('Footer Image') }}</a>
                                                 </li>
                                                 </ul>
                                             </div>
@@ -243,38 +243,35 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- Footer Tab --}}
-                                                <div class="tab-pane fade " id="footer" role="tabpanel" aria-labelledby="footer-tab">
-                                                    <div class="form-group  col-md-12">
-                                                    {{-- <div class="form-group clearfix">
-                                                        <div class="icheck-success d-inline">
-                                                            <input type="checkbox" id="is_loader" class="" name="is_loader" value="1" {{ $setting->is_loader == 1 ? 'checked' : '' }}>
-                                                            <label for="is_loader">{{ __('Display Footer Image') }}</label>
+                                                    {{-- Footer Tab --}}
+                                                    <div class="tab-pane fade " id="foot" role="tabpanel" aria-labelledby="foot-tab">
+                                                        {{-- <div class="form-group  col-md-12"> --}}
+                                                        {{-- <div class="form-group clearfix">
+                                                            <div class="icheck-success d-inline">
+                                                                <input type="checkbox" id="is_loader" class="" name="is_loader" value="1" {{ $setting->is_loader == 1 ? 'checked' : '' }}>
+                                                                <label for="is_loader">{{ __('Display Footer Image') }}</label>
+                                                            </div>
+                                                            </div>
+                                                        </div> --}}
+    
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputEmail1">{{ __('Current Image') }} *</label>
+                                                            <br>
+                                                            <img src="{{ $setting->footer_img ? asset($setting->footer_img) : asset('backend/images/placeholder.png') }}" class="admin-setting-img my-mw-100" alt="No Image Found">
+                                                            <br>
+                                                            <span>{{ __('Upload Footer Logo') }}</span>
                                                         </div>
-                                                        </div>
-                                                    </div> --}}
-
-                                                    <div class="form-group col-md-12">
-                                                        <label for="exampleInputEmail1">{{ __('Current Image') }} *</label>
-                                                        <br>
-                                                        <img src="{{ $setting->footer_img ? asset($setting->footer_img) : asset('backend/images/placeholder.png') }}" class="admin-setting-img my-mw-100" alt="No Image Found">
-                                                        <br>
-                                                        <span>{{ __('Upload Footer Logo') }}</span>
-                                                    </div>
-
-                                                    <div class="form-group col-md-12">
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                            <input type="file" name="footer_img" class="custom-file-input upload-photo" id="loader" aria-label="File browser">
-                                                            <label class="custom-file-label" for="loader">{{ __('Upload Image...') }}</label>
+    
+                                                        <div class="form-group col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="custom-file">
+                                                                <input type="file" name="footer_img" class="custom-file-input upload-photo" id="loader" aria-label="File browser">
+                                                                <label class="custom-file-label" for="loader">{{ __('Upload Image...') }}</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                {{-- Footer Tab --}}
-
-
-
+                                                    {{-- Footer Tab --}}
                                                 </div>
                                             </div>
                                         <!-- /.card -->
