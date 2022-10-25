@@ -11,7 +11,7 @@
                                     <div class="inner-content">
                                         <div class="footer-logo">
                                             <a href="{{ route('frontend.index') }}">
-                                                <img class="logo-light" src="{{ asset('frontend/img/logo-light.png') }}"
+                                                <img class="logo-light" src="{{ $setting->footer_img ? asset($setting->footer_img) : asset('backend/images/placeholder.png') }}"
                                                     alt="Logo" />
                                             </a>
                                         </div>
