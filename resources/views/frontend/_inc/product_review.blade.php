@@ -42,7 +42,16 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#/" class="btn-review">Write your review !</a>
+                        @if (Auth::user())
+                            {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#leaveReview">{{ __('Leave a Review') }}</a> --}}
+                                <a href="#/" class="btn-review">{{ __('Leave a Review') }}</a> 
+                            </div>
+                        {{-- <a href="#/" class="btn-review">Write your review !</a> --}}
+
+                        @else
+                            {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="{{ route('user.login') }}">{{ __('Login') }}</a></div> --}}
+                            <a href="{{ route('user.login') }}" class="btn-review">Login!</a> 
+                        @endif
                     </div>
                 </div>
             </div>
