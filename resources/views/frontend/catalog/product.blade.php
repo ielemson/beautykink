@@ -122,63 +122,65 @@
                                         </div>
                                     </div>
 
-                                    <div class="product-variants">
-
-                                        @foreach ($attributes as $attribute)
-                                            @if ($attribute->options->count() != 0)
-                                                @if (strtolower($attribute->name) == 'color')
-                                                    <div class="product-variants-item">
-                                                        <h6 class="title mb-20">{{ $attribute->name }}</h6>
-                                                        @foreach ($attribute->options as $option)
-                                                            {{-- <option value="{{ $option->name }}" data-type="{{ $attribute->id }}"
-                                                            data-href="{{ $option->id }}"
-                                                            data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
-                                                            <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
-                                                            {{ $option->name }}
-                                                            </option> --}}
-                                                 
-                                                                    <label>
-                                                                        <span class="radio-wrapper">
-                                                                            <input type="radio"
-                                                                                name="attribute_name"
-                                                                                value="{{ $option->name }}"
-                                                                                id="radioid"/>
-                                                                            </span>
-                                                                        <img src="{{ asset("uploads/items/attributes/$option->image") }}"
-                                                                            alt="{{$option->name}}" class="img-thumbnail" data-color="{{$option->image}}">
-                                                                        {{ $option->name }}
-                                                                    </label>
-                                                                
-                                                        @endforeach
-                                                    </div>
+                                    <form id="add_to_cart_form">
+                                        <div class="product-variants">
+                                                
+                                             
+                                            @foreach ($attributes as $attribute)
+                                                @if ($attribute->options->count() != 0)
+                                                    @if (strtolower($attribute->name) == 'color')
+                                                        <div class="product-variants-item">
+                                                            <h6 class="title mb-20">{{ $attribute->name }}</h6>
+                                                            @foreach ($attribute->options as $option)
+                                                                {{-- <option value="{{ $option->name }}" data-type="{{ $attribute->id }}"
+                                                                data-href="{{ $option->id }}"
+                                                                data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
+                                                                <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
+                                                                {{ $option->name }}
+                                                                </option> --}}
+                                                     
+                                                                        <label>
+                                                                            <span class="radio-wrapper">
+                                                                                <input type="radio"
+                                                                                    name="attribute_name"
+                                                                                    value="{{ $option->name }}"
+                                                                                    id="radioid" required/>
+                                                                                </span>
+                                                                            <img src="{{ asset("uploads/items/attributes/$option->image") }}"
+                                                                                alt="{{$option->name}}" class="img-thumbnail" data-color="{{$option->image}}">
+                                                                            {{ $option->name }}
+                                                                        </label>
+                                                                    
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
                                                 @endif
-                                            @endif
-                                        @endforeach
-
-                                    </div>
-
-                                    <div class="product-description">
-                                        {!! $item->details !!}
-                                    </div>
-                                    <div class="product-quick-action">
-                                        {{-- <div class="product-quick-qty">
-
-                                            <div class="pro-qty">
+                                            @endforeach
+    
+                                        </div>
+    
+                                        <div class="product-description">
+                                            {!! $item->details !!}
+                                        </div>
+                                        <div class="product-quick-action">
+                                            {{-- <div class="product-quick-qty">
+    
+                                                <div class="pro-qty">
+                                               
+                                                    <input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
+          
+                                                </div>
+                                            </div> --}}
                                            
-                                                <input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
-      
-                                            </div>
-                                        </div> --}}
-                                        {{-- <input type="text" id="cartId"> --}}
+                                              <input type="hidden" id="pid" class="qty" title="product" value="{{$item->id}}" name="pid">
+                                                @if ($item->is_stock())
+                                                <button type="submit" class="btn-product-add btn-danger">Add to cart</button>
+                                                @else
+                                                <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="remind me on restock" data-id="{{$item->id}}">Remind me when restocked</a>
+                                                @endif
+                                        </div>
+                                    </form>
 
-                                        
-                                            @if ($item->is_stock())
-                                            <a class="btn-product-add btn-product-addTo-cart"
-                                            data-item-id="{{ $item->id }}" href="javascript:;">Add to cart</a>
-                                            @else
-                                            <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="remind me on restock" data-id="{{$item->id}}">Remind me when restocked</a>
-                                            @endif
-                                    </div>
                                     <div class="product-wishlist-compare">
                                         <a href="javascript:;" class="btn-wishlist add-wishlist" data-id="{{$item->id}}"><i class="icon-heart"></i>Add to
                                             wishlist</a>
@@ -223,7 +225,6 @@
         integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
         <script>
              // Product Details Page Add to Cart ::::::::::::::::::::::::::
     $(document).ready(function() {
@@ -240,6 +241,7 @@
     });
         </script>
 @include('frontend._inc.restock_form')
+
 @endsection
 
 

@@ -619,7 +619,8 @@ Route::group(['middleware' => 'maintainance'], function(){
 
         // NEW CART ROUTES
         Route::get('/cart/add/{id}/{qty}/{name?}', [CartController::class, 'addCart'])->name('frontend.addcart');
-        Route::get('/cart/update/{rowId}/{qty}', [CartController::class, 'updateCart'])->name('frontend.addcart');
+        Route::get('/cart/update/{rowId}/{qty}', [CartController::class, 'updateCart'])->name('frontend.updatecart');
+        // Route::post('/post/cart', [CartController::class, 'newCart'])->name('frontend.addCartPost');
         Route::get('/my-cart', [CartController::class, 'myCart'])->name('frontend.myCart');
         Route::get('/my-cart/single/{pid}', [CartController::class, 'mySingleCart'])->name('frontend.mySingleCart');
         Route::get('/my-cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('frontend.removeFromCart');

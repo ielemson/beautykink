@@ -109,7 +109,7 @@ class CatalogController extends Controller
                     return $query->whereIn('id', $option_wise_item_ids);
                  })
                  ->where('status', 1)
-                 ->orderBy('id', 'desc')->paginate(16);
+                 ->orderBy('id', 'desc')->paginate(2);
 
         // attribute check
         $checkitem = Item::whereStatus(1)->get();

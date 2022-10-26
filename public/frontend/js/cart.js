@@ -337,50 +337,68 @@ $('body').on('click', '.remove_from_compare', function () {
 
 
     // Add to cart for single product starts here
-    $('body').on('click', '.btn-product-addTo-cart', function() {
-        var pid = $(this).attr("data-item-id");
-        var attribute_name = $("input[name='attribute_name']:checked").val();
-        var qty = 1;
-        if(!attribute_name){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                // icon: 'error',
-                showConfirmButton: false,
-                timer: 3000
-            })
+    // $('body').on('click', '.btn-product-addTo-cart', function() {
+    //     var pid = $(this).attr("data-item-id");
+    //     var attribute_name = $("input[name='attribute_name']:checked").val();
+    //     var qty = 1;
+    //     if(!attribute_name){
+    //         const Toast = Swal.mixin({
+    //             toast: true,
+    //             position: 'top-end',
+    //             // icon: 'error',
+    //             showConfirmButton: false,
+    //             timer: 3000
+    //         })
           
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Select color shades',
-                })
-                return
-        }
+    //             Toast.fire({
+    //                 icon: 'error',
+    //                 title: 'Select color shades',
+    //             })
+    //             return
+    //     }
 
-        $.get('/cart/add' + '/' + pid + '/' + qty + '/' + attribute_name, function (data) {
-            miniCart()
-            // start message
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                // icon: 'success',
-                showConfirmButton: false,
-                timer: 3000
-            })
-            if ($.isEmptyObject(data.error)) {
-                Toast.fire({
-                    icon: 'success',
-                    title: data.success,
-                })
-            } else {
-                Toast.fire({
-                    icon: 'error',
-                    title: data.error,
-                })
+       
+    // });
+
+
+    $('#add_to_cart_form').on('submit',function(e){
+        e.preventDefault();
+    
+        //    var pid = $(this).attr("data-item-id");
+            var attribute_name = $("input[name='attribute_name']:checked").val();
+            var pid = $("input[name='pid']").val();
+            var qty = 1;
+
+            if(attribute_name){
+                var url = '/cart/add' + '/' + pid + '/' + qty + '/' + attribute_name
+            }else{
+                var url = '/cart/add' + '/' + pid + '/' + qty
             }
-            // end message
-        })
-    });
+
+            $.get(url, function (data) {
+                miniCart()
+                // start message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    // icon: 'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success,
+                    })
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+                // end message
+            })
+        });
     // Add to cart single product  ends here
     // Product Details Page Add to Cart ::::::::::::::::::::::::::_>
 

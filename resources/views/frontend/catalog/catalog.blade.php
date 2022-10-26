@@ -91,7 +91,7 @@ function renderStarRating($rating, $maxRating = 5)
                                 {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
                                 <a class="btn-quick-view" href="{{ route('frontend.product', $item->slug) }}" title="view product">Product details</a>
                                 @else
-                                <a class="btn-quick-view btn-block" href="{{ route('frontend.product', $item->slug) }}" title="out of stock">Remind me when restocked</a>
+                                <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="out of stock" data-id="{{$item->id}}">Remind me when restocked</a>
                                 @endif
                         </div>
                     </div>
@@ -117,3 +117,12 @@ function renderStarRating($rating, $maxRating = 5)
         {{ $items->links('frontend._inc.pagination') }}
     </div>
 </div>
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
+        integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+@include('frontend._inc.restock_form')
+
+@endsection

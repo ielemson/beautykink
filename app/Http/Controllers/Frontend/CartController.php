@@ -209,9 +209,10 @@ class CartController extends Controller
         if($attribute_name){
             $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
             $attribute_color = $atrributename->image;
-            }else{
-                $attribute_color = null;
             }
+            // else{
+            //     $attribute_color = '';
+            // }
         if(Session::has('coupon')){
                     Session::forget('coupon');
                 }
@@ -241,9 +242,10 @@ class CartController extends Controller
         if($attribute_name){
             $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
             $attribute_color = $atrributename->image;
-            }else{
-                $attribute_color = null;
             }
+            // else{
+            //     $attribute_color = null;
+            // }
         if(Session::has('coupon')){
                     Session::forget('coupon');
                 }
@@ -273,9 +275,10 @@ class CartController extends Controller
         if($attribute_name){
             $atrributename = DB::table('attribute_options')->where('name',$attribute_name)->first();
             $attribute_color = $atrributename->image;
-            }else{
-                $attribute_color = null;
             }
+            // else{
+            //     $attribute_color = null;
+            // }
         if(Session::has('coupon')){
                     Session::forget('coupon');
                 }
