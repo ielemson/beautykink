@@ -11,7 +11,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 @foreach ($products->orderBy('id', 'DESC')->get() as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3">

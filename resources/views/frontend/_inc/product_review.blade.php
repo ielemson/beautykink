@@ -22,37 +22,53 @@
 
                 <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                     <div class="product-comments-content">
-                        <div class="comment clearfix">
-                            <div class="comment-author">
-                                <span class="grade">Grade</span>
-                                <div class="star-content">
-                                    <i class="ion-md-star"></i>
-                                    <i class="ion-md-star"></i>
-                                    <i class="ion-md-star"></i>
-                                    <i class="ion-md-star"></i>
-                                    <i class="ion-md-star icon-color-gray"></i>
+                       
+                        <div class="col-md-8">
+                            @forelse ($reviews as $review)
+                                <div class="single-review">
+                                    <div class="comment">
+                                        {{-- <div class="comment-author-ava"><img class="lazy" src="{{ asset($review->user->photo) }}" alt="Comment author" style="width: 50px; height:50px"> --}}
+                                        </div>
+                                        <div class="comment-body">
+                                            <div class="comment-header d-flex flex-wrap justify-content-between">
+                                                <div>
+                                                    <h4 class="comment-title mb-1">{{ $review->subject }}</h4>
+                                                    <span>{{ $review->user->first_name }}</span>
+                                                    <span class="ml-3">{{ $review->created_at->format('M d, Y') }}</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <div class="rating-stars">
+                                                        @php
+                                                            for ($i = 0; $i < $review->rating; $i++) {
+                                                                echo "<i class = 'far fa-star filled'></i>";
+                                                            }
+                                                        @endphp
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="comment-text  mt-2">{{ $review->review }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="comment-author-info">
-                                    <span class="title">posthemes</span>
-                                    <span class="date">05/19/2021</span>
+                            @empty
+                                <div class="">
+                                    {{ __('No Reviews Found.') }}
                                 </div>
-                                <div class="comment-details">
-                                    <span class="title">Demo</span>
-                                    <p class="desc">0 out of 1 people found this review useful.</p>
+                            @endforelse
+                            <div class="row mt-15">
+                                <div class="col-lg-12 text-center">
+                                    {{ $reviews->links() }}
                                 </div>
                             </div>
+            
                         </div>
                         @if (Auth::user())
-                            {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#leaveReview">{{ __('Leave a Review') }}</a> --}}
-                                <a  data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn-review">{{ __('Leave a Review') }}</a> 
+                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn-review">{{ __('Leave a Review') }}</a> 
+                                @else
+                                {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="{{ route('user.login') }}">{{ __('Login') }}</a></div> --}}
+                                <a href="{{ route('user.login') }}" class="btn-review">Login!</a> 
+                            @endif
                             </div>
-                            {{-- <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a> --}}
-                        {{-- <a href="#/" class="btn-review">Write your review !</a> --}}
-
-                        @else
-                            {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="{{ route('user.login') }}">{{ __('Login') }}</a></div> --}}
-                            <a href="{{ route('user.login') }}" class="btn-review">Login!</a> 
-                        @endif
                     </div>
                 </div>
             </div>

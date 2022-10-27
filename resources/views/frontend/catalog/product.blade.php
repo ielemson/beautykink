@@ -91,8 +91,11 @@
                                             {!! renderStarRating($item->reviews->avg('rating')) !!}
                                         </div>
                                         <ul class="comments-advices">
-                                            <li><a href="#/" class="reviews"><i class="fa fa-commenting-o"></i>Read
-                                                    reviews (1)</a></li>
+                                            <li><a href="#description" class="reviews"><i class="fa fa-commenting-o"></i>Read
+                                                    reviews ({{count($reviews)}})</a></li>
+                                                    @auth
+                                                    <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  class="comment"><i class="fa fa-pencil-square-o"></i>Write a review</a></li>
+                                                    @endauth
                                             @if ($item->video)
                                                 <li>
             {{-- <a class="popup-youtube" href="https://www.youtube.com/watch?v={{ $video }}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br> --}}
@@ -124,9 +127,7 @@
 
                                     <form id="add_to_cart_form">
                                         <div class="product-variants">
-                                                
-                                             
-                                            @foreach ($attributes as $attribute)
+                                          @foreach ($attributes as $attribute)
                                                 @if ($attribute->options->count() != 0)
                                                     @if (strtolower($attribute->name) == 'color')
                                                         <div class="product-variants-item">
@@ -216,6 +217,10 @@
         </div>
         
     </section>
+
+    {{-- Similar Products --}}
+    @include('frontend.catalog.similarproduct')
+    {{-- Similar Products --}}
     <!--== End Product Single Area Wrapper ==-->
 @endsection
 @section('styleplugins')
@@ -256,6 +261,7 @@
         </script>
 
 <script>
+
     if ($("#leaveReview").length > 0) {
     $("#leaveReview").validate({
     rules: {
@@ -309,7 +315,7 @@
     type: "POST",
     data: $('#leaveReview').serialize(),
     success: function( response ) {
-        console.log(response)
+        // console.log(response)
         const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -321,6 +327,14 @@
             icon: 'error',
             title: response.errors[0],
         })
+    }else{
+        Toast.fire({
+            icon: 'success',
+            title: response,
+        })
+        $("#staticBackdrop").modal("hide");
+        $('#review-subject').val('')
+        $('#review-message').val('')
     }
     $('#submit').html('Submit');
     $("#submit"). attr("disabled", false);

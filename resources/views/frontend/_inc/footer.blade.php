@@ -78,24 +78,24 @@
 {{-- Mobile Menu Bottom --}}
 <nav class="mobile-nav">
     <a href="{{ route('frontend.index') }}" class="bloc-icon">
-        <i class="icon-home icon fa-2x"></i>
+        <i class="icon-home icon"></i>
     </a>
     @if (!Auth::user())
         {{-- <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><b><i
-                    class="icon-user fa-2x"></i></b> </a> --}}
-                    <a href="{{ route('user.login') }}" class="btn-cart bloc-icon"><i class="icon-user icon fa-2x"></i>
+                    class="icon-user"></i></b> </a> --}}
+                    <a href="{{ route('user.login') }}" class="btn-cart bloc-icon"><i class="icon-user icon"></i>
                         <span class=""></span></a>
     @else
-        <a href="{{ route('user.dashboard') }}" class="btn-cart bloc-icon"><b><i class="icon-speedometer fa-2x"></i></b>
+        <a href="{{ route('user.dashboard') }}" class="btn-cart bloc-icon"><b><i class="icon-speedometer"></i></b>
         </a>
     @endif
 
-    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-bag icon fa-2x"></i>
+    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-bag icon"></i>
         <span class="item-count cart-count">0</span></a>
 
-    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-heart icon fa-2x"></i>
+    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-heart icon"></i>
         <span class="wishlist_count">0</span></a>
 
     <a href="{{ route('frontend.compare') }}" class="btn-cart bloc-icon"><i
-            class="icon-shuffle icon fa-2x"></i> <span class="compare_count">0</span></a>
+            class="icon-shuffle icon"></i> <span class="compare_count">0</span></a>
 </nav>

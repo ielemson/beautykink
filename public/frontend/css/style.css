@@ -22,6 +22,9 @@
   Typography CSS
 -----------------------------------------------------------------------
 */
+html {
+  scroll-behavior: smooth;
+}
 body {
   color: #707070;
   font-size: 0.875rem;

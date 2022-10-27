@@ -26,10 +26,11 @@
 /* Custom Mobile menu :::::::::::::::::::::::::::: */
 .mobile-nav {
   /* background: #fff; */
-  background: hsl(0, 0%, 98%);
+  background: #f5f6f9;
+  /* background: hsl(0, 0%, 98%); */
   position: fixed;
   bottom: 0;
-  height: 50px;
+  height: 55px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -47,6 +48,17 @@
   .mobile-nav {
   display: none;
   }
+}
+.mobile-nav a i {
+    color: #232323;
+    font-size: 35px;
+    font-weight: 600;
+    /* margin-bottom: 18px; */
+    /* transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out; */
 }
 /* Custom Mobile menu :::::::::::::::::::::::::::: */
 </style>

@@ -16,7 +16,7 @@ $user = Auth::user();
             </div>
         </div>
         <nav class="list-group">
-            <a class="list-group-item {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ route('user.dashboard') }}"><i class="icon-command"></i>{{ __('Dashboard') }}</a>
+            <a class="list-group-item {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ route('user.dashboard') }}"><i class="icon-speedometer"></i>{{ __('Dashboard') }}</a>
             <a class="list-group-item {{ request()->is('user/profile') ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="icon-user"></i>{{ __('Profile') }}</a>
             <a class="list-group-item {{ request()->is('user/ticket') ? 'active' : '' }}" href="{{ route('user.ticket') }}"><i class="icon-paper-clip"></i>{{ __('Support Ticket') }}</a>
             <a class="list-group-item with-badge {{ request()->is('user/orders') ? 'active' : '' }}" href="{{ route('user.order.index') }}"><i class="icon-bag icon"></i>{{ __('Orders') }}<span class="badge badge-default badge-pill">{{ $user->orders->count() }}</span></a>
