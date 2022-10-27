@@ -336,31 +336,6 @@ $('body').on('click', '.remove_from_compare', function () {
     // Shopping Cart Page ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-    // Add to cart for single product starts here
-    // $('body').on('click', '.btn-product-addTo-cart', function() {
-    //     var pid = $(this).attr("data-item-id");
-    //     var attribute_name = $("input[name='attribute_name']:checked").val();
-    //     var qty = 1;
-    //     if(!attribute_name){
-    //         const Toast = Swal.mixin({
-    //             toast: true,
-    //             position: 'top-end',
-    //             // icon: 'error',
-    //             showConfirmButton: false,
-    //             timer: 3000
-    //         })
-          
-    //             Toast.fire({
-    //                 icon: 'error',
-    //                 title: 'Select color shades',
-    //             })
-    //             return
-    //     }
-
-       
-    // });
-
-
     $('#add_to_cart_form').on('submit',function(e){
         e.preventDefault();
     

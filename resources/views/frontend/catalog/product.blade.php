@@ -208,6 +208,10 @@
             </div>
             {{-- Write Product Review --}}
             @include('frontend._inc.product_review',['item_id'=>$item->id ])
+            @auth
+            @include('frontend._inc.review_modal')
+            @endauth
+         
             {{-- Write Product Review --}}
         </div>
         
@@ -218,6 +222,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
         integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <style>
+        .error{
+        color: #FF0000; 
+        font-weight: 600;
+        }
+        .modal-header {
+    background-color: #f5f5f5;
+}
+        </style>
 @endsection
 
 @section('script')
@@ -240,6 +254,84 @@
         });
     });
         </script>
+
+<script>
+    if ($("#leaveReview").length > 0) {
+    $("#leaveReview").validate({
+    rules: {
+    name: {
+    required: true,
+    maxlength: 50
+    },
+    email: {
+    required: true,
+    maxlength: 50,
+    email: true,
+    },  
+    review: {
+    required: true,
+    maxlength: 300
+    },   
+    rating: {
+    required: true,
+    maxlength: 300
+    },   
+    subject: {
+    required: true,
+    maxlength: 300
+    },   
+    },
+    messages: {
+    name: {
+    required: "Please enter name",
+    maxlength: "Your name maxlength should be 50 characters long."
+    },
+    email: {
+    required: "Please enter valid email",
+    email: "Please enter valid email",
+    maxlength: "The email name should less than or equal to 50 characters",
+    },   
+    message: {
+    required: "Please enter message",
+    maxlength: "Your message name maxlength should be 300 characters long."
+    },
+    },
+    submitHandler: function(form) {
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $('#submit').html('Please Wait...');
+    $("#submit"). attr("disabled", true);
+    $.ajax({
+    url: "{{ route('frontend.review.submit') }}",
+    type: "POST",
+    data: $('#leaveReview').serialize(),
+    success: function( response ) {
+        console.log(response)
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+        })
+    if(response.errors){
+        Toast.fire({
+            icon: 'error',
+            title: response.errors[0],
+        })
+    }
+    $('#submit').html('Submit');
+    $("#submit"). attr("disabled", false);
+    // alert('Ajax form has been submitted successfully');
+    // document.getElementById("contactUsForm").reset(); 
+    }
+    });
+    }
+    })
+    }
+    </script>
 @include('frontend._inc.restock_form')
 
 @endsection

@@ -44,8 +44,9 @@
                         </div>
                         @if (Auth::user())
                             {{-- <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#leaveReview">{{ __('Leave a Review') }}</a> --}}
-                                <a href="#/" class="btn-review">{{ __('Leave a Review') }}</a> 
+                                <a  data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn-review">{{ __('Leave a Review') }}</a> 
                             </div>
+                            {{-- <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a> --}}
                         {{-- <a href="#/" class="btn-review">Write your review !</a> --}}
 
                         @else
@@ -58,3 +59,4 @@
         </div>
     </div>
 </div>
+{{-- @include('frontend._inc.product_review') --}}

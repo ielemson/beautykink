@@ -226,7 +226,7 @@ var mainbs = {!! $mainbs !!};
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     @yield('script')
 
     @if ($setting->is_facebook_messenger == '1')
