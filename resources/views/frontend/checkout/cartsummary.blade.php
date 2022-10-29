@@ -17,41 +17,44 @@
           <span class="label">Discount</span>
           <span class="value text-danger">-{{ PriceHelper::setCurrencyPrice($discount ? $discount['discount'] : 0) }}</span>
         </div>
-      @endif
-          
+        @endif
+      <div class="card-block-item">
+        <span class="label">Shipping</span>
+        <span class="value shipping_value">&#8358;0</span>
+      </div>
         </div>
         <div class="separator"></div>
         <div class="card-block">
           <div class="card-block-item">
             <span class="label">Order Total</span>
             @php
-          $total = 0;
-          $attribute_price = 0;
-          foreach ($cart as $key => $product) {
-          $total += $product->price * $product->qty;
-          $total += + $attribute_price;
-          }
-          $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2): 0;
+          // $total = 0;
+          // $attribute_price = 0;
+          // foreach ($cart as $key => $product) {
+          // $total += $product->price * $product->qty;
+          // $total += + $attribute_price;
+          // }
+          // $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2): 0;
+          // $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price'): 0;
           @endphp
-          <span class="value">&#8358;{{ $total - $coupon}}</span>
+          <span class="value orderTotal">&#8358;0</span>
           </div>
         </div>
       </div>
     </div>
     <div class="block-reassurance">
+      <h5>Our Shipping Services</h5>
+      {!!$proceed ?? ''!!}
         <ul>
+          @php
+          $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
+        @endphp
+          @foreach ($shipping as $ship)
             <li>
-              <img src="{{asset('frontend/img/shop/cart/verified-user.png')}}" alt="security policy">
-              <span>Security Policy (Edit With Customer Reassurance Module)</span>
+              <img src="{{asset('frontend/img/shop/cart/local-shipping.png')}}" alt="security policy">
+              <span>{{$ship->title}} - &#8358;{{$ship->price}} {!!$shipping_id ==$ship->id  ? '<i class="icon icon-check text-success"></i>':''!!}</span>
             </li>
-            <li>
-              <img src="{{asset('frontend/img/shop/cart/local-shipping.png')}}" alt="delivery policy">
-              <span>Delivery Policy (Edit With Customer Reassurance Module)</span>
-            </li>
-            <li>
-              <img src="{{asset('frontend/img/shop/cart/swap-horiz.png')}}" alt="return policy">
-              <span>Return Policy (Edit With Customer Reassurance Module)</span>
-            </li>
+            @endforeach
           </ul>
     </div>
   </div>

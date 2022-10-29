@@ -59,7 +59,7 @@
                                   <div class="personal-addresses">
                                     <p class="p-text"><b>Billing Address</b></p>
                                     <div class="delivery-address-form">
-                                      <form id="checkoutBilling" action="{{ route('frontend.checkout.store') }}" method="POST">
+                                      <form id="checkoutBilling" action="{{ route('frontend.guest.checkout.store') }}" method="POST">
                                         @csrf
                                         
                                         @if (Auth::user())
@@ -67,13 +67,13 @@
                                           <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-fn">{{ __('First Name') }}</label>
-                                                  <input class="form-control" name="bill_first_name" type="text" required id="checkout-fn" value="{{ $user->first_name }}">
+                                                  <input class="form-control" name="bill_first_name" type="text" required id="checkout-fn">
                                               </div>
                                           </div>
                                           <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-ln">{{ __('Last Name') }}</label>
-                                                  <input class="form-control" name="bill_last_name" type="text" required id="checkout-ln" value="{{ $user->last_name }}">
+                                                  <input class="form-control" name="bill_last_name" type="text" required id="checkout-ln">
                                               </div>
                                           </div>
                                       </div>
@@ -81,13 +81,13 @@
                                           <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-email">{{ __('E-mail Address') }}</label>
-                                                  <input class="form-control" name="bill_email" type="email" required id="checkout-email" value="{{ $user->email }}">
+                                                  <input class="form-control" name="bill_email" type="email" required id="checkout-email">
                                               </div>
                                           </div>
                                           <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-phone">{{ __('Phone Number') }}</label>
-                                                  <input class="form-control" name="bill_phone" type="text" id="checkout-phone" required value="{{ $user->phone }}">
+                                                  <input class="form-control" name="bill_phone" type="text" id="checkout-phone" required>
                                               </div>
                                           </div>
                                       </div>
@@ -96,13 +96,13 @@
                                               <div class="col-sm-6">
                                                   <div class="form-group">
                                                       <label for="checkout-address1">{{ __('Address') }} 1 *</label>
-                                                      <input class="form-control" name="bill_address1" required type="text" id="checkout-address1" value="{{ $user->bill_address1 }}">
+                                                      <input class="form-control" name="bill_address1" required type="text" id="checkout-address1">
                                                   </div>
                                               </div>
                                               <div class="col-sm-6">
                                                   <div class="form-group">
                                                       <label for="checkout-address2">{{ __('Address') }} 2</label>
-                                                      <input class="form-control" name="bill_address2" type="text" id="checkout-address2" value="{{ $user->bill_address2 }}">
+                                                      <input class="form-control" name="bill_address2" type="text" id="checkout-address2">
                                                   </div>
                                               </div>
                                           </div>
@@ -110,7 +110,7 @@
                                               <div class="col-sm-6">
                                                   <div class="form-group">
                                                       <label for="checkout-zip">{{ __('Zip Code') }}</label>
-                                                      <input class="form-control" name="bill_zip" type="text" id="checkout-zip" value="{{ $user->bill_zip }}">
+                                                      <input class="form-control" name="bill_zip" type="text" id="checkout-zip">
                                                   </div>
                                               </div>
                                               
@@ -144,7 +144,7 @@
                                               <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="checkout-city">{{ __('City') }} *</label>
-                                                    <input class="form-control" name="bill_city" type="text" required id="checkout-city" value="{{ $user->bill_city }}">
+                                                    <input class="form-control" name="bill_city" type="text" required id="checkout-city">
                                                 </div>
                                             </div>
                                           </div>

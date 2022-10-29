@@ -12,20 +12,17 @@ $option_price = 0;
     </a>
     <div class="popup-cart-content">
         {{-- mini cart product drop-down list  starts--}}
-                <ul class="popup-product-list">
-                </ul>
+                {{-- <ul class="popup-product-list">
+                </ul> --}}
         {{-- mini cart product drop-down list ends--}}
           
-            <div class="price-content">
+            {{-- <div class="price-content">
                 <div class="cart-subtotals">
                     <div class="products">
                         <span class="label">Subtotal</span>
                         <span class="value cart_total">0</span>
                     </div>
-                    {{-- <div class="products">
-                        <span class="label">Shipping</span>
-                        <span class="value">Free</span>
-                    </div> --}}
+                   
                 </div>
                 <div class="cart-total">
                     <span class="label">Total</span>
@@ -39,7 +36,7 @@ $option_price = 0;
                 <div class="checkout">
                     <a href="{{route('frontend.checkout.billing')}}" class="btn-Checkout">Checkout</a>
                 </div>
-            </div>
+            </div> --}}
         {{-- @else
             <div class="price-content">
 

@@ -39,12 +39,30 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group row mb-15">
-                                    <div class="col-12 text-center">
-                                        <a class="btn-forgot" href="{{ route('user.forgot') }}">Forgot your password?</a>
-                                        <button class="btn-signin" type="submit">Sign in</button>
-                                    </div>
+                               @if (Cart::count()> 0)
+                               <div class="form-group row mb-15">
+                                <div class="col-6 text-center">
+                                    <a class="btn-forgot" href="{{ route('user.forgot') }}">Forgot your password?</a>
+                                    <button class="btn-signin" type="submit">Sign in</button>
                                 </div>
+                            
+                               <div class="col-6 text-center">
+                                <a class="btn-forgot" href="javascript:;">Checkout as Guest?</a>
+                                <a href="{{route('frontend.guest.checkout')}}" class="btn-signin">Guest Checkout</a>
+                            </div>
+                             
+                            </div>
+                               @else
+                               <div class="form-group row mb-15">
+                                <div class="col-12 text-center">
+                                    <a class="btn-forgot" href="{{ route('user.forgot') }}">Forgot your password?</a>
+                                    <button class="btn-signin" type="submit">Sign in</button>
+                                </div>
+                            
+                              
+                             
+                            </div> 
+                               @endif
                             </form>
                         </div>
                         <a class="btn-create-account" href="{{ route('user.register') }}">No account? Create one here</a>

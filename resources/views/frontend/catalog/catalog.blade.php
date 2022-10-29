@@ -23,10 +23,12 @@ function renderStarRating($rating, $maxRating = 5)
 }
 @endphp
 
-
-@if ($items->count() > 0)
+<section class="product-area mb-15">
+    <div class="container-fluid pb-55">
+<div class="row">
+    @if ($items->count() > 0)
     @foreach ($items as $item)
-        <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="col-sm-6 col-md-4 col-lg-3 ">
             <!--== Start Shop Item ==-->
             <div class="product-item">
                 <div class="inner-content">
@@ -101,6 +103,7 @@ function renderStarRating($rating, $maxRating = 5)
             <!--== End Shop Item ==-->
         </div>
     @endforeach
+</div>
 @else
 <div class="col-lg-8 mx-auto">
   <div class="card">
@@ -111,13 +114,15 @@ function renderStarRating($rating, $maxRating = 5)
 </div>
 @endif
 
+
+</section>
+</div>
 <!-- Pagination-->
 <div class="row mt-15" id="item_pagination">
     <div class="col-lg-12 text-center">
         {{ $items->links('frontend._inc.pagination') }}
     </div>
 </div>
-
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
         integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="

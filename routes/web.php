@@ -62,6 +62,7 @@ use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
 use App\Http\Controllers\Backend\ShippingServiceController;
+use App\Http\Controllers\frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
 
 /*
@@ -653,17 +654,29 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/catalog', [CatalogController::class, 'index'])->name('frontend.catalog');
         Route::get('/catalog/view/{type}', [CatalogController::class, 'viewType'])->name('frontend.catalog.view');
 
+        // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
+        Route::get('/guest/checkout/billing/address', [GuestCheckoutController::class, 'ShippingAddress'])->name('frontend.guest.checkout');
+        Route::post('/guest/checkout/billing/store', [GuestCheckoutController::class, 'billingStore'])->name('frontend.guest.checkout.store');
+        Route::get('/guest/checkout/shipping/address', [GuestCheckoutController::class, 'shipping'])->name('frontend.guest.checkout.shipping');
+        Route::post('/guest/checkout/shipping/store', [GuestCheckoutController::class, 'shippingStore'])->name('frontend.guest.checkout.shipping.store');
+        Route::get('/guest/checkout/review/payment', [GuestCheckoutController::class, 'payment'])->name('frontend.guest.checkout.payment');
+        Route::post('/guest/checkout-submit', [GuestCheckoutController::class, 'checkout'])->name('frontend.guest.checkout.submit');
+        Route::get('/guest/checkout/success', [GuestCheckoutController::class, 'paymentSuccess'])->name('frontend.guest.checkout.success');
+        // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
+
         //------------ Checkout ------------
         Route::get('/checkout/billing/address', [CheckoutController::class, 'shippingAddress'])->name('frontend.checkout.billing');
         Route::post('/checkout/billing/store', [CheckoutController::class, 'billingStore'])->name('frontend.checkout.store');
-        Route::get('/checkout/shipping/address', [CheckoutController::class, 'shipping'])->name('frontend.checkout.shipping');
         Route::post('/checkout/shipping/store', [CheckoutController::class, 'shippingStore'])->name('frontend.checkout.shipping.store');
+        Route::get('/checkout/shipping/address', [CheckoutController::class, 'shipping'])->name('frontend.checkout.shipping');
         Route::get('/checkout/review/payment', [CheckoutController::class, 'payment'])->name('frontend.checkout.payment');
         Route::post('/checkout-submit', [CheckoutController::class, 'checkout'])->name('frontend.checkout.submit');
         Route::get('/checkout/success', [CheckoutController::class, 'paymentSuccess'])->name('frontend.checkout.success');
         Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
         Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
         Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
+        Route::get('/checkout/add_shippung/{id}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
+
 
         Route::post('/paytm/notify', [PaytmController::class, 'notify'])->name('frontend.paytm.notify');
         Route::post('/paytm/submit', [PaytmController::class, 'store'])->name('frontend.paytm.submit');

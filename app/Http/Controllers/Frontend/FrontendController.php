@@ -22,10 +22,11 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
 use App\Models\RestockReminder;
+use App\Models\ShippingService;
 use App\Models\TrackOrder;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\Frontend\FrontRepository;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 class FrontendController extends Controller
 {
     /**
@@ -682,6 +683,31 @@ class FrontendController extends Controller
         'message'=>'You email is well recieved'
     ],200);
     }
+
+     // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
+     public function getShippingInfo($id)
+     {
+         if ($id != 0) {
+             $shipping = ShippingService::where('id', $id)->first();
+ 
+             Session::put('shipping_price', $shipping->price);
+             Session::put('shipping_id', $shipping->id);
+         }
+         $total = 0;
+         $attribute_price = 0;
+         foreach (Cart::content() as $key => $product) {
+             $total += $product->price * $product->qty;
+             $total += +$attribute_price;
+         }
+ 
+         $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+         $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+         $cart_total = ($total - $coupon) + $shippingPrice;
+         return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total], 200);
+     }
+
+    
+     // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
 }
 
 

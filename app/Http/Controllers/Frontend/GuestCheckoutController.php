@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\frontend;
 
-use App\Models\Item;
-use App\Models\Order;
-use App\Models\Setting;
-use App\Models\Currency;
 use App\Helpers\SmsHelper;
-use App\Helpers\PriceHelper;
+use App\Http\Controllers\Controller;
+;
 use App\Traits\BankCheckout;
 use Illuminate\Http\Request;
-use App\Models\PaymentSetting;
 use App\Traits\MollieCheckout;
 use App\Traits\PaypalCheckout;
 use App\Traits\StripeCheckout;
+use App\Models\PaymentSetting;
 use App\Models\ShippingService;
 use App\Traits\PaystackCheckout;
-use Mollie\Laravel\Facades\Mollie;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\PaymentRequest;
 use App\Traits\CashOnDeliveryCheckout;
+use App\Http\Requests\PaymentRequest;
+use App\Models\Order;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
-class CheckoutController extends Controller
+
+class GuestCheckoutController extends Controller
 {
+
     use StripeCheckout {
         StripeCheckout::__construct  as private __stripeConstruct;
     }
@@ -43,26 +41,24 @@ class CheckoutController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->__stripeConstruct();
         $this->__paypalConstruct();
         $this->__mollieConstruct();
     }
+    
 
-    /**
-     * Show page to colelct addresseses.
-     *
-     * @return \Illuminate\Http\Response
-    */
-    public function shippingAddress(Request $request)
+    // guest shiping address 
+    public function ShippingAddress(Request $request)
 
     {
+        // Session::forget('shipping_id');
         
         if (!Cart::count()) {
             return redirect()->route('frontend.cart');
         }
 
-        $data['user'] = Auth::user();
+        // $data['user'] = Auth::user();
         $cart = Cart::content();
         $shipping = [];
         $shipping = ShippingService::whereStatus(1)->get();
@@ -79,17 +75,22 @@ class CheckoutController extends Controller
         $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
-        return view('frontend.checkout.billing', $data);
+        return view('frontend.guest.checkout.billing', $data);
     }
 
-    /**
-     * Store billing information into session.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-    */
-    public function billingStore(Request $request)
+    public function shippingStore(Request $request)
     {
+        // dd($request->all());
+        Session::forget('shipping_address');
+
+        Session::put('shipping_address', $request->all());
+        // dd(Session::get('shipping_address'));
+        return redirect()->route('frontend.guest.checkout.payment');
+    }
+
+ public function billingStore(Request $request)
+    {
+        // dd($request->all());
         // Session::forget('shipping_address');
         Session::put('billing_address', $request->all());
         // dd(Session::get('shipping_address'));
@@ -105,7 +106,7 @@ class CheckoutController extends Controller
                     'ship_address2'   => $request->bill_address2,
                     'ship_zip'        => $request->bill_zip,
                     'ship_city'       => $request->bill_city,
-                    'ship_county'     => $request->bill_country
+                    'ship_country'     => $request->bill_country
                 ];
             
             Session::put('shipping_address', $shipping);
@@ -114,17 +115,32 @@ class CheckoutController extends Controller
         }
         // dd(Session::get('shipping_address'));
         if (Session::has('shipping_address')) {
-            return redirect()->route('frontend.checkout.payment');
+            return redirect()->route('frontend.guest.checkout.payment');
         } else {
-            return redirect()->route('frontend.checkout.shipping');
+            return redirect()->route('frontend.guest.checkout.shipping');
         }
     }
+    public function getShippingInfo($id)
+    {
+        if ($id != 0) {
+            $shipping = ShippingService::where('id', $id)->first();
 
-    /**
-     * Show page to collect shipping iformation.
-     *
-     * @return \Illuminate\Http\Response
-    */
+            Session::put('shipping_price', $shipping->price);
+            Session::put('shipping_id', $shipping->id);
+        }
+        $total = 0;
+        $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += +$attribute_price;
+        }
+
+        $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+        $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+        $cart_total = ($total - $coupon) + $shippingPrice;
+        return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total], 200);
+    }
+
     public function shipping()
     {
         if (!Cart::count()) {
@@ -136,7 +152,7 @@ class CheckoutController extends Controller
         }
 
 
-        $data['user'] = Auth::user();
+        // $data['user'] = Auth::user();
         $cart = Cart::content();
         // $cart = Session::get('cart');
 
@@ -172,32 +188,15 @@ class CheckoutController extends Controller
         $data['grand_total'] = Cart::subtotal();
 
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
-        return view('frontend.checkout.shipping', $data);
+        return view('frontend.guest.checkout.shipping', $data);
     }
 
-    /**
-     * Store shipping information into session.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-    */
-    public function shippingStore(Request $request)
-    {
-        // dd($request->all());
-        Session::forget('shipping_address');
-
-        Session::put('shipping_address', $request->all());
-        // dd(Session::get('shipping_address'));
-        return redirect()->route('frontend.checkout.payment');
-    }
-
-    /**
-     * Show page to collect payment iformation.
-     *
-     * @return \Illuminate\Http\Response
-    */
     public function payment()
     {
+        if (!Cart::count() > 0) {
+            return redirect()->route('frontend.cart');
+        }
+
         if (!Session::has('billing_address')) {
             return redirect()->route('frontend.checkout.billing');
         }
@@ -206,11 +205,7 @@ class CheckoutController extends Controller
             return redirect()->route('frontend.checkout.shipping');
         }
 
-        if (!Cart::count() > 0) {
-            return redirect()->route('frontend.cart');
-        }
-
-        $data['user'] = Auth::user();
+        // $data['user'] = Auth::user();
         $cart = Cart::content();
         // $cart = Session::get('cart');
 
@@ -255,37 +250,27 @@ class CheckoutController extends Controller
         $data['grand_total'] = Cart::subtotal();
 
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
-        return view('frontend.checkout.payment', $data);
+        return view('frontend.guest.checkout.payment', $data);
     }
 
-    /**
-     * Checkout
-     *
-     * @param \App\Http\Requests\PaymentRequest $request
-     * @return \Illuminate\Http\Response
-    */
     public function checkout(PaymentRequest $request)
     {
-        // dd($request->all);
-        // dd(Cart::total());
-        // dd(Cart::content());
-        // Cart::store(auth()->id);
-        // return redirect()->route('frontend.checkout.success');
+       
         $input = $request->all();
 
         $checkout         = false;
         $payment_redirect = false;
         $payment          = null;
 
-        if (Session::has('currency')) {
-            $currency = Currency::findOrFail(Session::get('currency'));
-        } else {
-            $currency = Currency::where('is_default', 1)->first();
-        }
+        // if (Session::has('currency')) {
+        //     $currency = Currency::findOrFail(Session::get('currency'));
+        // } else {
+        //     $currency = Currency::where('is_default', 1)->first();
+        // }
 
         // Use currency check
-        $usd_supported = [ 'USD', 'EUR' ];
-        $paystack_supported = [ 'NGN' ];
+        // $usd_supported = [ 'USD', 'EUR' ];
+        // $paystack_supported = [ 'NGN' ];
         switch ($input['payment_method']) {
             
             // case 'Paystack':
@@ -317,7 +302,7 @@ class CheckoutController extends Controller
                 }
             } else {
                 if($payment['status']){
-                    return redirect()->route('frontend.checkout.success');
+                    return redirect()->route('frontend.guest.checkout.success');
                 }else{
                     Session::put('message',$payment['message']);
                     return redirect()->route('frontend.checkout.cancel');
@@ -328,61 +313,7 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * Payemtn redirect
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-    */
-    public function paymentRedirect(Request $request)
-    {
-        $responseData = $request->all();
-        if (Session::has('order_payment_id')) {
-            $payment = $this->paypalNotify($responseData);
-            if($payment['status']){
-                return redirect()->route('frontend.checkout.success');
-            }else{
-                Session::put('message',$payment['message']);
-                return redirect()->route('frontend.checkout.cancel');
-            }
-        } else {
-            return redirect()->route('frontend.checkout.cancel');
-        }
-    }
 
-    /**
-     * Mollie redirect
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-    */
-    public function mollieRedirect(Request $request)
-    {
-        $responseData = $request->all();
-        // set api key for mollie
-        $data = PaymentSetting::whereUniqueKeyword('mollie')->first();
-        $payment_data = $data->convertJsonData();
-        Mollie::api()->setApiKey($payment_data['key']);
-        $payment = Mollie::api()->payments()->get(Session::get('payment_id'));
-        $responseData['payment_id'] = $payment->id;
-        if ($payment->status == 'paid') {
-            $payment = $this->mollieNotify($responseData);
-            if($payment['status']){
-                return redirect()->route('frontend.checkout.success');
-            }else{
-                Session::put('message',$payment['message']);
-                return redirect()->route('frontend.checkout.cancel');
-            }
-        } else {
-            return redirect()->route('frontend.checkout.cancel');
-        }
-    }
-
-    /**
-     * Show a page showing payment success
-     *
-     * @return \Illuminate\Http\Response
-    */
     public function paymentSuccess()
     {
         if (Session::has('order_id')) {
@@ -404,23 +335,4 @@ class CheckoutController extends Controller
         return redirect()->route('frontend.index');
     }
 
-    /**
-     * Payment cancellation
-     *
-     * @return \Illuminate\Http\Response
-    */
-    public function paymentCancel()
-    {
-        $message = '';
-        if (Session::has('message')) {
-            $message = Session::get('message');
-            Session::forget('message');
-        } else {
-            $message = __('Payment Failed!');
-        }
-        return redirect()->route('frontend.checkout.billing')->withError($message);
-    }
-
-    // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
-   
 }

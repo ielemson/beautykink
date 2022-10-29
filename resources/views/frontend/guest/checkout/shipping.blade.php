@@ -19,7 +19,7 @@
                         <div class="col-md-4">
                             <div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
-                                <a href="{{route('frontend.checkout.billing')}}" class="heading-button text-success">
+                                <a href="{{route('frontend.guest.checkout')}}" class="heading-button text-success">
                                     <span class="step-number">1</span>
                                     {{ __('Billing Address') }}
                                 </a>
@@ -57,20 +57,20 @@
                                 <div class="personal-addresses">
                                   <p class="p-text"><b>Shipping Address</b> </p>
                                   <div class="delivery-address-form">
-                                    <form id="checkoutShipping" action="{{ route('frontend.checkout.shipping.store') }}" method="POST">
+                                    <form id="checkoutShipping" action="{{ route('frontend.guest.checkout.shipping.store') }}" method="POST">
                                       @csrf
                                      
                                       <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="checkout-fn">{{ __('First Name') }}</label>
-                                                <input class="form-control" name="ship_first_name" type="text" required id="checkout-fn" value="{{ $user->first_name }}">
+                                                <input class="form-control" name="ship_first_name" type="text" required id="checkout-fn">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="checkout-ln">{{ __('Last Name') }}</label>
-                                                <input class="form-control" name="ship_last_name" type="text" required id="checkout-ln" value="{{ $user->last_name }}">
+                                                <input class="form-control" name="ship_last_name" type="text" required id="checkout-ln">
                                             </div>
                                         </div>
                                     </div>
@@ -78,13 +78,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="checkout-email">{{ __('E-mail Address') }}</label>
-                                                <input class="form-control" name="ship_email" type="email" required id="checkout-email" value="{{ $user->email }}">
+                                                <input class="form-control" name="ship_email" type="email" required id="checkout-email">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="checkout-phone">{{ __('Phone Number') }}</label>
-                                                <input class="form-control" name="ship_phone" type="text" id="checkout-phone" required value="{{ $user->phone }}">
+                                                <input class="form-control" name="ship_phone" type="text" id="checkout-phone" required >
                                             </div>
                                         </div>
                                     </div>
@@ -93,13 +93,13 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="checkout-address1">{{ __('Address') }} 1 *</label>
-                                                    <input class="form-control" name="ship_address1" required type="text" id="checkout-address1" value="{{ $user->bill_address1 }}">
+                                                    <input class="form-control" name="ship_address1" required type="text" id="checkout-address1">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="checkout-address2">{{ __('Address') }} 2</label>
-                                                    <input class="form-control" name="ship_address2" type="text" id="checkout-address2" value="{{ $user->bill_address2 }}">
+                                                    <input class="form-control" name="ship_address2" type="text" id="checkout-address2">
                                                 </div>
                                             </div>
                                         </div>
@@ -107,29 +107,14 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="checkout-zip">{{ __('Zip Code') }}</label>
-                                                    <input class="form-control" name="ship_zip" type="text" id="checkout-zip" value="{{ $user->bill_zip }}">
+                                                    <input class="form-control" name="ship_zip" type="text" id="checkout-zip" >
                                                 </div>
                                             </div>
                                             
-                                            {{-- <div class="col-sm-6">
-                                              <div class="form-group">
-                                                <label for="checkout-country">{{ __('Shipping Services') }}</label>
-                                                <select class="form-control" name="shipping_service" id="shipping_service" required>
-                                                    <option value="">{{ __('Choose Shipping') }}</option>
-                                                    @php
-                                                        $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
-                                                    @endphp
-                                                    @foreach ($shipping as $ship)
-                                                    <option value="{{ $ship->id }}" {{$shipping_id == $ship->id ? 'selected':''}}>{{ $ship->title }} - &#8358;{{$ship->price}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            </div> --}}
-
                                             <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-city">{{ __('City') }} *</label>
-                                                  <input class="form-control" name="bill_city" type="text" required id="checkout-city" value="{{ $user->ship_city }}">
+                                                  <input class="form-control" name="bill_city" type="text" required id="checkout-city">
                                               </div>
                                           </div>
                                         </div>
@@ -140,7 +125,7 @@
                                                     <select class="form-control" required name="ship_country" id="billing-country">
                                                         <option selected>{{ __('Choose Country') }}</option>
                                                         @foreach (DB::table('countries')->get() as $country)
-                                                            <option value="{{ $country->name }}" {{ $user->ship_country == $country->name ? 'selected' : '' }}>{{ $country->name }}</option>
+                                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

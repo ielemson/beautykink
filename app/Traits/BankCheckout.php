@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\PromoCode;
 use App\Models\ShippingService;
 use App\Models\TrackOrder;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -20,6 +21,52 @@ trait BankCheckout
     public function bankSubmit($data)
     {
         $user = Auth::user();
+        if(!$user){
+
+        $ship = Session::get('shipping_address');
+        // dd($ship);
+        $guestEmail = $ship['ship_email'];
+        $guestUser = User::where('email',$guestEmail)->first();
+        if(!$guestUser){
+
+         $user = User::create([
+
+                'first_name' => $ship['ship_first_name'], 
+                'last_name' =>  $ship['ship_last_name'], 
+                'phone' =>  $ship['ship_phone'], 
+                'email' =>  $ship['ship_email'], 
+                'password' => encrypt('12345'),
+                // Shipp info
+                'ship_address1'   =>$ship['ship_address1'],
+                'ship_zip'        => $ship['ship_zip'],
+                'ship_city'       => $ship['ship_city'],
+                'ship_county'     => $ship['ship_country']
+            ]);
+            
+        }
+        else{
+            $user = $guestUser;
+          $input =  [
+                
+                'first_name' => $ship['ship_first_name'], 
+                'last_name' =>  $ship['ship_last_name'], 
+                'phone' =>  $ship['ship_phone'], 
+                // 'email' =>  $ship['ship_email'], 
+                'password' => encrypt('12345'),
+                // Shipp info
+                'ship_address1'   =>$ship['ship_address1'],
+                'ship_zip'        => $ship['ship_zip'],
+                'ship_city'       => $ship['ship_city'],
+                'ship_county'     => $ship['ship_country']
+            ];  
+
+            $guestUser->update($input);
+            
+
+        }
+
+        }
+
         $setting = Setting::first();
         $cart = Cart::content();
         $cartArr = [];
@@ -42,8 +89,11 @@ trait BankCheckout
 
         // dd($cart);
         $shipping = [];
-        if (ShippingService::whereStatus(1)->exists()) {
-            $shipping = ShippingService::whereStatus(1)->first();
+        
+        $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
+        
+        if ($shipping = ShippingService::where('id',$shipping_id)->exists()) {
+            $shipping = ShippingService::where('id',$shipping_id)->first();
         }
 
         $discount = [];
@@ -105,6 +155,10 @@ trait BankCheckout
         Session::put('order_id', $order->id);
         Session::forget('cart');
         Session::forget('discount');
+        Session::forget('coupon');
+        Session::forget('shipping_id');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
         return [
             'status' => true
         ];

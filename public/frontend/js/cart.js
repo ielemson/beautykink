@@ -448,5 +448,32 @@ $('body').on('click', '.remove_from_compare', function () {
     // subscribe to newsletter ::::::
     // subscribe to newsletter ::::::
 
+    // SELECT SHIPPING SERVICES:::::::::::::::::
+    $('#shipping_service').on('change', function (e) {
+        var ship_id = $( "#shipping_service option:selected" ).val();
+        // console.log(ship_id);
+        e.preventDefault();
+        $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+            console.log(data)
+        $('.shipping_value').html('&#8358;' + data.shippPrice)
+        $('.orderTotal').html('&#8358;' + data.cartTotal)
+            
+    })
+        
+        
+    });
+
+    $( document ).ready(function() {
+
+        var ship_id = $( "#shipping_service option:selected" ).val();
+
+        $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+            console.log(data)
+        $('.shipping_value').html('&#8358;' + data.shippPrice)
+        $('.orderTotal').html('&#8358;' + data.cartTotal)
+            
+    })
+    });
+    // SELECT SHIPPING SERVICES:::::::::::::::::
 
 })(window.jQuery);

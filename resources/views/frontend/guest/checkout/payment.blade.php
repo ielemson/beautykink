@@ -18,7 +18,7 @@
                         <div class="col-md-4">
                             <div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
-                                <a href="{{route('frontend.checkout.billing')}}" class="heading-button text-success">
+                                <a href="{{route('frontend.guest.checkout')}}" class="heading-button text-success">
                                     <span class="step-number"><i class="fa fa-check"></i></span>
                                     {{ __('Billing Address') }}
                                 </a>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-4"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
-                              <a class="heading-button text-success" href="{{route('frontend.checkout.shipping')}}">
+                              <a class="heading-button text-success" href="{{route('frontend.guest.checkout.shipping')}}">
                                 <span class="step-number"><i class="fa fa-check"></i></span>
                                 {{ __('Shipping Address') }}
                                 {{-- <span class="step-edit"><i class="fa fa-pencil"></i> edit</span> --}}
@@ -68,6 +68,9 @@
                                                         </li>
                                                     <li>
                                                         <span class="text-muted">{{ __('Phone') }}: </span>{{ $bill['bill_phone'] }}
+                                                    </li> 
+                                                    <li>
+                                                        <span class="text-muted">{{ __('Email') }}: </span>{{ $bill['bill_email'] }}
                                                     </li> 
                                                 </ul>
                                             </div>
@@ -140,7 +143,7 @@
       <!--== Start Contact Info Area Wrapper ==-->
     @include('frontend._inc.divider',[])
     <!--== End Contact Info Area Wrapper ==-->
-    @include('frontend._inc.checkout_modal')
+    @include('frontend._inc.guest_checkout_modal')
 @endsection
 @section('styleplugins')
 <link id="mainStyles" rel="stylesheet" media="screen" href="{{ asset('frontend/css/styles.min.css') }}">

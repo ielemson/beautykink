@@ -81,7 +81,7 @@ class ShippingServiceController extends Controller
     public function status($id, $status)
     {
         ShippingService::find($id)->update([ 'status' => $status ]);
-        ShippingService::where('id', '!=', $id)->update([ 'status' => 0 ]);
+        ShippingService::where('id', '==', $id)->update([ 'status' => 0 ]);
 
         return redirect()->route('backend.shipping.index')->withSuccess(__('Status Updated Successfully.'));
     }

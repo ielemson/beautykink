@@ -63,6 +63,11 @@
         <!--== End Hero Area Wrapper ==-->
     @endif
  
+      {{-- banner first starts --}}
+      @if ($extra_settings->is_t2_3_column_banner_first == 1)
+      @include('frontend._inc.banner_first')
+      @endif
+      {{-- banner first end --}}
    {{-- service information area --}}
    @include('frontend._inc.service')
    {{--service  information area --}}
@@ -80,11 +85,6 @@
     @include('frontend.catalog.allproducts')
     {{-- All Product ends --}}
 
-      {{-- banner first starts --}}
-  @if ($extra_settings->is_t2_3_column_banner_first == 1)
-  @include('frontend._inc.banner_first')
-  @endif
-  {{-- banner first end --}}
   
     {{-- <div class="popup-product-quickview">
 <div class="product-single-item">
