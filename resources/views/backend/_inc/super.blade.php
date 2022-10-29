@@ -265,6 +265,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('backend.testimonial.index') }}" class="nav-link {{ request()->segment(2) == 'testimonial' ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>{{ __('Testimonial') }}</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('backend.setting.section') }}" class="nav-link {{ request()->segment(3) == 'section' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>{{ __('Visibility') }}</p>

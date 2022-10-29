@@ -62,6 +62,7 @@ use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
 use App\Http\Controllers\Backend\ShippingServiceController;
+use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
 
@@ -358,6 +359,14 @@ Route::prefix('admin')->group(function(){
             'update' => 'backend.service.update',
         ]);
         Route::get('/service/destroy/{id}', [ServiceController::class, 'destroy'])->name('backend.service.destroy');
+        
+        Route::get('testimonial',[TestimonialController::class,'index'])->name('backend.testimonial.index');
+        Route::get('testimonial/publish/{status}',[TestimonialController::class,'publish'])->name('backend.testimonial.publish');
+        Route::get('testimonial/unpublish/{status}',[TestimonialController::class,'unpublish'])->name('backend.testimonial.unpublish');
+        Route::get('testimonial/destroy/{id}',[TestimonialController::class,'destroy'])->name('backend.testimonial.destroy');
+        Route::get('testimonial/edit/{id}',[TestimonialController::class,'edit'])->name('backend.testimonial.edit');
+        
+        
 
         //------------ Social ------------
         Route::resource('social', SocialController::class)->except(['show'])->names([
