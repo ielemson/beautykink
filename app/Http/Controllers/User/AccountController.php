@@ -8,6 +8,7 @@ use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Frontend\UserRepository;
 
@@ -132,4 +133,25 @@ class AccountController extends Controller
         $user->update($input);
         return redirect()->back()->withSuccess(__('Address Updated Successfully.'));
     }
+
+    public function createTestimonial()
+    {
+        # code...
+        return view('user.dashboard.create-testimonial');
+    }
+    public function storeTestimonial(Request $request)
+    {
+    //  dd($request->all());
+        $request->validate(['testimonial'=>'required|max:50']);
+        $testimonial = new Testimonial();
+        $testimonial->user_id = Auth::user()->id;
+        $testimonial->testimonial = $request->testimonial;
+        $testimonial->save();
+        return redirect()->back()->withSuccess(__('Testimonial Created Successfully.'));
+
+        
+    }
+
+    
 }
+

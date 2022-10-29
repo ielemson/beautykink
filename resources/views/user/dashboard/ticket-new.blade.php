@@ -3,7 +3,19 @@
     {{ __('Dashboard') }}
 @endsection
 @section('content')
-   
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {{-- <ul class="breadcrumbs">
+                    <li><a href="{{ route('frontend.index') }}">{{ __('Home') }}</a> </li>
+                    <li class="separator"></li>
+                    <li>{{ __('Welcome Back') }}, {{ $user->first_name }}</li>
+                </ul> --}}
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Page Content-->
     <div class="container padding-bottom-3x mb-1">
         <div class="row">

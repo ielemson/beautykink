@@ -113,6 +113,7 @@ class Setting extends Model
         'about_us_img',
         'inc_hdr_banner',
         'is_pages',
-        'footer_img'
+        'footer_img',
+        'is_testimonial'
     ];
 }

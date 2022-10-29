@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
 use App\Models\RestockReminder;
 use App\Models\ShippingService;
+use App\Models\Testimonial;
 use App\Models\TrackOrder;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\Frontend\FrontRepository;
@@ -198,6 +199,7 @@ class FrontendController extends Controller
             $sliders = Slider::where('home_page', 'theme4')->get();
         }
         
+        $testimonials = Testimonial::where('status',1)->get();
        
         return view('frontend.index', [
             'banner_first'           => json_decode($home_customize->banner_first, true),
@@ -225,7 +227,8 @@ class FrontendController extends Controller
             'popular_category_title' => $popular_category_title,
 
             // two column cateogry
-            'two_column_categoriess' => $two_column_categoriess
+            'two_column_categoriess' => $two_column_categoriess,
+            'testimonials' => $testimonials
         ]);
 
     }

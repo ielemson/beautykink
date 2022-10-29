@@ -141,14 +141,14 @@
                                   
 
                                   
-                                    {{-- <div class="form-group  col-md-3 ">
+                                    <div class="form-group  col-md-3 ">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
-                                                <input type="checkbox" id="is_service" class="" name="is_service" value="1" {{ $setting->is_service == 1 ? 'checked' : '' }}>
-                                                <label for="is_service">{{ __('Service Section') }}</label>
+                                                <input type="checkbox" id="is_testimonial" class="" name="is_testimonial" value="1" {{ $setting->is_testimonial == 1 ? 'checked' : '' }}>
+                                                <label for="is_testimonial">{{ __('Testimonial Section') }}</label>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">

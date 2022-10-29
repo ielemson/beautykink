@@ -62,143 +62,36 @@
         </section>
         <!--== End Hero Area Wrapper ==-->
     @endif
- 
-      {{-- banner first starts --}}
-      @if ($extra_settings->is_t2_3_column_banner_first == 1)
-      @include('frontend._inc.banner_first')
-      @endif
-      {{-- banner first end --}}
-   {{-- service information area --}}
-   @include('frontend._inc.service')
-   {{--service  information area --}}
 
-   {{--  New Product Arrivals Starts --}}
+    {{-- banner first starts --}}
+    @if ($extra_settings->is_t2_3_column_banner_first == 1)
+        @include('frontend._inc.banner_first')
+    @endif
+    {{-- banner first end --}}
+    {{-- service information area --}}
+    @include('frontend._inc.service')
+    {{-- service  information area --}}
+
+    {{--  New Product Arrivals Starts --}}
     @include('frontend.catalog.latestproducts')
     {{--  New Product Arrivals Ends --}}
-
 
     {{-- Flash deal products starts --}}
     @include('frontend.catalog.flash_deal')
     {{-- Flash deal products ends --}}
 
-  {{-- All Product starts --}}
+    {{-- All Product starts --}}
     @include('frontend.catalog.allproducts')
     {{-- All Product ends --}}
+    @if ($setting->is_testimonial ==1)
+           {{-- Testimonial starts --}}
+    @include('frontend._inc.testimonial')
+    {{-- Testimonial ends --}}
+    @endif
+ 
 
-  
-    {{-- <div class="popup-product-quickview">
-<div class="product-single-item">
-<div class="row">
-<div class="col-md-6">
+    {{-- Divider starts --}}
+    @include('frontend._inc.divider')
+    {{-- Divider ends --}}
 
-<div class="product-thumb">
-
-<div class="swiper-container single-product-thumb-content single-product-thumb-slider">
-<div class="swiper-wrapper gallery_1">
-</div>
-</div>
-
-<div class="swiper-container single-product-nav-content single-product-nav-slider">
-<div class="swiper-wrapper gallery_2">
-</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-<!--== Start Product Info Area ==-->
-<div class="product-single-info mt-sm-70">
-<h1 class="title prod_name"></h1>
-<div class="product-info">
-
-</div>
-<div class="prices">
-<span class="price"></span>
-<div class="tax-label">Tax included</div>
-</div>
-<div class="product-description">
-
-</div>
-<div class="product-quick-action">
-<div class="product-quick-qty">
-<div class="pro-qty">
-<input type="text" id="quantity" title="Quantity" value="1">
-</div>
-</div>
-<a class="btn-product-add" href="single-product.html">Add to cart</a>
-</div>
-<div class="product-wishlist-compare">
-<a href="#" class="btn-wishlist"><i class="icon-heart"></i>Add to wishlist</a>
-<a href="#" class="btn-compare"><i class="icon-shuffle"></i>Add to compare</a>
-</div>
-<div class="social-sharing">
-<span>Share</span>
-<div class="social-icons">
-<a href="#/"><i class="la la-facebook"></i></a>
-<a href="#/"><i class="la la-twitter"></i></a>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
-<div class="popup-product-overlay"></div>
-<button class="popup-product-close"><i class="la la-close"></i></button> --}}
-    <!--== End Popup Product  ==-->
-@endsection
-
-@section('script')
-    <script>
-        function Quickview(id) {
-            // Product Quick View Starsts Here ::::::::::::::::::::::::::::::::::
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: 'product/quck_view/' + id,
-                success: function(response) {
-
-                    $('.prod_name').text(response.product.name);
-                    $('.product-description').html(response.product.details);
-                    $('.price').html('&#8358;' + response.product.discount_price);
-                    // console.log(response)
-                    var miniGallery = "";
-                    var miniGallery_1 = "";
-                    $.each(response.galleries, function(key, value) {
-                        miniGallery += `
-<div class="swiper-slide">
-<a href="#/">
-<img src="${value.photo}" alt="${response.product.name}">
-<span class="product-flag-new">New</span>
-</a>
-</div>
-`;
-                    });
-
-                    $.each(response.galleries, function(key, value) {
-                        miniGallery_1 += `
-<div class="swiper-slide">
-<img src="${value.photo}" alt="${response.product.name}">
-</div>
-`;
-                    });
-
-                    $('.gallery_1').html(miniGallery);
-                    $('.gallery_2').html(miniGallery_1);
-
-                }
-            })
-
-
-        }
-
-        // $(document).ready(function(){
-        //   var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
-        // myModal.show();
-        // })
-    </script>
 @endsection

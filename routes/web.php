@@ -549,6 +549,9 @@ Route::group(['middleware' => 'maintainance'], function(){
             Route::get('/dashboard', [UserAccountController::class, 'index'])->name('user.dashboard');
             Route::get('/profile', [UserAccountController::class, 'profile'])->name('user.profile');
             Route::post('/profile/update', [UserAccountController::class, 'profileUpdate'])->name('user.profile.update');
+            // Testimonial
+            Route::get('/testimial/create', [UserAccountController::class, 'createTestimonial'])->name('user.testimonial.create');
+            Route::post('/testimial/store', [UserAccountController::class, 'storeTestimonial'])->name('user.testimonial.submit');
 
             //------------ Ticket ------------
             Route::get('/ticket', [UserTicketController::class, 'ticket'])->name('user.ticket');
@@ -602,6 +605,8 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::post('/subscriber/submit', [FrontendController::class, 'subscriberSubmit'])->name('frontend.subscriber.submit');
         Route::get('/subt/currency/{id}', [FrontendController::class, 'currency'])->name('frontend.currency.setup');
 
+        // Testimonial Controller
+        // Route::get('/subt/currency/{id}', [FrontendController::class, 'currency'])->name('frontend.currency.setup');
         // Extra Routes
         Route::get('product/quck_view/{pid}',[FrontendController::class,'quick_view']);
         Route::post('restock/remind',[FrontendController::class,'restock_reminder'])->name('frontend.remind_on_restock.submit');

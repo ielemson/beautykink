@@ -75,9 +75,9 @@
                       <div class="col-lg-6 col-sm-6">
                         <div class="account-item">
                           <div class="account-inner">
-                            <a href="#/">
+                            <a href="{{route('user.testimonial.create')}}">
                               <i class="fa fa-smile-o"></i>
-                              <span>Sign out</span>
+                              <span>Testimonial</span>
                             </a>
                           </div>
                         </div>

@@ -454,7 +454,7 @@ $('body').on('click', '.remove_from_compare', function () {
         // console.log(ship_id);
         e.preventDefault();
         $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
-            console.log(data)
+            // console.log(data)
         $('.shipping_value').html('&#8358;' + data.shippPrice)
         $('.orderTotal').html('&#8358;' + data.cartTotal)
             
@@ -468,7 +468,7 @@ $('body').on('click', '.remove_from_compare', function () {
         var ship_id = $( "#shipping_service option:selected" ).val();
 
         $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
-            console.log(data)
+            // console.log(data)
         $('.shipping_value').html('&#8358;' + data.shippPrice)
         $('.orderTotal').html('&#8358;' + data.cartTotal)
             
