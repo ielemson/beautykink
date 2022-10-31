@@ -303,7 +303,7 @@ $('body').on('click', '.remove_from_compare', function () {
             var id = $(this).attr("data-rowid");
             // console.log('ID'+id,'Qty'+valQty)
             $.get("/cart/update" + "/" + id + "/" + valQty, function (data) {
-                console.log(data)
+                // console.log(data)
                 miniCart()
                
                 // start message
@@ -480,7 +480,9 @@ $('body').on('click', '.remove_from_compare', function () {
     $( document ).ready(function() {
 
         var ship_id = $( "#shipping_service option:selected" ).val();
-
+        if(!ship_id){
+            ship_id = '';
+        }
         $.ajax({
             type: 'GET',
             dataType: 'json',

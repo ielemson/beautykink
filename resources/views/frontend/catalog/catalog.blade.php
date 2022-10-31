@@ -118,7 +118,7 @@ function renderStarRating($rating, $maxRating = 5)
 </section>
 </div>
 <!-- Pagination-->
-<div class="row mt-15" id="item_pagination">
+<div class="row" id="item_pagination">
     <div class="col-lg-12 text-center">
         {{ $items->links('frontend._inc.pagination') }}
     </div>

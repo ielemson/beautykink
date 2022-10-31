@@ -412,7 +412,7 @@ class FrontendController extends Controller
         $video = explode('=', $item->video);
         return view('frontend.catalog.product', [
             'item'          => $item,
-            'reviews'       => $item->reviews()->where('status', 1)->paginate(3),
+            'reviews'       => $item->reviews()->where('status', 1)->paginate(4),
             'galleries'     => $item->galleries,
             'video'         => $item->video ? end($video) : '',
             'sec_name'      => json_decode($item->specification_name, true),
@@ -688,14 +688,20 @@ class FrontendController extends Controller
     }
 
      // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
-     public function getShippingInfo($id)
+     public function getShippingInfo($id=null)
      {
-         if ($id != 0) {
-             $shipping = ShippingService::where('id', $id)->first();
- 
+        //  if ($id != 0) {
+            if($id){
+                  $shipping = ShippingService::where('id', $id)->first();
+            
              Session::put('shipping_price', $shipping->price);
-             Session::put('shipping_id', $shipping->id);
-         }
+             Session::put('shipping_id', $shipping->id); 
+            }else{
+                $shipping_price = 0;
+                $shipping_id = '';
+            }
+          
+        //  }
          $total = 0;
          $attribute_price = 0;
          foreach (Cart::content() as $key => $product) {

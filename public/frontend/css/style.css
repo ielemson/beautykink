@@ -25,6 +25,9 @@
 html {
   scroll-behavior: smooth;
 }
+#item_pagination{
+  margin-top:35px;
+}
 body {
   color: #707070;
   font-size: 0.875rem;

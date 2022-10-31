@@ -689,7 +689,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
         Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
         Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
-        Route::get('/checkout/add_shippung/{id}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
+        Route::get('/checkout/add_shippung/{id?}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
 
 
         Route::post('/paytm/notify', [PaytmController::class, 'notify'])->name('frontend.paytm.notify');
