@@ -24,7 +24,7 @@
                     <div class="row">
                       <div class="col-4 col-md-3">
                         <div class="product-thumb">
-                          <img src="{{ asset($item->options->image) }}" alt="{{ asset($item->name) }}">
+                          <img src="{{ asset($item->options->thumbnail) }}" alt="{{ asset($item->name) }}">
                         </div>
                       </div>
                       <div class="col-8 col-md-4">
@@ -45,10 +45,10 @@
                               <div class="row">
                                 <div class="col-md-6 col-xs-6 qty">
                                   <div class="product-quick-qty">
-                                    <div class="pro-qty">
-                                      <div class="inc qty-btn qty-btn-click" data-id="{{$item->rowId}}"><i class="fa fa-angle-up"></i></div>
-                                      <input type="text" id="quantity2" class="qty" title="Quantity" value="{{$item->qty}}" data-rowid="{{$item->rowId}}">
-                                      <div class= "dec qty-btn qty-btn-click" data-id="{{$item->rowId}}"><i class="fa fa-angle-down"></i></div>
+                                    <div class="">
+                                      {{-- <div class="inc qty-btn qty-btn-click" data-id="{{$item->rowId}}"></div> --}}
+                                      <input type="number" id="quantity2" class="form-control qty_update" title="Quantity" value="{{$item->qty}}" data-rowid="{{$item->rowId}}" min="1" style="width:60px;"/>
+                                      {{-- <div class= "dec qty-btn qty-btn-click" data-id="{{$item->rowId}}"></div> --}}
                                     </div>
                                   </div>
                                 </div>

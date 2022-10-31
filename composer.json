@@ -28,6 +28,7 @@
         "razorpay/razorpay": "2.*",
         "spatie/laravel-sitemap": "^5.9",
         "twilio/sdk": "^6.34",
+        "unisharp/laravel-filemanager": "^2.5",
         "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {

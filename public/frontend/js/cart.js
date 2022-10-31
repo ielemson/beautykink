@@ -298,10 +298,12 @@ $('body').on('click', '.remove_from_compare', function () {
         });
 
         // Update cart from direct input change
-        $(".qty").change(function () {
+        $(".qty_update").change(function () {
             var valQty = $(this).val();
             var id = $(this).attr("data-rowid");
+            // console.log('ID'+id,'Qty'+valQty)
             $.get("/cart/update" + "/" + id + "/" + valQty, function (data) {
+                console.log(data)
                 miniCart()
                
                 // start message
@@ -326,9 +328,9 @@ $('body').on('click', '.remove_from_compare', function () {
                 }
                 // end message
 
-                if(data.qty == 0){
-                    location.reload()
-                }
+                // if(data.qty == 0){
+                //     location.reload()
+                // }
             })
         })
         // Update cart from direct input change
@@ -451,14 +453,26 @@ $('body').on('click', '.remove_from_compare', function () {
     // SELECT SHIPPING SERVICES:::::::::::::::::
     $('#shipping_service').on('change', function (e) {
         var ship_id = $( "#shipping_service option:selected" ).val();
-        // console.log(ship_id);
-        e.preventDefault();
-        $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
-            // console.log(data)
-        $('.shipping_value').html('&#8358;' + data.shippPrice)
-        $('.orderTotal').html('&#8358;' + data.cartTotal)
+    //     // console.log(ship_id);
+    //     e.preventDefault();
+    //     $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+    //         // console.log(data)
+    //     $('.shipping_value').html('&#8358;' + data.shippPrice)
+    //     $('.orderTotal').html('&#8358;' + data.cartTotal)
             
-    })
+    // })
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/checkout/add_shippung' + '/' + ship_id,
+        success: function (data) {
+            // console.log(data)
+            $('.shipping_value').html('&#8358;' + data.shippPrice)
+            $('.orderTotal').html('&#8358;' + data.cartTotal)
+                    
+        }
+    });
         
         
     });
@@ -467,12 +481,24 @@ $('body').on('click', '.remove_from_compare', function () {
 
         var ship_id = $( "#shipping_service option:selected" ).val();
 
-        $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
-            // console.log(data)
-        $('.shipping_value').html('&#8358;' + data.shippPrice)
-        $('.orderTotal').html('&#8358;' + data.cartTotal)
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/checkout/add_shippung' + '/' + ship_id,
+            success: function (data) {
+                // console.log(data)
+                $('.shipping_value').html('&#8358;' + data.shippPrice)
+                $('.orderTotal').html('&#8358;' + data.cartTotal)
+                        
+            }
+        });
+        
+    //     $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+    //         // console.log(data)
+    //     $('.shipping_value').html('&#8358;' + data.shippPrice)
+    //     $('.orderTotal').html('&#8358;' + data.cartTotal)
             
-    })
+    // })
     });
     // SELECT SHIPPING SERVICES:::::::::::::::::
 

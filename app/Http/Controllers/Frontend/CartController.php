@@ -228,6 +228,7 @@ class CartController extends Controller
             'price' => $product->discount_price,
             'options' => [
                 'image' => $product->photo,
+                'thumbnail' => $product->thumbnail,
                 'slug' => $product->slug,
                 'attribute_name' => $attribute_name ?? '',
                 'attribute_color' => $attribute_color ?? '',

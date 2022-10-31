@@ -63,7 +63,7 @@ use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
 use App\Http\Controllers\Backend\ShippingServiceController;
 use App\Http\Controllers\Backend\TestimonialController;
-use App\Http\Controllers\frontend\GuestCheckoutController;
+use App\Http\Controllers\Frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
 
 /*

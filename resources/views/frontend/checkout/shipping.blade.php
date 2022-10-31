@@ -129,7 +129,7 @@
                                             <div class="col-sm-6">
                                               <div class="form-group">
                                                   <label for="checkout-city">{{ __('City') }} *</label>
-                                                  <input class="form-control" name="bill_city" type="text" required id="checkout-city" value="{{ $user->ship_city }}">
+                                                  <input class="form-control" name="ship_city" type="text" required id="checkout-city" value="{{ $user->ship_city }}">
                                               </div>
                                           </div>
                                         </div>
