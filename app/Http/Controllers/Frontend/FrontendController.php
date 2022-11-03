@@ -199,7 +199,7 @@ class FrontendController extends Controller
         // } else {
         //     $sliders = Slider::where('home_page', 'theme4')->get();
         // }
-        $sliders = Slider::orderBy('pos')->get();
+        $sliders = Slider::orderBy('pos','asc')->get();
         $testimonials = Testimonial::where('status',1)->get();
        
         return view('frontend.index', [

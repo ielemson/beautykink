@@ -32,15 +32,15 @@
                             <form action="{{ route('backend.slider.store') }}" method="POST" enctype="multipart/form-data" class="row">
                                 @csrf
                                 <input type="hidden" name="home_page" value="theme1">
-                                <div class="form-group col-md-4">
+                                {{-- <div class="form-group col-md-4">
                                     <label for="exampleInputEmail1">{{ __('Brand Logo') }} </label>
                                     <br>
                                     <img src="{{ asset('backend/images/placeholder.png') }}" class="admin-image-preview" alt="">
                                     <br>
                                     <span>{{ __('Image Size Should Be 130 x 40.') }}</span>
-                                </div>
-                                <div class="col-md-8"></div>
-                                <div class="form-group col-md-4">
+                                </div> --}}
+                                {{-- <div class="col-md-8"></div> --}}
+                                {{-- <div class="form-group col-md-4">
                                     <label for="logo">{{ __('Upload Image...') }}</label>
                                     <div class="input-group file">
                                         <div class="custom-file">
@@ -48,7 +48,7 @@
                                           <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-8"></div>
                                 <div class="form-group  col-md-12">
                                     <label for="title">{{ __('Slider Title') }} *</label>

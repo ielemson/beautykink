@@ -32,7 +32,7 @@ class SliderController extends Controller
     public function index()
     {
         return view('backend.slider.index', [
-            'datas' => Slider::orderBy('id', 'desc')->get()
+            'datas' => Slider::orderBy('pos', 'asc')->get()
         ]);
     }
 
