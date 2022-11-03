@@ -239,6 +239,8 @@ var mainbs = {!! $mainbs !!};
     <script src="{{ asset('frontend/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+   
+   @yield('extra_script')
     @yield('script')
 
     @if ($setting->is_facebook_messenger == '1')
@@ -272,20 +274,22 @@ var mainbs = {!! $mainbs !!};
             })
         }
         // Notifications Ends
-
+</script>
         @if (Session::has('error'))
 
-            $(document).ready(function() {
+           <script>
+             $(document).ready(function() {
                 DangerNotification('{{ Session::get('error') }}')
             })
+           </script>
         @endif
         @if (Session::has('success'))
-
-            $(document).ready(function() {
+           <script>
+             $(document).ready(function() {
                 SuccessNotification('{{ Session::get('success') }}');
             })
-    </script>
-    @endif
+           </script>
+        @endif
 </body>
 
 </html>

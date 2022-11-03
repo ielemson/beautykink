@@ -277,7 +277,8 @@ Route::prefix('admin')->group(function(){
             'update' => 'backend.shipping.update',
         ]);
         Route::get('/shipping/destroy/{id}', [ShippingServiceController::class, 'destroy'])->name('backend.shipping.destroy');
-
+        Route::post('/api/fetch-states', [ShippingServiceController::class, 'fetchState']);
+        Route::post('/api/fetch-cities', [ShippingServiceController::class, 'fetchCity']);
         //------------ TAX SETTING ------------
         Route::get('tax/status/{id}/{status}', [TaxController::class, 'status'])->name('backend.tax.status');
         Route::resource('tax', TaxController::class)->except(['show'])->names([
@@ -676,6 +677,9 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/guest/checkout/review/payment', [GuestCheckoutController::class, 'payment'])->name('frontend.guest.checkout.payment');
         Route::post('/guest/checkout-submit', [GuestCheckoutController::class, 'checkout'])->name('frontend.guest.checkout.submit');
         Route::get('/guest/checkout/success', [GuestCheckoutController::class, 'paymentSuccess'])->name('frontend.guest.checkout.success');
+        Route::post('/guest/api/fetch-shipping', [GuestCheckoutController::class, 'fetchShippingLocation'])->name('frontend.guest.fetchshippinglocation');
+        Route::post('/guest/api/fetch-city', [GuestCheckoutController::class, 'fetchCity'])->name('frontend.guest.fetchcity');
+        
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
 
         //------------ Checkout ------------

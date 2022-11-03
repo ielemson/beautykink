@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="block-reassurance">
+    {{-- <div class="block-reassurance">
       <h5>Our Shipping Services</h5>
       {!!$proceed ?? ''!!}
         <ul>
@@ -56,5 +56,5 @@
             </li>
             @endforeach
           </ul>
-    </div>
+    </div> --}}
   </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShippingServiceRequest;
 use App\Models\Currency;
 use App\Models\ShippingService;
+use App\Models\{Country, State, City};
 use Illuminate\Http\Request;
 
 class ShippingServiceController extends Controller
@@ -40,9 +41,21 @@ class ShippingServiceController extends Controller
     */
     public function create()
     {
-        return view('backend.shipping.create');
+        $data['states'] = State::get(["name", "id"]);
+        // dd($data);
+        return view('backend.shipping.create',$data);
     }
 
+    public function fetchState(Request $request)
+    {
+        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
     /**
      * Store a newly created resrouce in storage.
      *

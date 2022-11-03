@@ -2,6 +2,8 @@
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $data->title }}</td>
+        <td>{{ $data->state->name}}</td>
+        <td>{{ $data->city->name}}</td>
         <td>{{ $data->price == 0 ? __('Free') : PriceHelper::adminCurrencyPrice($data->price) }}</td>
         <td>
             <div class="input-group-prepend">

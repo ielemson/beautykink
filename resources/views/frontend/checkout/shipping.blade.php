@@ -103,50 +103,37 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="checkout-zip">{{ __('Zip Code') }}</label>
-                                                    <input class="form-control" name="ship_zip" type="text" id="checkout-zip" value="{{ $user->bill_zip }}">
-                                                </div>
-                                            </div>
-                                            
-                                            {{-- <div class="col-sm-6">
+                                      
+                                            <div class="row">
+
+                                              <div class="col-sm-4">
+                                                  <div class="form-group">
+                                                      <label for="checkout-zip">{{ __('Zip Code') }}</label>
+                                                      <input class="form-control" name="ship_zip" type="text" id="checkout-zip" value="{{ $user->bill_zip }}">
+                                                  </div>
+                                              </div>
+
+                                              <div class="col-sm-4">
+                                                  <div class="form-group">
+                                                      <label for="checkout-country">{{ __('Select State') }}</label>
+                                                      <select class="form-control" required name="ship_state" id="billing-state" required>
+                                                          <option selected >{{ __('Choose State') }}</option>
+                                                          @foreach (DB::table('states')->get() as $state)
+                                                              <option value="{{ $state->id }}" >{{ $state->name }}</option>
+                                                          @endforeach
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                                <div class="col-sm-4">
                                               <div class="form-group">
                                                 <label for="checkout-country">{{ __('Shipping Services') }}</label>
                                                 <select class="form-control" name="shipping_service" id="shipping_service" required>
-                                                    <option value="">{{ __('Choose Shipping') }}</option>
-                                                    @php
-                                                        $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
-                                                    @endphp
-                                                    @foreach ($shipping as $ship)
-                                                    <option value="{{ $ship->id }}" {{$shipping_id == $ship->id ? 'selected':''}}>{{ $ship->title }} - &#8358;{{$ship->price}}</option>
-                                                    @endforeach
                                                 </select>
                                             </div>
-                                            </div> --}}
-
-                                            <div class="col-sm-6">
-                                              <div class="form-group">
-                                                  <label for="checkout-city">{{ __('City') }} *</label>
-                                                  <input class="form-control" name="ship_city" type="text" required id="checkout-city" value="{{ $user->ship_city }}">
-                                              </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="checkout-country">{{ __('Country') }}</label>
-                                                    <select class="form-control" required name="ship_country" id="billing-country">
-                                                        <option selected>{{ __('Choose Country') }}</option>
-                                                        @foreach (DB::table('countries')->get() as $country)
-                                                            <option value="{{ $country->name }}" {{ $user->ship_country == $country->name ? 'selected' : '' }}>{{ $country->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
                                             </div>
-                                           
-                                        </div>
+                                              
+                                          </div>
+                                        
                                         
                                      <div class="d-flex justify-content-between paddin-top-1x mt-4">
                                           <div class="form-group row">
@@ -185,4 +172,40 @@
         <!--== Start Contact Info Area Wrapper ==-->
     @include('frontend._inc.divider',[])
     <!--== End Contact Info Area Wrapper ==-->
+@endsection
+
+@section('extra_script')
+<script>
+    $(document).ready(function(){
+        $('#billing-state').on('change', function () {
+                var idState = this.value;
+                $("#shipping_service").html('');
+                $.ajax({
+                    url: "{{url('/guest/api/fetch-shipping')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res.locations.length)
+                        if(res.locations.length != 0){
+                            $('#shipping_service').html('<option value="">Select Shipping Service</option>');
+                            $.each(res.locations, function (key, value) { $("#shipping_service").append('<option value="' + value
+                            .id + '">' + value.title + ' - &#8358;' + value.price + '</option>');
+                            });
+                           
+                        }else{
+                            
+                            $('#shipping_service').html('<option value="">No Shipping Service for this location</option>');
+                        
+                        }
+                       
+                    }
+                });
+                
+            });
+    })
+</script>
 @endsection

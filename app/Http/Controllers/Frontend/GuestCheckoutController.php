@@ -15,6 +15,7 @@ use App\Models\ShippingService;
 use App\Traits\PaystackCheckout;
 use App\Traits\CashOnDeliveryCheckout;
 use App\Http\Requests\PaymentRequest;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Session;
@@ -335,4 +336,15 @@ class GuestCheckoutController extends Controller
         return redirect()->route('frontend.index');
     }
 
+    public function fetchShippingLocation(Request $request){
+
+        $shippingLocation = ShippingService::where('state_id',$request->state_id)->get();
+        return response()->json(['locations'=>$shippingLocation]);
+    }
+
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
 }
