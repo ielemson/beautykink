@@ -12,7 +12,7 @@
             --
         @endif
     </td>
-    <td>{{ strtoupper($data->home_page) }}</td>
+    <td>{{ $data->pos}}</td>
     <td>
         @if ($data->home_page != 'theme4')
             {{ strlen(strip_tags($data->details)) > 250 ? substr(strip_tags($data->details), 0, 250) . '...' : strip_tags($data->details) }}

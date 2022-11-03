@@ -54,17 +54,20 @@ class SliderController extends Controller
     */
     public function store(Request $request)
     {
-        $required = 'required|';
-        if ($request->home_page == 'theme4') {
-            $required = '';
-        }
+        // $required = 'required|';
+        // if ($request->home_page == 'theme4') {
+        //     $required = '';
+        // }
 
         $request->validate([
             'logo'    => 'image|mimes:jpeg,png,jpg,svg|nullable',
             'photo'   => 'image|required|mimes:jpeg,png,jpg,svg',
             'title'   => 'nullable|max:100',
-            'link'    => $required . 'max:255',
+            'pos'   => 'required|unique:sliders',
+            'link'    => 'nullable|max:255',
             'details' => 'nullable',
+        ],[
+            'pos.unique'=>'slider position has been taken'
         ]);
         $this->repository->store($request);
         return redirect()->route('backend.slider.index')->withSuccess(__('New Slider Added Successfully.'));
@@ -90,15 +93,17 @@ class SliderController extends Controller
     */
     public function update(Request $request, Slider $slider)
     {
-        $required = 'required|';
-        if ($request->home_page == 'theme4') {
-            $required = '';
-        }
+        // $required = 'required|';
+        // if ($request->home_page == 'theme4') {
+        //     $required = '';
+        // }
         $request->validate([
             'logo'    => 'image|mimes:jpeg,png,jpg,svg|nullable',
             'photo'   => 'image|mimes:jpeg,png,jpg,svg',
             'title'   =>  'nullable|max:100',
-            'link'    => $required . 'max:255',
+            // 'pos'   => 'required|unique:sliders',
+            'link'    =>'nullable|max:255',
+            // 'link'    => $required . 'max:255',
             'details' => 'nullable|max:255',
         ]);
         $this->repository->update($slider, $request);

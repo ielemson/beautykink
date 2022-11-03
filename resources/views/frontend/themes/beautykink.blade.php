@@ -44,10 +44,13 @@
                                             <div class="slider-content slider-content-light animate-pulse">
                                                 <h5 class="sub-title transition-slide-0">{{ $slider->title }}</h5>
                                                 <h2 class="title transition-slide-1 mb-0"><span
-                                                        class="font-weight-400">{{ $slider->details }}</span></h2>
-                                                {{-- <h2 class="title transition-slide-2">WITH BEAUTYKINK</h2> --}}
-                                                <a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop
-                                                    Now</a>
+                                                        class="font-weight-400 transition-slide-2">{{ $slider->details }}</span></h2>
+                                                {{-- <h2 class="title ">WITH BEAUTYKINK</h2> --}}
+                                              @if ($slider->link)
+                                              <a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop
+                                                Now
+                                            </a>
+                                              @endif
                                             </div>
                                         </div>
                                     </div>
