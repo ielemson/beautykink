@@ -76,6 +76,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $cart = json_decode($order->cart, true);
+        // dd($cart);
         return view('backend.order.print', compact('order', 'cart'));
     }
 
