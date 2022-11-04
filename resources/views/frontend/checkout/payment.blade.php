@@ -25,7 +25,7 @@
                             </h2>
                             </div>
                         </div>
-                        <div class="col-md-4"><div class="checkout-accordion-item">
+                        {{-- <div class="col-md-4"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <a class="heading-button text-success" href="{{route('frontend.checkout.shipping')}}">
                                 <span class="step-number"><i class="fa fa-check"></i></span>
@@ -34,7 +34,7 @@
                               </a>
                             </h2>
                           </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <button class="heading-button" type="button">

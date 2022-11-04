@@ -17,7 +17,7 @@
                 <div class="shopping-checkout-content">
                   <div class="checkout-accordion" id="accordionExample">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                                 <button class="heading-button">
@@ -28,7 +28,7 @@
                             
                           </div>
                         </div>
-                        <div class="col-md-4"><div class="checkout-accordion-item">
+                        {{-- <div class="col-md-4"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <button class="heading-button" type="button">
                                 <span class="step-number">2.</span>
@@ -38,8 +38,8 @@
                             </h2>
                             
                           </div>
-                        </div>
-                        <div class="col-md-4"><div class="checkout-accordion-item">
+                        </div> --}}
+                        <div class="col-md-6"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <button class="heading-button" type="button">
                                 <span class="step-number">3.</span>
@@ -135,13 +135,13 @@
                                               </div>
                                                 
                                             </div>
-                        
+{{--                         
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="same_address" name="same_ship_address" {{ Session::has('shipping_address') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="same_address">{{ __('Same as billing address') }}</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-flex justify-content-between paddin-top-1x mt-4">
                                         
                                           <div class="form-group row">

@@ -93,7 +93,7 @@ class CheckoutController extends Controller
         // Session::forget('shipping_address');
         Session::put('billing_address', $request->all());
         // dd(Session::get('shipping_address'));
-        if ($request->same_ship_address) {
+        // if ($request->same_ship_address) {
             // Session::put('billing_address', $request->all());
                 $shipping = [
                     'ship_first_name' => $request->bill_first_name,
@@ -109,9 +109,9 @@ class CheckoutController extends Controller
                 ];
             
             Session::put('shipping_address', $shipping);
-        } else {
-            Session::forget('shipping_address');
-        }
+        // } else {
+        //     Session::forget('shipping_address');
+        // }
         // dd(Session::get('shipping_address'));
         if (Session::has('shipping_address')) {
             return redirect()->route('frontend.checkout.payment');

@@ -671,6 +671,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         //------------ Catalog ------------
         Route::get('/catalog', [CatalogController::class, 'index'])->name('frontend.catalog');
         Route::get('/catalog/view/{type}', [CatalogController::class, 'viewType'])->name('frontend.catalog.view');
+        Route::get('/catalog/{catId}', [CatalogController::class, 'filterByCategory'])->name('frontend.category.view');
 
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
         Route::get('/guest/checkout/billing/address', [GuestCheckoutController::class, 'ShippingAddress'])->name('frontend.guest.checkout');

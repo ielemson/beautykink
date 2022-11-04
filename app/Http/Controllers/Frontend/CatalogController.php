@@ -158,6 +158,7 @@ class CatalogController extends Controller
             'name_string_count' => $name_string_count,
             'category' => $category,
             'subcategory' => $subcategory,
+            'childcategory' => $childcategory,
             'checkType' => $checkType,
             'brands' => Brand::withCount('items')->whereStatus(1)->get(),
             'categories' => Category::whereStatus(1)->orderBy('serial', 'asc')->withCount(['items' => function($query) {
@@ -176,5 +177,10 @@ class CatalogController extends Controller
     {
         Session::put('view_catalog', $type);
         return response()->json($type);
+    }
+
+    public function filterByCategory($catid){
+        $data = Item::where('slug',$catid)->get();
+        dd($data);
     }
 }
