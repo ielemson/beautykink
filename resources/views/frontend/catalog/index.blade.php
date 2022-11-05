@@ -8,14 +8,7 @@
 @endsection
 
 @section('content')
-   @if (isset($category))
-       Categor is set
 
-       @elseif (isset($subcategory))
-       Subcategory is set
-  @elseif (isset($childcategory))
-  childcategory is set
-  @else
    <!-- Page Title-->
    @include('frontend._inc.header_single_page',['title_1'=>'','title_2'=>'Shop'])
    <!-- Page Content-->
@@ -29,7 +22,7 @@
        </div>
      </section>
      <!--== End Product Area Wrapper ==-->
-       @endif
+      
 
 
 @endsection

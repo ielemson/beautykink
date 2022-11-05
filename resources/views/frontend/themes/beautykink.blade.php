@@ -29,7 +29,7 @@
         }
     @endphp
 
-    @if ($setting->is_slider == 1)
+    @if ($extra_settings->is_t2_slider == 1)
         <!--== Start Hero Area Wrapper ==-->
         <section class="home-slider-area">
             <div
@@ -70,6 +70,9 @@
     @if ($extra_settings->is_t2_3_column_banner_first == 1)
         @include('frontend._inc.banner_first')
     @endif
+
+
+    
     {{-- banner first end --}}
     {{-- service information area --}}
     @include('frontend._inc.service')
@@ -86,13 +89,18 @@
     {{-- All Product starts --}}
     @include('frontend.catalog.allproducts')
     {{-- All Product ends --}}
+    
+    {{-- Best Seller Product Starts --}}
+    @include('frontend.catalog.bestseller')
+    {{-- Best Seller Product Ends --}}
+
     @if ($setting->is_testimonial ==1)
            {{-- Testimonial starts --}}
     @include('frontend._inc.testimonial')
     {{-- Testimonial ends --}}
     @endif
  
-
+    
     {{-- Divider starts --}}
     @include('frontend._inc.divider')
     {{-- Divider ends --}}
