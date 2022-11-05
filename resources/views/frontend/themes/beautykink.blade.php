@@ -29,7 +29,7 @@
         }
     @endphp
 
-    @if ($setting->is_slider == 1)
+    @if ($extra_settings->is_t2_slider == 1)
         <!--== Start Hero Area Wrapper ==-->
         <section class="home-slider-area">
             <div
@@ -44,10 +44,13 @@
                                             <div class="slider-content slider-content-light animate-pulse">
                                                 <h5 class="sub-title transition-slide-0">{{ $slider->title }}</h5>
                                                 <h2 class="title transition-slide-1 mb-0"><span
-                                                        class="font-weight-400">{{ $slider->details }}</span></h2>
-                                                {{-- <h2 class="title transition-slide-2">WITH BEAUTYKINK</h2> --}}
-                                                <a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop
-                                                    Now</a>
+                                                        class="font-weight-400 transition-slide-2">{{ $slider->details }}</span></h2>
+                                                {{-- <h2 class="title ">WITH BEAUTYKINK</h2> --}}
+                                              @if ($slider->link)
+                                              <a class="btn-slide transition-slide-3" href="{{ $slider->link }}">Shop
+                                                Now
+                                            </a>
+                                              @endif
                                             </div>
                                         </div>
                                     </div>
@@ -67,6 +70,9 @@
     @if ($extra_settings->is_t2_3_column_banner_first == 1)
         @include('frontend._inc.banner_first')
     @endif
+
+
+    
     {{-- banner first end --}}
     {{-- service information area --}}
     @include('frontend._inc.service')
@@ -83,13 +89,18 @@
     {{-- All Product starts --}}
     @include('frontend.catalog.allproducts')
     {{-- All Product ends --}}
+    
+    {{-- Best Seller Product Starts --}}
+    @include('frontend.catalog.bestseller')
+    {{-- Best Seller Product Ends --}}
+
     @if ($setting->is_testimonial ==1)
            {{-- Testimonial starts --}}
     @include('frontend._inc.testimonial')
     {{-- Testimonial ends --}}
     @endif
  
-
+    
     {{-- Divider starts --}}
     @include('frontend._inc.divider')
     {{-- Divider ends --}}

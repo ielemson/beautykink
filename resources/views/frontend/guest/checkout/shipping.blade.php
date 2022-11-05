@@ -104,34 +104,42 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="checkout-zip">{{ __('Zip Code') }}</label>
-                                                    <input class="form-control" name="ship_zip" type="text" id="checkout-zip" >
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-sm-6">
+
+                                          <div class="col-sm-2">
                                               <div class="form-group">
-                                                  <label for="checkout-city">{{ __('City') }} *</label>
-                                                  <input class="form-control" name="ship_city" type="text" required id="checkout-city">
+                                                  <label for="checkout-zip">{{ __('Zip Code') }}</label>
+                                                  <input class="form-control" name="ship_zip" type="text" id="checkout-zip">
                                               </div>
                                           </div>
+
+                                          <div class="col-sm-3">
+                                              <div class="form-group">
+                                                  <label for="checkout-country">{{ __('Select State') }}</label>
+                                                  <select class="form-control" required name="bill_country" id="shipping-state" required>
+                                                      <option selected >{{ __('Choose State') }}</option>
+                                                      @foreach (DB::table('states')->get() as $state)
+                                                          <option value="{{ $state->id }}" >{{ $state->name }}</option>
+                                                      @endforeach
+                                                  </select>
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-3">
+                                            <div class="form-group">
+                                              <label for="checkout-country">{{ __('City') }}*</label>
+                                              <select class="form-control" name="ship_city" id="ship_city" required>
+                                              </select>
+                                          </div>
+                                          </div>
+                                            <div class="col-sm-4">
+                                          <div class="form-group">
+                                            <label for="checkout-country">{{ __('Shipping Services') }}</label>
+                                            <select class="form-control" name="shipping_service" id="shipping_service" required>
+                                            </select>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="checkout-country">{{ __('Country') }}</label>
-                                                    <select class="form-control" required name="ship_country" id="billing-country">
-                                                        <option selected>{{ __('Choose Country') }}</option>
-                                                        @foreach (DB::table('countries')->get() as $country)
-                                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                           
                                         </div>
+                                          
+                                      </div>
+                                       
                                         
                                      <div class="d-flex justify-content-between paddin-top-1x mt-4">
                                           <div class="form-group row">
@@ -170,4 +178,63 @@
         <!--== Start Contact Info Area Wrapper ==-->
     @include('frontend._inc.divider',[])
     <!--== End Contact Info Area Wrapper ==-->
+@endsection
+
+@section('extra_script')
+<script>
+    $(document).ready(function(){
+        $('#shipping-state').on('change', function () {
+                var idState = this.value;
+                $("#shipping_service").html('');
+                $.ajax({
+                    url: "{{url('/guest/api/fetch-shipping')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res.locations.length)
+                        if(res.locations.length != 0){
+                            $('#shipping_service').html('<option value="">Select Shipping Service</option>');
+                            $.each(res.locations, function (key, value) { $("#shipping_service").append('<option value="' + value
+                            .id + '">' + value.title + ' - &#8358;' + value.price + '</option>');
+                            });
+                           
+                        }else{
+                            
+                            $('#shipping_service').html('<option value="">No Shipping Service for this location</option>');
+                        
+                        }
+                       
+                    }
+                });
+
+                // Fetch city info
+          $("#ship_city").html('');
+                $.ajax({
+                    url: "{{url('/guest/api/fetch-city')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res.locations.length)
+                       
+                            $('#ship_city').html('<option value="">Select City</option>');
+                            $.each(res.cities, function (key, value) { $("#ship_city").append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                            });
+                           
+                       
+                       
+                    }
+                });
+                
+            });
+    })
+</script>
 @endsection

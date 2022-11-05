@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-12">
                   <h4 class="text-center">
-                    <img src="{{ asset($setting->logo) }}" class="img-fluid mb-5 mh-70" width="180" alt="">
+                    <img src="{{ asset($setting->logo) }}" class="img-fluid mb-5 mh-70" width="90" alt="">
                     <small class="float-right">{{ __('Order Date : ') }} {{ $order->created_at->format('M d, Y') }}</small>
                   </h4>
                 </div>

@@ -277,7 +277,8 @@ Route::prefix('admin')->group(function(){
             'update' => 'backend.shipping.update',
         ]);
         Route::get('/shipping/destroy/{id}', [ShippingServiceController::class, 'destroy'])->name('backend.shipping.destroy');
-
+        Route::post('/api/fetch-states', [ShippingServiceController::class, 'fetchState']);
+        Route::post('/api/fetch-cities', [ShippingServiceController::class, 'fetchCity']);
         //------------ TAX SETTING ------------
         Route::get('tax/status/{id}/{status}', [TaxController::class, 'status'])->name('backend.tax.status');
         Route::resource('tax', TaxController::class)->except(['show'])->names([
@@ -318,6 +319,9 @@ Route::prefix('admin')->group(function(){
 
         //------------ Home Page Customization ------------
         Route::get('/homepage', [HomePageController::class, 'index'])->name('backend.homepage');
+        Route::get('/aboutpage', [HomePageController::class, 'aboutpage'])->name('backend.aboutpage');
+        Route::post('/aboutpage/new', [HomePageController::class, 'aboutpageStore'])->name('backend.aboutpagestore');
+        Route::put('/aboutpage/update', [HomePageController::class, 'aboutpageuUdate'])->name('backend.about_us.update');
         Route::post('/homepage/first/banner/update', [HomePageController::class, 'firstBannerUpdate'])->name('backend.first.banner.update');
         Route::post('/homepage/second/banner/update', [HomePageController::class, 'secondBannerUpdate'])->name('backend.second.banner.update');
         Route::post('/homepage/third/banner/update', [HomePageController::class, 'thirdBannerUpdate'])->name('backend.third.banner.update');
@@ -667,6 +671,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         //------------ Catalog ------------
         Route::get('/catalog', [CatalogController::class, 'index'])->name('frontend.catalog');
         Route::get('/catalog/view/{type}', [CatalogController::class, 'viewType'])->name('frontend.catalog.view');
+        Route::get('/catalog/{catId}', [CatalogController::class, 'filterByCategory'])->name('frontend.category.view');
 
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
         Route::get('/guest/checkout/billing/address', [GuestCheckoutController::class, 'ShippingAddress'])->name('frontend.guest.checkout');
@@ -676,6 +681,9 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/guest/checkout/review/payment', [GuestCheckoutController::class, 'payment'])->name('frontend.guest.checkout.payment');
         Route::post('/guest/checkout-submit', [GuestCheckoutController::class, 'checkout'])->name('frontend.guest.checkout.submit');
         Route::get('/guest/checkout/success', [GuestCheckoutController::class, 'paymentSuccess'])->name('frontend.guest.checkout.success');
+        Route::post('/guest/api/fetch-shipping', [GuestCheckoutController::class, 'fetchShippingLocation'])->name('frontend.guest.fetchshippinglocation');
+        Route::post('/guest/api/fetch-city', [GuestCheckoutController::class, 'fetchCity'])->name('frontend.guest.fetchcity');
+        
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
 
         //------------ Checkout ------------

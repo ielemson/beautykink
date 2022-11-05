@@ -246,12 +246,20 @@
               <p>{{ __('General Settings') }}</p>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="{{ route('backend.homepage') }}" class="nav-link {{ request()->segment(2) == 'homepage' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>{{ __('Home Page') }}</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('backend.aboutpage') }}" class="nav-link {{ request()->segment(2) == 'aboutpage' ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>{{ __('About Page') }}</p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="{{ route('backend.slider.index') }}" class="nav-link {{ request()->segment(2) == 'slider' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
@@ -276,12 +284,12 @@
               <p>{{ __('Visibility') }}</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ route('backend.setting.social') }}" class="nav-link {{ request()->segment(3) == 'social' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>{{ __('Social Login') }}</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{ route('backend.setting.email') }}" class="nav-link {{ request()->segment(3) == 'email' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
@@ -306,12 +314,12 @@
               <p>{{ __('Maintainance') }}</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ route('backend.sitemap.index') }}" class="nav-link {{ request()->segment(2) == 'sitemap' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>{{ __('Sitemap') }}</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{ route('backend.language.index') }}" class="nav-link {{ request()->segment(2) == 'language' ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>

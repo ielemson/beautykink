@@ -8,18 +8,22 @@
 @endsection
 
 @section('content')
-    <!-- Page Title-->
-    @include('frontend._inc.header_single_page',['title_1'=>'','title_2'=>'Shop'])
-    <!-- Page Content-->
 
-     <!--== Start Product Area Wrapper ==-->
-     <section class="product-area">
-        <div class="container-fluid pb-80">
-          <div class="row">
-            @include('frontend.catalog.catalog')
-           </div>
-        </div>
-      </section>
-      <!--== End Product Area Wrapper ==-->
+   <!-- Page Title-->
+   @include('frontend._inc.header_single_page',['title_1'=>'','title_2'=>'Shop'])
+   <!-- Page Content-->
+
+    <!--== Start Product Area Wrapper ==-->
+    <section class="product-area">
+       <div class="container-fluid pb-80">
+         <div class="row">
+           @include('frontend.catalog.catalog')
+          </div>
+       </div>
+     </section>
+     <!--== End Product Area Wrapper ==-->
+      
+
+
 @endsection
 

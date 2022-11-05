@@ -9,12 +9,12 @@ $categories = App\Models\Category::with('subcategories')
 @if (count($categories) > 0)
     @foreach ($categories as $key => $pcategory)
         <li class="{{ $pcategory->subcategories->count() > 0 ? 'has-submenu full-width' : '' }}"><a
-                href="#">{{ $pcategory->name }}</a>
+                href="{{ route('frontend.catalog') . '?category=' . $pcategory->slug }}">{{ $pcategory->name }}</a>
             <ul class="submenu-nav submenu-nav-mega submenu-nav-width-two colunm-two mt-0">
                 @if ($pcategory->subcategories->count() > 0)
                     @foreach ($pcategory->subcategories as $subscategory)
                         <li class="mega-menu-item"><a
-                                href="{{ route('frontend.catalog') . '?category=' . $pcategory->slug }}"
+                                href="{{ route('frontend.catalog') . '?subcategory=' . $subscategory->slug }}"
                                 class="mega-title">{{ $subscategory->name }}</a>
                             <ul>
                                 @if ($subscategory->childcategories->count() > 0)

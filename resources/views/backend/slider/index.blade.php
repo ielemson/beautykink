@@ -31,7 +31,7 @@
                     <th>{{ __('#') }}</th>
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Title') }}</th>
-                    <th>{{ __('Home Page') }}</th>
+                    <th>{{ __('Postion') }}</th>
                     <th>{{ __('Details') }}</th>
                     <th>{{ __('Actions') }}</th>
                   </tr>

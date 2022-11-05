@@ -213,9 +213,7 @@
 
                                 
                                 @include('frontend._inc.pages')
-
-                           
-                                   
+       
                                 </li>
                                 @if ($setting->is_shop == 1)
                                     <li class="{{ request()->routeIs('frontend.catalog*') ? 'active' : '' }}">

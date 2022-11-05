@@ -35,11 +35,11 @@
                  </div>
                  <form action="{{ route('frontend.checkout.submit') }}" method="POST">
                      <div class="modal-body">
-                         <div class="col-lg-12 form-group">
+                         {{-- <div class="col-lg-12 form-group">
                              <label for="transaction">{{ __('Transaction Number') }}</label>
                              <input class="form-control" name="txn_id" id="transaction"
                                  placeholder="{{ __('Enter Your Transaction Number') }}" required />
-                         </div>
+                         </div> --}}
                          <p>{!! PriceHelper::gatewayText('bank') !!}</p>
                      </div>
                      <div class="modal-footer">

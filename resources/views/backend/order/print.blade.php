@@ -123,7 +123,7 @@
                     <tr>
                         <td>{{ $item['name'] }}</td>
                         <td>
-                            @if ($item['attribute']['option_name'])
+                            {{-- @if ($item['attribute']['option_name'])
                                 @foreach ($item['attribute']['option_name'] as $optionKey => $option_name)
                                     <span>
                                         <b>{{ $option_name }}</b> :
@@ -136,7 +136,15 @@
                                 @endforeach
                             @else
                                 --
-                            @endif
+                            @endif --}}
+
+                            @if ($item['attribute_name'])
+                                             color: {{$item['attribute_name']}}
+                                        @else
+
+                                        None
+
+                                    @endif
                         </td>
                         <td>{{ $item['qty'] }}</td>
                         <td>

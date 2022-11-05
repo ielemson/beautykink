@@ -15,7 +15,7 @@
                 <div class="shopping-checkout-content">
                   <div class="checkout-accordion" id="accordionExample">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                                 <a href="{{route('frontend.guest.checkout')}}" class="heading-button text-success">
@@ -25,17 +25,17 @@
                             </h2>
                             </div>
                         </div>
-                        <div class="col-md-4"><div class="checkout-accordion-item">
+                        {{-- <div class="col-md-4"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <a class="heading-button text-success" href="{{route('frontend.guest.checkout.shipping')}}">
                                 <span class="step-number"><i class="fa fa-check"></i></span>
                                 {{ __('Shipping Address') }}
-                                {{-- <span class="step-edit"><i class="fa fa-pencil"></i> edit</span> --}}
+                                <span class="step-edit"><i class="fa fa-pencil"></i> edit</span>
                               </a>
                             </h2>
                           </div>
-                        </div>
-                        <div class="col-md-4"><div class="checkout-accordion-item">
+                        </div> --}}
+                        <div class="col-md-6"><div class="checkout-accordion-item">
                             <h2 class="heading" id="headingOne">
                               <button class="heading-button" type="button">
                                 <span class="step-number">3</span>

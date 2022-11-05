@@ -1,4 +1,4 @@
-{{-- @if ($extra_settings->is_t2_new_product == 1) --}}
+@if ($extra_settings->is_t2_new_product == 1)
     <section class="product-area mb-5">
         <div class="container-fluid mb-5 pb-80">
             <div class="row">
@@ -94,7 +94,7 @@
             </div>
         </div>
     </section>
-{{-- @endif --}}
+@endif
 
 @section('script')
 @include('frontend._inc.restock_form')

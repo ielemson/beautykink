@@ -40,7 +40,7 @@ trait BankCheckout
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
                 'ship_city'       => $ship['ship_city'],
-                'ship_county'     => $ship['ship_country']
+                'ship_county'     => 'Nigeria'
             ]);
             
         }
@@ -57,7 +57,7 @@ trait BankCheckout
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
                 'ship_city'       => $ship['ship_city'],
-                'ship_county'     => $ship['ship_country']
+                'ship_county'     => 'Nigeria'
             ];  
 
             $guestUser->update($input);
@@ -119,7 +119,7 @@ trait BankCheckout
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
         $order_data['currency_value']     = PriceHelper::setCurrencyValue();
         $order_data['payment_status']     = 'Unpaid';
-        $order_data['txnid']              = $data['txn_id'];
+        // $order_data['txnid']              = $data['txn_id'];
         $order_data['order_status']       = 'Pending';
         $order                            = Order::create($order_data);
         TrackOrder::create([

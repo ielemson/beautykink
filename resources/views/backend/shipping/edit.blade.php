@@ -33,7 +33,28 @@
 
                   <div class="form-group  col-md-12">
                     <label for="title">{{ __('Title') }} *</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="{{ __('Enter Title') }}" value="{{ $shipping->title }}">
+                    <input type="text" name="title" class="form-control" id="shipping_title" placeholder="{{ __('Enter Title') }}" value="{{ $shipping->title }}" data-id="{{$shipping->id}}">
+                  </div>
+                  <div class="form-group  col-md-6">
+                    <label for="title">{{ __('Select State') }} *</label>
+                    <select name="state_id"  class="form-control" id="state-dd" required>
+                      <option value="">Select State</option>
+                      @foreach (DB::table('states')->get() as $data)
+                      <option value="{{$data->id}}" {{ $data->id == $shipping->state_id ? 'selected' : '' }}>
+                          {{$data->name}}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+                  {{-- <div class="form-group  col-md-4">
+                    <label for="title">{{ __('Select State') }} *</label>
+                    <select id="state-dd" class="form-control" name="state_id" required>
+                    </select>
+                  </div> --}}
+                  <div class="form-group  col-md-6">
+                    <label for="title">{{ __('Select City') }} *</label>
+                    <select id="city-dd" class="form-control" name="city_id" required>
+                    </select>
                   </div>
 
                   <div class="form-group  col-md-12">
@@ -73,3 +94,31 @@
   </div>
   <!-- /.content-wrapper -->
 @endsection
+
+@section('script')
+  <script>
+     $(document).ready(function () {
+
+              var idState = $('#state-dd').val()
+              $("#city-dd").html('');
+                $.ajax({
+                    url: "{{url('/admin/api/fetch-cities')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#city-dd').html('<option value="">Select City</option>');
+                        $.each(res.cities, function (key, value) {
+                            $("#city-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            
+        });
+  </script>
+@endsection
+

@@ -31,7 +31,7 @@
                         @include('alerts.alerts')
                     </div>
 
-                    @if ($slider->home_page != 'theme4')
+                 
                         <div class="form-group col-md-4">
                             <label for="exampleInputEmail1">{{ $slider->home_page == 'theme3' ? __('Feature Image') : __('Brand Logo') }} </label>
                             <br>
@@ -54,10 +54,19 @@
                             <label for="title">{{ __('Title') }} *</label>
                             <input type="text" name="title" class="form-control " id="title" placeholder="{{ __('Enter Title') }}" value="{{ $slider->title }}">
                         </div>
-                        <div class="form-group  col-md-12">
+                        {{-- <div class="form-group  col-md-12">
                             <label for="slider-link">{{ __('Link') }} *</label>
                             <input type="text" name="link" class="form-control " id="slider-link" placeholder="{{ __('Enter Link') }}" value="{{ $slider->link }}">
-                        </div>
+                        </div> --}}
+                        <div class="form-group  col-md-6">
+                          <label for="slider-link">{{ __('Slider Link') }} </label>
+                          <input type="text" name="link" class="form-control " id="slider-link" placeholder="{{ __('Enter Link') }}" value="{{ $slider->link }}">
+                      </div>
+                      <div class="form-group  col-md-6">
+                          <label for="slider-link">{{ __('Slider Position') }} *</label>
+                          <input type="number" min="1" max="5" name="pos" class="form-control " id="slider-link" placeholder="{{ __('Select Position. max: 5') }}" value="{{ $slider->pos}}">
+                      </div>
+                      
                         <div class="form-group  col-md-12">
                             <label for="details">{{ __('Details') }}</label>
                             <textarea name='details' id="details" class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="5">{{ $slider->details }}</textarea>
@@ -79,30 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                    @else
-                        <div class="form-group  col-md-12">
-                            <label for="slider-link">{{ __('Link') }} *</label>
-                            <input type="text" name="link" class="form-control " id="slider-link" placeholder="{{ __('Enter Link') }}" value="{{ $slider->link }}">
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputEmail1">{{ __('Set Slider Image') }} *</label>
-                            <br>
-                            <img src="{{ $slider->photo ? asset($slider->photo) : asset('backend/images/placeholder.png') }}" class="admin-image-preview7" alt="">
-                            <br>
-                            <span>{{ __('Image Size Should Be 1000 x 530.') }}</span>
-                        </div>
-                        <div class="col-md-8"></div>
-                        <div class="form-group col-md-4">
-                            <label for="photo">{{ __('Upload Image...') }}</label>
-                            <div class="input-group">
-                                <div class="custom-file file">
-                                <input type="file" name="photo" accept="image/*" class="custom-file-input upload-photo7" id="file" aria-label="File browser">
-                                <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                  
 
 
                         <div class="col-md-12">

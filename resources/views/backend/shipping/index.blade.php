@@ -30,6 +30,8 @@
                   <tr>
                     <th>{{ __('#') }}</th>
                     <th>{{ __('Title') }}</th>
+                    <th>{{ __('State') }}</th>
+                    <th>{{ __('City') }}</th>
                     <th>{{ __('Price') }}</th>
                     <th>{{ __('Status') }}</th>
                     <th>{{ __('Actions') }}</th>

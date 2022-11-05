@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
+use App\Models\AboutUs;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\HomeCustomize;
@@ -299,4 +300,37 @@ class HomePageController extends Controller
         $data->update();
         return redirect()->back()->withSuccess(__('Banner Update Successfully.'));
     }
+
+    public function aboutpage(){
+        $about_us = AboutUs::first();
+        // dd($abbout_us);
+        return view('backend.aboutpage.create',compact('about_us'));
+    }
+
+    public function aboutpageStore(Request $request)
+    {
+        
+        AboutUs::create($request->all());
+        // dd($request);
+        return redirect()->route('backend.aboutpage')->withSuccess(__('Page Added Successfully.'));
+    }
+
+    public function aboutpageuUdate(Request $request){
+
+        // $about->update($request->all());
+        $about = AboutUs::where('id',$request->id)->first();
+        $about->title = $request->title;
+        $about->details = $request->details;
+        $about->meta_descriptions = $request->meta_descriptions;
+        $about->meta_keywords = $request->meta_keywords;
+        $about->save();
+        return redirect()->route('backend.aboutpage')->withSuccess(__('Page Updated Successfully.'));;
+    }
+
+
+    // public function update(PageRequest $request, Page $page)
+    // {
+    //     $page->update($request->all());
+    //     return redirect()->route('backend.page.index')->withSuccess(__('Page Updated Successfully.'));
+    // }
 }

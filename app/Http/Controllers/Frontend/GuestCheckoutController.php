@@ -15,6 +15,7 @@ use App\Models\ShippingService;
 use App\Traits\PaystackCheckout;
 use App\Traits\CashOnDeliveryCheckout;
 use App\Http\Requests\PaymentRequest;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Session;
@@ -94,7 +95,7 @@ class GuestCheckoutController extends Controller
         // Session::forget('shipping_address');
         Session::put('billing_address', $request->all());
         // dd(Session::get('shipping_address'));
-        if ($request->same_ship_address) {
+        // if ($request->same_ship_address) {
             // Session::put('billing_address', $request->all());
                 $shipping = [
                     'ship_first_name' => $request->bill_first_name,
@@ -110,9 +111,9 @@ class GuestCheckoutController extends Controller
                 ];
             
             Session::put('shipping_address', $shipping);
-        } else {
-            Session::forget('shipping_address');
-        }
+        // } else {
+        //     Session::forget('shipping_address');
+        // }
         // dd(Session::get('shipping_address'));
         if (Session::has('shipping_address')) {
             return redirect()->route('frontend.guest.checkout.payment');
@@ -335,4 +336,15 @@ class GuestCheckoutController extends Controller
         return redirect()->route('frontend.index');
     }
 
+    public function fetchShippingLocation(Request $request){
+
+        $shippingLocation = ShippingService::where('state_id',$request->state_id)->get();
+        return response()->json(['locations'=>$shippingLocation]);
+    }
+
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
 }

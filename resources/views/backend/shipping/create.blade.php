@@ -32,7 +32,28 @@
 
                   <div class="form-group  col-md-12">
                     <label for="title">{{ __('Title') }} *</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="{{ __('Enter Title') }}" value="{{ old('title') }}">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="{{ __('Enter Title') }}" value="{{ old('title') }}" required>
+                  </div>
+                  <div class="form-group  col-md-6">
+                    <label for="title">{{ __('Select State') }} *</label>
+                    <select name="state_id"  class="form-control" id="state-dd" required>
+                      <option value="">Select State</option>
+                      @foreach ($states as $data)
+                      <option value="{{$data->id}}">
+                          {{$data->name}}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+                  {{-- <div class="form-group  col-md-4">
+                    <label for="title">{{ __('Select State') }} *</label>
+                    <select id="state-dd" class="form-control" name="state_id" required>
+                    </select>
+                  </div> --}}
+                  <div class="form-group  col-md-6">
+                    <label for="title">{{ __('Select City') }} *</label>
+                    <select id="city-dd" class="form-control" name="city_id" required>
+                    </select>
                   </div>
 
                   <div class="form-group  col-md-12">
@@ -44,7 +65,7 @@
                                 {{ PriceHelper::adminCurrency() }}
                             </div>
                         </div>
-                        <input type="number" name="price"  min="0" step="0.1" class="form-control" placeholder="{{ __('Enter Price') }}" value="{{ old('price') }}">
+                        <input type="number" name="price"  min="0" step="0.1" class="form-control" placeholder="{{ __('Enter Price') }}" value="{{ old('price') }}" required>
                     </div>
                   </div>
 
@@ -71,4 +92,52 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+@endsection
+
+@section('script')
+  <script>
+     $(document).ready(function () {
+            // $('#country-dd').on('change', function () {
+            //     var idCountry = this.value;
+            //     $("#state-dd").html('');
+            //     $.ajax({
+            //         url: "{{url('/admin/api/fetch-states')}}",
+            //         type: "POST",
+            //         data: {
+            //             country_id: idCountry,
+            //             _token: '{{csrf_token()}}'
+            //         },
+            //         dataType: 'json',
+            //         success: function (result) {
+            //             $('#state-dd').html('<option value="">Select State</option>');
+            //             $.each(result.states, function (key, value) {
+            //                 $("#state-dd").append('<option value="' + value
+            //                     .id + '">' + value.name + '</option>');
+            //             });
+            //             $('#city-dd').html('<option value="">Select City</option>');
+            //         }
+            //     });
+            // });
+            $('#state-dd').on('change', function () {
+                var idState = this.value;
+                $("#city-dd").html('');
+                $.ajax({
+                    url: "{{url('/admin/api/fetch-cities')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#city-dd').html('<option value="">Select City</option>');
+                        $.each(res.cities, function (key, value) {
+                            $("#city-dd").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+  </script>
 @endsection

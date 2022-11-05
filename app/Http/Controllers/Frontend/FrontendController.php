@@ -21,6 +21,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
+use App\Models\AboutUs;
 use App\Models\RestockReminder;
 use App\Models\ShippingService;
 use App\Models\Testimonial;
@@ -188,17 +189,17 @@ class FrontendController extends Controller
 
         $checktheme = Setting::first();
         // dd($checktheme->theme);
-        if ($checktheme ->theme == 'theme1') {
-            $sliders = Slider::where('home_page', 'theme1')->get();
+        // if ($checktheme ->theme == 'theme1') {
+        //     $sliders = Slider::where('home_page', 'theme1')->get();
            
-        } elseif ($checktheme ->theme == 'theme2') {
-            $sliders = Slider::where('home_page', 'theme2')->get();
-        } elseif ($checktheme ->theme == 'theme3') {
-            $sliders = Slider::where('home_page', 'theme3')->get();
-        } else {
-            $sliders = Slider::where('home_page', 'theme4')->get();
-        }
-        
+        // } elseif ($checktheme ->theme == 'theme2') {
+        //     $sliders = Slider::where('home_page', 'theme2')->get();
+        // } elseif ($checktheme ->theme == 'theme3') {
+        //     $sliders = Slider::where('home_page', 'theme3')->get();
+        // } else {
+        //     $sliders = Slider::where('home_page', 'theme4')->get();
+        // }
+        $sliders = Slider::orderBy('pos','asc')->get();
         $testimonials = Testimonial::where('status',1)->get();
        
         return view('frontend.index', [
@@ -540,7 +541,9 @@ class FrontendController extends Controller
         // if (Setting::first()->is_contact == 0) {
         //     return back();
         // }
-        return view('frontend.aboutus');
+        $about = AboutUs::first();
+        // dd($about);
+        return view('frontend.aboutus',compact('about'));
     }
 
     public function contactEmail(Request $request)
