@@ -82,6 +82,10 @@
     @include('frontend.catalog.latestproducts')
     {{--  New Product Arrivals Ends --}}
 
+    {{--  Top Rated Product Starts --}}
+    @include('frontend.catalog.top_product')
+    {{--  New Product Arrivals Ends --}}
+
     {{-- Flash deal products starts --}}
     @include('frontend.catalog.flash_deal')
     {{-- Flash deal products ends --}}

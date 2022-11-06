@@ -1,12 +1,12 @@
-@if ($extra_settings->is_t2_bestseller_product == 1)
+@if ($extra_settings->is_t2_toprated_product == 1)
 <section class="product-area mb-30">
     <div class="container pt-65 pt-lg-40">
         <div class="row">
             <div class="col-sm-8 m-auto">
                 <div class="section-title text-center">
-                    <h2 class="title">Best Seller</h2>
+                    <h2 class="title">Top Rated</h2>
                     <div class="desc">
-                        <p>Add our best seller products to your weekly lineup</p>
+                        <p>Add our top rated products to your weekly lineup</p>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="product-slider owl-carousel owl-theme">
 
                     @foreach ($products->orderBy('id', 'DESC')->get() as $bestitem)
-                    @if ($bestitem->is_type == 'best')
+                    @if ($bestitem->is_type == 'top')
                         <div class="item">
                             <!--== Start Shop Item ==-->
                             <div class="product-item">
