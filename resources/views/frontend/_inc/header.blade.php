@@ -24,7 +24,7 @@
                 <div class="col-lg-4 hidden-md-down">
                     <div class="contact-email">
                         <span>Email us: <a
-                                href="mailto:{{ $setting->contact_email }}">{{ $setting->contact_email }}</a></span>
+                                href="mailto:{{ $setting->footer_email }}">{{ $setting->footer_email }}</a></span>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 text-md-start text-lg-center text-center marqueeslider">

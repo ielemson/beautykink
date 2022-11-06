@@ -585,26 +585,26 @@
                                                     <label for="copy_right">{{ __('Copyright') }} *</label>
                                                     <textarea name='copy_right' class='form-control' id="copy_right" placeholder="{{ __('Copyright') }}" rows="5">{{ $setting->copy_right }}</textarea>
                                                 </div>
-                                                <div class="form-group  col-md-12 ">
+                                                {{-- <div class="form-group  col-md-12 ">
                                                     <label for="copy_right">{{ __('About Us') }} *</label>
                                                     <textarea name='about_us' class='form-control' id="copy_right" placeholder="{{ __('About Us') }}" rows="5">{{ $setting->about_us }}</textarea>
-                                                </div>
-                                                <div class="form-group col-md-12">
+                                                </div> --}}
+                                                {{-- <div class="form-group col-md-12">
                                                     <label for="exampleInputEmail1">{{ __('About us Image') }} *</label>
                                                     <br>
                                                     <img src="{{ $setting->about_us_img ? asset($setting->about_us_img) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                                     <br>
                                                     <span>{{ __('Image Size Should Be 324 x 31.') }}</span>
-                                                </div>
-
+                                                </div> --}}
+{{-- 
                                                 <div class="form-group col-md-12">
                                                     <div class="input-group">
-                                                        {{-- <div class="custom-file"> --}}
+                                                        <div class="custom-file">
                                                         <input type="file" name="about_us_img" accept="image" class="form-control"  aria-label="File browser">
-                                                        {{-- <label class="custom-file-label" for="about_us_img">{{ __('Upload Image...') }}</label> --}}
-                                                        {{-- </div> --}}
+                                                        <label class="custom-file-label" for="about_us_img">{{ __('Upload Image...') }}</label>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                             </div>
 

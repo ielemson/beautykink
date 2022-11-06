@@ -319,7 +319,7 @@ Route::prefix('admin')->group(function(){
 
         //------------ Home Page Customization ------------
         Route::get('/homepage', [HomePageController::class, 'index'])->name('backend.homepage');
-        Route::get('/aboutpage', [HomePageController::class, 'aboutpage'])->name('backend.aboutpage');
+        Route::get('/aboutpage/index', [HomePageController::class, 'aboutpage'])->name('backend.aboutpage');
         Route::post('/aboutpage/new', [HomePageController::class, 'aboutpageStore'])->name('backend.aboutpagestore');
         Route::put('/aboutpage/update', [HomePageController::class, 'aboutpageuUdate'])->name('backend.about_us.update');
         Route::post('/homepage/first/banner/update', [HomePageController::class, 'firstBannerUpdate'])->name('backend.first.banner.update');
