@@ -13,7 +13,17 @@
   <!--== Start Contact Area Wrapper ==-->
   <section class="contact-area contact-page-area">
     <div class="container-fluid">
-      <div class="row contact-page-wrapper">
+     <div class="col-md-12">
+      <div class="jumbotron bg-cover" style='background-image: url("{{asset('frontend/img/photos/Piloned.jpg')}}")'>
+        <div class="container contact-container">
+        <h1 class="display-4"><b>BEAUTY IS EASY</b>
+          </h1>
+        <p class="lead">with beautykink.</p>
+          </div>
+      <!-- /.container   -->
+      </div> 
+     </div>
+      <div class="row contact-page-wrapper"> 
         <div class="col-lg-6">
           <div class="contact-form-wrap">
             <div class="contact-form-title">
@@ -142,4 +152,26 @@
     </div>
   </section>
   <!--== End Contact Area Wrapper ==-->
+@endsection
+
+
+@section('styleplugins')
+  <style>
+    .bg-cover {
+    background-attachment: static;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.contact-container {
+  position: relative;
+    font-family: Century gothic;
+    text-align: left;
+    color: #cc0067;
+}
+.display-4{
+  color: #cc0067;
+  font-weight: 700
+}
+  </style>
 @endsection

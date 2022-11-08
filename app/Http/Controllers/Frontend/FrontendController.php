@@ -530,9 +530,9 @@ class FrontendController extends Controller
     // ------------ Contact --------------
     public function contact()
     {
-        if (Setting::first()->is_contact == 0) {
-            return back();
-        }
+        // if (Setting::first()->is_contact == 0) {
+        //     return back();
+        // }
         return view('frontend.contact');
     }
     // ------------ About Us --------------
