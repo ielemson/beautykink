@@ -17,38 +17,38 @@ class PaymentSettingRepository{
         $bank = PaymentSetting::whereUniqueKeyword('bank')->first();
         $data['bank'] = $bank;
 
-        $paypal = PaymentSetting::whereUniqueKeyword('paypal')->first();
-        $data['paypalData'] = $paypal->convertJsonData();
-        $data['paypal'] = $paypal;
+        // $paypal = PaymentSetting::whereUniqueKeyword('paypal')->first();
+        // $data['paypalData'] = $paypal->convertJsonData();
+        // $data['paypal'] = $paypal;
 
-        $molly = PaymentSetting::whereUniqueKeyword('mollie')->first();
-        $data['mollyData'] = $molly->convertJsonData();
-        $data['molly'] = $molly;
+        // $molly = PaymentSetting::whereUniqueKeyword('mollie')->first();
+        // $data['mollyData'] = $molly->convertJsonData();
+        // $data['molly'] = $molly;
 
-        $stripe = PaymentSetting::whereUniqueKeyword('stripe')->first();
-        $data['stripeData'] = $stripe->convertJsonData();
-        $data['stripe'] = $stripe;
+        // $stripe = PaymentSetting::whereUniqueKeyword('stripe')->first();
+        // $data['stripeData'] = $stripe->convertJsonData();
+        // $data['stripe'] = $stripe;
 
-        $paytm = PaymentSetting::whereUniqueKeyword('paytm')->first();
-        $data['paytmData'] = $paytm->convertJsonData();
-        $data['paytm'] = $paytm;
+        // $paytm = PaymentSetting::whereUniqueKeyword('paytm')->first();
+        // $data['paytmData'] = $paytm->convertJsonData();
+        // $data['paytm'] = $paytm;
 
-        $sslcommerz = PaymentSetting::whereUniqueKeyword('sslcommerz')->first();
-        $data['sslcommerzData'] = $sslcommerz->convertJsonData();
-        $data['sslcommerz'] = $sslcommerz;
+        // $sslcommerz = PaymentSetting::whereUniqueKeyword('sslcommerz')->first();
+        // $data['sslcommerzData'] = $sslcommerz->convertJsonData();
+        // $data['sslcommerz'] = $sslcommerz;
 
-        $mercadopago = PaymentSetting::whereUniqueKeyword('mercadopago')->first();
-        $data['mercadopagoData'] = $mercadopago->convertJsonData();
-        $data['mercadopago'] = $mercadopago;
+        // $mercadopago = PaymentSetting::whereUniqueKeyword('mercadopago')->first();
+        // $data['mercadopagoData'] = $mercadopago->convertJsonData();
+        // $data['mercadopago'] = $mercadopago;
 
 
-        $authorize = PaymentSetting::whereUniqueKeyword('authorize')->first();
-        $data['authorizeData'] = $authorize->convertJsonData();
-        $data['authorize'] = $authorize;
+        // $authorize = PaymentSetting::whereUniqueKeyword('authorize')->first();
+        // $data['authorizeData'] = $authorize->convertJsonData();
+        // $data['authorize'] = $authorize;
 
-        $paystack = PaymentSetting::whereUniqueKeyword('paystack')->first();
-        $data['paystackData'] = $paystack->convertJsonData();
-        $data['paystack'] = $paystack;
+        $flutterwave = PaymentSetting::whereUniqueKeyword('flutterwave')->first();
+        $data['flutterwaveData'] = $flutterwave->convertJsonData();
+        $data['flutterwave'] = $flutterwave;
 
         $cod = PaymentSetting::whereUniqueKeyword('cod')->first();
         $data['cod'] = $cod;

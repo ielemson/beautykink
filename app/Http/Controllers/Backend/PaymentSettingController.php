@@ -31,6 +31,7 @@ class PaymentSettingController extends Controller
     */
     public function payment()
     {
+        // dd($this->repository->payment());
         return view('backend.settings.payment', $this->repository->payment());
     }
 
@@ -42,9 +43,11 @@ class PaymentSettingController extends Controller
     */
     public function update(PaymentSettingRequest $request)
     {
+        // dd($request->all());
         $this->repository->update($request);
         return redirect()->back()->withSuccess(__('Payment Information Updated Successfully.'));
     }
 
 
 }
+// 
