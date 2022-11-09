@@ -4,12 +4,11 @@ namespace App\Http\Controllers\frontend;
 
 use App\Helpers\SmsHelper;
 use App\Http\Controllers\Controller;
-;
 use App\Traits\BankCheckout;
 use Illuminate\Http\Request;
-use App\Traits\MollieCheckout;
-use App\Traits\PaypalCheckout;
-use App\Traits\StripeCheckout;
+// use App\Traits\MollieCheckout;
+// use App\Traits\PaypalCheckout;
+// use App\Traits\StripeCheckout;
 use App\Models\PaymentSetting;
 use App\Models\ShippingService;
 use App\Traits\PaystackCheckout;
@@ -24,17 +23,17 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class GuestCheckoutController extends Controller
 {
 
-    use StripeCheckout {
-        StripeCheckout::__construct  as private __stripeConstruct;
-    }
+    // use StripeCheckout {
+    //     StripeCheckout::__construct  as private __stripeConstruct;
+    // }
 
-    use PaypalCheckout {
-        PaypalCheckout::__construct  as private __paypalConstruct;
-    }
+    // use PaypalCheckout {
+    //     PaypalCheckout::__construct  as private __paypalConstruct;
+    // }
 
-    use MollieCheckout {
-        MollieCheckout::__construct  as private __mollieConstruct;
-    }
+    // use MollieCheckout {
+    //     MollieCheckout::__construct  as private __mollieConstruct;
+    // }
 
     use BankCheckout;
     use PaystackCheckout;
@@ -43,9 +42,9 @@ class GuestCheckoutController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->__stripeConstruct();
-        $this->__paypalConstruct();
-        $this->__mollieConstruct();
+        // $this->__stripeConstruct();
+        // $this->__paypalConstruct();
+        // $this->__mollieConstruct();
     }
     
 

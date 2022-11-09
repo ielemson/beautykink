@@ -1,6 +1,6 @@
      <!-- Modal Cash on Transfer-->
      <div class="modal fade" id="cod" tabindex="-1" aria-hidden="true">
-         <div class="modal-dialog">
+         <div class="modal-dialog modal-dialog-centered">
              <div class="modal-content">
                  <div class="modal-header">
                      <h6 class="modal-title">{{ __('Transaction Cash On Delivery') }}</h6>
@@ -26,7 +26,7 @@
 
      <!-- Modal bank -->
      <div class="modal fade" id="bank" tabindex="-1" aria-hidden="true">
-         <div class="modal-dialog">
+         <div class="modal-dialog modal-dialog-centered">
              <div class="modal-content">
                  <div class="modal-header">
                      <h6 class="modal-title">{{ __('Transactions via Bank Transfer') }}</h6>

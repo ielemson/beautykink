@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Item;
+// use App\Models\Item;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\Currency;
 use App\Helpers\SmsHelper;
-use App\Helpers\PriceHelper;
+// use App\Helpers\PriceHelper;
 use App\Traits\BankCheckout;
 use Illuminate\Http\Request;
 use App\Models\PaymentSetting;
-use App\Traits\MollieCheckout;
-use App\Traits\PaypalCheckout;
-use App\Traits\StripeCheckout;
+// use App\Traits\MollieCheckout;
+// use App\Traits\PaypalCheckout;
+// use App\Traits\StripeCheckout;
 use App\Models\ShippingService;
 use App\Traits\PaystackCheckout;
 use Mollie\Laravel\Facades\Mollie;
@@ -25,17 +25,17 @@ use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 class CheckoutController extends Controller
 {
-    use StripeCheckout {
-        StripeCheckout::__construct  as private __stripeConstruct;
-    }
+    // use StripeCheckout {
+    //     StripeCheckout::__construct  as private __stripeConstruct;
+    // }
 
-    use PaypalCheckout {
-        PaypalCheckout::__construct  as private __paypalConstruct;
-    }
+    // use PaypalCheckout {
+    //     PaypalCheckout::__construct  as private __paypalConstruct;
+    // }
 
-    use MollieCheckout {
-        MollieCheckout::__construct  as private __mollieConstruct;
-    }
+    // use MollieCheckout {
+    //     MollieCheckout::__construct  as private __mollieConstruct;
+    // }
 
     use BankCheckout;
     use PaystackCheckout;
@@ -44,9 +44,9 @@ class CheckoutController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->__stripeConstruct();
-        $this->__paypalConstruct();
-        $this->__mollieConstruct();
+        // $this->__stripeConstruct();
+        // $this->__paypalConstruct();
+        // $this->__mollieConstruct();
     }
 
     /**
@@ -54,7 +54,7 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function shippingAddress(Request $request)
+    public function shippingAddress()
 
     {
         
