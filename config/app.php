@@ -178,6 +178,7 @@ return [
         // 'Intervention\Image\ImageServiceProvider',
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        KingFlamez\Rave\RaveServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'PriceHelper' => App\Helpers\PriceHelper::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Rave' => KingFlamez\Rave\Facades\Rave::class,
 
     ],
 

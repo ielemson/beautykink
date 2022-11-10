@@ -25,18 +25,7 @@ use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 class CheckoutController extends Controller
 {
-    // use StripeCheckout {
-    //     StripeCheckout::__construct  as private __stripeConstruct;
-    // }
-
-    // use PaypalCheckout {
-    //     PaypalCheckout::__construct  as private __paypalConstruct;
-    // }
-
-    // use MollieCheckout {
-    //     MollieCheckout::__construct  as private __mollieConstruct;
-    // }
-
+   
     use BankCheckout;
     use PaystackCheckout;
     use CashOnDeliveryCheckout;
@@ -44,9 +33,6 @@ class CheckoutController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // $this->__stripeConstruct();
-        // $this->__paypalConstruct();
-        // $this->__mollieConstruct();
     }
 
     /**
@@ -90,11 +76,9 @@ class CheckoutController extends Controller
     */
     public function billingStore(Request $request)
     {
-        // Session::forget('shipping_address');
+     
         Session::put('billing_address', $request->all());
-        // dd(Session::get('shipping_address'));
-        // if ($request->same_ship_address) {
-            // Session::put('billing_address', $request->all());
+
                 $shipping = [
                     'ship_first_name' => $request->bill_first_name,
                     'ship_last_name'  => $request->bill_last_name,
@@ -109,10 +93,7 @@ class CheckoutController extends Controller
                 ];
             
             Session::put('shipping_address', $shipping);
-        // } else {
-        //     Session::forget('shipping_address');
-        // }
-        // dd(Session::get('shipping_address'));
+      
         if (Session::has('shipping_address')) {
             return redirect()->route('frontend.checkout.payment');
         } else {
@@ -135,25 +116,9 @@ class CheckoutController extends Controller
             return redirect()->route('frontend.checkout.payment');
         }
 
-
         $data['user'] = Auth::user();
         $cart = Cart::content();
-        // $cart = Session::get('cart');
-
-        // $total_tax = 0;
-        // $cart_total = 0;
-        // $total = 0;
-        // $option_price = 0;
-        // foreach ($cart as $key => $item) {
-        //     $total += $item['main_price'] * $item['qty'];
-        //     $option_price += $item['attribute_price'];
-        //     $cart_total = $total + $option_price;
-        //     $item = Item::findOrFail($key);
-        //     if ($item->tax) {
-        //         $total_tax += $item->taxCalculate($item);
-        //     }
-        // }
-
+       
         $shipping = [];
        
         $shipping = ShippingService::whereStatus(1)->get();

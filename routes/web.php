@@ -63,6 +63,7 @@ use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
 use App\Http\Controllers\Backend\ShippingServiceController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Frontend\FlutterwaveController;
 use App\Http\Controllers\Frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
 
@@ -694,10 +695,15 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/checkout/review/payment', [CheckoutController::class, 'payment'])->name('frontend.checkout.payment');
         Route::post('/checkout-submit', [CheckoutController::class, 'checkout'])->name('frontend.checkout.submit');
         Route::get('/checkout/success', [CheckoutController::class, 'paymentSuccess'])->name('frontend.checkout.success');
-        Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
-        Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
-        Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
-        Route::get('/checkout/add_shippung/{id?}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
+        // The route that the button calls to initialize payment
+            Route::post('/checkout/flutterpay', [FlutterwaveController::class, 'initialize'])->name('pay');
+            // The callback url after a payment
+            Route::get('/rave/callback', [FlutterwaveController::class, 'callback'])->name('callback');
+            
+        // Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
+        // Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
+        // Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
+        Route::get('/checkout/add_shipping/{id?}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
 
 
         Route::post('/paytm/notify', [PaytmController::class, 'notify'])->name('frontend.paytm.notify');

@@ -455,7 +455,7 @@ $('body').on('click', '.remove_from_compare', function () {
         var ship_id = $( "#shipping_service option:selected" ).val();
     //     // console.log(ship_id);
     //     e.preventDefault();
-    //     $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+    //     $.get('/checkout/add_shipping' + '/' + ship_id, function (data) {
     //         // console.log(data)
     //     $('.shipping_value').html('&#8358;' + data.shippPrice)
     //     $('.orderTotal').html('&#8358;' + data.cartTotal)
@@ -465,11 +465,12 @@ $('body').on('click', '.remove_from_compare', function () {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: '/checkout/add_shippung' + '/' + ship_id,
+        url: '/checkout/add_shipping' + '/' + ship_id,
         success: function (data) {
             // console.log(data)
             $('.shipping_value').html('&#8358;' + data.shippPrice)
             $('.orderTotal').html('&#8358;' + data.cartTotal)
+            $('.flutterPayTotal').val(data.cartTotal)
                     
         }
     });
@@ -486,16 +487,17 @@ $('body').on('click', '.remove_from_compare', function () {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '/checkout/add_shippung' + '/' + ship_id,
+            url: '/checkout/add_shipping' + '/' + ship_id,
             success: function (data) {
                 // console.log(data)
                 $('.shipping_value').html('&#8358;' + data.shippPrice)
                 $('.orderTotal').html('&#8358;' + data.cartTotal)
+                $('#flutterPayTotal').val(data.cartTotal)
                         
             }
         });
         
-    //     $.get('/checkout/add_shippung' + '/' + ship_id, function (data) {
+    //     $.get('/checkout/add_shipping' + '/' + ship_id, function (data) {
     //         // console.log(data)
     //     $('.shipping_value').html('&#8358;' + data.shippPrice)
     //     $('.orderTotal').html('&#8358;' + data.cartTotal)

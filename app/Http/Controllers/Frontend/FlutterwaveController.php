@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Traits;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Item;
+use App\Http\Controllers\Controller;
+use KingFlamez\Rave\Facades\Rave as Flutterwave;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\PromoCode;
@@ -17,10 +18,67 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-trait CashOnDeliveryCheckout
+class FlutterwaveController extends Controller
 {
-    public function cashOnDeliverySubmit($data)
+    /**
+     * Initialize Rave payment process
+     * @return void
+     */
+    public function initialize()
     {
+        //This generates a payment reference
+        $reference = Flutterwave::generateReference();
+
+        // dd(request()->all());
+        // Enter the details of the payment
+        $data = [
+            'payment_options' => 'card,banktransfer',
+            'amount' => request()->amount,
+            'email' => request()->email,
+            'tx_ref' => $reference,
+            'currency' => "NGN",
+            'redirect_url' => route('callback'),
+            'customer' => [
+                'email' => request()->email,
+                "phone_number" => request()->phone,
+                "name" => request()->name
+            ],
+
+            "customizations" => [
+                "title" => 'BeautyKink',
+                "description" => "BeautyKink Ecommerce Store"
+            ]
+        ];
+
+        $payment = Flutterwave::initializePayment($data);
+
+
+        if ($payment['status'] !== 'success') {
+            // notify something went wrong
+            return;
+        }
+
+        return redirect($payment['data']['link']);
+    }
+
+    /**
+     * Obtain Rave callback information
+     * @return void
+     */
+    public function callback()
+    {
+        
+        $status = request()->status;
+
+        //if payment is successful
+        if ($status ==  'successful') {
+        
+        $transactionID = Flutterwave::getTransactionIDFromCallback();
+        $data = Flutterwave::verifyTransaction($transactionID);
+
+        // dd($data);
+
+
         $user = Auth::user();
         if(!$user){
 
@@ -63,7 +121,6 @@ trait CashOnDeliveryCheckout
 
             $guestUser->update($input);
             
-
         }
 
         }
@@ -114,13 +171,19 @@ trait CashOnDeliveryCheckout
         $order_data['tax']                = 0;
         $order_data['shipping_info']      = json_encode(Session::get('shipping_address'), true);
         $order_data['billing_info']       = json_encode(Session::get('billing_address'), true);
-        $order_data['payment_method']     = 'Cash On Delivery';
+        $order_data['payment_method']     = $data['data']['narration'];
+        $order_data['payment_type']       = $data['data']['payment_type'];
+        $order_data['app_fee']            = $data['data']['app_fee'];
+        $order_data['charged_amount']     = $data['data']['charged_amount'];
+        $order_data['flw_ref']            = $data['data']['flw_ref'];
+        $order_data['processor_response'] = $data['data']['processor_response'];
+        $order_data['charge_id']          = $data['data']['id'];
         $order_data['user_id']            = $user->id;
         $order_data['transaction_number'] = Str::random(10);
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
         $order_data['currency_value']     = PriceHelper::setCurrencyValue();
         $order_data['payment_status']     = 'Unpaid';
-        // $order_data['txnid']              = $data['txn_id'];
+        $order_data['txnid']              = $data['data']['tx_ref'];
         $order_data['order_status']       = 'Pending';
         $order                            = Order::create($order_data);
         TrackOrder::create([
@@ -160,8 +223,35 @@ trait CashOnDeliveryCheckout
         Session::forget('shipping_id');
         Session::forget('shipping_address');
         Session::forget('billing_address');
-        return [
-            'status' => true
-        ];
+
+        return redirect()->route('frontend.checkout.success');
+        // return [
+        //     'status' => true
+        // ];
+
+
+        }
+        elseif ($status ==  'cancelled'){
+            //Put desired action/code after transaction has been cancelled here
+        Session::forget('cart');
+        Session::forget('discount');
+        Session::forget('coupon');
+        Session::forget('shipping_id');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
+            return view('frontend.checkout.cancel');
+        }
+        else{
+            //Put desired action/code after transaction has failed here
+        }
+        // Get the transaction from your DB using the transaction reference (txref)
+        // Check if you have previously given value for the transaction. If you have, redirect to your successpage else, continue
+        // Confirm that the currency on your db transaction is equal to the returned currency
+        // Confirm that the db transaction amount is equal to the returned amount
+        // Update the db transaction record (including parameters that didn't exist before the transaction is completed. for audit purpose)
+        // Give value for the transaction
+        // Update the transaction to note that you have given value for the transaction
+        // You can also redirect to your success page from here
+
     }
 }

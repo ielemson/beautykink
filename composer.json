@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hardevine/shoppingcart": "^3.1",
         "intervention/image": "^2.7",
+        "kingflamez/laravelrave": "^4.2",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.5",

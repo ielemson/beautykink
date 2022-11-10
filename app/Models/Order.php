@@ -25,7 +25,12 @@ class Order extends Model
         'billing_info',
         'currency_sign',
         'currency_value',
-        'tax'
+        'tax',
+        'app_fee',
+        'payment_type',
+        'charged_amount',
+        'flw_ref',
+        'processor_response',
     ];
 
     /**

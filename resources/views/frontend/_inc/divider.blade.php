@@ -128,5 +128,10 @@
         });
   
     });
+
+    
+    $(".flutterwave").click(function(){        
+        $("#paymentForm").submit(); // Submit the form
+    });
   </script>
   @endsection

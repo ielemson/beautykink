@@ -1,9 +1,9 @@
      <!-- Modal Cash on Transfer-->
      <div class="modal fade" id="cod" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{ __('Transaction Cash On Delivery') }}</h6>
+                    <h5 class="modal-title">{{ __('Transaction Cash On Delivery') }}</h5>
                     <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form action="{{ route('frontend.guest.checkout.submit') }}" method="POST">
@@ -26,10 +26,10 @@
 
     <!-- Modal bank -->
     <div class="modal fade" id="bank" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{ __('Transactions via Bank Transfer') }}</h6>
+                    <h5 class="modal-title">{{ __('Transactions via Bank Transfer') }}</h5>
                     <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>

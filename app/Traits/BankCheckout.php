@@ -20,6 +20,7 @@ trait BankCheckout
 {
     public function bankSubmit($data)
     {
+       
         $user = Auth::user();
         if(!$user){
 
