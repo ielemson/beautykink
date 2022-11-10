@@ -343,49 +343,6 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * Show a page showing payment success
-     *
-     * @return \Illuminate\Http\Response
-    */
-    public function paymentSuccess()
-    {
-        if (Session::has('order_id')) {
-            $order_id = Session::get('order_id');
-            $order = Order::findOrFail($order_id);
-            $cart = json_decode($order->cart, true);
-            $setting = Setting::first();
-
-            if ($setting->is_twilio == 1) {
-                // Send message
-                $sms = new SmsHelper();
-                $user_number = $order->user->phone;
-                if ($user_number) {
-                    $sms->sendSms($user_number, "'purchase'");
-                }
-            }
-            return view('frontend.checkout.success', compact('order', 'cart'));
-        }
-        return redirect()->route('frontend.index');
-    }
-
-    /**
-     * Payment cancellation
-     *
-     * @return \Illuminate\Http\Response
-    */
-    public function paymentCancel()
-    {
-        $message = '';
-        if (Session::has('message')) {
-            $message = Session::get('message');
-            Session::forget('message');
-        } else {
-            $message = __('Payment Failed!');
-        }
-        return redirect()->route('frontend.checkout.billing')->withError($message);
-    }
-
     // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
    
 }

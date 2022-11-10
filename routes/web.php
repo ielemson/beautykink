@@ -694,7 +694,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/checkout/shipping/address', [CheckoutController::class, 'shipping'])->name('frontend.checkout.shipping');
         Route::get('/checkout/review/payment', [CheckoutController::class, 'payment'])->name('frontend.checkout.payment');
         Route::post('/checkout-submit', [CheckoutController::class, 'checkout'])->name('frontend.checkout.submit');
-        Route::get('/checkout/success', [CheckoutController::class, 'paymentSuccess'])->name('frontend.checkout.success');
+        Route::get('/checkout/success', [FrontendController::class, 'paymentSuccess'])->name('frontend.checkout.success');
         // The route that the button calls to initialize payment
             Route::post('/checkout/flutterpay', [FlutterwaveController::class, 'initialize'])->name('pay');
             // The callback url after a payment

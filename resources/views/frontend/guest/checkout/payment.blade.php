@@ -110,7 +110,7 @@
                                                                 </div>
                                                             @endif --}}
                                                         {{-- @else --}}
-                                                            <div class="single-payment-method">
+                                                            <div class="single-payment-method {{ $gateway->unique_keyword }}">
                                                                 <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#{{ $gateway->unique_keyword }}">
                                                                     <img class="" src="{{ asset($gateway->photo) }}" alt="{{ $gateway->name }}" title="{{ $gateway->name }}">
                                                                     <p>{{ $gateway->name }}</p>

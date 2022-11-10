@@ -55,3 +55,13 @@
         </div>
     </div>
     </div>
+
+
+    <form method="POST" action="{{route('pay')}}" id="paymentForm" style="visibility:hidden">
+        {{ csrf_field() }}
+    
+        <input name="name" value="{{ $bill['bill_first_name'] }} {{ $bill['bill_last_name'] }}" />
+        <input name="email" type="email"  value="{{ $bill['bill_email'] }}"/>
+        <input name="phone" type="tel" value="{{ $bill['bill_phone'] }}" />
+        <input name="amount" type="number" id="flutterPayTotal" />
+    </form>
