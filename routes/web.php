@@ -63,6 +63,7 @@ use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
 use App\Http\Controllers\Backend\ShippingServiceController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\TodoController;
 use App\Http\Controllers\Frontend\FlutterwaveController;
 use App\Http\Controllers\Frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
@@ -242,7 +243,15 @@ Route::prefix('admin')->group(function(){
             'edit' => 'backend.brand.edit',
             'update' => 'backend.brand.update',
         ]);
+        Route::resource('todo', TodoController::class)->except(['show'])->names([
+            'index' => 'backend.todo.index',
+            // 'create' => 'backend.brand.create',
+            'store' => 'backend.todo.store',
+            // 'edit' => 'backend.brand.edit',
+            // 'update' => 'backend.brand.update',
+        ]);
         Route::get('/brand/destroy/{id}', [BrandController::class, 'destroy'])->name('backend.brand.destroy');
+        // Route::post('/todo/store', [TodoController::class, 'store'])->name('backend.todo.store');
 
         //------------ REVIEW ------------
         Route::get('review/status/{id}/{status}', [ReviewController::class, 'status'])->name('backend.review.status');
