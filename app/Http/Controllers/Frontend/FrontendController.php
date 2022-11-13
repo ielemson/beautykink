@@ -30,6 +30,7 @@ use App\Models\TrackOrder;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\Frontend\FrontRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use \Dymantic\InstagramFeed\Profile;
 class FrontendController extends Controller
 {
     /**
@@ -202,11 +203,12 @@ class FrontendController extends Controller
         // }
         $sliders = Slider::orderBy('pos','asc')->get();
         $testimonials = Testimonial::where('status',1)->get();
-       
+    //   dd(Profile::where('username','beautykink')->first()->feed(12));
         return view('frontend.index', [
             'banner_first'           => json_decode($home_customize->banner_first, true),
             'sliders'                => $sliders,
             'campaign_items'         => CampaignItem::with('item')->whereStatus(1)->whereIsFeature(1)->orderBy('id', 'desc')->get(),
+            'insta_feeds'            => Profile::where('username','beautykink')->first()->feed(15),
             'services'               => Service::orderBy('id', 'desc')->get(),
             'posts'                  => Post::with('category')->orderBy('id', 'desc')->take(8)->get(),
             'brands'                 => Brand::whereStatus(1)->get(),

@@ -198,6 +198,7 @@
 var mainbs = {!! $mainbs !!};
 </script> --}}
     <!--=== Modernizr Min Js ===-->
+    
     <script src="{{ asset('frontend/js/modernizr.js') }}"></script>
     <!--=== jQuery Min Js ===-->
     <script src="{{ asset('frontend/js/jquery-main.js') }}"></script>
@@ -235,7 +236,7 @@ var mainbs = {!! $mainbs !!};
     <script src="{{ asset('frontend/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-   
+    <script src="{{ asset('js/share.js') }}"></script>
    @yield('extra_script')
     @yield('script')
 
