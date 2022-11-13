@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Edit Ticket') }}</h1>
+            <h1>{{ __('Ticket Trail') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -47,7 +47,69 @@
                     </div>
 
                     <div class="col-md-12">
-                        @if ($ticket->messages->count() > 0)
+                      <div class="timeline">
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-red">  {{ $ticket->created_at->diffForHumans() }}</span>
+              </div>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <div>
+                <i class="fas fa-envelope bg-blue"></i>
+                <div class="timeline-item">
+                  {{-- <span class="time"><i class="fas fa-clock"></i> 12:05</span> --}}
+                  <h3 class="timeline-header"><a href="#">{{ $ticket->user->first_name }}</a> sent you a ticket</h3>
+
+                  <div class="timeline-body">
+                   {!! $ticket->message !!}
+                  </div>
+                  
+                </div>
+              </div>
+
+              @if ($ticket->messages->count() > 0)
+              @foreach ($ticket->messages as $message)
+              <!-- timeline item -->
+              @if ($message->user_id == 0)
+              <div>
+                <i class="fas fa-user bg-green"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> {{ $message->created_at->diffForHumans() }}</span>
+                  <h3 class="timeline-header no-border"><a href="#">{{ __('Admin') }}</a> Replied</h3>
+                  <div class="timeline-body">
+                 {!! $message->message!!}
+                  </div>
+                </div>
+              </div>
+           
+              <!-- timeline item -->
+              @else
+              <div>
+                <i class="fas fa-user bg-green"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> {{ $message->created_at->diffForHumans() }}</span>
+                  <h3 class="timeline-header no-border"><a href="#">{{ $ticket->user->first_name }}</a> Replied</h3>
+                  <div class="timeline-body">
+                 {!! $message->message!!}
+                  </div>
+                </div>
+              </div>
+              @endif
+              @endforeach
+              @endif
+          
+            
+              @if ($ticket->status != 'Closed')
+                  <div>
+                <i class="fas fa-clock bg-gray"></i>
+              </div>
+              @else
+              <div class="time-label">
+                <span class="bg-green">Ticket Closed</span>
+              </div>
+              @endif
+            </div>
+                        {{-- @if ($ticket->messages->count() > 0)
                             @foreach ($ticket->messages as $message)
                                 @if ($message->user_id == 0)
                                     <div class="callout">
@@ -61,12 +123,12 @@
                                 </div>
                                 @endif
                             @endforeach
-                        @endif
+                        @endif --}}
                     </div>
                     @if ($ticket->status != 'Closed')
                         <div class="form-group  col-md-12">
-                        <label for="message">{{ __('Message') }} *</label>
-                        <textarea type="text" name='message' id="message" class='form-control' placeholder="{{ __('Message') }}">{{ old('message') }}</textarea>
+                        <label for="message">{{ __('Respond') }} *</label>
+                        <textarea type="text" name='message' id="message" class='form-control' placeholder="{{ __('Type your response here...') }}" required>{{ old('message') }}</textarea>
                         </div>
                         <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                     @endif

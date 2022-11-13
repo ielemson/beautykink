@@ -56,7 +56,7 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(['todo'=>TodoList::find($id)]);
     }
 
     /**
@@ -65,9 +65,19 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function check(Request $request)
     {
-        //
+        $todo = TodoList::where('id',$request->id)->first();
+
+        if($todo->status == 1){
+
+            $todo->status = 0;
+        }else{
+            $todo->status = 1;
+        }
+        
+        $todo->save();
+        return response()->json(['message'=>'Todo updated successfully']);
     }
 
     /**
@@ -77,9 +87,12 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $todo = TodoList::find($request->id);
+        $todo->todo = $request->todo;
+        $todo->save();
+        return response()->json(['message'=>'Todo updated successfully']);
     }
 
     /**
@@ -90,6 +103,10 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        TodoList::find($id)->delete();
+        return response()->json([
+            'success'=>'todo deleted successfully'
+        ],200);
     }
 }

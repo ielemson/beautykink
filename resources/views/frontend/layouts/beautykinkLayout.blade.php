@@ -64,10 +64,6 @@
 </style>
     @yield('styleplugins')
 
-    @if (App\Models\Language::where('is_default', 1)->first()->rtl == 1)
-        {{-- <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}"> --}}
-    @endif
-
     {{-- Google AdSense Start --}}
     @if ($setting->is_google_adsense == '1')
         {!! $setting->google_adsense !!}
@@ -151,8 +147,8 @@
                     </div>
                 </div>
             </div>
-
         @endif
+        
         @include('frontend._inc.header')
         <!--== End Header Wrapper ==-->
         <main class="main-content">

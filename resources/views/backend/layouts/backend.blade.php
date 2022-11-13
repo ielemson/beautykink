@@ -187,6 +187,7 @@
 <script src="{{ asset('backend/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
 <!-- Page specific script -->
 <script src="{{ asset('backend/js/custom.js') }}"></script>
+<script src=”https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js”></script>  
 @yield('script')
 @stack('scripts')
 </body>

@@ -7,7 +7,7 @@ $option_price = 0;
 <div class="shop-button-item">
     <a class="shop-button" href="{{route('frontend.cart')}}">
         <i class="icon-bag icon"></i>
-        <sup class="shop-count cart-count"></sup>
+        <sup class="shop-count cart-count">0</sup>
         <span class="cart-total sub_total"></span>
     </a>
     <div class="popup-cart-content">

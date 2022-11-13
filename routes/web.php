@@ -243,12 +243,16 @@ Route::prefix('admin')->group(function(){
             'edit' => 'backend.brand.edit',
             'update' => 'backend.brand.update',
         ]);
+        Route::get('todo/remove/{id}', [TodoController::class, 'destroy']);
+        Route::get('todo/show/{id}', [TodoController::class, 'show']);
+        Route::post('todo/update', [TodoController::class, 'update']);
+        Route::post('todo/check', [TodoController::class, 'check']);
         Route::resource('todo', TodoController::class)->except(['show'])->names([
             'index' => 'backend.todo.index',
-            // 'create' => 'backend.brand.create',
+            'destroy' => 'backend.todo.destroy',
             'store' => 'backend.todo.store',
-            // 'edit' => 'backend.brand.edit',
-            // 'update' => 'backend.brand.update',
+            'create' => 'backend.todo.create',
+            // 'update' => 'backend.todo.update',
         ]);
         Route::get('/brand/destroy/{id}', [BrandController::class, 'destroy'])->name('backend.brand.destroy');
         // Route::post('/todo/store', [TodoController::class, 'store'])->name('backend.todo.store');

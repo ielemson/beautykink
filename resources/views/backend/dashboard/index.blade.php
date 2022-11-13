@@ -181,7 +181,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                                 <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                                    data-target="#modal-lg"><i class="fas fa-plus"></i> Add item</button>
+                                    data-target="#modal-create-todo"><i class="fas fa-plus"></i> Add item</button>
                             </div>
                         </div>
                         <!-- /.card -->
@@ -195,7 +195,7 @@
         <!-- /.content -->
 
         {{-- Todo Modal starts --}}
-        <div class="modal fade" id="modal-lg">
+        <div class="modal fade" id="modal-create-todo">
             <div class="modal-dialog shadow-md modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -215,29 +215,67 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modal-edit-todo">
+            <div class="modal-dialog shadow-md modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit your todo</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateTodo" method="POST">
+                            <div class="form-group">
+                          <textarea class="form-control" name="todo_update" required id="todoEdit"></textarea>
+                          <input type="hidden" id="todId" name="todId">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- Todo Modal ends --}}
     </div>
 @endsection
 @section('script')
     <script>
-    //     $('#todoList').on('submit',function(e){
-    //     e.preventDefault();
-    //     //    var pid = $(this).attr("data-item-id");
-    //         var todo = $("textarea[name='todo']").val();
-    //         $.ajax({
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     data:todo,
-    //     route: "{{route('backend.todo.store')}}",
-    //     success: function (data) {
-    //         // console.log(data)
+   
+//    get all todos function
+
+        function todoList(){
+            $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "{{route('backend.todo.index')}}",
+            success: function (response) {
+                // console.log(response)
+                var todoData = ""
+                $.each(response.todos, function (key, item) {
+                    var done = item.status == 1 ? 'done':''
+                    var check = item.status == 1 ? 'checked':''
+                    todoData += `
+                    <li class="${done}">
+                    <div class="icheck-primary d-inline ml-2">
+                        <input type="checkbox" value="${item.id}" name="todocheck" id="todoCheck${item.id}" class="checkTodo" ${check} data-id="${item.id}">
+                        <label for="todoCheck${item.id}"></label>
+                    </div>
+                    <span class="text">${item.todo}</span>
                     
-    //     }
-    // });
-    //     });
-
-
-     
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> ${moment(item.created_at).fromNow()} </small>
+                    <div class="tools">
+                        <i class="fas fa-edit text-info" data-id="${item.id}"></i>
+                        <i class="fa fa-trash" data-id="${item.id}"></i>
+                    </div>
+                </li>
+`;
+                });
+                $('.todo-list').html(todoData);
+                }
+        })
+        }
    $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -261,89 +299,104 @@
               showConfirmButton: false,
               timer: 3500
           })
-       
-          var todoData = ""
-                $.each(response.todos, function (key, item) {
-                    todoData += `
-                    <li>
-                                        <span class="handle">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </span>
-                                     
-                                        <div class="icheck-primary d-inline ml-2">
-                                            <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                            <label for="todoCheck1"></label>
-                                        </div>
-                                      
-                                        <span class="text">${item.todo}</span>
-                                     
-                                        <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                                       
-                                        <div class="tools">
-                                            <i class="fas fa-edit"></i>
-                                            <i class="fas fa-trash-o"></i>
-                                        </div>
-                                    </li>
-                `;
-                });
-                $('.todo-list').html(todoData);
-
-
-
-        if(data.status == false){
-            Toast.fire({
-                  icon: 'error',
-                  title: 'Error encountered',
-              })
-        }else{
-            Toast.fire({
+          Toast.fire({
                   icon: 'success',
-                  title: 'Todo created successfully',
-              }) 
-            // Reload Page
-            // location.reload()
-        }
+                  title:'Todo created successfully',
+              })
+          $("textarea[name='todo']").val('');
+          $('#modal-create-todo').modal('hide');
+          todoList()
+
          }
       });
 
   });
 
   $('document').ready(function(){
-    $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: "{{route('backend.todo.index')}}",
-            success: function (response) {
-                console.log(response)
-                var todoData = ""
-                $.each(response.todos, function (key, item) {
-                    todoData += `
-                    <li>
-                                        <span class="handle">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </span>
-                                     
-                                        <div class="icheck-primary d-inline ml-2">
-                                            <input type="checkbox" value="todoCheck${item.id}" name="todo" id="todoCheck${item.id}">
-                                            <label for="todoCheck${item.id}"></label>
-                                        </div>
-                                      
-                                        <span class="text">${item.todo}</span>
-                                     
-                                        <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                                       
-                                        <div class="tools">
-                                            <i class="fas fa-edit text-info"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </li>
-                `;
-                });
-                $('.todo-list').html(todoData);
-            }
-        })
+  todoList()
+   
   })
+  
+  $('body').on('click', '.fa-trash', function () {
+    var id = $(this).attr("data-id");
+
+    $.ajax({
+         type:'GET',
+         url:'/admin/todo/remove' + '/' + id,
+         success:function(data){
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3500
+          })
+
+          Toast.fire({
+                  icon: 'success',
+                  title:data.success,
+              })
+       todoList()
+         }
+      });
+});
+
+  $('body').on('click', '.fa-edit', function () {
+    var id = $(this).attr("data-id");
+
+    $.ajax({
+         type:'GET',
+         url:'/admin/todo/show' + '/' + id,
+         success:function(data){
+            $("textarea[id='todoEdit']").val(data.todo.todo);
+            $("#todId").val(data.todo.id);
+            $('#modal-edit-todo').modal('show');
+        //  console.log(data)
+         }
+      });
+});
+
+
+$('#updateTodo').on('submit',function(e){
+
+e.preventDefault();
+var todo = $("textarea[name='todo_update']").val();
+var id = $("input[name='todId']").val();
+$.ajax({
+   type:'POST',
+   url:'/admin/todo/update',
+   data:{ todo:todo,id:id},
+   success:function(data){
+  
+    const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3500
+          })
+          Toast.fire({
+                  icon: 'success',
+                  title:data.message,
+              })
+          $("textarea[name='todo_update']").val('');
+          $('#modal-edit-todo').modal('hide');
+          todoList()
+
+   }
+});
+
+});
+
+$('body').on('click', '.checkTodo', function () {
+    var id = $(this).attr("data-id");
+        $.ajax({
+   type:'POST',
+   url:'/admin/todo/check',
+   data:{ id:id},
+   success:function(data){
+          todoList()
+
+   }
+});
+    });
     </script>
 @endsection

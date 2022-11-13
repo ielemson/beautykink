@@ -329,7 +329,7 @@
         </ul>
       </li>
 
-      <li class="nav-item {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'menu-open' : '' }}">
+      {{-- <li class="nav-item {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'active' : '' }}">
           <i class="nav-icon fas fa-question-circle"></i>
           <p>
@@ -351,9 +351,9 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
 
-      <li class="nav-item {{ request()->segment(2) == 'bcategory' || request()->segment(2) == 'post' ? 'menu-open' : '' }}">
+      {{-- <li class="nav-item {{ request()->segment(2) == 'bcategory' || request()->segment(2) == 'post' ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ request()->segment(2) == 'bcategory' || request()->segment(2) == 'post' ? 'active' : '' }}">
           <i class="nav-icon fas fa-rss-square"></i>
           <p>
@@ -375,7 +375,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
 
       <li class="nav-item">
         <a href="{{ route('backend.page.index') }}" class="nav-link {{ request()->segment(2) == 'page' ? 'active' : '' }}">
@@ -424,12 +424,12 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ route('backend.system.backup') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>{{ __('System Backup') }}</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{ route('backend.database.backup') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
