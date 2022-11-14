@@ -18,13 +18,19 @@ class ImageHelper
                     unlink($delete);
                 }
             }
-            // $name = microtime() . '-' . $file->getClientOriginalName();
-            $name = time() .'-slider'. '.'.$file->getClientOriginalExtension();
-            $file->move(public_path($path), $name);
+    
+            // $name = time() .'-gallery'. '.'.$file->getClientOriginalExtension();
+            // $file->move(public_path($path), $name);
+            // return $path . "/" . $name;
+
+            $name = time() .'-gallery'. '.'.$file->getClientOriginalExtension();
+            $galeryImg = Image::make($file)->resize(800, 800);
+            $photo_save_path = public_path($path) ."/".$name;
+            $galeryImg->save($photo_save_path);
             return $path . "/" . $name;
+
         }
     }
-
 
     public static function itemHandleUploadedimage($file, $path, $delete = null){
         if ($file) {
@@ -44,8 +50,12 @@ class ImageHelper
             $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
             $image->save($thumb_save_path);
 
-            $photo = time() . '-' . $file->getClientOriginalName();
-            $file->move(public_path($path), $photo);
+            // $photo = time() . '-' . $file->getClientOriginalName();
+            // $file->move(public_path($path), $photo);
+            $photo = time() . '.' . $file->getClientOriginalExtension();
+            $prodImg = Image::make($file)->resize(360, 360);
+            $photo_save_path = public_path($path) . "/". $photo;
+            $prodImg->save($photo_save_path);
 
             return [
                 $path. '/' . $photo,
