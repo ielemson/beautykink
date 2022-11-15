@@ -57,7 +57,7 @@
                                                                 height: auto;
                                                                 object-fit: cover;
                                                                 object-position: bottom;">
-                                                        <span class="product-flag-new">{{ $item->is_type }}</span>
+                                                        <span class="product-flag-new">{{ ucfirst(str_replace('_', ' ', $item->is_type)) }}</span>
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -90,6 +90,7 @@
                                             {{-- <i class="ion-md-star icon-color-gray"></i> --}}
                                             {!! renderStarRating($item->reviews->avg('rating')) !!}
                                         </div>
+                                   
                                         <ul class="comments-advices">
                                             <li><a href="#description" class="reviews"><i class="fa fa-commenting-o"></i>Read
                                                     reviews ({{count($reviews)}})</a></li>
@@ -103,7 +104,11 @@
                                             @endif
                                         </ul>
                                     </div>
-
+                                    @if ($item->is_type == 'flash_deal')
+                                    @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
+                                    <div class="ht-countdown ht-countdown-style1 mt-5 mb-10" data-date="{{ $item->date }}"></div>
+                                    @endif
+                                @endif
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span
@@ -124,7 +129,17 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                    <div class="pt-1 mb-1"><span class="text-medium">{{ __('Categories') }}:</span>
+                                        <a href="{{ route('frontend.catalog') . '?category=' . $item->category->slug }}">{{ $item->category->name }}</a>
+                                        @if ($item->subcategory)
+                                            /
+                                            <a href="{{ route('frontend.catalog') . '?subcategory=' . $item->subcategory->slug }}">{{ $item->subcategory->name }}</a>
+                                        @endif
+                                        @if ($item->childcategory)
+                                            /
+                                            <a href="{{ route('frontend.catalog') . '?childcategory=' . $item->childcategory->slug }}">{{ $item->childcategory->name }}</a>
+                                        @endif
+                                    </div>
                                     <form id="add_to_cart_form">
                                         <div class="product-variants">
                                           @foreach ($attributes as $attribute)
@@ -161,7 +176,7 @@
                                         </div>
     
                                         <div class="product-description">
-                                            {!! $item->details !!}
+                                            {!! $item->short_details !!}
                                         </div>
                                         <div class="product-quick-action">
                                             {{-- <div class="product-quick-qty">
@@ -191,14 +206,16 @@
                                     <div class="social-sharing">
                                         <span>Share</span>
                                         <div class="social-icons">
-                                            @php
+                                            {{-- @php
                                                 $links = json_decode($setting->social_link, true)['links'];
                                                 $icons = json_decode($setting->social_link, true)['icons'];
                                             @endphp
                                             @foreach ($links as $link_key => $link)
                                                 <a href="{{ $link }}"><i class="{{ $icons[$link_key] }}"></i></a>
-                                            @endforeach
+                                            @endforeach --}}
+                                            {!! Share::page(url('/product/'. $item->slug))->facebook()->telegram()->twitter()->linkedin()->whatsapp() !!}
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <!--== End Product Info Area ==-->

@@ -336,6 +336,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/aboutpage/index', [HomePageController::class, 'aboutpage'])->name('backend.aboutpage');
         Route::post('/aboutpage/new', [HomePageController::class, 'aboutpageStore'])->name('backend.aboutpagestore');
         Route::put('/aboutpage/update', [HomePageController::class, 'aboutpageuUdate'])->name('backend.about_us.update');
+        Route::post('/homepage/flash/banner/update', [HomePageController::class, 'flashDealUpdate'])->name('backend.flasdeal.banner.update');
         Route::post('/homepage/first/banner/update', [HomePageController::class, 'firstBannerUpdate'])->name('backend.first.banner.update');
         Route::post('/homepage/second/banner/update', [HomePageController::class, 'secondBannerUpdate'])->name('backend.second.banner.update');
         Route::post('/homepage/third/banner/update', [HomePageController::class, 'thirdBannerUpdate'])->name('backend.third.banner.update');

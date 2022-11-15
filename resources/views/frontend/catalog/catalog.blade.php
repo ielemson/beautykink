@@ -35,7 +35,7 @@ function renderStarRating($rating, $maxRating = 5)
                     <div class="product-thumb">
                         <a href="{{ route('frontend.product', $item->slug) }}">
                             <img src="{{ asset($item->photo) }}" alt="{{ asset($item->name) }}">
-                            <img class="second-image" src="{{ asset($item->thumbnail) }}" alt="I{{ asset($item->name) }}">
+                            <img class="second-image" src="{{ asset($item->thumbnail) }}" alt="{{ asset($item->name) }}">
                         </a>
                         <div class="product-action">
                             <div class="addto-wrap">

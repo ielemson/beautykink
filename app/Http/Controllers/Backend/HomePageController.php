@@ -33,6 +33,7 @@ class HomePageController extends Controller
     public function index()
     {
         $data = HomeCustomize::first();
+        // dd($data);
         return view('backend.homepage.index', [
             'first_banner' => json_decode($data->banner_first, true),
             'second_banner' => json_decode($data->banner_secend, true),
@@ -42,7 +43,8 @@ class HomePageController extends Controller
             'feature_category' => json_decode($data->feature_category, true),
             'home4_banner' => json_decode($data->home_page4, true),
             'home_4_popular_category' => json_decode($data->home_4_popular_category, true),
-            'categories' => Category::whereStatus(1)->get()
+            'categories' => Category::whereStatus(1)->get(),
+            'flash_deal_img' => $data->flash_deal_img
         ]);
     }
 
@@ -170,6 +172,52 @@ class HomePageController extends Controller
 
         $data->banner_third = json_encode($input, true);
         $data->update();
+        return redirect()->back()->withSuccess(__('Banner Update Successfully.'));
+    }
+
+
+    public function flashDealUpdate(Request $request)
+    {
+        $request->validate([
+            'flashImg'      => 'required|image'
+        ]);
+
+        // dd($request->file('flashImg'));
+
+        if ($request->file('flashImg')) {
+            // $images_name = ImageHelper::itemHandleUploadedimage($request->file('photo'), 'uploads/flashdeal');
+            $data = HomeCustomize::first();
+
+            // if (!$data->flash_deal_img) {
+               $bannerImg =  ImageHelper::itemHandleFlashDealUploadedimage($request->flashImg, 'uploads/flashdeal', $data->flash_deal_img);
+              $data->flash_deal_img = $bannerImg;
+                $data->update();
+            // }
+        }
+
+        // $input = $request->all();
+        // foreach ($all_images_names as $single_image) {
+        //     if ($request->hasFile($single_image)) {
+        //         $data = HomeCustomize::first();
+        //         $check = json_decode($data->banner_third, true);
+        //         $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'uploads/banners', $check[$single_image]);
+        //     }
+        // }
+
+        // unset($input['_token']);
+        // $data = HomeCustomize::first();
+
+        // foreach (json_decode($data->banner_third, true) as $key => $value) {
+        //     if (isset($input[$key])) {
+        //         $input[$key] = $input[$key];
+        //     } else {
+        //         $input[$key] = $value;
+        //     }
+        // }
+
+        // $data->banner_third = json_encode($input, true);
+        // $data->update();
+
         return redirect()->back()->withSuccess(__('Banner Update Successfully.'));
     }
 

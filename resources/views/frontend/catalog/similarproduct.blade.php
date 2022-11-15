@@ -22,9 +22,9 @@
                         <div class="product-thumb">
                             <a href="{{ route('frontend.product', $related->slug) }}">
                                 <img src="{{ asset($related->photo) }}"
-                                    alt="{{ asset($related->name) }}" style="width:100%; height:35vh">
+                                    alt="{{ asset($related->name) }}">
                                 <img class="second-image" src="{{ asset($related->photo) }}"
-                                    alt="{{ asset($related->name) }}" style="width:100%; height:35vh">
+                                    alt="{{ asset($related->name) }}">
                             </a>
                             <div class="product-action">
                                 <div class="addto-wrap">

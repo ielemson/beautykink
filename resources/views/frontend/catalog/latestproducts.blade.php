@@ -23,9 +23,9 @@
                                         <div class="product-thumb">
                                             <a href="{{ route('frontend.product', $newitem->slug) }}">
                                                 <img src="{{ asset($newitem->photo) }}"
-                                                    alt="{{ asset($newitem->name) }}" style="width:100%; height:35vh">
+                                                    alt="{{ asset($newitem->name) }}" >
                                                 <img class="second-image" src="{{ asset($newitem->photo) }}"
-                                                    alt="{{ asset($newitem->name) }}" style="width:100%; height:35vh">
+                                                    alt="{{ asset($newitem->name) }}" >
                                             </a>
                                             <div class="product-action">
                                                 <div class="addto-wrap">

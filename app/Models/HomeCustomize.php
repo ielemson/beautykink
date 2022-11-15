@@ -17,6 +17,7 @@ class HomeCustomize extends Model
         'two_column_category',
         'feature_category',
         'home_page4',
-        'home_4_popular_category'
+        'home_4_popular_category',
+        'flash_deal_img'
     ];
 }

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-20">
     <div class="col-12">
         <div class="product-review-tabs-content">
             <ul class="nav product-tab-nav" id="ReviewTab" role="tablist">

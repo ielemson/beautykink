@@ -127,10 +127,10 @@
                     <input type="number" name='stock' id="stock" class='form-control' placeholder="{{ __('Total in stock') }}" value="{{ old('stock') }}">
                   </div>
 
-                  {{-- <div class="form-group  col-md-12">
+                  <div class="form-group  col-md-12">
                     <label for="short_details">{{ __('Short Description') }} *</label>
                     <textarea name="short_details" id="short_details" class='form-control' placeholder="{{ __('Short Description') }}" rows="5">{{ old('short_details') }}</textarea>
-                  </div> --}}
+                  </div>
 
                   <div class="form-group  col-md-12">
                     <label for="details">{{ __('Description') }} *</label>

@@ -23,7 +23,7 @@
                   <div class="poscompare-product">
                     <div class="product-thumb">
                       <a href="{{ route('frontend.product', $item->options->slug) }}">
-                        <img src="{{asset($item->options->image)}}" alt="Image-HasTech">
+                        <img src="{{asset($item->options->image)}}" alt="{{$item->options->slug}}">
                       </a>
                       <a href="javascript:;" class="poscompare-remove remove_from_compare" data-id="{{$item->rowId}}">Remove</a>
                     </div>

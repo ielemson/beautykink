@@ -27,10 +27,10 @@
                       <p class="product-number text-white" style="cursor:pointer">
                           {{Str::limit($feed['caption'], 100)}}
                        </p>
-                      <a href="#/">{<i class="fab fa-facebook-f"></i>}</a>
-                      <!--<a href="#/"><i class="fa fa-dribbble"></i></a>-->
-                      <a href="#/"><i class="fab fa-pinterest-p"></i></a>
-                      <a href="#/"><i class="fab fa-twitter"></i></a>
+                     <div class="row">
+                      {!! Share::page(url($feed['permalink']. $feed['caption']))->facebook()->pinterest()->twitter()!!}
+
+                     </div>
                     </div>
                     </div>
                       

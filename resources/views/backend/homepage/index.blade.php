@@ -27,7 +27,7 @@
                         <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">{{ __('3 column banner First') }}</a>
 
                         
-                        {{-- <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">{{ __('Popular Categories') }}</a> --}}
+                        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#tab10" role="tab" aria-controls="tab10" aria-selected="false">{{ __('Flash Deal') }}</a>
 
                         {{-- <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">{{ __('3 column banner Second') }}</a> --}}
 
@@ -157,7 +157,7 @@
                             </form>
                         </div>
 
-                        <div class="tab-pane fade" id="tab9" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                        {{-- <div class="tab-pane fade" id="tab9" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
                             <form action="{{ route('backend.popular.category.update') }}" method="POST" id="quickForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row">
@@ -1259,6 +1259,44 @@
                                     <div class="form-group  col-md-8">
                                         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                                     </div>
+                                </div>
+
+                            </form>
+                        </div> --}}
+
+                        <div class="tab-pane text-left fade show active" id="tab10" role="tabpanel0" aria-labelledby="vert-tabs-home-tab">
+                            <form action="{{ route('backend.flasdeal.banner.update') }}" method="POST" id="quickForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class=" row">
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group col-md-8">
+                                        <label for="exampleInputEmail1">{{ __('Flash Deal') }} *</label>
+                                        <br>
+                                        <img src="{{ $flash_deal_img ? asset($flash_deal_img) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
+                                        <br>
+                                        <span>{{ __('Image Size Should Be 1305 x 620.') }}</span>
+                                    </div>
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group col-md-8">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                            <input type="file" name="flashImg" class="custom-file-input upload-photo" id="flashImg" aria-label="File browser">
+                                            <label class="custom-file-label" for="flashImg">{{ __('Upload Image...') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
+                                    <div class="col-md-2"></div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="form-group  col-md-8">
+                                        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                                    </div>
+
                                 </div>
 
                             </form>

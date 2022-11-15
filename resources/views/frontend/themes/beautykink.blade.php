@@ -56,7 +56,8 @@
     {{--  New Product Arrivals Ends --}}
 
     {{-- Flash deal products starts --}}
-    @include('frontend.catalog.flash_deal')
+    {{-- @include('frontend.catalog.flash_deal') --}}
+    @include('frontend.catalog.flashdeal')
     {{-- Flash deal products ends --}}
 
     {{-- All Product starts --}}

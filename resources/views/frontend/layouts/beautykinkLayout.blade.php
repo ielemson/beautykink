@@ -61,6 +61,38 @@
     -o-transition: all 0.3s ease-out; */
 }
 /* Custom Mobile menu :::::::::::::::::::::::::::: */
+
+.social-btn #social-links {
+        margin: 0 auto;
+        max-width: 40%;
+    }
+
+    #social-links ul {
+        margin-bottom: 0px;
+    }
+
+    .social-btn #social-links ul li {
+        display: inline-block;
+    }
+
+    
+
+     #social-links {
+        display: inline-table;
+    }
+
+     #social-links ul li {
+        display: inline;
+    }
+
+     #social-links ul li a {
+        /* padding: 5px; */
+        /* border: 1px solid #8b8484; */
+        margin: 1px;
+        /* font-size: 1rem; */
+        /* color: #000; */
+        /* margin-right: 10px; */
+    }
 </style>
     @yield('styleplugins')
 
@@ -153,7 +185,6 @@
         <!--== End Header Wrapper ==-->
         <main class="main-content">
             @yield('content')
-
         </main>
 
         <!--== Start Footer Area Wrapper ==-->

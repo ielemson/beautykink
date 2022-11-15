@@ -19,8 +19,7 @@
                             <div class="inner-content">
                                 <div class="product-thumb">
                                     <a href="{{ route('frontend.product', $item->slug) }}">
-                                        <img src="{{ asset($item->photo) }}" alt="Image-{{ asset($item->name) }}"
-                                            style="width:100%; height:35vh">
+                                        <img src="{{ asset($item->photo) }}" alt="{{ asset($item->name) }}">
                                         <img class="second-image" src="{{ asset($item->photo) }}"
                                             alt="{{ asset($item->thumbnail) }}">
                                     </a>

@@ -63,6 +63,22 @@ class ImageHelper
             ];
         }
     }
+    public static function itemHandleFlashDealUploadedimage($file, $path, $delete = null){
+        if ($file) {
+            // Delete Image Which Exists In Directory
+            if($delete){
+                if (file_exists($delete)) {
+                    unlink($delete);
+                }
+            }
+           
+            $name = time() .'-flashdeal'. '.'.$file->getClientOriginalExtension();
+            $galeryImg = Image::make($file)->resize(1305, 620);
+            $photo_save_path = public_path($path) ."/".$name;
+            $galeryImg->save($photo_save_path);
+            return $path . "/" . $name;
+        }
+    }
 
     public static function handleUpdatedUploadedImage($file, $path, $data, $field){
         $name = time() . '-slider.' . $file->getClientOriginalExtension();

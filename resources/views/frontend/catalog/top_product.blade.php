@@ -24,9 +24,9 @@
                                     <div class="product-thumb">
                                         <a href="{{ route('frontend.product', $bestitem->slug) }}">
                                             <img src="{{ asset($bestitem->photo) }}"
-                                                alt="{{ asset($bestitem->name) }}" style="width:100%; height:35vh">
+                                                alt="{{ asset($bestitem->name) }}">
                                             <img class="second-image" src="{{ asset($bestitem->photo) }}"
-                                                alt="{{ asset($bestitem->name) }}" style="width:100%; height:35vh">
+                                                alt="{{ asset($bestitem->name) }}">
                                         </a>
                                         <div class="product-action">
                                             <div class="addto-wrap">

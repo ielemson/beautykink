@@ -203,6 +203,7 @@ class FrontendController extends Controller
         // }
         $sliders = Slider::orderBy('pos','asc')->get();
         $testimonials = Testimonial::where('status',1)->get();
+        $buttons = \Share::page('https://dev.beautykink.com', 'Our insta-feeds',)->facebook()->telegram()->twitter()->whatsapp();
     //   dd(Profile::where('username','beautykink')->first()->feed(12));
         return view('frontend.index', [
             'banner_first'           => json_decode($home_customize->banner_first, true),
@@ -232,7 +233,8 @@ class FrontendController extends Controller
 
             // two column cateogry
             'two_column_categoriess' => $two_column_categoriess,
-            'testimonials' => $testimonials
+            'testimonials' => $testimonials,
+            'buttons' => $buttons,
         ]);
 
     }
@@ -413,6 +415,9 @@ class FrontendController extends Controller
     public function product($slug)
     {
         $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->firstOrFail();
+        // dd($item);
+        $buttons = \Share::page('https://dev.beautykink.com', $item->name,)->facebook()->telegram()->twitter()->whatsapp();
+
         $video = explode('=', $item->video);
         return view('frontend.catalog.product', [
             'item'          => $item,
@@ -422,7 +427,8 @@ class FrontendController extends Controller
             'sec_name'      => json_decode($item->specification_name, true),
             'sec_details'   => json_decode($item->specification_description, true),
             'attributes'    => $item->attributes,
-            'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get()
+            'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get(),
+            'buttons'       =>$buttons
         ]);
     }
     // ------------ Extra Index End --------------
