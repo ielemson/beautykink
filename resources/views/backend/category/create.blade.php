@@ -64,8 +64,12 @@
                   </div>
 
                   <div class="form-group  col-md-12">
+                    <label for="description">{{ __('Brief Description') }}</label>
+                    <textarea name='description' class='form-control' placeholder="{{ __('Enter Brief Description') }}" rows="3"></textarea>
+                  </div>
+                  <div class="form-group  col-md-12">
                     <label for="exampleInputPassword1">{{ __('Meta Description') }}</label>
-                    <textarea name='meta_descriptions' class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="5"></textarea>
+                    <textarea name='meta_descriptions' class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="4"></textarea>
                   </div>
 
                   <div class="form-group  col-md-12">

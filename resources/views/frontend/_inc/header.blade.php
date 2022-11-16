@@ -152,7 +152,8 @@
                                                         @if ($pcategory->subcategories->count() > 0)
                                                             @foreach ($pcategory->subcategories as $subscategory)
                                                                 <option value="{{ $subscategory->name }}">-
-                                                                    -{{ $subscategory->name }}</option>
+                                                                    -{{ $subscategory->name }}
+                                                                </option>
 
                                                                 @if ($subscategory->childcategories->count() > 0)
                                                                     @foreach ($subscategory->childcategories as $childcategory)
@@ -203,26 +204,19 @@
                     <div class="header-align align-default justify-content-center">
                         <div class="header-navigation-area hidden-md-down">
                             <ul class="main-menu nav">
-                                <li><a href="{{ route('frontend.index') }}">Home</a> </li>
-                                <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
+                                <li><a href="{{ route('frontend.index') }}">HOME</a> </li>
+                                <li><a href="{{ route('frontend.aboutus') }}">ABOUT US</a></li>
 
                                 {{-- Categories drop-down-list --}}
                                 @include('frontend._inc.categories')
-
                                 {{-- Pages dynamic lists --}}
-
-                                
                                 @include('frontend._inc.pages')
        
                                 </li>
-                                @if ($setting->is_shop == 1)
-                                    <li class="{{ request()->routeIs('frontend.catalog*') ? 'active' : '' }}">
-                                        <a href="{{ route('frontend.catalog') }}">{{ __('Shop') }}</a>
-                                    </li>
-                                @endif
+                               
 
                                 @if ($setting->is_contact == 1)
-                                    <li class="{{ request()->routeIs('frontend.contact') ? 'active' : '' }}">
+                                    <li>
                                         <a href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
                                     </li>
                                 @endif

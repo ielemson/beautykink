@@ -180,7 +180,14 @@ class CatalogController extends Controller
     }
 
     public function filterByCategory($catid){
-        $data = Item::where('slug',$catid)->get();
-        dd($data);
+        $category = Category::where('slug',$catid)->first();
+        $categories =  Category::whereStatus(1)->orderBy('serial', 'asc')->withCount(['items' => function($query) {
+            $query->where('status', 1);
+        }])->get();
+
+        $items = Item::where('category_id',$category->id)->paginate(10);
+       
+        return view('frontend.catalog.index',compact('items','categories','category'));
+    
     }
 }

@@ -5,7 +5,7 @@
     <meta name="description" content="{{ $setting->meta_description }}">
 @endsection
 @section('title')
-    {{ __('Home') }}
+    {{ __('| Easy To Use Makeup Products In Nigeria') }}
 @endsection
 
 

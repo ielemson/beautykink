@@ -25,6 +25,7 @@ function renderStarRating($rating, $maxRating = 5)
 
 <section class="product-area mb-15">
     <div class="container-fluid pb-55">
+
 <div class="row">
     @if ($items->count() > 0)
     @foreach ($items as $item)
@@ -68,7 +69,7 @@ function renderStarRating($rating, $maxRating = 5)
                     <div class="product-desc">
                         <div class="product-info">
                             <h4 class="title"><a href="{{ route('frontend.product', $item->slug) }}">
-                                    {{ strlen(strip_tags($item->name)) > $name_string_count ? substr(strip_tags($item->name), 0, 38) : strip_tags($item->name) }}</a>
+                                    {{-- {{ strlen(strip_tags($item->name)) > $name_string_count ? substr(strip_tags($item->name), 0, 38) : strip_tags($item->name) }}</a> --}}
                             </h4>
                             <div class="star-content">
 
@@ -77,7 +78,7 @@ function renderStarRating($rating, $maxRating = 5)
                             <div class="prices">
                                 @if ($item->previous_price != 0)
                                     <span
-                                        class="price-old visually-hidden">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                        class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
                                 @endif
                                 <span class="price text-black">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
 
