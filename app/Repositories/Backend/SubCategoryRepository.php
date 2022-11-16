@@ -16,6 +16,7 @@ class SubCategoryRepository{
     public function store($request)
     {
         $input = $request->all();
+        $input['slug'] = strtolower($input['slug']);
         $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
         Subcategory::create($input);
     }
@@ -29,6 +30,7 @@ class SubCategoryRepository{
     public function update($subcategory, $request)
     {
         $input = $request->all();
+        $input['slug'] = strtolower($input['slug']);
         if($file = $request->file('photo')){
             $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/categories', $subcategory, 'photo');
         }

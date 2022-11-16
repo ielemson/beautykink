@@ -16,6 +16,7 @@ class ChildCategoryRepository {
     public function store($request)
     {
         $input = $request->all();
+        $input['slug'] = strtolower($input['slug']);
         $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
         ChildCategory::create($input);
     }
@@ -29,6 +30,7 @@ class ChildCategoryRepository {
     public function update($childcategory, $request)
     {
         $input = $request->all();
+        $input['slug'] = strtolower($input['slug']);
         if($file = $request->file('photo')){
             $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/categories', $childcategory, 'photo');
         }
