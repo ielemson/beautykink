@@ -215,7 +215,6 @@
                             <img class="img-fluid" src="{{asset($setting->announcement)}}">
                         </a>
                     </div>
-                  
                   </div>
                 </div>
               </div>

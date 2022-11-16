@@ -82,7 +82,7 @@ function renderStarRating($rating, $maxRating = 5)
                     @if ($pcategory->subcategories->count() > 0)
                     @foreach ($pcategory->subcategories as $subscategory)
                     <ul class="collapse" id="sub-menu">
-                      <li><a href="#/">{{Str::ucfirst($subscategory->name)}}</a></li>
+                      <li><a href="{{ route('frontend.subcategory.view',$subscategory->slug)}}">{{Str::ucfirst($subscategory->name)}}</a></li>
                     </ul>
                     @endforeach
                     @endif
@@ -158,7 +158,8 @@ function renderStarRating($rating, $maxRating = 5)
         </div>
         <div class="product-body-wrap">
           <div class="tab-content product-tab-content" id="pills-tabContent">
-            {{-- GRID TAB STARTS --}}
+           @if ($items->count() > 0)
+              {{-- GRID TAB STARTS --}}
             <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
               <div class="row">
                 
@@ -173,6 +174,13 @@ function renderStarRating($rating, $maxRating = 5)
                
             </div>
           </div>
+           @else
+           
+           {{-- <a class="btn-theme mx-auto" href="{{route('frontend.catalog')}}">
+            No product found for this category
+          </a> --}}
+          No product found for this category
+           @endif
           <div class="row">
             <div class="col-12">
               <div class="pagination-content-wrap">

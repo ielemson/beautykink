@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Backend;
 
+use App\Helpers\ImageHelper;
 use App\Models\ChildCategory;
 
 class ChildCategoryRepository {
@@ -15,6 +16,7 @@ class ChildCategoryRepository {
     public function store($request)
     {
         $input = $request->all();
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
         ChildCategory::create($input);
     }
 
@@ -27,6 +29,9 @@ class ChildCategoryRepository {
     public function update($childcategory, $request)
     {
         $input = $request->all();
+        if($file = $request->file('photo')){
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/categories', $childcategory, 'photo');
+        }
         $childcategory->update($input);
     }
 

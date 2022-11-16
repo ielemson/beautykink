@@ -9,7 +9,7 @@ class ChildCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'name', 'slug', 'status', 'category_id', 'subcategory_id' ];
+    protected $fillable = [ 'name', 'slug', 'status', 'category_id', 'subcategory_id','photo','description'];
 
     /**
      * Category

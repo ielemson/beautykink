@@ -7,7 +7,9 @@
             <img src="{{asset($data->photo)}}">
          </td>
          @else
-         {{''}}
+         <td>
+          No Photo
+         </td>
         @endif
         <td>{{ $data->name }}</td>
         <td>

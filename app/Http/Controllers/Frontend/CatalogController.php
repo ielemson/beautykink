@@ -190,4 +190,27 @@ class CatalogController extends Controller
         return view('frontend.catalog.index',compact('items','categories','category'));
     
     }
+
+    public function filterBySubcategory($subcatId){
+        $category = Subcategory::where('slug',$subcatId)->first();
+        $categories =  Category::whereStatus(1)->orderBy('serial', 'asc')->withCount(['items' => function($query) {
+            $query->where('status', 1);
+        }])->get();
+
+        $items = Item::where('subcategory_id',$category->id)->paginate(10);
+       
+        return view('frontend.catalog.index',compact('items','categories','category'));
+    }
+
+    public function filterByChildcategory($childCategoryId){
+
+        $category = ChildCategory::where('slug',$childCategoryId)->first();
+        $categories =  Category::whereStatus(1)->orderBy('serial', 'asc')->withCount(['items' => function($query) {
+            $query->where('status', 1);
+        }])->get();
+
+        $items = Item::where('subcategory_id',$category->id)->paginate(10);
+       
+        return view('frontend.catalog.index',compact('items','categories','category'));
+    }
 }

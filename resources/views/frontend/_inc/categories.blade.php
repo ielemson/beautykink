@@ -14,13 +14,13 @@ $categories = App\Models\Category::with('subcategories')
                 @if ($pcategory->subcategories->count() > 0)
                     @foreach ($pcategory->subcategories as $subscategory)
                         <li class="mega-menu-item"><a
-                                href="{{ route('frontend.catalog') . '?subcategory=' . $subscategory->slug }}"
+                                href="{{ route('frontend.subcategory.view',$subscategory->slug)}}"
                                 class="mega-title">{{ Str::upper($subscategory->name) }}</a>
                             <ul>
                                 @if ($subscategory->childcategories->count() > 0)
                                     @foreach ($subscategory->childcategories as $childcategory)
                                         <li><a
-                                                href="{{ route('frontend.catalog') . '?childcategory=' . $childcategory->slug }}">{{ Str::upper($childcategory->name )}}</a>
+                                                href="{{ route('frontend.childcategory.view',$childcategory->slug)}}">{{ Str::upper($childcategory->name )}}</a>
                                         </li>
                                         
                                     @endforeach

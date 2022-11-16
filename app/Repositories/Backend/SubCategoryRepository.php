@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Backend;
 
+use App\Helpers\ImageHelper;
 use App\Models\Subcategory;
 
 class SubCategoryRepository{
@@ -15,6 +16,7 @@ class SubCategoryRepository{
     public function store($request)
     {
         $input = $request->all();
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
         Subcategory::create($input);
     }
 
@@ -27,6 +29,9 @@ class SubCategoryRepository{
     public function update($subcategory, $request)
     {
         $input = $request->all();
+        if($file = $request->file('photo')){
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/categories', $subcategory, 'photo');
+        }
         $subcategory->update($input);
     }
 

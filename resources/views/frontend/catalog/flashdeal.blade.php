@@ -17,7 +17,7 @@
                 @php
                  $flashImg = DB::table('home_customizes')->first() 
               @endphp
-                <a href="single-product.html"><img src="{{asset($flashImg->flash_deal_img)}}"  class="hover-img"></a>
+                <a href="#"><img src="{{asset($flashImg->flash_deal_img)}}"  class="hover-img"></a>
               </div>
             </div>
             <div class="col-xxl-3">
@@ -60,8 +60,8 @@
                       </div>
                       <div class="product-desc">
                         <div class="product-info">
-                            <h4 class="title"><a
-                                    href="{{ route('frontend.product', $flashitem->slug) }}">{{ strlen(strip_tags($flashitem->name)) > 35 ? substr(strip_tags($flashitem->name), 0, 35) : strip_tags($flashitem->name) }}</a>
+                            <h4 class="title">
+                              <a href="{{ route('frontend.product', $flashitem->slug) }}">{{ strlen(strip_tags($flashitem->name)) > 35 ? substr(strip_tags($flashitem->name), 0, 35) : strip_tags($flashitem->name) }}</a>
                             </h4>
                             <div class="star-content">
                                 {!!renderStarRating($flashitem->reviews->avg('rating'))!!}
@@ -77,11 +77,8 @@
                             </div>
                             
                             @if (date('d-m-y') != \Carbon\Carbon::parse($flashitem->date)->format('d-m-y'))
-                                            {{-- <div class="countdown countdown-alt mb-3"
-                                                data-date-time="{{ $flashitem->date }}">
-                                            </div> --}}
-                                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashitem->date }}"></div>
-                                        @endif
+                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashitem->date }}"></div>
+                            @endif
                         </div>
                         <div class="product-footer">
                             @if ($flashitem->is_stock())
@@ -100,7 +97,6 @@
                     </div>
                     </div>
                   </div>
-              
                 </div>
                 @endif
                 @endforeach

@@ -1,6 +1,15 @@
 @foreach ($datas as $data)
     <tr>
         <td>{{ $loop->iteration }}</td>
+        @if ($data->photo)
+        <td>
+        <img src="{{asset($data->photo)}}">
+     </td>
+     @else
+     <td>
+      No Photo
+     </td>
+    @endif
         <td>{{ $data->name }}</td>
         <td>{{ $data->category->name }}</td>
         <td>{{ $data->subcategory->name }}</td>

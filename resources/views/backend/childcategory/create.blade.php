@@ -30,6 +30,24 @@
                         @include('alerts.alerts')
                   </div>
 
+                  <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">{{ __('Set Image') }} *</label>
+                    <br>
+                    <img src="{{ asset('backend/images/placeholder.png') }}" class="admin-image-preview" alt="">
+                    <br>
+                    <span>{{ __('Image Size Should Be 60 x 60.') }}</span>
+                  </div>
+                  <div class="col-md-8"></div>
+                  <div class="form-group col-md-4">
+                    <label for="file">{{ __('Upload Image...') }}</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                          <input type="file" name="photo" class="custom-file-input upload-photo" id="file" aria-label="File browser">
+                          <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
+                        </div>
+                      </div>
+                  </div>
+
                   <div class="form-group  col-md-12">
                     <label for="category_id">{{ __('Select Category') }} *</label>
                     <select name="category_id" id="category_id" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2">
@@ -56,7 +74,10 @@
                     <label for="slug">{{ __('Slug') }} *</label>
                     <input type="text" name="slug" class="form-control " id="slug" placeholder="{{ __('Enter Slug') }}" value="{{ old('slug') }}">
                   </div>
-
+                  <div class="form-group  col-md-12">
+                    <label for="description">{{ __('Brief Description') }}</label>
+                    <textarea name='description' class='form-control' placeholder="{{ __('Enter Brief Description') }}" rows="3"></textarea>
+                  </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
