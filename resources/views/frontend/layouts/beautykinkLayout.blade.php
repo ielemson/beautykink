@@ -94,6 +94,20 @@
         /* margin-right: 10px; */
     }
 </style>
+
+
+@if ($setting->is_announcement == 1)
+<style>
+      .modal-header{
+background:transparent;
+border-bottom:0;
+}
+.modal-content{
+background-color: transparent;
+border: 0;
+}
+</style>
+@endif
     @yield('styleplugins')
 
     {{-- Google AdSense Start --}}
@@ -185,6 +199,24 @@
         <!--== End Header Wrapper ==-->
         <main class="main-content">
             @yield('content')
+
+            @if ($setting->is_announcement == 1)
+            <div class="modal fade" id="announcementModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <img class="img-fluid" src="{{asset($setting->announcement)}}">
+                        </a>
+                    </div>
+                  
+                  </div>
+                </div>
+              </div>
+            @endif
         </main>
 
         <!--== Start Footer Area Wrapper ==-->
@@ -317,6 +349,16 @@ var mainbs = {!! $mainbs !!};
                 SuccessNotification('{{ Session::get('success') }}');
             })
            </script>
+        @endif
+
+        @if ($setting->is_announcement == 1)
+            <script>
+            $(document).ready(function(){
+            setTimeout(function() {
+            $('#announcementModal').modal('show');
+            },3000);
+            })
+            </script>
         @endif
 </body>
 
