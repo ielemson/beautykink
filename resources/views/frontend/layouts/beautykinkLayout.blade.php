@@ -97,15 +97,18 @@
 
 
 @if ($setting->is_announcement == 1)
-<style>
-      .modal-header{
-background:transparent;
-border-bottom:0;
-}
-.modal-content{
-background-color: transparent;
-border: 0;
-}
+<style>  .modal-header{
+    background:transparent !important;
+    border-bottom:0 !important;
+    }
+    .modal-content{
+    background:transparent !important;
+    border:0 !important;
+    }
+    .modal-header .btn-close{
+    background-color: #cc0066 !important;
+    color: #f5f6f9;
+    }
 </style>
 @endif
     @yield('styleplugins')
@@ -208,7 +211,7 @@ border: 0;
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <a href="{{$setting->announcement_link}}" target="_blank" rel="noopener noreferrer">
                             <img class="img-fluid" src="{{asset($setting->announcement)}}">
                         </a>
                     </div>
@@ -261,7 +264,18 @@ border: 0;
 var mainbs = {!! $mainbs !!};
 </script> --}}
     <!--=== Modernizr Min Js ===-->
-    
+    @php
+        $mainbs = [];
+        $mainbs['is_announcement'] = $setting->is_announcement;
+        $mainbs['announcement_delay'] = $setting->announcement_delay;
+        $mainbs['overlay'] = $setting->overlay;
+        $mainbs = json_encode($mainbs);
+    @endphp
+
+    <script>
+        var mainbs = {!! $mainbs !!};
+        console.log(mainbs['announcement_delay'])
+    </script>
     <script src="{{ asset('frontend/js/modernizr.js') }}"></script>
     <!--=== jQuery Min Js ===-->
     <script src="{{ asset('frontend/js/jquery-main.js') }}"></script>
@@ -356,7 +370,7 @@ var mainbs = {!! $mainbs !!};
             $(document).ready(function(){
             setTimeout(function() {
             $('#announcementModal').modal('show');
-            },3000);
+            },mainbs['announcement_delay']);
             })
             </script>
         @endif

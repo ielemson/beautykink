@@ -44,14 +44,14 @@
                               <div class="col-md-2"></div>
                               <div class="form-group  col-md-8">
                                 <label for="announcement_delay">{{ __('Banner Content') }} </label>
-                                <textarea  name="banner_text" class="form-control " id="banner_text" placeholder="{{ __('Enter Banner Content') }}" rows="5" > {{ $setting->banner_text }}</textarea>
+                                <textarea  name="banner_text" class="form-control " id="banner_text" placeholder="{{ __('Enter Banner Content') }}" rows="2"> {{ $setting->banner_text }}</textarea>
                               </div>
                               <div class="col-md-2"></div>
 
                               <div class="col-md-2"></div>
                               <div class="form-group  col-md-8">
                                 @php
-                                $pages = DB::table('pages')->wherePos(0)->orwhere('pos', 2)->get();
+                                $pages = DB::table('pages')->get();
                                 @endphp
                                 <label for="announcement_link">{{ __('Link') }} </label>
                                 {{-- <select type="text" name="banner_link" class="form-control " id="banner_link" placeholder="{{ __('Enter Link') }}" value="{{ $setting->banner_link }}" > </select> --}}
@@ -97,7 +97,7 @@
               <div class="container-fluid">
                 <div class="row mb-2">
                   <div class="col-sm-6">
-                    <h1>{{ __('Edit Announcement') }}</h1>
+                    <h1>{{ __('Edit Announcement Modal') }}</h1>
                   </div>
                 </div>
               </div><!-- /.container-fluid -->
