@@ -31,6 +31,27 @@ class ImageHelper
 
         }
     }
+    public static function handleSliderUploadedImage($file, $path, $delete = null){
+        if ($file) {
+            // Delete Image Which Exists In Directory
+            if ($delete){
+                if (file_exists($delete)) {
+                    unlink($delete);
+                }
+            }
+    
+            // $name = time() .'-gallery'. '.'.$file->getClientOriginalExtension();
+            // $file->move(public_path($path), $name);
+            // return $path . "/" . $name;
+
+            $name = time() .'-slider'. '.'.$file->getClientOriginalExtension();
+            $galeryImg = Image::make($file)->resize(1000, 1000);
+            $photo_save_path = public_path($path) ."/".$name;
+            $galeryImg->save($photo_save_path);
+            return $path . "/" . $name;
+
+        }
+    }
 
     public static function itemHandleUploadedimage($file, $path, $delete = null){
         if ($file) {
@@ -81,7 +102,7 @@ class ImageHelper
     }
 
     public static function handleUpdatedUploadedImage($file, $path, $data, $field){
-        $name = time() . '-slider.' . $file->getClientOriginalExtension();
+        $name = time() . '-.' . $file->getClientOriginalExtension();
 
         $file->move(public_path($path), $name);
 
@@ -101,7 +122,7 @@ class ImageHelper
         $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
         $image->save($thumb_save_path);
 
-        $photo = time() . '-slider' . $file->getClientOriginalExtension();
+        $photo = time() . '-' . $file->getClientOriginalExtension();
         $file->move(public_path($path), $photo);
 
         if($data['thumbnail']){

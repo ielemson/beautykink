@@ -104,9 +104,13 @@
   //   $(".popup-product-close").removeClass('active');
   //   $("body").removeClass("fix");
   // });
+  
 
   // Hero Slider Js
     var carouselSlider = new Swiper('.default-slider-container', {
+      zoom: {
+        maxRatio: 5,
+      },
       slidesPerView : 1,
       slidesPerGroup: 1,
       loop: true,

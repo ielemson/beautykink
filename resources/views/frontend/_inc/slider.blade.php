@@ -5,7 +5,7 @@
             @foreach ($sliders as $slider)
                 <div class="swiper-slide">
                     <div class="slider-content-area" data-bg-img="{{ asset($slider->photo) }}">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-10 col-sm-6 col-md-5">
                                     <div class="slider-content slider-content-light animate-pulse">

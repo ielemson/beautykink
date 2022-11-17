@@ -1,7 +1,7 @@
-@extends('frontend.layouts.beautykinkLayout')
+@extends('frontend.layouts.beautykinkLayout',['ogImg'=>env('APP_URL').'/'.$item->photo])
 
 @section('title')
-    {{ __('Product') }}
+    {{ __($item->name.' '.'Nigeria') }}
 @endsection
 
 @section('meta')

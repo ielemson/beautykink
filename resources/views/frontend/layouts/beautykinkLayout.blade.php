@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta charset="utf-8">
+   
+    <meta property="og:image" content="{{$ogImg ?? ''}}" />
+    <meta property="og:image:width" content="180" />
+    <meta property="og:image:height" content="110" />
     <title>{{ $setting->title }} -@yield('title')</title>
     <!-- SEO Meta Tags-->
     @yield('meta')

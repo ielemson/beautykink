@@ -31,7 +31,7 @@
                         @include('alerts.alerts')
                     </div>
 
-                 
+{{--                  
                         <div class="form-group col-md-4">
                             <label for="exampleInputEmail1">{{ $slider->home_page == 'theme3' ? __('Feature Image') : __('Brand Logo') }} </label>
                             <br>
@@ -48,10 +48,10 @@
                                 <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-8"></div>
                         <div class="form-group  col-md-12">
-                            <label for="title">{{ __('Title') }} *</label>
+                            <label for="title">{{ __('Slider Title') }} <small>optional</small></label>
                             <input type="text" name="title" class="form-control " id="title" placeholder="{{ __('Enter Title') }}" value="{{ $slider->title }}">
                         </div>
                         {{-- <div class="form-group  col-md-12">
@@ -59,7 +59,7 @@
                             <input type="text" name="link" class="form-control " id="slider-link" placeholder="{{ __('Enter Link') }}" value="{{ $slider->link }}">
                         </div> --}}
                         <div class="form-group  col-md-6">
-                          <label for="slider-link">{{ __('Slider Link') }} </label>
+                          <label for="slider-link">{{ __('Slider Link') }} <small>optional</small></label>
                           <input type="text" name="link" class="form-control " id="slider-link" placeholder="{{ __('Enter Link') }}" value="{{ $slider->link }}">
                       </div>
                       <div class="form-group  col-md-6">
@@ -68,7 +68,7 @@
                       </div>
                       
                         <div class="form-group  col-md-12">
-                            <label for="details">{{ __('Details') }}</label>
+                            <label for="details">{{ __('Details') }} <small>optional</small></label>
                             <textarea name='details' id="details" class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="5">{{ $slider->details }}</textarea>
                         </div>
                         <div class="form-group col-md-4">
