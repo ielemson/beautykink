@@ -100,15 +100,15 @@
 
 
 @if ($setting->is_announcement == 1)
-<style>  .modal-header{
+<style>  .modal-header-announcement{
     background:transparent !important;
     border-bottom:0 !important;
     }
-    .modal-content{
+    .modal-content-announcement{
     background:transparent !important;
     border:0 !important;
     }
-    .modal-header .btn-close{
+    .modal-header-announcement .btn-close{
     background-color: #cc0066 !important;
     color: #f5f6f9;
     }
@@ -204,24 +204,7 @@
         @include('frontend._inc.header')
         <!--== End Header Wrapper ==-->
         <main class="main-content">
-            @yield('content')
-
-            @if ($setting->is_announcement == 1)
-            <div class="modal fade" id="announcementModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <a href="{{$setting->announcement_link}}" target="_blank" rel="noopener noreferrer">
-                            <img class="img-fluid" src="{{asset($setting->announcement)}}">
-                        </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            @endif
+            @yield('content')      
         </main>
 
         <!--== Start Footer Area Wrapper ==-->

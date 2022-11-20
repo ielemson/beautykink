@@ -80,4 +80,8 @@
     @include('frontend._inc.divider')
     {{-- Divider ends --}}
 
+
+    {{-- Announcement Modal Starts Here --}}
+    @include('frontend._inc.announcement')
+    {{-- Announcement Modal Ends Here  --}}
 @endsection
