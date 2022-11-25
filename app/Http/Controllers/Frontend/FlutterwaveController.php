@@ -220,6 +220,7 @@ class FlutterwaveController extends Controller
         Session::forget('cart');
         Session::forget('discount');
         Session::forget('coupon');
+        Session::forget('shipping_price');
         Session::forget('shipping_id');
         Session::forget('shipping_address');
         Session::forget('billing_address');
@@ -237,6 +238,7 @@ class FlutterwaveController extends Controller
         Session::forget('discount');
         Session::forget('coupon');
         Session::forget('shipping_id');
+        Session::forget('shipping_price');
         Session::forget('shipping_address');
         Session::forget('billing_address');
             return view('frontend.checkout.cancel');

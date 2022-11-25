@@ -159,6 +159,7 @@ trait CashOnDeliveryCheckout
         Session::forget('coupon');
         Session::forget('shipping_id');
         Session::forget('shipping_address');
+        Session::forget('shipping_price');
         Session::forget('billing_address');
         return [
             'status' => true

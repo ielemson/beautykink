@@ -287,6 +287,9 @@
     $('.date-picker1').datetimepicker({
         format: 'L'
     });
+    $('.date-picker2').datetimepicker({
+        format: 'L'
+    });
 
     // Social Picker
     if( $('.social-picker').length > 0 ){

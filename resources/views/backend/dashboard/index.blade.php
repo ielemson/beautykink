@@ -25,219 +25,20 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 @include('alerts.alerts')
-                <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>{{ $totalPendingOrders }}</h3>
-
-                                <p>{{ __('Pending Orders') }}</p>
-                            </div>
-                            <div class="icon">
-                                <i class="icon icon-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>{{ $totalProductSale }}</h3>
-
-                                <p>{{ __('Total Sale') }}</p>
-                            </div>
-                            <div class="icon">
-                                <i class="icon icon-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>{{ $totalUsers }}</h3>
-                                <p>{{ __('Total Customers') }}</p>
-                            </div>
-                            <div class="icon">
-                                <i class="icon icon-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
-                            </div>
-                            <div class="icon">
-                                <i class="icon icon-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                </div>
+            @include('backend.includes.summarycard')
                 <!-- /.row -->
+            @include('backend.includes.monthlyreport')
                 <!-- Main row -->
-                <div class="row">
-                    <!-- col -->
-                    <div class="col-md-12">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">{{ __('Recent Orders') }}</h3>
+              @include('backend.includes.ordertable')
 
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                @if ($recentOrders->count() > 0)
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>{{ __('Customer') }}</th>
-                                                <th>{{ __('Order ID') }}</th>
-                                                <th>{{ __('Payment Method') }}</th>
-                                                <th>{{ __('Total') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($recentOrders as $data)
-                                                <tr>
-                                                    <td><a
-                                                            href="{{ route('backend.user.show', $data->user_id) }}">{{ $data->user->displayName() }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="{{ route('backend.order.index', $data->id) }}">{{ $data->transaction_number }}</a>
-                                                    </td>
-                                                    <td>{{ $data->payment_method }}</td>
-                                                    <td>{{ PriceHelper::orderTotal($data) }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <p class="text-center">
-                                        {{ __('No Order Found.') }}
-                                    </p>
-                                @endif
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /. col -->
-
-                </div>
-
-                <div class="row">
-                    <!-- Left col -->
-                    <section class="col-lg-12 connectedSortable">
-
-                        <!-- TO DO List -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="ion ion-clipboard mr-1"></i>
-                                    To Do List
-                                </h3>
-
-                                {{-- <div class="card-tools">
-                                    <ul class="pagination pagination-sm">
-                                        <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                                    </ul>
-                                </div> --}}
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <ul class="todo-list" data-widget="todo-list">
-                                   
-                                </ul>
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer clearfix">
-                                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                                    data-target="#modal-create-todo"><i class="fas fa-plus"></i> Add item</button>
-                            </div>
-                        </div>
-                        <!-- /.card -->
-                    </section>
-
-                </div>
+              @include('backend.includes.todo')
                 <!-- /.row (main row) -->
             </div>
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
 
-        {{-- Todo Modal starts --}}
-        <div class="modal fade" id="modal-create-todo">
-            <div class="modal-dialog shadow-md modal-md modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Write your todo</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="todoListForm" method="POST">
-                            <div class="form-group">
-                          <textarea class="form-control" name="todo" required placeholder="write your todo here..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modal-edit-todo">
-            <div class="modal-dialog shadow-md modal-md modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit your todo</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="updateTodo" method="POST">
-                            <div class="form-group">
-                          <textarea class="form-control" name="todo_update" required id="todoEdit"></textarea>
-                          <input type="hidden" id="todId" name="todId">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Todo Modal ends --}}
+     
     </div>
 @endsection
 @section('script')
@@ -399,4 +200,130 @@ $('body').on('click', '.checkTodo', function () {
 });
     });
     </script>
+
+
+
+<script>
+    $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
+
+    //--------------
+    //- AREA CHART -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    // var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+
+    var lineChartData1 = {
+      labels  : [{!! $order_days !!}],
+      datasets: [
+        {
+          label               : 'Product Sales',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : true,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [{!! $order_sales !!}]
+        },
+      ]
+    }
+
+    var lineChartOptions1 = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+
+    //-------------
+    //- LINE CHART - 1
+    //--------------
+    var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+    var lineChartOptions = $.extend(true, {}, lineChartOptions1)
+    var lineChartData = $.extend(true, {}, lineChartData1)
+    lineChartData.datasets[0].fill = false;
+    lineChartOptions.datasetFill = false
+
+    var lineChart = new Chart(lineChartCanvas, {
+      type: 'line',
+      data: lineChartData,
+      options: lineChartOptions
+    });
+
+     //-------------
+    //- LINE CHART - 2
+    //--------------
+
+    var lineChartData2 = {
+      labels  : [{!! $earning_days !!}],
+      datasets: [
+        {
+          label               : "Earning" + '{{ PriceHelper::adminCurrency() }}',
+          backgroundColor     : 'rgba(215, 44, 38, 1)',
+          borderColor         : 'rgba(215, 44, 38, 1)',
+          pointRadius          : true,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [{!! $total_incomes !!}]
+        }
+      ]
+    }
+
+    var lineChartOptions2 = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+    var lineChartCanvas = $('#lineChart2').get(0).getContext('2d')
+    var lineChartOptions = $.extend(true, {}, lineChartOptions2)
+    var lineChartData = $.extend(true, {}, lineChartData2)
+    lineChartData.datasets[0].fill = false;
+    lineChartOptions.datasetFill = false
+
+    var lineChart = new Chart(lineChartCanvas, {
+      type: 'line',
+      data: lineChartData,
+      options: lineChartOptions
+    });
+
+
+  })
+  </script>
 @endsection

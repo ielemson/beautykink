@@ -43,8 +43,8 @@
                     </select>
                   </div>
 
-                <div class="form-group col-md-6 show-datepicket {{ $item->is_type =='flash_deal' ? '' : 'd-none'}} ">
-                    <label for="date">{{ __('Enter Date') }} *</label>
+                <div class="form-group col-md-3 show-datepicket {{ $item->is_type =='flash_deal' ? '' : 'd-none'}} ">
+                    <label for="date">{{ __('Start Date') }} *</label>
                       <div class="input-group date date-picker" data-target-input="nearest">
                           <input type="text" name="date" class="form-control  flash-deal-datepicker datetimepicker-input" data-target=".date-picker" value="{{ $item->date }}"/>
                           <div class="input-group-append" data-target=".date-picker" data-toggle="datetimepicker">
@@ -53,6 +53,15 @@
                     </div>
                 </div>
 
+                <div class="form-group col-md-3 show-datepicket {{ $item->is_type =='flash_deal' ? '' : 'd-none'}} ">
+                    <label for="date">{{ __('End Date') }} *</label>
+                      <div class="input-group date date-picker2" data-target-input="nearest">
+                          <input type="text" name="end_date" class="form-control  flash-deal-datepicker datetimepicker-input" data-target=".date-picker2" value="{{ $item->end_date }}"/>
+                          <div class="input-group-append" data-target=".date-picker2" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
 
                 </div>
                 <!-- /.card-body -->

@@ -59,9 +59,10 @@
                 </ul>
                 <div class="availability-list">Availability: <span>
                     @if ($list->is_stock())
-                    {{$list->stock }} In Stock
+                     In Stock
                     @endif
-                </span></div>
+                </span>
+              </div>
               </div>
               <div class="product-footer">
                 @if ($list->is_stock())
