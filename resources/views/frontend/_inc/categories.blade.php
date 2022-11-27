@@ -28,7 +28,7 @@ $categories = App\Models\Category::with('subcategories')
                             </ul>
                         </li>
                     @endforeach
-                    <li class="mega-menu-item"><a  class="mega-title" href="#"><img src="{{asset($pcategory->photo)}}" alt=""></a></li>
+                    <li class="mega-menu-item"><a  class="mega-title" href="#"><img src="{{asset($pcategory->thumbnail)}}" alt="{{asset($pcategory->name)}}"></a></li>
 
                 @endif
                 
