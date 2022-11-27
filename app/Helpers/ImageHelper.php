@@ -126,7 +126,7 @@ class ImageHelper
         // return $path . '/' . $name;
 
         $thumb = time() .'.'.$file->getClientOriginalExtension();
-        $image = Image::make($file)->resize(400, 400);
+        $image = Image::make($file)->resize(150, 150);
         $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
         $image->save($thumb_save_path);
 
