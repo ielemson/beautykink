@@ -78,8 +78,8 @@
                                     <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
-                                                <input type="checkbox" id="is_t2_3_column_banner_second" class="" name="is_t2_3_column_banner_second" value="1" {{ $extra_settings->is_t2_3_column_banner_second == 1 ? 'checked' : '' }}>
-                                                <label for="is_t2_3_column_banner_second">{{ __('3 column banner Second') }}</label>
+                                                <input type="checkbox" id="is_t2_sale_product" class="" name="is_t2_sale_product" value="1" {{ $extra_settings->is_t2_sale_product == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_sale_product">{{ __('Sale Product Section') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+{{--                                     
                                     <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
@@ -109,18 +109,18 @@
                                                 <label for="is_t2_toprated_product">{{ __('Top Rated Product Section') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                    
-                                    <div class="form-group  col-md-3">
+                                    {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_2_column_banner" class="" name="is_t2_2_column_banner" value="1" {{ $extra_settings->is_t2_2_column_banner == 1 ? 'checked' : '' }}>
                                                 <label for="is_t2_2_column_banner">{{ __('2 Column Banner') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                    
-                                    <div class="form-group  col-md-3">
+                                    {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_blog_section" class="" name="is_t2_blog_section" value="1" {{ $extra_settings->is_t2_blog_section == 1 ? 'checked' : '' }}>
@@ -136,7 +136,7 @@
                                                 <label for="is_t2_brand_section">{{ __('Brand Section') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                   
 
                                 </div>

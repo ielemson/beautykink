@@ -6,12 +6,12 @@ use App\Models\Item;
 use App\Models\Currency;
 use App\Helpers\ImageHelper;
 use App\Http\Requests\ItemRequest;
+use Intervention\Image\Facades\Image;
 use App\Models\Gallery;
 
 class ItemRepository {
 
 
-    
     /**
      * Store Item.
      *
@@ -24,9 +24,11 @@ class ItemRepository {
 
         if ($file = $request->file('photo')) {
             $images_name = ImageHelper::itemHandleUploadedimage($request->file('photo'), 'uploads/items');
+            $images_name_gallery = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/items/gallery');
 
             $input['photo'] = $images_name[0];
             $input['thumbnail'] = $images_name[1];
+
         }
 
         $curr = Currency::where('is_default', 1)->first();
@@ -87,8 +89,11 @@ class ItemRepository {
             }
         }
 
-        Item::create($input);
-
+        $prouct_create = Item::create($input);
+        $galleryImg = new Gallery;
+        $galleryImg->item_id = $prouct_create->id;
+        $galleryImg->photo = $images_name_gallery;
+        $galleryImg->save();
     }
 
     /**

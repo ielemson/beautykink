@@ -558,6 +558,10 @@
                                                     <label for="footer_phone">{{ __('Store Phone Number') }} *</label>
                                                     <input type="text" name="footer_phone" class="form-control " id="footer_phone" placeholder="{{ __('Store Phone Number') }}" value="{{ $setting->footer_phone }}" >
                                                 </div>
+                                                <div class="form-group  col-md-12">
+                                                    <label for="footer_phone">{{ __('Store Whatsapp Number') }} *</label>
+                                                    <input type="text" name="whatsapp_phone" class="form-control " id="whatsapp_phone" placeholder="{{ __('Store Whatsapp Number') }}" value="{{ $setting->whatsapp_phone }}" >
+                                                </div>
 
                                                 <div class="form-group  col-md-12">
                                                     <label for="footer_email">{{ __('Store Email') }} *</label>

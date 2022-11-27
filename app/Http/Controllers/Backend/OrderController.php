@@ -103,8 +103,29 @@ class OrderController extends Controller
                 return redirect()->route('backend.order.index')->withError(__('Order is already Delivered.'));
             }
         }
+        if ($field == 'order_status') {
+            if ($order['payment_status'] == 'Unpaid' && $value="In Progress") {
+                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
+            }
+        }
+        if ($field == 'order_status') {
+            if ($order['payment_status'] == 'Unpaid' && $value="Verified") {
+                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
+            }
+        }
+        if ($field == 'order_status') {
+            if ($order['payment_status'] == 'Unpaid' && $value="Shipped") {
+                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
+            }
+        }
+        if ($field == 'order_status') {
+            if ($order['payment_status'] == 'Unpaid' && $value="Delivered") {
+                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
+            }
+        }
 
         $order->update([ $field => $value ]);
+
         if ($order->payment_status == 'Paid') {
             $this->setPromoCode($order);
         }

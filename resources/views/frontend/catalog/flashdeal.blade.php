@@ -6,7 +6,7 @@
                     <div class="section-title text-center">
                         <h2 class="title">Flash Deal</h2>
                         <div class="desc">
-                            <p>Add our flash deal to your weekly lineup</p>
+                            {{-- <p>Add our flash deal to your weekly lineup</p> --}}
                         </div>
                     </div>
                 </div>

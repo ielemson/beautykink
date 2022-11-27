@@ -70,8 +70,7 @@
                         <i class="fas fa-edit text-info" data-id="${item.id}"></i>
                         <i class="fa fa-trash" data-id="${item.id}"></i>
                     </div>
-                </li>
-`;
+                </li>`;
                 });
                 $('.todo-list').html(todoData);
                 }

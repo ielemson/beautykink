@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GalleryRequest;
 use App\Models\ChildCategory;
 use App\Models\Gallery;
+use Intervention\Image\Facades\Image;
 use App\Repositories\Backend\ItemRepository;
 use phpDocumentor\Reflection\Types\This;
 
@@ -172,7 +173,31 @@ class ItemController extends Controller
     */
     public function update(ItemRequest $request, Item $item)
     {
+        
+        if($request->has('photo')){
+
+            $image = $request->file('photo');
+            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+
+            $galeryImg = Image::make($image)->resize(800, 800);
+            $image_path = 'uploads/items/gallery/' . $image_name;
+            Image::make($galeryImg)->save(public_path($image_path));
+
+            $gallery = Gallery::where('item_id',$item->id)->first();
+
+            if ($gallery->photo) {
+                if (file_exists($gallery->photo)) {
+                    unlink($gallery->photo);
+                }
+                $input['file'] = null;
+            }
+
+            $gallery->photo = $image_path;
+            $gallery->save();
+        }
+
         $this->repository->update($item, $request);
+
         return redirect()->route('backend.item.index')->withSuccess(__('Product Updated Successfully.'));
     }
 
@@ -222,8 +247,28 @@ class ItemController extends Controller
     */
     public function galleriesUpdate(GalleryRequest $request)
     {
-        $this->repository->galleriesUpdate($request);
-        return redirect()->back()->withSuccess(__('Gallery Information Updated Successfully.'));
+   
+        
+        if ($galleries = $request->file('galleries')) {  
+        
+            foreach ($galleries as $image) {
+               
+                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+                $galeryImg = Image::make($image)->resize(800, 800);
+                $image_path = 'uploads/items/gallery/' . $image_name;
+                Image::make($galeryImg)->save(public_path($image_path));
+                // array_push($images, $image_path);
+                $gallery = new Gallery;
+                $gallery->item_id = $request->item_id;
+                $gallery->photo = $image_path;
+                $gallery->save();
+            }
+
+            return redirect()->back()->withSuccess(__('Successfully uploaded.'));
+
+        }
+
+     
     }
 
     /**

@@ -3,7 +3,7 @@
         <td>
             <input type="checkbox" name="" class="bulk-item" value="{{ $data->id }}">
         </td>
-        <td>{{ $data->transaction_number }}</td>
+        <td>{{ $data->id }}</td>
         <td>
             @if ($setting->currency_direction == 1)
                 {{ $data->currency_sign }}{{ PriceHelper::orderTotal($data) }}
@@ -38,7 +38,7 @@
         </td>
         <td>
             <div class="input-group-prepend">
-                <button type="button" class="btn btn-{{ $data->order_status == 'Pending' ? 'info': '' }}{{ $data->order_status == 'In Progress' ? 'secondary': '' }}{{ $data->order_status == 'Delivered' ? 'success': '' }}{{ $data->order_status == 'Canceled' ? 'danger': '' }} btn-sm dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-{{ $data->order_status == 'Pending' ? 'info': '' }}{{ $data->order_status == 'In Progress' ? 'secondary': '' }}{{ $data->order_status == 'Delivered' ? 'success': '' }}{{ $data->order_status == 'Canceled' ? 'danger': '' }}{{ $data->order_status == 'Shipped' ? 'primary': '' }}{{ $data->order_status == 'Verified' ? 'warning': '' }} btn-sm dropdown-toggle" data-toggle="dropdown">
                     {{ $data->order_status }}
                 </button>
                 <div class="dropdown-menu">
@@ -57,6 +57,22 @@
                         data-ok_btn="{{ __('Update') }}"
                         data-href="{{ route('backend.order.status', [$data->id, 'order_status', 'In Progress']) }}">
                         {{ __('In Progress') }}
+                    </a>
+                    <a href="javascript:void(0)" class="dropdown-item confirm-action" data-toggle="modal"
+                        data-title="{{ __('Update Status?') }}"
+                        data-text="{{ __('You are going to update the status') }} {{ __('Do you want proceed?') }}"
+                        data-cancel_btn="{{ __('Cancel') }}"
+                        data-ok_btn="{{ __('Update') }}"
+                        data-href="{{ route('backend.order.status', [$data->id, 'order_status', 'Verified']) }}">
+                        {{ __('Verified') }}
+                    </a>
+                    <a href="javascript:void(0)" class="dropdown-item confirm-action" data-toggle="modal"
+                        data-title="{{ __('Update Status?') }}"
+                        data-text="{{ __('You are going to update the status') }} {{ __('Do you want proceed?') }}"
+                        data-cancel_btn="{{ __('Cancel') }}"
+                        data-ok_btn="{{ __('Update') }}"
+                        data-href="{{ route('backend.order.status', [$data->id, 'order_status', 'Shipped']) }}">
+                        {{ __('Shipped') }}
                     </a>
                     <a href="javascript:void(0)" class="dropdown-item confirm-action" data-toggle="modal"
                         data-title="{{ __('Update Status?') }}"

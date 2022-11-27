@@ -45,28 +45,40 @@
     {{-- banner first end --}}
     {{-- service information area --}}
     @include('frontend._inc.service')
-    {{-- service  information area --}}
-
-    {{--  New Product Arrivals Starts --}}
-    @include('frontend.catalog.latestproducts')
-    {{--  New Product Arrivals Ends --}}
-
-    {{--  Top Rated Product Starts --}}
-    @include('frontend.catalog.top_product')
-    {{--  New Product Arrivals Ends --}}
-
-    {{-- Flash deal products starts --}}
-    {{-- @include('frontend.catalog.flash_deal') --}}
-    @include('frontend.catalog.flashdeal')
-    {{-- Flash deal products ends --}}
-
-    {{-- All Product starts --}}
-    @include('frontend.catalog.allproducts')
-    {{-- All Product ends --}}
-    
+    {{-- service  information area --}}  
+    @if ($extra_settings->is_t2_bestseller_product == 1)
     {{-- Best Seller Product Starts --}}
     @include('frontend.catalog.bestseller')
     {{-- Best Seller Product Ends --}}
+    @endif
+
+    @if ($extra_settings->is_t2_new_product == 1)
+    {{--  New Product Arrivals Starts --}}
+    @include('frontend.catalog.latest')
+    {{--  New Product Arrivals Ends --}}
+    @endif
+
+    @if ($extra_settings->is_t2_featured_product == 1)
+    {{--  Top Rated Product Starts --}}
+    @include('frontend.catalog.featured')
+    {{--  New Product Arrivals Ends --}}
+    @endif
+    @if ($extra_settings->is_t2_sale_product == 1)
+    {{-- Flash deal products starts --}}
+    @include('frontend.catalog.sale')
+    {{-- Flash deal products ends --}}
+    @endif
+
+    @if ($extra_settings->is_t2_flashdeal == 1)
+    {{-- Flash deal products starts --}}
+    @include('frontend.catalog.flashdeal')
+    {{-- Flash deal products ends --}}
+    @endif
+    {{-- All Product starts --}}
+    {{-- @include('frontend.catalog.allproducts') --}}
+    {{-- All Product ends --}}
+    
+ 
 
     @if ($setting->is_testimonial ==1)
            {{-- Testimonial starts --}}

@@ -18,12 +18,8 @@ class ImageHelper
                     unlink($delete);
                 }
             }
-    
-            // $name = time() .'-gallery'. '.'.$file->getClientOriginalExtension();
-            // $file->move(public_path($path), $name);
-            // return $path . "/" . $name;
 
-            $name = time() .'-gallery'. '.'.$file->getClientOriginalExtension();
+            $name = time() .'gallery'. '.'.$file->getClientOriginalExtension();
             $galeryImg = Image::make($file)->resize(800, 800);
             $photo_save_path = public_path($path) ."/".$name;
             $galeryImg->save($photo_save_path);
@@ -115,14 +111,54 @@ class ImageHelper
         return $path . '/' . $name;
     }
 
+    public static function handleUpdatedUploadedCategoryImage($file, $path, $data, $field){
+
+        // $name = time() . '-.' . $file->getClientOriginalExtension();
+
+        // $file->move(public_path($path), $name);
+
+        // if ($data[$field] != null) {
+        //     if (file_exists($data[$field])) {
+        //         unlink($data[$field]);
+        //     }
+        // }
+
+        // return $path . '/' . $name;
+
+        $thumb = time() .'.'.$file->getClientOriginalExtension();
+        $image = Image::make($file)->resize(600, 259);
+        $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
+        $image->save($thumb_save_path);
+
+        $photo = time() .'.'. $file->getClientOriginalExtension();
+        $file->move(public_path($path), $photo);
+
+        if($data['thumbnail']){
+            if(file_exists($data['thumbnail'])){
+                unlink($data['thumbnail']);
+            }
+        }
+
+        if($data[$field] != null){
+            if(file_exists($data[$field])){
+                unlink($data[$field]);
+            }
+        }
+
+        return [
+            $path. '/' . $photo,
+            $path . '/thumbnails' . '/' . $thumb
+        ];
+    }
+
     public static function itemHandleUpdatedUploadedImage($file, $path, $data, $field)
     {
-        $thumb = time() . '.' . $file->getClientOriginalExtension();
+        $thumb = time() .'.'.$file->getClientOriginalExtension();
         $image = Image::make($file)->resize(230, 230);
         $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
         $image->save($thumb_save_path);
 
-        $photo = time() . '-' . $file->getClientOriginalExtension();
+        $photo = time() .'.'. $file->getClientOriginalExtension();
         $file->move(public_path($path), $photo);
 
         if($data['thumbnail']){

@@ -114,6 +114,7 @@ class Setting extends Model
         'inc_hdr_banner',
         'is_pages',
         'footer_img',
-        'is_testimonial'
+        'is_testimonial',
+        'whatsapp_phone'
     ];
 }

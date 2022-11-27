@@ -7,9 +7,19 @@
     <td>
         <div class="input-group-prepend">
             <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-              {{ $data->pos == 2 ? __('Both') : ( $data->pos == 0 ? __('Header') : __('Footer') ) }}
+              {{-- {{ $data->pos == 2 ? __('Both') : ( $data->pos == 0 ? __('Header') : __('Footer') ) }} --}}
+              @if ($data->pos == 0)
+                  {{__('Header')}}
+              @elseif($data->pos == 1)
+                  {{__('Footer')}}
+              @elseif($data->pos == 2)
+                  {{__('Both')}}
+                @else
+                {{__('Hidden')}}
+              @endif
             </button>
             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{ route("backend.page.hide",$data->id) }}">{{ __('Hidden') }}</a>
               <a class="dropdown-item" href="{{ route("backend.page.pos", [$data->id, 2]) }}">{{ __('Both') }}</a>
               <a class="dropdown-item" href="{{ route("backend.page.pos", [$data->id, 0]) }}">{{ __('Header') }}</a>
               <a class="dropdown-item" href="{{ route("backend.page.pos", [$data->id, 1]) }}">{{ __('Footer') }}</a>

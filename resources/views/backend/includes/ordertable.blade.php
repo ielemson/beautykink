@@ -39,7 +39,7 @@
                                         <a href="{{ route('backend.user.show', $data->user_id) }}">{{ $data->user->displayName() }}</a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('backend.user.show', $data->user_id) }}">{{ $data->order_status }}</a>
+                                        <a href="{{ route('backend.order.index', $data->id) }}">{{ $data->order_status }}</a>
                                     </td>
                                     <td>
                                         {{\Carbon\Carbon::parse($data->created_at)->format('d/m/y')}}

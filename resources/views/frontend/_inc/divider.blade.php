@@ -8,7 +8,7 @@
               <div class="col-border col-12 col-md-4 col-sm-6 border-0">
                 <div class="info-item">
                   <div class="icon-box">
-                    <i class="icon las la-phone-volume"></i>
+                    <a href="tel:{{$setting->footer_phone}}"><i class="icon las la-phone-volume"></i></a>
                   </div>
                   <p>{{ $setting->footer_phone}} M-F 9AM-6PM</p>
                 </div>
@@ -16,17 +16,19 @@
               <div class="col-border col-12 col-md-4 col-sm-6 mt-xs-35">
                 <div class="info-item">
                   <div class="icon-box">
-                    <i class="icon las la-envelope"></i>
+                  <a href="mailto:{{ $setting->footer_email}}"><i class="icon las la-envelope"></i></a>
                   </div>
-                  <p>{{ $setting->footer_email}}</p>
+                  <p>
+                   {{$setting->footer_email}}
+                  </p>
                 </div>
               </div>
               <div class="col-border col-12 col-md-4 col-sm-12 mt-sm-35">
                 <div class="info-item">
                   <div class="icon-box">
-                    <i class="icon lab la-facebook-messenger"></i>
+                    <a href="https://api.whatsapp.com/send?phone={{$setting->whatsapp_phone}}&text=Welcome%20to%20beautykink%20store"  target="_blank" rel="noopener noreferrer"><i class="icon lab la-whatsapp">&#xf232;</i></a>
                   </div>
-                  <p>{{ $setting->footer_email}}</p>
+                  <p>{{ $setting->whatsapp_phone}}</p>
                 </div>
               </div>
             </div>

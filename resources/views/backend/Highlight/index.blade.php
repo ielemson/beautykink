@@ -23,46 +23,35 @@
             <div class="card">
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('backend.item.highlight.update', $item->id) }}" method="POST" id="quickForm" enctype="multipart/form-data">
+              <form action="" method="POST" id="quickForm" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="card-body row">
                     <div class="col-md-12">
                         @include('alerts.alerts')
                     </div>
-
+{{-- 
                   <div class="form-group  col-md-6">
                     <label for="is_type">{{ __('Select Type') }} *</label>
                     <select name="is_type" id="is_type"  class="form-control select2">
                         <option value="" disabled>{{__('Select One')}}</option>
-                        <option value="best" {{$item->is_type == 'best' ? 'selected' : ''}} >{{ __('BEST SELLER') }}</option>
-                        <option value="none" {{$item->is_type == 'none' ? 'selected' : ''}} >{{ __('LEAVE BLANK') }}</option>
-                        <option value="new" {{$item->is_type == 'new' ? 'selected' : ''}} >{{ __('NEW') }}</option>
-                        <option value="featured" {{$item->is_type == 'feature' ? 'selected' : ''}} >{{ __('FEATURED') }}</option>
-                        <option value="sale" {{$item->is_type == 'top' ? 'selected' : ''}} >{{ __('SALE') }}</option>
-                        <option value="flash_deal" {{$item->is_type == 'flash_deal' ? 'selected' : ''}} >{{ __('FLASH DEAL') }}</option>
+                        <option value="new" {{$item->is_type == 'new' ? 'selected' : ''}} >{{ __('New Product') }}</option>
+                        <option value="feature" {{$item->is_type == 'feature' ? 'selected' : ''}} >{{ __('Feature Product') }}</option>
+                        <option value="top" {{$item->is_type == 'top' ? 'selected' : ''}} >{{ __('Top Product') }}</option>
+                        <option value="best" {{$item->is_type == 'best' ? 'selected' : ''}} >{{ __('Best Product') }}</option>
+                        <option value="flash_deal" {{$item->is_type == 'flash_deal' ? 'selected' : ''}} >{{ __('Flash Deal Product') }}</option>
                     </select>
-                  </div>
+                  </div> --}}
 
-                <div class="form-group col-md-3 show-datepicket {{ $item->is_type =='flash_deal' ? '' : 'd-none'}} ">
+                <div class="form-group col-md-3 show-datepicket">
                     <label for="date">{{ __('Start Date') }} *</label>
                       <div class="input-group date date-picker" data-target-input="nearest">
-                          <input type="text" name="date" class="form-control  flash-deal-datepicker datetimepicker-input" data-target=".date-picker" value="{{ $item->date }}"/>
-                          <div class="input-group-append" data-target=".date-picker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
+                          <input type="text" name="name" class="form-control  flash-deal-datepicker datetimepicker-input" placeholder="Create new Highl" />
+                        
                     </div>
                 </div>
 
-                <div class="form-group col-md-3 show-datepicket {{ $item->is_type =='flash_deal' ? '' : 'd-none'}} ">
-                    <label for="date">{{ __('End Date') }} *</label>
-                      <div class="input-group date date-picker2" data-target-input="nearest">
-                          <input type="text" name="end_date" class="form-control  flash-deal-datepicker datetimepicker-input" data-target=".date-picker2" value="{{ $item->end_date }}"/>
-                          <div class="input-group-append" data-target=".date-picker2" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
+           
 
                 </div>
                 <!-- /.card-body -->

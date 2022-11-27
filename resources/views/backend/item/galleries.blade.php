@@ -62,7 +62,7 @@
                         <div class="input-group">
                             <div class="custom-file">
                               <input type="file" name="galleries[]" class="custom-file-input upload-photo" id="file" aria-label="File browser" accept="image/*" multiple>
-                              <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
+                              <label class="custom-file-label" for="galleryInputFile">{{ __('Upload Image...') }}</label>
                             </div>
                         </div>
                     </div>

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class ItemType extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'slug', 'details','pos','meta_keywords','meta_descriptions','status'];
+    protected $fillable = ['name'];
 }

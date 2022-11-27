@@ -76,7 +76,14 @@ class PageController extends Controller
      */
     public function pos($id, $pos)
     {
-        Page::findOrFail($id)->update(['pos' => $pos]);
+        Page::findOrFail($id)->update(['pos' => $pos,'status'=>1]);
+        return redirect()->route('backend.page.index')->withSuccess(__('Status Updated Successfully.'));
+    }
+
+    public function hide($id)
+    {
+        
+        Page::findOrFail($id)->update(['pos'=> 3,'status' => 0]);
         return redirect()->route('backend.page.index')->withSuccess(__('Status Updated Successfully.'));
     }
 

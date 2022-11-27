@@ -22,7 +22,7 @@
                     <div class="item">
                         <div class="thumb thumb-scale-hover-style">
                             <a href="{{ $banner_first['firsturl3'] }}">
-                                <img src="{{ $banner_first['img2'] ? $banner_first['img2'] : asset($setting->loader) }}"
+                                <img src="{{ $banner_first['img3'] ? $banner_first['img3'] : asset($setting->loader) }}"
                                     class="hover-img lazy" data-src="{{ asset($banner_first['img3']) }}">
                             </a>
                         </div>

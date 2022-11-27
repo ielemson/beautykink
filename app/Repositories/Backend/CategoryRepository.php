@@ -18,7 +18,9 @@ class CategoryRepository{
     {
         $input = $request->all();
         $input['slug'] = strtolower($input['slug']);
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
+        $imageCategory= ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
+        $input['photo'] = $imageCategory[0];
+        $input['thumbnail'] = $imageCategory[1];
         Category::create($input);
     }
 
@@ -33,8 +35,12 @@ class CategoryRepository{
         $input = $request->all();
         $input['slug'] = strtolower($input['slug']);
         if($file = $request->file('photo')){
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/categories', $category, 'photo');
+
+            $imageCategory = ImageHelper::handleUpdatedUploadedCategoryImage($file, 'uploads/categories', $category, 'photo');
+            $input['photo'] = $imageCategory[0];
+            $input['thumbnail'] = $imageCategory[1];
         }
+
         $category->update($input);
     }
 

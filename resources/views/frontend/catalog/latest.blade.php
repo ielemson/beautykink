@@ -6,7 +6,7 @@
                     <div class="section-title text-center">
                         <h2 class="title">New Arrivals</h2>
                         <div class="desc">
-                            <p>Add our new arrivals to your weekly lineup</p>
+                            {{-- <p>Add our new arrivals to your weekly lineup</p> --}}
                         </div>
                     </div>
                 </div>
@@ -16,6 +16,7 @@
                     <div class="product-slider owl-carousel owl-theme">
 
                         @foreach ($new_products->orderBy('id', 'DESC')->get() as $newitem)
+                        @if ($newitem->is_type == 'new')
                             <div class="item">
                                 <!--== Start Shop Item ==-->
                                 <div class="product-item">
@@ -89,6 +90,7 @@
                                 </div>
                                 <!--== End Shop Item ==-->
                             </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

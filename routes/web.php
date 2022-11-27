@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HighlighController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -159,6 +160,15 @@ Route::prefix('admin')->group(function(){
 
     // ------ Manage Products Permissions -------
     Route::group(['middleware' => 'permissions:Manage Products'], function(){
+
+        // -------------------- HIGHLIGHT-------------------------
+        Route::resource('highlight', HighlighController::class)->except(['show'])->names([
+            'index' => 'backend.highlight.index',
+            'create' => 'backend.highlight.create',
+            'store' => 'backend.highlight.store',
+            'edit' => 'backend.highlight.edit',
+            'update' => 'backend.highlight.update',
+        ]);
 
         //------------ ITEM ------------
         Route::get('/item/add', [ItemController::class, 'add'])->name('backend.item.add');
@@ -505,6 +515,7 @@ Route::prefix('admin')->group(function(){
     Route::group(['middleware' => 'permissions:Manage Pages'], function () {
         //------------ Pages ------------
         Route::get('page/pos/{id}/{pos}', [PageController::class, 'pos'])->name('backend.page.pos');
+        Route::get('page/hide/{id}', [PageController::class, 'hide'])->name('backend.page.hide');
         Route::resource('page', PageController::class)->except(['show'])->names([
             'index' => 'backend.page.index',
             'create' => 'backend.page.create',

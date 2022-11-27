@@ -1264,7 +1264,7 @@
                             </form>
                         </div> --}}
 
-                        <div class="tab-pane text-left fade show active" id="tab10" role="tabpanel0" aria-labelledby="vert-tabs-home-tab">
+                        <div class="tab-pane text-left fade show" id="tab10" role="tabpanel0" aria-labelledby="vert-tabs-home-tab">
                             <form action="{{ route('backend.flasdeal.banner.update') }}" method="POST" id="quickForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row">
