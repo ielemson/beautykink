@@ -73,8 +73,14 @@
                                         </div>
                                         <div class="product-footer">
                                             @if ($sale->is_stock())
-                                            <a class="btn-product-add add_to_cart" data-id="{{ $sale->id }}"
+                                            @if (count($sale->attributes))
+                                            <a class="btn-product-add add_to_cart_without_attribute" data-slug="{{ $sale->slug}}"
+                                                href="javascript:;">Add to cart
+                                            </a>
+                                            @else
+                                                 <a class="btn-product-add add_to_cart" data-id="{{ $sale->id }}"
                                                 href="javascript:;">Add to cart</a>
+                                            @endif
                                             {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
                                             <a class="btn-quick-view"
                                                 href="{{ route('frontend.product', $sale->slug) }}"

@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- Page Title-->
-    @include('frontend._inc.header_single_page',['title_1'=>'Checkout','title_2'=>'Billing Address'])
+    @include('frontend._inc.header_single_page',['title_1'=>'Checkout','title_2'=>'Shipping Address'])
 
        <!--== End Page Header Area Wrapper ==-->
        <section class="product-area">
@@ -22,7 +22,7 @@
                             <h2 class="heading" id="headingOne">
                                 <button class="heading-button">
                                     <span class="step-number">1.</span>
-                                    <b class="text-danger">{{ __('Billing Address') }}</b>
+                                    <b class="text-danger">{{ __('Shipping Address') }}</b>
                               </button>
                             </h2>
                             
@@ -57,7 +57,7 @@
                             <div class="checkout-accordion-item">
                                  <div class="checkout-accordion-body" data-margin-top="14">
                                   <div class="personal-addresses">
-                                    <p class="p-text"><b>Billing Address</b></p>
+                                    <p class="p-text"><b>Shipping Address</b></p>
                                     <div class="delivery-address-form">
                                       <form id="checkoutBilling" action="{{ route('frontend.guest.checkout.store') }}" method="POST">
                                         @csrf

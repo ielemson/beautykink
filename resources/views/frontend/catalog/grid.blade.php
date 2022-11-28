@@ -60,7 +60,14 @@
           </div>
           <div class="product-footer">
             @if ($item->is_stock())
-            <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}" href="javascript:;" title="add to cart">Add to cart</a>
+            @if (count($item->attributes))
+            <a class="btn-product-add add_to_cart_without_attribute" data-slug="{{ $item->slug}}"
+                href="javascript:;">Add to cart
+            </a>
+            @else
+                 <a class="btn-product-add add_to_cart" data-id="{{ $item->id }}"
+                href="javascript:;">Add to cart</a>
+            @endif
             {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
             <a class="btn-quick-view" href="{{ route('frontend.product', $item->slug) }}" title="view product">Product details</a>
             @else

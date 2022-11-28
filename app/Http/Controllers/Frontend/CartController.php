@@ -214,9 +214,11 @@ class CartController extends Controller
             $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
             $attribute_color = $atrributename->image;
         }
+        
         // else{
         //     $attribute_color = '';
         // }
+
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }

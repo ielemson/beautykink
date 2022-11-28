@@ -40,8 +40,6 @@
         @include('frontend._inc.banner_first')
     @endif
 
-
-    
     {{-- banner first end --}}
     {{-- service information area --}}
     @include('frontend._inc.service')

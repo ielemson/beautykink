@@ -23,37 +23,37 @@
             <div class="col-xxl-3">
               <div class="discount-product-slider owl-carousel owl-theme mt-xl-15">
  
-                @foreach ($products->orderBy('id', 'DESC')->get() as $flashitem)
-                @if ($flashitem->is_type == 'flash_deal' && $flashitem->date != null) 
+                @foreach ($products->orderBy('id', 'DESC')->get() as $flashItem)
+                @if ($flashItem->is_type == 'flash_deal' && $flashItem->date != null) 
                 <div class="item">
                   <div class="product-item">
                     <div class="inner-content discount-product">
                       <div class="product-thumb">
-                        <a href="{{ route('frontend.product', $flashitem->slug) }}">
-                          <img src="{{ asset($flashitem->photo) }}" alt="{{$flashitem->slug}}">
-                          <img class="second-image" src="{{ asset($flashitem->photo) }}" alt="{{$flashitem->slug}}">
+                        <a href="{{ route('frontend.product', $flashItem->slug) }}">
+                          <img src="{{ asset($flashItem->photo) }}" alt="{{$flashItem->slug}}">
+                          <img class="second-image" src="{{ asset($flashItem->photo) }}" alt="{{$flashItem->slug}}">
                         </a>
                         <div class="product-action">
                             <div class="addto-wrap">
-                                <a class="add-wishlist" href="javascript:;" data-id="{{$flashitem->id}}" title="Add to wishlist">
+                                <a class="add-wishlist" href="javascript:;" data-id="{{$flashItem->id}}" title="Add to wishlist">
                                     <i class="icon-heart icon"></i>
                                 </a>
-                                <a class="add-compare" href="javascript:;" data-id="{{$flashitem->id}}" title="Add to compare">
+                                <a class="add-compare" href="javascript:;" data-id="{{$flashItem->id}}" title="Add to compare">
                                     <i class="icon-shuffle icon"></i>
                                 </a>
                             </div>
                         </div>
                         <ul class="product-flag">
-                            @if ($flashitem->is_stock())
-                                <li class="{{ strtolower($flashitem->is_type) }}">
-                                    {{ ucfirst(str_replace('_', ' ', $flashitem->is_type)) }}
+                            @if ($flashItem->is_stock())
+                                <li class="{{ strtolower($flashItem->is_type) }}">
+                                    {{ ucfirst(str_replace('_', ' ', $flashItem->is_type)) }}
                                 </li>
                             @else
                                 <li class="new">{{ __('out of stock') }}</li>
                             @endif
-                            @if ($flashitem->previous_price && $flashitem->previous_price != 0)
+                            @if ($flashItem->previous_price && $flashItem->previous_price != 0)
                                 <li class="discount">
-                                    {{ PriceHelper::DiscountPercentage($flashitem) }}
+                                    {{ PriceHelper::DiscountPercentage($flashItem) }}
                                 </li>
                             @endif
                         </ul>
@@ -61,37 +61,44 @@
                       <div class="product-desc">
                         <div class="product-info">
                             <h4 class="title">
-                              <a href="{{ route('frontend.product', $flashitem->slug) }}">{{ strlen(strip_tags($flashitem->name)) > 35 ? substr(strip_tags($flashitem->name), 0, 35) : strip_tags($flashitem->name) }}</a>
+                              <a href="{{ route('frontend.product', $flashItem->slug) }}">{{ strlen(strip_tags($flashItem->name)) > 35 ? substr(strip_tags($flashItem->name), 0, 35) : strip_tags($flashItem->name) }}</a>
                             </h4>
                             <div class="star-content">
-                                {!!renderStarRating($flashitem->reviews->avg('rating'))!!}
+                                {!!renderStarRating($flashItem->reviews->avg('rating'))!!}
                             </div>
                             <div class="prices">
-                                @if ($flashitem->previous_price != 0)
+                                @if ($flashItem->previous_price != 0)
                                     {{-- <del></del> --}}
                                     <span class="price-old">
-                                        {{ PriceHelper::setPreviousPrice($flashitem->previous_price) }}</span>
+                                        {{ PriceHelper::setPreviousPrice($flashItem->previous_price) }}</span>
                                 @endif
                                 <span class="price text-black">
-                                    {{ PriceHelper::grandCurrencyPrice($flashitem) }}</span>
+                                    {{ PriceHelper::grandCurrencyPrice($flashItem) }}</span>
                             </div>
                             
-                            @if (date('d-m-y') != \Carbon\Carbon::parse($flashitem->date)->format('d-m-y'))
-                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashitem->date }}"></div>
+                            @if (date('d-m-y') != \Carbon\Carbon::parse($flashItem->date)->format('d-m-y'))
+                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashItem->date }}"></div>
                             @endif
                         </div>
                         <div class="product-footer">
-                            @if ($flashitem->is_stock())
-                            <a class="btn-product-add add_to_cart" data-id="{{ $flashitem->id }}"
+                            @if ($flashItem->is_stock())
+
+                            @if (count($flashItem->attributes))
+                            <a class="btn-product-add add_to_cart_without_attribute" data-slug="{{ $flashItem->slug}}"
+                                href="javascript:;">Add to cart
+                            </a>
+                            @else
+                                 <a class="btn-product-add add_to_cart" data-id="{{ $flahsitem->id }}"
                                 href="javascript:;">Add to cart</a>
+                            @endif
                             {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}
                             <a class="btn-quick-view"
-                                href="{{ route('frontend.product', $flashitem->slug) }}"
+                                href="{{ route('frontend.product', $flashItem->slug) }}"
                                 title="view product">Product details</a>
                         @else
                             <a class="btn-quick-view btn-block remind_me_when_restock"
                                 href="javascript:;" title="view product"
-                                data-id="{{ $flashitem->id }}">Remind me when restocked</a>
+                                data-id="{{ $flashItem->id }}">Remind me when restocked</a>
                         @endif
                         </div>
                     </div>

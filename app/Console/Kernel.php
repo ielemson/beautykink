@@ -17,9 +17,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call( function(){
-            Profile::where('username','beautykink')->first()->refreshFeed(15);
-        })->twiceDaily();
+        // $schedule->call( function(){
+        //     Profile::where('username','beautykink')->first()->refreshFeed(15);
+        // })->twiceDaily();
+        $schedule->command('instafeed:refresh')
+        ->twiceDaily();
         $schedule->command('instagram-feed:refresh-tokens')->monthlyOn(15,'03:00');
     }
 

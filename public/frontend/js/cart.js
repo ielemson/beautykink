@@ -45,12 +45,40 @@
     
     
 // Add to cart starts here
-    $('body').on('click', '.add_to_cart', function () {
-        var id = $(this).attr("data-id");
-        var qty = 1;
-        // alert("The data-id of clicked item is: " + dataId);
-        $.get('/cart/add' + '/' + id + '/' + qty, function (data) {
-            miniCart()
+$('body').on('click', '.add_to_cart', function () {
+    var id = $(this).attr("data-id");
+    var qty = 1;
+    // alert("The data-id of clicked item is: " + dataId);
+    $.get('/cart/add' + '/' + id + '/' + qty, function (data) {
+        miniCart()
+        // start message
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            // icon: 'success',
+            showConfirmButton: false,
+            timer: 3000
+        })
+        if ($.isEmptyObject(data.error)) {
+            Toast.fire({
+                icon: 'success',
+                title: data.success,
+            })
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: data.error,
+            })
+        }
+        // end message
+    })
+});
+// Add to cart ends here
+
+// No attribute alert
+    $('body').on('click', '.add_to_cart_without_attribute', function () {
+        var slug = $(this).attr("data-slug");
+        console.log(slug)
             // start message
             const Toast = Swal.mixin({
                 toast: true,
@@ -59,21 +87,18 @@
                 showConfirmButton: false,
                 timer: 3000
             })
-            if ($.isEmptyObject(data.error)) {
-                Toast.fire({
-                    icon: 'success',
-                    title: data.success,
-                })
-            } else {
-                Toast.fire({
-                    icon: 'error',
-                    title: data.error,
-                })
-            }
+            
+            Toast.fire({
+                icon: 'error',
+                title: 'select product attribute first',
+            })
+            setTimeout(() => {
+                location.href="/product/"+slug
+            }, 3000);
             // end message
-        })
+      
     });
-// Add to cart ends here
+// No attribute alert
 
 
 //Add to wish list starts here ::::::::::::::::::::::::  
