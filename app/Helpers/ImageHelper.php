@@ -27,6 +27,23 @@ class ImageHelper
 
         }
     }
+    public static function handleUploadedBannerImage($file, $path, $delete = null){
+        if ($file) {
+            // Delete Image Which Exists In Directory
+            if ($delete){
+                if (file_exists($delete)) {
+                    unlink($delete);
+                }
+            }
+
+            $name = time() .'banner'. '.'.$file->getClientOriginalExtension();
+            $galeryImg = Image::make($file)->resize(450, 490);
+            $photo_save_path = public_path($path) ."/".$name;
+            $galeryImg->save($photo_save_path);
+            return $path . "/" . $name;
+
+        }
+    }
     public static function handleSliderUploadedImage($file, $path, $delete = null){
         if ($file) {
             // Delete Image Which Exists In Directory

@@ -178,6 +178,20 @@
 <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<style>
+    .image {
+  background: #34495e;
+  border: 1px solid #34495e;
+  width: 100%;
+  height: 50vh;
+}
+
+.image-contain {
+  object-fit: contain;
+  object-position: center;
+}
+
+</style>
 </head>
 
 <body>

@@ -57,7 +57,7 @@
                                         <br>
                                         <img src="{{ $first_banner['img1'] ? asset($first_banner['img1']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -82,7 +82,7 @@
                                         <br>
                                         <img src="{{ $first_banner['img2'] ? asset($first_banner['img2']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -107,7 +107,7 @@
                                         <br>
                                         <img src="{{ $first_banner['img3'] ? asset($first_banner['img3']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -555,7 +555,7 @@
                                         <br>
                                         <img src="{{ $second_banner['img1'] ? asset($second_banner['img1']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -580,7 +580,7 @@
                                         <br>
                                         <img src="{{ $second_banner['img2'] ? asset($second_banner['img2']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -605,7 +605,7 @@
                                         <br>
                                         <img src="{{ $second_banner['img3'] ? asset($second_banner['img3']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -958,7 +958,7 @@
                                         <br>
                                         <img src="{{ $third_banner['img1'] ? asset($third_banner['img1']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -983,7 +983,7 @@
                                         <br>
                                         <img src="{{ $third_banner['img2'] ? asset($third_banner['img2']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -1037,7 +1037,7 @@
                                         <br>
                                         <img src="{{ $home4_banner['img1'] ? asset($home4_banner['img1']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -1076,7 +1076,7 @@
                                         <br>
                                         <img src="{{ $home4_banner['img2'] ? asset($home4_banner['img2']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -1115,7 +1115,7 @@
                                         <br>
                                         <img src="{{ $home4_banner['img3'] ? asset($home4_banner['img3']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -1154,7 +1154,7 @@
                                         <br>
                                         <img src="{{ $home4_banner['img4'] ? asset($home4_banner['img4']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -1193,7 +1193,7 @@
                                         <br>
                                         <img src="{{ $home4_banner['img5'] ? asset($home4_banner['img5']) : asset('backend/images/placeholder.png') }}" class="admin-setting-img" alt="No Image Found">
                                         <br>
-                                        <span>{{ __('Image Size Should Be 496 x 204.') }}</span>
+                                        <span>{{ __('Image Size Should Be 450 x 490.') }}</span>
                                     </div>
                                     <div class="col-md-2"></div>
 

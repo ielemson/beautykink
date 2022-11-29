@@ -20,7 +20,7 @@
               <div class="item">
                 <div class="team-item">
                   <div class="inner-content">
-                    <div class="thumb">
+                    <div class="thumb image image-contain">
                       <a href="{{$feed['permalink']}}" target="_blank"><img src="{{$feed['thumbnail_url']}}" alt="{{$feed['caption']}}"></a>
                       <div class="member-icons">
                          <div class="content">

@@ -71,7 +71,7 @@ class HomePageController extends Controller
             if ($request->hasFile($single_image)) {
                 $data = HomeCustomize::first();
                 $check = json_decode($data->banner_first, true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'uploads/banners', $check[$single_image]);
+                $input[$single_image] = ImageHelper::handleUploadedBannerImage($request->$single_image, 'uploads/banners', $check[$single_image]);
             }
         }
 
