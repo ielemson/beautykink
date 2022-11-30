@@ -421,7 +421,7 @@ class ItemController extends Controller
         ]);
     }
 
-    public function copy($id){
+    public function clone($id){
     $item = Item::find($id);
     $newItem = $item->replicate();
     $newItem->created_at = Carbon::now();
