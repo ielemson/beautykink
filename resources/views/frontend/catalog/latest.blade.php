@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-8 m-auto">
                 <div class="section-title text-center">
-                    <h2 class="title">Best Seller</h2>
+                    <h2 class="title">New </h2>
                     <div class="desc">
                         {{-- <p>Add our best seller products to your weekly lineup</p> --}}
                     </div>
