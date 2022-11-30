@@ -175,6 +175,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/get/subcategory', [ItemController::class, 'getSubcategory'])->name('backend.get.subcategories');
         Route::get('/get/childcategory', [ItemController::class, 'getChildCategory'])->name('backend.get.childcategories');
         Route::get('item/status/{id}/{status}', [ItemController::class, 'status'])->name('backend.item.status');
+        Route::get('item/copy/{id}', [ItemController::class, 'copy'])->name('backend.item.copy');
         Route::resource('item', ItemController::class)->except(['getSubcategory'])->names([
             'index' => 'backend.item.index',
             'create' => 'backend.item.create',

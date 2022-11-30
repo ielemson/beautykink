@@ -16,6 +16,7 @@ use App\Models\ChildCategory;
 use App\Models\Gallery;
 use Intervention\Image\Facades\Image;
 use App\Repositories\Backend\ItemRepository;
+use Carbon\Carbon;
 use phpDocumentor\Reflection\Types\This;
 
 use function PHPUnit\Framework\directoryExists;
@@ -418,6 +419,14 @@ class ItemController extends Controller
             'license_name' => json_decode($item->license_name, true),
             'license_key' => json_decode($item->license_key, true)
         ]);
+    }
+
+    public function copy($id){
+    $item = Item::find($id);
+    $newItem = $item->replicate();
+    $newItem->created_at = Carbon::now();
+    $newItem->save();
+    return redirect()->route('backend.item.index')->withSuccess(__('Product cloned Successfully.'));
     }
 
 }

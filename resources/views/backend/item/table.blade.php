@@ -40,6 +40,9 @@
                     <a class="dropdown-item" href="{{ route('backend.item.edit',$data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Edit') }}
                     </a>
+                    <a class="dropdown-item" href="{{ route('backend.item.copy',$data->id) }}">
+                        <i class="fas fa-angle-double-right"></i> {{ __('Copy') }}
+                    </a>
                     @elseif ($data->item_type == 'digital')
                         <a class="dropdown-item" href="{{ route('backend.digital.item.edit', $data->id) }}">
                             <i class="fas fa-angle-double-right"></i> {{ __('Edit') }}
