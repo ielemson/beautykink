@@ -113,7 +113,7 @@
                                 {{ $curr->sign }}
                             </div>
                         </div>
-                        <input type="number" name="previous_price" id="previous_price" min="0" step="0.01" class="form-control" placeholder="{{ __('Enter Previous Price') }}" value="{{ old('previous_price') }}">
+                        <input type="number" name="previous_price" id="previous_price" min="0" class="form-control" placeholder="{{ __('Enter Previous Price') }}" value="{{ old('previous_price') }}">
                     </div>
                   </div>
 
@@ -124,7 +124,7 @@
 
                   <div class="form-group  col-md-6">
                     <label for="stock">{{ __('Total in stock') }} *</label>
-                    <input type="number" name='stock' id="stock" class='form-control' placeholder="{{ __('Total in stock') }}" value="{{ old('stock') }}">
+                    <input type="number" name='stock' id="stock" min="1" class='form-control' placeholder="{{ __('Total in stock') }}" value="{{ old('stock') }}">
                   </div>
 
                   <div class="form-group  col-md-12">

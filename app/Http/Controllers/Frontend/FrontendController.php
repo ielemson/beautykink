@@ -189,7 +189,7 @@ class FrontendController extends Controller
             }
         }
 
-        $checktheme = Setting::first();
+        // $checktheme = Setting::first();
         // dd($checktheme->theme);
         // if ($checktheme ->theme == 'theme1') {
         //     $sliders = Slider::where('home_page', 'theme1')->get();

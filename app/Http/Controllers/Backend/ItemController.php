@@ -138,6 +138,10 @@ class ItemController extends Controller
     */
     public function store(ItemRequest $request)
     {
+        $request->except('slug');
+        $slug = strtolower($request->slug);
+        $request->merge(['slug' => $slug]);
+        // dd($request);
         $this->repository->store($request);
         return redirect()->route('backend.item.index')->withSuccess(__('New Product Added Successfully.'));
     }
@@ -196,6 +200,10 @@ class ItemController extends Controller
             $gallery->photo = $image_path;
             $gallery->save();
         }
+
+        $request->except('slug');
+        $slug = strtolower($request->slug);
+        $request->merge(['slug' => $slug]);
 
         $this->repository->update($item, $request);
 
@@ -421,12 +429,24 @@ class ItemController extends Controller
         ]);
     }
 
-    public function clone($id){
-    $item = Item::find($id);
-    $newItem = $item->replicate();
-    $newItem->created_at = Carbon::now();
-    $newItem->save();
+    public function clone($item_id){
+    $item = Item::find($item_id);
+    $replicated = $item->replicate();
+    $replicated->slug = $replicated->slug.'-copy';
+    $replicated->name = $replicated->name.'-copy';
+    $replicated->status = false;
+    $replicated->created_at = Carbon::now();
+    $replicated->save();
+
+    // get current photo gallery
+    $photoGallery = Gallery::where('item_id',$item_id)->first();
+    $galleryImg = new Gallery;
+    $galleryImg->item_id = $replicated->id;
+    $galleryImg->photo = $photoGallery->photo;
+    $galleryImg->save();
+
     return redirect()->route('backend.item.index')->withSuccess(__('Product cloned Successfully.'));
+
     }
 
 }
