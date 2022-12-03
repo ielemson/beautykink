@@ -1917,12 +1917,12 @@ section .container-fluid {
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav > li {
   margin-right: 30px;
 }
-.header-area.header-default .header-align .header-navigation-area .main-menu.nav > li.active > a {
+/* .header-area.header-default .header-align .header-navigation-area .main-menu.nav > li.active > a {
   color: #cc0066 !important;
 }
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav > li.active > a:before {
   color: #cc0066 !important;
-}
+} */
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav > li > a {
   /* color: #1d1d1d; */
   color: #fff;
@@ -1984,7 +1984,7 @@ section .container-fluid {
   border-bottom: 1px solid #eee;
   padding: 7.5px 20px;
 }
-.header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li.active a {
+.header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li a:hover {
   color: #cc0066 !important;
 }
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li a {
@@ -2006,7 +2006,7 @@ section .container-fluid {
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li.mega-menu-item > a {
   color: #1d1d1d !important;
 }
-.header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li.mega-menu-item > ul > li.active > a {
+.header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li.mega-menu-item > ul > li a:hover {
   color: #cc0066 !important;
 }
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav > li.mega-menu-item > ul > li > a {
@@ -7612,3 +7612,25 @@ section .container-fluid {
     text-align: center;
   }
 }
+
+
+/* CUSTOM STYLES STARTS */
+/* .float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+} */
+/* CUSTOM STYLES ENDS */

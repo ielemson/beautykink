@@ -20,7 +20,13 @@
         @endif
       <div class="card-block-item">
         <span class="label">Shipping</span>
+        {{-- {{ PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0)}} --}}
+        @if (Session::has('free_shipping'))
+          Free Shipping
+        @else
         <span class="value shipping_value">&#8358;0</span>
+          
+        @endif
       </div>
         </div>
         <div class="separator"></div>

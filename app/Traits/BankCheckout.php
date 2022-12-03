@@ -161,6 +161,7 @@ trait BankCheckout
         Session::forget('shipping_price');
         Session::forget('shipping_address');
         Session::forget('billing_address');
+        Session::forget('free_shipping');
         return [
             'status' => true
         ];

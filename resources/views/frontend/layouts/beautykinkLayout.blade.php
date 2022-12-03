@@ -109,8 +109,8 @@
     border:0 !important;
     }
     .modal-header-announcement .btn-close{
-    background-color: #cc0066 !important;
-    color: #f5f6f9;
+    background-color: #f5f6f9 !important;
+    color: #f5f6f9 !important;
     }
 </style>
 @endif
@@ -272,7 +272,7 @@ var mainbs = {!! $mainbs !!};
 
     <script>
         var mainbs = {!! $mainbs !!};
-        console.log(mainbs['announcement_delay'])
+        // console.log(mainbs['announcement_delay'])
     </script>
     <script src="{{ asset('frontend/js/modernizr.js') }}"></script>
     <!--=== jQuery Min Js ===-->

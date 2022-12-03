@@ -206,22 +206,16 @@
                             <ul class="main-menu nav">
                                 <li><a href="{{ route('frontend.index') }}">HOME</a> </li>
                                 <li><a href="{{ route('frontend.aboutus') }}">ABOUT US</a></li>
-
                                 {{-- Categories drop-down-list --}}
                                 @include('frontend._inc.categories')
                                 {{-- Pages dynamic lists --}}
                                 @include('frontend._inc.pages')
-       
                                 </li>
-                               
-
                                 @if ($setting->is_contact == 1)
                                     <li>
                                         <a href="{{ route('frontend.contact') }}">{{ __('Contact') }}</a>
                                     </li>
                                 @endif
-
-
                             </ul>
                         </div>
                     </div>

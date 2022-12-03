@@ -283,6 +283,7 @@ Route::prefix('admin')->group(function(){
 
         //------------ PROMO CODE ------------
         Route::get('code/status/{id}/{status}', [PromoCodeController::class, 'status'])->name('backend.code.status');
+        
         Route::resource('code', PromoCodeController::class)->except(['show'])->names([
             'index' => 'backend.code.index',
             'create' => 'backend.code.create',

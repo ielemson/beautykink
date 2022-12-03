@@ -90,7 +90,7 @@
         </a>
     @endif
 
-    <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-bag icon"></i>
+    <a href="{{ route('frontend.cart') }}" class="btn-cart bloc-icon"><i class="icon-bag icon"></i>
         <span class="item-count cart-count">0</span></a>
 
     <a href="{{ route('frontend.checkout.billing') }}" class="btn-cart bloc-icon"><i class="icon-heart icon"></i>
@@ -99,3 +99,4 @@
     <a href="{{ route('frontend.compare') }}" class="btn-cart bloc-icon"><i
             class="icon-shuffle icon"></i> <span class="compare_count">0</span></a>
 </nav>
+

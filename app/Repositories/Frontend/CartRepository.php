@@ -9,14 +9,19 @@ use App\Models\AttributeOption;
 use Illuminate\Support\Facades\Session;
 use App\Models\Attribute as ModelsAttribute;
 use App\Models\PromoCode;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
-class CartRepository {
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class CartRepository
+{
     /**
      * Store Cart.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-    */
+     */
     public function store($request)
     {
         $msg = '';
@@ -28,8 +33,8 @@ class CartRepository {
         $qty = isset($input['quantity']) ? $input['quantity'] : 1;
         $qty = is_numeric($qty) ? $qty : 1;
         $cart = Session::get('cart');
-        $item = Item::where('id', $input['item_id'])->select('id','name','photo','discount_price','previous_price','slug','item_type','license_name','license_key')->first();
-        $single = isset($request->type) ? ($request->type =='1' ? 1 : 0) : 0;
+        $item = Item::where('id', $input['item_id'])->select('id', 'name', 'photo', 'discount_price', 'previous_price', 'slug', 'item_type', 'license_name', 'license_key')->first();
+        $single = isset($request->type) ? ($request->type == '1' ? 1 : 0) : 0;
         if (Session::has('cart')) {
             if ($item->item_type == 'digital' || $item->item_type == 'license') {
                 $check = array_key_exists($input['item_id'], Session::get('cart'));
@@ -40,7 +45,6 @@ class CartRepository {
                         return __('Product already added in cart.');
                     }
                 }
-
             }
         }
 
@@ -58,10 +62,10 @@ class CartRepository {
             $input['attr_name'] = $attr_name;
             $input['option_price'] = $option_price;
             $input['option_name'] = $option_name;
-            if($request->quantity != 'NaN'){
+            if ($request->quantity != 'NaN') {
                 $qty = $request->quantity;
                 $qty_check = 1;
-            }else{
+            } else {
                 $qty = 1;
             }
         } else {
@@ -151,14 +155,103 @@ class CartRepository {
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-    */
+     */
     public function promoStore($request)
     {
         $input = $request->all();
-        $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->first();
 
-        // dd($promo_code);
+        $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->where('status',1)->first();
+
         if ($promo_code) {
+
+            $endDate = Carbon::parse($promo_code->end_date);
+
+            if ($endDate->isPast()) {
+                Session::forget('coupon');
+                return [
+                    'status'  => false,
+                    'message' => 'Coupon code expired!'
+                ];
+            }
+
+            // Check if product is part of promo 
+            // if ($promo_code->product != null) {
+
+            //     $item_Ids = [];
+            //     foreach (Cart::content() as $key => $item) {
+            //         $item_Ids[] = $item->id;
+            //     }
+
+            //     $promo_prod_ids = json_decode($promo_code->product, true);
+            //     // $items = Item::select("*")
+            //     //     ->whereIn('id', $ids)
+            //     //     ->get();
+
+            //     // if (!$items) {
+            //         $result = array_diff($promo_prod_ids,$item_Ids);
+            //         // Session::put('coupon', 0);
+            //         return [
+            //             'status'  => false,
+            //             'message' => count($result)
+            //         ];
+            //     // }
+            // }
+
+            // Check if user login is required
+            if ($promo_code->no_of_times_per_user > 0) {
+                
+                if (!Auth::check()) {
+                    
+                    return [
+                        'status'  => false,
+                        'message' => __('Please login to use coupon code!')
+                    ];
+                }
+
+               $user_coupon_count  =  DB::table('coupon_per_user_count')->where('coupon_id', $promo_code->id)->where('user_id',Auth::user()->id)->count();
+
+               if($promo_code->no_of_times_per_user > $user_coupon_count){
+
+                DB::table('coupon_per_user_count')->insert([
+                    'user_id'=>Auth::user()->id,
+                    'coupon_id'=>$promo_code->id
+                ]);
+
+                // return [
+                //     'status'  => false,
+                //     'message' => __($user_coupon_count)
+                //    ];
+                   
+               }else{
+                return [
+                    'status'  => false,
+                    'message' => __('You have exceeded this coupon limit')
+                ];
+               }
+               
+            }
+
+            if ($promo_code->customer_login == 1) {
+                
+                if (!Auth::check()) {
+                    
+                    return [
+                        'status'  => false,
+                        'message' => __('Please login to use coupon code!')
+                    ];
+                }
+            }
+            if ($promo_code->shipping == 1) {
+                Session::put('free_shipping', $promo_code->shipping);
+                // Session::forget('discount');
+
+                return [
+                    'status'  => true,
+                    'message' => __('Free Shipping applied!')
+                ];
+            }else{
+                Session::forget('free_shipping');
+            }
             $cart = Cart::content();
             $cart_total = PriceHelper::cartTotal($cart);
             // dd($cart_total);
@@ -172,22 +265,21 @@ class CartRepository {
             Session::put('coupon', $coupon);
             return [
                 'status'  => true,
-                'message' => __('Promo code applied!')
+                'message' => __('Coupon code applied!')
             ];
         } else {
             return [
                 'status'  => false,
-                'message' => __('Promo code not found!')
+                'message' => __('Coupon code not found!')
             ];
         }
-
     }
 
     /**
      * Get Cart.
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function getCart()
     {
         return Session::has('cart') ? Session::get('cart') : null;

@@ -33,7 +33,10 @@
                     <th>{{ __('Code') }}</th>
                     <th>{{ __('No. of Times') }}</th>
                     <th>{{ __('Discount') }}</th>
+                    <th>{{ __('Start Date') }}</th>
+                    <th>{{ __('End Date') }}</th>
                     <th>{{ __('Status') }}</th>
+                    
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>

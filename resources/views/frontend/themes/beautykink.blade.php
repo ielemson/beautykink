@@ -77,7 +77,6 @@
     {{-- All Product ends --}}
     
  
-
     @if ($setting->is_testimonial ==1)
            {{-- Testimonial starts --}}
     @include('frontend._inc.testimonial')

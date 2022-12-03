@@ -22,9 +22,11 @@
                  @foreach ($cart as $item)
                    <div class="shopping-cart-item">
                     <div class="row">
-                      <div class="col-4 col-md-3">
+                      <div class="col-4 col-md-2">
                         <div class="product-thumb">
-                          <img src="{{ asset($item->options->thumbnail) }}" alt="{{ asset($item->name) }}">
+                          <a href="{{ route('frontend.product', $item->options->slug) }}" target="_blank" rel="noopener noreferrer">
+                            <img src="{{ asset($item->options->thumbnail) }}" alt="{{ asset($item->name) }}" style="width:125px; height:125px">
+                          </a>
                         </div>
                       </div>
                       <div class="col-8 col-md-4">

@@ -215,10 +215,7 @@ class CartController extends Controller
             $attribute_color = $atrributename->image;
         }
         
-        // else{
-        //     $attribute_color = '';
-        // }
-
+        // Check for previous coupon in session and delete it
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }
@@ -351,16 +348,15 @@ class CartController extends Controller
     public function removeFromCart($rowId)
     {
         Cart::remove($rowId);
-        // if (Session::has('coupon')) {
-        //     $coupon_name = Session::get('coupon')['coupon_name'];
-        //     $coupon = Coupon::where('coupon_name', $coupon_name)->first();
-        //     Session::put('coupon',[
-        //         'coupon_name' => $coupon->coupon_name,
-        //         'coupon_discount' => $coupon->coupon_discount,
-        //         'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
-        //         'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100)
-        //     ]);
-        // }
+
+       if(Cart::count() == 0){
+        Session::forget('free_shipping');
+        Session::forget('discount');
+        Session::forget('coupon');
+        Session::forget('shipping_id');
+        Session::forget('shipping_price');
+       }
+
         return response()->json(['success' => 'Item removed successfully'], 200);
     }
 

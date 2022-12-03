@@ -118,6 +118,7 @@
                                                     </div>
                                                 </div> --}}
                                             </div>
+
                                             <div class="row">
 
                                                 <div class="col-sm-2">
@@ -127,7 +128,10 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3">
+                                                @if ((Session::has('free_shipping')))
+                                                  
+                                                @else
+                                                   <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label for="checkout-country">{{ __('Select State') }}*</label>
                                                         <select class="form-control" required name="bill_country" id="billing-state" required>
@@ -138,6 +142,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+
                                               <div class="col-sm-3">
                                                 <div class="form-group">
                                                   <label for="checkout-country">{{ __('City') }}*</label>
@@ -145,6 +150,7 @@
                                                   </select>
                                               </div>
                                               </div>
+                                              
                                               <div class="col-sm-4">
                                                 <div class="form-group">
                                                   <label for="checkout-country">{{ __('Shipping Services') }}*</label>
@@ -152,8 +158,9 @@
                                                   </select>
                                               </div>
                                               </div>
-                                                
-                                            </div>
+                                                @endif
+                                               
+                                               </div>
                                         {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="same_address" name="same_ship_address" {{ Session::has('shipping_address') ? 'checked' : '' }}>

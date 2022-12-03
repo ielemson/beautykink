@@ -2,9 +2,10 @@
     <div class="card-body">
         <div class="shopping-cart-footer">
             <div class="column">
-                <form class="coupon-form" method="post" id="coupon_form" action="{{ route('frontend.promo.submit') }}">
+                <form class="coupon-form" method="post" id="applyCoupon">
                     @csrf
                     <input class="form-control form-control-sm" name="code" type="text" placeholder="{{ __('Coupon code') }}" required>
+                    {{-- <input type="hidden" name="prod_id" value="{{$cart}}"> --}}
                     <button class="btn btn-outline-primary btn-sm applyCoupon" type="submit">{{ __('Apply Coupon') }}</button>
                 </form>
             </div>
@@ -42,7 +43,7 @@
       }
   });
  
-  $(".applyCoupon").click(function(e){
+  $("#applyCoupon").submit(function(e){
       e.preventDefault();
       var code = $("input[name=code]").val();
       $.ajax({
@@ -57,6 +58,7 @@
               showConfirmButton: false,
               timer: 3500
           })
+        console.log(data)
        
         if(data.status == false){
             Toast.fire({

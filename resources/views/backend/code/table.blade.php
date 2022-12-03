@@ -10,7 +10,9 @@
             @else
                 {{ $data->discount }} %
             @endif
-        </td>
+        </td>  
+        <td>{{$data->start_date}}</td>
+        <td>{{$data->end_date}}</td>
         <td>
             <div class="input-group-prepend">
                 <button type="button" class="btn btn-{{ $data->status == 1 ? 'success' : 'danger' }} btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -22,6 +24,7 @@
                 </div>
             </div>
         </td>
+      
         <td>
             <div class="btn-group">
                 <a class="btn btn-info btn-sm mr-1"

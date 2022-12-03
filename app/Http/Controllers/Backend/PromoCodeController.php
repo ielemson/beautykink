@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PromoCodeRequest;
+use App\Models\Category;
 use App\Models\Currency;
+use App\Models\Item;
 use App\Models\PromoCode;
 use Illuminate\Http\Request;
 
@@ -40,7 +42,9 @@ class PromoCodeController extends Controller
     */
     public function create()
     {
-        return view('backend.code.create');
+        $categories = Category::where('status',1)->get();
+        $items = Item::where('status',1)->get();
+        return view('backend.code.create',compact('categories','items'));
     }
 
     /**
@@ -51,25 +55,37 @@ class PromoCodeController extends Controller
     */
     public function store(PromoCodeRequest $request)
     {
+        // dd($request);
+
         $curr = Currency::where('is_default', 1)->first();
         $input = $request->all();
         if ($input['type'] == 'amount') {
             $input['discount'] = $input['discount'] / $curr->value;
         }
+        // dd($request->all());
+        if($request->no_of_times_per_user != null && $request->customer_login == 0){
+            return redirect()->route('backend.code.create')->withError(__('To enable No of times per user, please enable customer login.'));
+        }
+        $input['category'] = json_encode($request->category, true);
+        $input['product'] = json_encode($request->product, true);
+
         PromoCode::create($input);
-        return redirect()->route('backend.code.index')->withSuccess(__('New Promo Code Added Successfully.'));
+        return redirect()->route('backend.code.index')->withSuccess(__('Coupon Code Added Successfully.'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
+    
      * @param int $id
      * @return \Illuminate\Http\Response
     */
     public function edit(PromoCode $code)
     {
         $curr = Currency::where('is_default', 1)->first();
-        return view('backend.code.edit', compact('code', 'curr'));
+        $categories = Category::where('status',1)->get();
+        $items = Item::where('status',1)->get();
+        // dd($code);
+        return view('backend.code.edit', compact('code', 'curr','items','categories'));
     }
 
     /**
@@ -99,6 +115,10 @@ class PromoCodeController extends Controller
         if ($input['type'] == 'amount') {
             $input['discount'] = $input['discount'] / $curr->value;
         }
+        $input['category'] = json_encode($request->category, true);
+        $input['product'] = json_encode($request->product, true);
+        // dd($input);
+
         $code->update($input);
         return redirect()->route('backend.code.index')->withSuccess(__('Promo Code Updated Successfully.'));
     }

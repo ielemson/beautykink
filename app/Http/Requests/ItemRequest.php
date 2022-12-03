@@ -53,7 +53,7 @@ class ItemRequest extends FormRequest
             'details' => 'required',
             'link' => $check_link,
             'file' => $check_file . 'file|mimes:zip',
-            'short_details' => 'nullable|max:255',
+            'short_details' => 'nullable',
             'discount_price' => 'required|numeric|max:9999999999',
             'prev_price' => 'numeric|max:9999999999',
             'stock' => $type_required . '|numeric|max:9999999999',
