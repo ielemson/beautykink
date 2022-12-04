@@ -102,6 +102,3 @@
     </section>
 @endif
 
-@section('script')
-@include('frontend._inc.restock_form')
-@endsection

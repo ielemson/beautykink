@@ -77,7 +77,7 @@
                 {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $list->id }}" title="view product" onclick="Quickview({{ $list->id }})">Quick View</a> --}}
                 <a class="btn-quick-view" href="{{ route('frontend.product', $list->slug) }}" title="view product">Product details</a>
                 @else
-                <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="out of stock">Remind me when restocked</a>
+                <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="out of stock" data-id="{{ $list->id }}">Remind me when restocked</a>
                 @endif
               </div>
             </div>

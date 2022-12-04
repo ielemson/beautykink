@@ -255,7 +255,9 @@
 
         <!--== End Popup Product  ==-->
     </div>
-
+    @section('script')
+    @include('frontend._inc.restock_form')
+    @endsection
     <!--=======================Javascript============================-->
 
     {{-- <script>
