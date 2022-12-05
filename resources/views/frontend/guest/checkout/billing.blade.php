@@ -109,7 +109,7 @@
                                              {{-- <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label for="checkout-country">{{ __('Select State') }}</label>
-                                                        <select class="form-control" required name="bill_country" id="billing-state" required>
+                                                        <select class="form-control" required name="bill_country" id="billing-country" required>
                                                             <option selected >{{ __('Choose State') }}</option>
                                                             @foreach (DB::table('states')->get() as $state)
                                                                 <option value="{{ $state->id }}" >{{ $state->name }}</option>
@@ -133,11 +133,11 @@
                                                 @else
                                                    <div class="col-sm-3">
                                                     <div class="form-group">
-                                                        <label for="checkout-country">{{ __('Select State') }}*</label>
-                                                        <select class="form-control" required name="bill_country" id="billing-state" required>
-                                                            <option selected >{{ __('Choose State') }}</option>
-                                                            @foreach (DB::table('states')->get() as $state)
-                                                                <option value="{{ $state->id }}" >{{ $state->name }}</option>
+                                                        <label for="checkout-country">{{ __('Select Country') }}*</label>
+                                                        <select class="form-control" required name="bill_country" id="billing-country" required>
+                                                            <option value="" >{{ __('Choose Country') }}</option>
+                                                            @foreach (DB::table('countries')->get() as $country)
+                                                                <option value="{{ $country->id }}" >{{ $country->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -145,16 +145,16 @@
 
                                               <div class="col-sm-3">
                                                 <div class="form-group">
-                                                  <label for="checkout-country">{{ __('City') }}*</label>
-                                                  <select class="form-control" name="bill_city" id="bill_city" required>
+                                                  <label for="checkout-country">{{ __('Shipping Zone') }}*</label>
+                                                  <select class="form-control" name="bill_city" id="bill_zone" required>
                                                   </select>
                                               </div>
                                               </div>
                                               
                                               <div class="col-sm-4">
                                                 <div class="form-group">
-                                                  <label for="checkout-country">{{ __('Shipping Services') }}*</label>
-                                                  <select class="form-control" name="shipping_service" id="shipping_service" required>
+                                                  <label for="checkout-country">{{ __('Select State') }}*</label>
+                                                  <select class="form-control" name="shipping_service" id="shipping_location" required>
                                                   </select>
                                               </div>
                                               </div>
@@ -213,49 +213,60 @@
 @section('extra_script')
 <script>
     $(document).ready(function(){
-        $('#billing-state').on('change', function () {
-                var idState = this.value;
-                $("#shipping_service").html('');
+        $('#billing-country').on('change', function () {
+                var idCountry = this.value;
           // Fetch shipping info
+          $("#shipping_location").html('');
+          $("#bill_zone").html('');
                 $.ajax({
-                    url: "{{url('/guest/api/fetch-shipping')}}",
+                    url: "{{url('/guest/api/fetch-zones')}}",
                     type: "POST",
                     data: {
-                        state_id: idState,
+                        country_id: idCountry,
                         _token: '{{csrf_token()}}'
                     },
                     dataType: 'json',
                     success: function (res) {
                         // console.log(res.locations.length)
-                        if(res.locations.length != 0){
-                            $('#shipping_service').html('<option value="">Select Shipping Service</option>');
-                            $.each(res.locations, function (key, value) { $("#shipping_service").append('<option value="' + value
-                            .id + '">' + value.title + ' - &#8358;' + value.price + '</option>');
+                        if(res.zones.length != 0){
+                       $("#shipping_location").html('');
+                            // $('#bill_zone').html('<option value="">Select Shipping Zone</option>');
+                            // $.each(res.zones, function (key, value) { $("#bill_zone").append('<option value="' + value
+                            // .id + '">' + value.zone +'</option>');
+                            // });
+                            $('#bill_zone').html('<option value="">Available Zone(s)</option>');
+                            $.each(res.zones, function (key, value) { $("#bill_zone").append('<option value="' + value
+                            .id + '">' + value.zone + ' - &#8358;' + value.shipping_cost + '</option>');
                             });
                            
                         }else{
                             
-                            $('#shipping_service').html('<option value="">No Shipping Service for this location</option>');
+                            $('#shipping_service').html('<option value="">No Shipping Service for this zone</option>');
                         
                         }
                        
                     }
                 });
-          // Fetch city info
-          $("#bill_city").html('');
+         });
+
+         $("#bill_zone").on("change",function(){
+          // Fetch city info 
+          // $("#bill_city").html('');
+          var idZone = this.value;
+          // console.log(idState)
                 $.ajax({
-                    url: "{{url('/guest/api/fetch-city')}}",
+                    url: "{{url('/guest/api/fetch-zone')}}",
                     type: "POST",
                     data: {
-                        state_id: idState,
+                        zone_id: idZone,
                         _token: '{{csrf_token()}}'
                     },
                     dataType: 'json',
                     success: function (res) {
-                        // console.log(res.locations.length)
+                        // console.log(res)
                        
-                            $('#bill_city').html('<option value="">Select City</option>');
-                            $.each(res.cities, function (key, value) { $("#bill_city").append('<option value="' + value
+                            $('#shipping_location').html('<option value="">Available State(s)</option>');
+                            $.each(res.states, function (key, value) { $("#shipping_location").append('<option value="' + value
                             .id + '">' + value.name + '</option>');
                             });
                            
@@ -263,9 +274,7 @@
                        
                     }
                 });
-
-                
-            });
+         })
     })
 </script>
 @endsection

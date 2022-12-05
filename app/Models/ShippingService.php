@@ -9,14 +9,19 @@ class ShippingService extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'title', 'price', 'status','country_id','state_id','city_id'];
+    protected $fillable = [ 'title', 'status','zone_id','country_id'];
 
-    public function city()
+    public function zone()
     {
-        return $this->belongsTo(City::class,'city_id');
+        return $this->belongsTo(GeoZone::class,'zone_id');
     }
-    public function state()
+
+    public function country()
     {
-        return $this->belongsTo(State::class,'state_id');
+        return $this->belongsTo(Country::class,'country_id');
     }
+    // public function state()
+    // {
+    //     return $this->belongsTo(State::class,'state_id');
+    // }
 }

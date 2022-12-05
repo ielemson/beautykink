@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShippingServiceRequest;
 use App\Models\Currency;
 use App\Models\ShippingService;
-use App\Models\{Country, State, City};
+use App\Models\{Country, State, City, GeoZone};
 use Illuminate\Http\Request;
 
 class ShippingServiceController extends Controller
@@ -29,9 +29,8 @@ class ShippingServiceController extends Controller
     */
     public function index()
     {
-        return view('backend.shipping.index', [
-            'datas' => ShippingService::orderBy('id', 'desc')->get()
-        ]);
+        $datas = ShippingService::orderBy('id', 'desc')->get();
+        return view('backend.shipping.index',compact('datas'));
     }
 
     /**
@@ -41,20 +40,49 @@ class ShippingServiceController extends Controller
     */
     public function create()
     {
-        $data['states'] = State::get(["name", "id"]);
+        $data['zones'] = GeoZone::where('status',1)->get(["zone", "id"]);
+        $data['countries'] = Country::get(["name", "id"]);
         // dd($data);
         return view('backend.shipping.create',$data);
     }
 
+    // public function fetchCountry(Request $request)
+    // {
+    //     $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id"]);
+    //     return response()->json($data);
+    // }
     public function fetchState(Request $request)
     {
         $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id"]);
         return response()->json($data);
     }
+
     public function fetchCity(Request $request)
     {
         $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
         return response()->json($data);
+    }
+
+    public function fetchZones(Request $request)
+    {
+        $data['cities'] = GeoZone::where("id",$request->zone_id)->first();
+        $state_ds = json_decode($data['cities']['state_ids']);
+        $states = State::whereIn('id',$state_ds)->get();
+        return response()->json([
+            'states'=>$states,
+            'cost'=>$data['cities']['shipping_cost']
+        ]);
+    }
+
+    public function fetchShippingZones(Request $request)
+    {
+        $zones = GeoZone::where("country_id",$request->country_id)->get();
+        // $state_ds = json_decode($data['cities']['state_ids']);
+        // $states = State::whereIn('id',$state_ds)->get();
+        return response()->json([
+            'zones'=>$zones,
+            // 'cost'=>$data['cities']['shipping_cost']
+        ]);
     }
     /**
      * Store a newly created resrouce in storage.
@@ -65,8 +93,8 @@ class ShippingServiceController extends Controller
     public function store(ShippingServiceRequest $request)
     {
         $input = $request->all();
-        $curr = Currency::where('is_default', 1)->first();
-        $input['price'] = $request->price / $curr->value;
+        // $curr = Currency::where('is_default', 1)->first();
+        // $input['price'] = $request->price / $curr->value;
 
         ShippingService::create($input);
 
@@ -81,7 +109,9 @@ class ShippingServiceController extends Controller
     */
     public function edit(ShippingService $shipping)
     {
-        return view('backend.shipping.edit', compact('shipping'));
+        $zones = GeoZone::where('status',1)->get(["zone", "id"]);
+        $countries = Country::get(["name", "id"]);
+        return view('backend.shipping.edit', compact('shipping','zones','countries'));
     }
 
     /**
@@ -109,8 +139,8 @@ class ShippingServiceController extends Controller
     public function update(ShippingServiceRequest $request, ShippingService $shipping)
     {
         $input = $request->all();
-        $curr = Currency::where('is_default', 1)->first();
-        $input['price'] = $request->price / $curr->value;
+        // $curr = Currency::where('is_default', 1)->first();
+        // $input['price'] = $request->price / $curr->value;
 
         $shipping->update($input);
 

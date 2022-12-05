@@ -15,8 +15,10 @@ use App\Traits\PaystackCheckout;
 use App\Traits\CashOnDeliveryCheckout;
 use App\Http\Requests\PaymentRequest;
 use App\Models\City;
+use App\Models\GeoZone;
 use App\Models\Order;
 use App\Models\Setting;
+use App\Models\State;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -344,6 +346,18 @@ class GuestCheckoutController extends Controller
     public function fetchCity(Request $request)
     {
         $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
+    public function fetchZones(Request $request)
+    {
+        $data['zones'] = GeoZone::where("country_id",$request->country_id)->where('status',1)->get(["zone","shipping_cost", "id"]);
+        return response()->json($data);
+    }
+    public function fetchZone(Request $request)
+    {
+        $data['zone'] = GeoZone::where("id",$request->zone_id)->where('status',1)->first();
+        $state_ids = json_decode($data['zone']['state_ids']);
+        $data['states'] = State::whereIn('id',$state_ids)->get();
         return response()->json($data);
     }
 }

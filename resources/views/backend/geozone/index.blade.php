@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Shipping') }}</h1>
+            <h1>{{ __('Shipping Geozones') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
               @include('alerts.alerts')
             <div class="card">
               <div class="card-header text-right">
-                <a href="{{ route('backend.shipping.create') }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ __('Add') }}</a>
+                <a href="{{ route('backend.geozone.create') }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ __('Add') }}</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -29,17 +29,18 @@
                   <thead>
                   <tr>
                     <th>{{ __('#') }}</th>
-                    <th>{{ __('Title') }}</th>
-                    <th>{{ __('Country') }}</th>
                     <th>{{ __('Zone') }}</th>
-                    <th>{{ __('State Covered') }}</th>
-                    <th>{{ __('Price') }}</th>
+                    <th>{{ __('Country') }}</th>
+                    <th>{{ __('States Covered') }}</th>
+                    <th>{{ __('Shipping Status') }}</th>
+                    <th>{{ __('Shipping Cost') }}</th>
                     <th>{{ __('Status') }}</th>
+                    
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @include('backend.shipping.table', compact('datas'))
+                    @include('backend.geozone.table', compact('datas'))
                   </tbody>
                 </table>
               </div>

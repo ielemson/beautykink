@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\HighlighController;
-use App\Models\Role;
+use App\Http\Controllers\Backend\GeoZoneController;
+use App\Http\Controllers\Backend\HighlighController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Backend\OrderController;
@@ -303,8 +303,9 @@ Route::prefix('admin')->group(function(){
             'update' => 'backend.shipping.update',
         ]);
         Route::get('/shipping/destroy/{id}', [ShippingServiceController::class, 'destroy'])->name('backend.shipping.destroy');
-        Route::post('/api/fetch-states', [ShippingServiceController::class, 'fetchState']);
+        Route::post('/api/fetch-shipping-zones', [ShippingServiceController::class, 'fetchShippingZones']);
         Route::post('/api/fetch-cities', [ShippingServiceController::class, 'fetchCity']);
+        Route::post('/api/fetch-zones', [ShippingServiceController::class, 'fetchZones']);
         //------------ TAX SETTING ------------
         Route::get('tax/status/{id}/{status}', [TaxController::class, 'status'])->name('backend.tax.status');
         Route::resource('tax', TaxController::class)->except(['show'])->names([
@@ -457,6 +458,17 @@ Route::prefix('admin')->group(function(){
         Route::get('ticket/destroy/{id}', [TicketController::class, 'destroy'])->name('backend.ticket.destroy');
     });
 
+    // --------------Country and Geozone -----------------
+    Route::get('geozone', [GeoZoneController::class, 'index'])->name('backend.geozone.index');
+    Route::get('geozone/country', [GeoZoneController::class, 'country'])->name('backend.geozone.country');
+    Route::post('geozone/country/store', [GeoZoneController::class, 'store_country'])->name('backend.country.store');
+    Route::post('geozone/store', [GeoZoneController::class, 'store'])->name('backend.geozone.store');
+    Route::get('geozone/create', [GeoZoneController::class, 'create'])->name('backend.geozone.create');
+    Route::get('geozone/status/{id}/{status}', [GeoZoneController::class, 'status'])->name('backend.geozone.status');
+    Route::get('geozone/edit/{id}', [GeoZoneController::class, 'edit'])->name('backend.geozone.edit');
+    Route::get('geozone/destory/{id}', [GeoZoneController::class, 'destroy'])->name('backend.geozone.destroy');
+    Route::post('geozone/update/{id}', [GeoZoneController::class, 'update'])->name('backend.geozone.update');
+    // --------------Country and Geozone -----------------
     //------------ Manage TRANSACTIONS   Permissions ------------
     Route::group(['middleware' => 'permissions:Transactions'], function(){
         //------------ TRANSACTIONS ------------
@@ -712,7 +724,8 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::post('/guest/checkout-submit', [GuestCheckoutController::class, 'checkout'])->name('frontend.guest.checkout.submit');
         Route::get('/guest/checkout/success', [GuestCheckoutController::class, 'paymentSuccess'])->name('frontend.guest.checkout.success');
         Route::post('/guest/api/fetch-shipping', [GuestCheckoutController::class, 'fetchShippingLocation'])->name('frontend.guest.fetchshippinglocation');
-        Route::post('/guest/api/fetch-city', [GuestCheckoutController::class, 'fetchCity'])->name('frontend.guest.fetchcity');
+        Route::post('/guest/api/fetch-zones', [GuestCheckoutController::class, 'fetchZones']);
+        Route::post('/guest/api/fetch-zone', [GuestCheckoutController::class, 'fetchZone']);
         
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
 
