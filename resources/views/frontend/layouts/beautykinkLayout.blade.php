@@ -255,9 +255,6 @@
 
         <!--== End Popup Product  ==-->
     </div>
-    @section('script')
-    @include('frontend._inc.restock_form')
-    @endsection
     <!--=======================Javascript============================-->
 
     {{-- <script>
@@ -374,6 +371,10 @@ var mainbs = {!! $mainbs !!};
             })
             </script>
         @endif
+
+        @section('script')
+        @include('frontend._inc.restock_form')
+        @endsection
 </body>
 
 </html>
