@@ -74,7 +74,7 @@
                                 {{ PriceHelper::adminCurrency() }}
                             </div>
                         </div>
-                        <input type="number" name="price"  min="0" step="0.1" id="shipping_cost" class="form-control" placeholder="{{ __('Shipping Cost') }}" readonly>
+                        <input type="number" name="price"  id="shipping_cost" class="form-control" placeholder="{{ __('Shipping Cost') }}" readonly>
                     </div>
                   </div>
 
@@ -119,7 +119,7 @@
                     },
                     dataType: 'json',
                     success: function (result) {
-                      console.log(result)
+                      // console.log(result)
                         $('#zone-dd').html('<option value="">Select Zone</option>');
                         $.each(result.zones, function (key, value) {
                             $("#zone-dd").append('<option value="' + value
@@ -141,7 +141,7 @@
                     },
                     dataType: 'json',
                     success: function (res) {
-                      console.log(res)
+                      // console.log(res)
                       $("#shipping_cost").val(res.cost)
                         $('#city-dd').html('<option value="">Select City</option>');
                         $.each(res.states, function (key, value) {

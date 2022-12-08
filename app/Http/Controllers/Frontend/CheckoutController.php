@@ -88,11 +88,13 @@ class CheckoutController extends Controller
                     'ship_address1'   => $request->bill_address1,
                     'ship_address2'   => $request->bill_address2,
                     'ship_zip'        => $request->bill_zip,
-                    'ship_city'       => $request->bill_city,
+                    'ship_state'       => $request->bill_state,
+                    'ship_zone'       => $request->bill_zone,
                     'ship_county'     => $request->bill_country
                 ];
             
             Session::put('shipping_address', $shipping);
+            // dd($shipping);
       
         if (Session::has('shipping_address')) {
             return redirect()->route('frontend.checkout.payment');
@@ -148,7 +150,7 @@ class CheckoutController extends Controller
     */
     public function shippingStore(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         Session::forget('shipping_address');
 
         Session::put('shipping_address', $request->all());
@@ -163,6 +165,7 @@ class CheckoutController extends Controller
     */
     public function payment()
     {
+        
         if (!Session::has('billing_address')) {
             return redirect()->route('frontend.checkout.billing');
         }
@@ -177,40 +180,16 @@ class CheckoutController extends Controller
 
         $data['user'] = Auth::user();
         $cart = Cart::content();
-        // $cart = Session::get('cart');
-
-        // $total_tax = 0;
-        // $cart_total = 0;
-        // $total = 0;
-        // $option_price = 0;
-        // foreach ($cart as $key => $item) {
-        //     $total += $item['main_price'] * $item['qty'];
-        //     $option_price += $item['attribute_price'];
-        //     $cart_total = $total + $option_price;
-        //     $item = Item::findOrFail($key);
-        //     if ($item->tax) {
-        //         $total_tax += $item->taxCalculate($item);
-        //     }
-        // }
-
-
+      
         $shipping = [];
-        // if (ShippingService::whereStatus(1)->exists()) {
-        //     $shipping = ShippingService::whereStatus(1)->first();
-        // }
+        
         $shipping = ShippingService::whereStatus(1)->get();
 
         $discount = [];
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-        // $grand_total = ($cart_total + ($shipping ? $shipping->price : 0)) + $total_tax;
-        // $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
-        // $total_amount = $grand_total;
 
-        // $data['cart'] = $cart;
-        // $data['cart_total'] = $cart_total;
-        // $data['grand_total'] = $total_amount;
         $data['discount'] = $discount;
         $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
@@ -218,7 +197,6 @@ class CheckoutController extends Controller
         $data['cart_total'] = Cart::total();
         $data['cart_count'] = Cart::count();
         $data['grand_total'] = Cart::subtotal();
-
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
         return view('frontend.checkout.payment', $data);
     }
@@ -231,12 +209,9 @@ class CheckoutController extends Controller
     */
     public function checkout(PaymentRequest $request)
     {
-        // dd($request->all);
-        // dd(Cart::total());
-        // dd(Cart::content());
-        // Cart::store(auth()->id);
-        // return redirect()->route('frontend.checkout.success');
         $input = $request->all();
+
+        // dd($request->all());
 
         $checkout         = false;
         $payment_redirect = false;

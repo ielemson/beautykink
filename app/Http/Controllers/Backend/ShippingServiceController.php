@@ -93,8 +93,8 @@ class ShippingServiceController extends Controller
     public function store(ShippingServiceRequest $request)
     {
         $input = $request->all();
-        // $curr = Currency::where('is_default', 1)->first();
-        // $input['price'] = $request->price / $curr->value;
+        $curr = Currency::where('is_default', 1)->first();
+        $input['price'] = $request->price / $curr->value;
 
         ShippingService::create($input);
 

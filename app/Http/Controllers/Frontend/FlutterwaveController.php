@@ -98,7 +98,7 @@ class FlutterwaveController extends Controller
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ]);
             
@@ -115,11 +115,11 @@ class FlutterwaveController extends Controller
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ];  
 
-            $guestUser->update($input);
+            $user->update($input);
             
         }
 

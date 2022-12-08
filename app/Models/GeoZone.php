@@ -16,5 +16,15 @@ class GeoZone extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    public function zone_country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
     
 }

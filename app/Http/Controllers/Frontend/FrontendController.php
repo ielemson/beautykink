@@ -23,6 +23,7 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
 use App\Models\AboutUs;
+use App\Models\GeoZone;
 use App\Models\RestockReminder;
 use App\Models\ShippingService;
 use App\Models\Testimonial;
@@ -704,11 +705,12 @@ class FrontendController extends Controller
      {
         //  if ($id != 0) {
             if($id){
-                  $shipping = ShippingService::where('id', $id)->first();
+                  $shipping = GeoZone::where('id', $id)->first();
             
-             Session::put('shipping_price', $shipping->price);
+             Session::put('shipping_price', $shipping->shipping_cost);
              Session::put('shipping_id', $shipping->id); 
             }else{
+                
                 $shipping_price = 0;
                 $shipping_id = '';
             }

@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Setting;
 use Illuminate\Support\Str;
 use App\Helpers\PriceHelper;
+use App\Models\GeoZone;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PromoCode;
@@ -40,7 +41,7 @@ trait BankCheckout
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ]);
             
@@ -57,7 +58,7 @@ trait BankCheckout
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ];  
 
@@ -93,8 +94,10 @@ trait BankCheckout
         
         $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
         
-        if ($shipping = ShippingService::where('id',$shipping_id)->exists()) {
-            $shipping = ShippingService::where('id',$shipping_id)->first();
+        if ($shipping = GeoZone::where('id',$shipping_id)->exists()) {
+            $shipping = GeoZone::where('id',$shipping_id)->first();
+            $shipping['price'] = $shipping->shipping_cost;
+            $shipping['zone_id'] = $shipping->id;
         }
 
         $discount = [];

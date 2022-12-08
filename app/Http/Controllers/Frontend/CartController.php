@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\ShippingService;
 use App\Repositories\Frontend\CartRepository;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -209,6 +210,16 @@ class CartController extends Controller
     {
 
         $product = Item::where('id', $id)->first();
+
+        if ($product->is_type =="flash_deal") {
+            
+            $endDate = Carbon::parse($product->end_date);
+
+            if ($endDate->isPast()) {
+                return response()->json(['error' => 'Flash deal expired!.'], 200);
+            }
+
+        }
 
         if ($attribute_name) {
             $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();

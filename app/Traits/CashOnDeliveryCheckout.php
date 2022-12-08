@@ -10,6 +10,7 @@ use App\Models\TrackOrder;
 use Illuminate\Support\Str;
 use App\Helpers\EmailHelper;
 use App\Helpers\PriceHelper;
+use App\Models\GeoZone;
 use App\Models\Notification;
 use App\Models\ShippingService;
 use App\Models\User;
@@ -21,6 +22,7 @@ trait CashOnDeliveryCheckout
 {
     public function cashOnDeliverySubmit($data)
     {
+       
         $user = Auth::user();
         if(!$user){
 
@@ -40,7 +42,7 @@ trait CashOnDeliveryCheckout
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ]);
             
@@ -57,11 +59,11 @@ trait CashOnDeliveryCheckout
                 // Shipp info
                 'ship_address1'   =>$ship['ship_address1'],
                 'ship_zip'        => $ship['ship_zip'],
-                'ship_city'       => $ship['ship_city'],
+                'ship_state'       => $ship['ship_state'],
                 'ship_county'     => 'Nigeria'
             ];  
 
-            $guestUser->update($input);
+            $user->update($input);
             
 
         }
@@ -93,8 +95,10 @@ trait CashOnDeliveryCheckout
         
         $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
         
-        if ($shipping = ShippingService::where('id',$shipping_id)->exists()) {
-            $shipping = ShippingService::where('id',$shipping_id)->first();
+        if ($shipping = GeoZone::where('id',$shipping_id)->exists()) {
+            $shipping = GeoZone::where('id',$shipping_id)->first();
+            $shipping['price'] = $shipping->shipping_cost;
+            $shipping['zone_id'] = $shipping->id;
         }
 
         $discount = [];
@@ -158,11 +162,13 @@ trait CashOnDeliveryCheckout
         Session::forget('discount');
         Session::forget('coupon');
         Session::forget('shipping_id');
-        Session::forget('shipping_address');
         Session::forget('shipping_price');
+        Session::forget('shipping_address');
         Session::forget('billing_address');
+        Session::forget('free_shipping');
         return [
             'status' => true
         ];
     }
+
 }

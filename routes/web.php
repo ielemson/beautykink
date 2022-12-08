@@ -462,12 +462,18 @@ Route::prefix('admin')->group(function(){
     Route::get('geozone', [GeoZoneController::class, 'index'])->name('backend.geozone.index');
     Route::get('geozone/country', [GeoZoneController::class, 'country'])->name('backend.geozone.country');
     Route::post('geozone/country/store', [GeoZoneController::class, 'store_country'])->name('backend.country.store');
+    Route::put('geozone/country/update', [GeoZoneController::class, 'update_country'])->name('backend.country.update');
+    Route::post('geozone/country/state/bind', [GeoZoneController::class, 'country_state_bind'])->name('backend.country.state.bind');
     Route::post('geozone/store', [GeoZoneController::class, 'store'])->name('backend.geozone.store');
     Route::get('geozone/create', [GeoZoneController::class, 'create'])->name('backend.geozone.create');
     Route::get('geozone/status/{id}/{status}', [GeoZoneController::class, 'status'])->name('backend.geozone.status');
     Route::get('geozone/edit/{id}', [GeoZoneController::class, 'edit'])->name('backend.geozone.edit');
     Route::get('geozone/destory/{id}', [GeoZoneController::class, 'destroy'])->name('backend.geozone.destroy');
     Route::post('geozone/update/{id}', [GeoZoneController::class, 'update'])->name('backend.geozone.update');
+    Route::post('geozone/country/destroy', [GeoZoneController::class, 'destroy_country'])->name('backend.geozone.country.destroy');
+    // State for geoone
+    Route::get('geozone/state', [GeoZoneController::class, 'state'])->name('backend.geozone.state');
+    Route::post('geozone/state/store', [GeoZoneController::class, 'store_state'])->name('backend.state.store');
     // --------------Country and Geozone -----------------
     //------------ Manage TRANSACTIONS   Permissions ------------
     Route::group(['middleware' => 'permissions:Transactions'], function(){

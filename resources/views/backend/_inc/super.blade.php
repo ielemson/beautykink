@@ -184,19 +184,19 @@
             <p>{{ __('Set Coupons') }}</p>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a href="{{ route('backend.shipping.index') }}" class="nav-link {{ request()->segment(2) == 'shipping' ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Shipping') }}</p>
           </a>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item">
           <a href="{{ route('backend.tax.index') }}" class="nav-link {{ request()->segment(2) == 'tax' ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Tax') }}</p>
           </a>
         </li> --}}
-        <li class="nav-item">
+        <li class="nav-item {{ request()->segment(2) == 'geozone' || request()->segment(2) == 'shipping' ? 'menu-open' : '' }}">
           <a href="{{ route('backend.currency.index') }}" class="nav-link {{ request()->segment(2) == 'currency' ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Currency') }}</p>
@@ -232,6 +232,12 @@
           <a href="{{ route('backend.geozone.country') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Country') }}</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('backend.geozone.state') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('State') }}</p>
           </a>
         </li>
       </ul>

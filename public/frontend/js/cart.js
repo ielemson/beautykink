@@ -476,8 +476,9 @@ $('body').on('click', '.remove_from_compare', function () {
     // subscribe to newsletter ::::::
 
     // SELECT SHIPPING SERVICES:::::::::::::::::
-    $('#shipping_service').on('change', function (e) {
-        var ship_id = $( "#shipping_service option:selected" ).val();
+    $('#bill_zone').on('change', function (e) {
+        var ship_id = $( "#bill_zone option:selected" ).val();
+        // console.log(ship_id)
     //     // console.log(ship_id);
     //     e.preventDefault();
     //     $.get('/checkout/add_shipping' + '/' + ship_id, function (data) {
@@ -492,8 +493,9 @@ $('body').on('click', '.remove_from_compare', function () {
         dataType: 'json',
         url: '/checkout/add_shipping' + '/' + ship_id,
         success: function (data) {
+            let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
             // console.log(data)
-            $('.shipping_value').html('&#8358;' + data.shippPrice)
+            $('.shipping_value').html(amount)
             $('.orderTotal').html('&#8358;' + data.cartTotal)
             $('.flutterPayTotal').val(data.cartTotal)
                     
@@ -505,7 +507,8 @@ $('body').on('click', '.remove_from_compare', function () {
 
     $( document ).ready(function() {
 
-        var ship_id = $( "#shipping_service option:selected" ).val();
+        var ship_id = $( "#bill_zone option:selected" ).val();
+        // console.log(ship_id)
         if(!ship_id){
             ship_id = '';
         }

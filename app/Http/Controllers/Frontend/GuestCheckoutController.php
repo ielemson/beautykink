@@ -51,7 +51,7 @@ class GuestCheckoutController extends Controller
     
 
     // guest shiping address 
-    public function ShippingAddress(Request $request)
+    public function ShippingAddress()
 
     {
         // Session::forget('shipping_id');
@@ -62,6 +62,7 @@ class GuestCheckoutController extends Controller
 
         // $data['user'] = Auth::user();
         $cart = Cart::content();
+        // dd($cart);
         $shipping = [];
         $shipping = ShippingService::whereStatus(1)->get();
         $discount = [];
@@ -77,6 +78,8 @@ class GuestCheckoutController extends Controller
         $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
         $data['payments'] = PaymentSetting::whereStatus(1)->get();
+        // $data['geozones'] = GeoZone::where('status',1)->get();
+        // dd($data);
         return view('frontend.guest.checkout.billing', $data);
     }
 
@@ -107,7 +110,7 @@ class GuestCheckoutController extends Controller
                     'ship_address1'   => $request->bill_address1,
                     'ship_address2'   => $request->bill_address2,
                     'ship_zip'        => $request->bill_zip,
-                    'ship_city'       => $request->bill_city,
+                    'ship_state'       => $request->bill_city,
                     'ship_country'     => $request->bill_country
                 ];
             

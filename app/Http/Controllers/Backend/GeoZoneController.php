@@ -8,6 +8,7 @@ use App\Models\GeoZone;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class GeoZoneController extends Controller
 {
@@ -25,17 +26,40 @@ class GeoZoneController extends Controller
     public function country()
     {
         $states = State::all();
-        return view('backend.geozone.country',compact('states'));
+        $countries = Country::all();
+        return view('backend.geozone.country',compact('states','countries'));
     }
 
     public function store_country(Request $request){
-
-        $country = new Country;
+     
+         $country = new Country;
         $country->name = $request->country;
         $country->save();
-        // DB::table('states')->update(['country_id' => $country->id]);
-        return redirect()->route('backend.geozone.index')->withSuccess(__('Country added.'));
+        return redirect()->route('backend.geozone.index')->withSuccess(__('Country added successfully.'));
         
+    }
+
+    public function update_country(Request $request){
+    // dd($request->all());
+    $country = Country::find($request->country_id);
+    $country->name = $request->name;
+    $country->save();
+    return redirect()->back()->withSuccess(__('Country Updated successfully'));
+    }
+
+    public function country_state_bind(Request $request){
+        // dd($request->all());
+        // if(State::whereIn('country_id',$request->state_id)->exists()){
+        // return redirect()->back()->withError(__('thses States already bound to this country'));
+
+        // }
+        foreach ($request->state_id as $id) { 
+            $state = State::where('id',$id)->first();
+            $state->country_id = $request->country_id;
+            $state->save(); 
+        }
+        return redirect()->back()->withSuccess(__('Country bind successfull'));
+
     }
     /**
      * Show the form for creating a new resource.
@@ -142,5 +166,44 @@ class GeoZoneController extends Controller
         $code = GeoZone::findOrFail($id);
         $code->delete();
         return redirect()->route('backend.geozone.index')->withSuccess(__('Geozone Deleted Successfully.'));
+    }
+    
+
+    // State Functions
+
+    public function state(){
+        $states = State::all();
+        $countries = Country::all();
+        return view('backend.geozone.state',compact('countries','states'));
+    }
+
+    public function store_state(Request $request){
+
+        if(State::where('name',$request->name)->exists()){
+
+       return redirect()->back()->withError(__('State already exist.'));
+
+        }
+
+       $state = new State;
+       $state->name = $request->name;
+       $state->country_id = $request->country_id;
+       $state->save();
+
+       return redirect()->back()->withSuccess(__('State created successfully.'));
+
+    }
+
+    public function destroy_country(Request $request){
+        // dd($request->all());
+        
+        if(State::where('country_id',$request->country_id)->exists()){
+            return redirect()->back()->withError(__('Country cannot be deleted, unbind from state first'));
+        }
+        
+        Country::find($request->country_id)->delete();
+        // $country->delete();
+        return redirect()->back()->withSuccess(__('Country deleted successfully.'));
+
     }
 }

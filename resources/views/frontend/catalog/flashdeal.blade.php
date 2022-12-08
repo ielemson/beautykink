@@ -76,8 +76,8 @@
                                     {{ PriceHelper::grandCurrencyPrice($flashItem) }}</span>
                             </div>
                             
-                            @if (date('d-m-y') != \Carbon\Carbon::parse($flashItem->date)->format('d-m-y'))
-                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashItem->date }}"></div>
+                            @if (date('d-m-y') != \Carbon\Carbon::parse($flashItem->end_date)->format('d-m-y'))
+                            <div class="ht-countdown ht-countdown-style1 mt-35" data-date="{{ $flashItem->end_date }}"></div>
                             @endif
                         </div>
                         <div class="product-footer">

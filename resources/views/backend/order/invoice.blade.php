@@ -204,14 +204,19 @@
                         @if (json_decode($order->shipping, true))
                             @php
                                 $shipping = json_decode($order->shipping, true);
+                                $shipping_info = json_decode($order->shipping_info, true);
+                               $zone = DB::table("geozones")->where('id',$shipping['id'])->first();
+                               $state = DB::table("states")->where('id',$shipping_info['ship_city'])->first();
+                                
                             @endphp
                             <tr>
-                                <th style="width:50%">{{__('Shipping')}}</th>
+                                <th style="width:50%">{{__('Shipping')}} : {{$zone->zone}} <small> ({{$state->name}}) </small> </th>
                                 <td>
+                                
                                     @if ($setting->currency_direction == 1)
-                                        {{ $order->currency_sign }}{{ round($shipping['price'] * $order->currency_value, 2) }}
+                                        {{ $order->currency_sign }}{{ round($shipping['shipping_cost'] * $order->currency_value, 2) }}
                                     @else
-                                        {{ round($shipping['price'] * $order->currency_value, 2) }}{{ $order->currency_sign }}
+                                        {{ round($shipping['shipping_cost'] * $order->currency_value, 2) }}{{ $order->currency_sign }}
                                     @endif
                                 </td>
                             </tr>

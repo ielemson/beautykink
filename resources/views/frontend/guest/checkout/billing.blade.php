@@ -230,10 +230,7 @@
                         // console.log(res.locations.length)
                         if(res.zones.length != 0){
                        $("#shipping_location").html('');
-                            // $('#bill_zone').html('<option value="">Select Shipping Zone</option>');
-                            // $.each(res.zones, function (key, value) { $("#bill_zone").append('<option value="' + value
-                            // .id + '">' + value.zone +'</option>');
-                            // });
+                            
                             $('#bill_zone').html('<option value="">Available Zone(s)</option>');
                             $.each(res.zones, function (key, value) { $("#bill_zone").append('<option value="' + value
                             .id + '">' + value.zone + ' - &#8358;' + value.shipping_cost + '</option>');

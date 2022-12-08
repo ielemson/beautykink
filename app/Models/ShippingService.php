@@ -9,7 +9,7 @@ class ShippingService extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'title', 'status','zone_id','country_id'];
+    protected $fillable = [ 'title', 'status','state_id','zone_id','country_id','price'];
 
     public function zone()
     {
