@@ -43,6 +43,7 @@ class ExtraSetting extends Model
         'is_t2_2_column_banner',
         'is_t2_blog_section',
         'is_t2_brand_section',
-        'is_t2_sale_product'
+        'is_t2_sale_product',
+        'is_t2_currency'
     ];
 }

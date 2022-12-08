@@ -62,13 +62,15 @@
 
                             </ul>
                         @endif
-                    </div>
+                    </div>  
+                    @if ($extra_settings->is_t2_currency ==1)
                     <div class="theme-currency">
                         <a class="dropdown-btn" href="#" role="button">
                             Currency
                             <i class="ion-ios-arrow-down"></i>
                         </a>
-                        <ul class="dropdown-content">
+                      
+                             <ul class="dropdown-content">
                             <li>
                                 @foreach (App\Models\Currency::get() as $currency)
                                     <a class="{{ Session::get('currency') == $currency->id ? 'active' : ($currency->is_default == 1 && !Session::has('currency') ? 'active' : '') }}"
@@ -77,8 +79,11 @@
                             </li>
 
                         </ul>
+                       
+                       
                     </div>
-                    <div class="theme-language">
+                     @endif
+                    {{-- <div class="theme-language">
                         <a class="dropdown-btn" href="#" role="button">
                             <img src="{{ asset('frontend/img/photos/language-01.jpg') }}" alt="Has-Image">English
                             <i class="ion-ios-arrow-down"></i>
@@ -93,7 +98,7 @@
                                         alt="Has-Image">Italiano</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -101,15 +101,15 @@
                                             </div>
                                         </div>
                                     </div>
-{{--                                     
+                                    
                                     <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
-                                                <input type="checkbox" id="is_t2_toprated_product" class="" name="is_t2_toprated_product" value="1" {{ $extra_settings->is_t2_toprated_product == 1 ? 'checked' : '' }}>
-                                                <label for="is_t2_toprated_product">{{ __('Top Rated Product Section') }}</label>
+                                                <input type="checkbox" id="is_t2_currency" class="" name="is_t2_currency" value="1" {{ $extra_settings->is_t2_currency == 1 ? 'checked' : '' }}>
+                                                <label for="is_t2_currency">{{ __('Show Currency') }}</label>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                    
                                     {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
