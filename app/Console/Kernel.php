@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         //     Profile::where('username','beautykink')->first()->refreshFeed(15);
         // })->twiceDaily();
         $schedule->command('instafeed:refresh')
-        ->twiceDaily();
+        ->hourly();
         $schedule->command('instagram-feed:refresh-tokens')->monthlyOn(15,'03:00');
     }
 
