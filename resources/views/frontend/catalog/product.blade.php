@@ -140,6 +140,17 @@
                                             <a href="{{ route('frontend.catalog') . '?childcategory=' . $item->childcategory->slug }}">{{ $item->childcategory->name }}</a>
                                         @endif
                                     </div>
+                                    <div class="pt-1 mb-1"><span class="text-medium">{{ __('Tags') }}:</span>
+                                        @if ($item->tags)
+                                            @foreach (explode(',', $item->tags) as $tag)
+                                                @if ($loop->last)
+                                                    <a href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>
+                                                @else
+                                                    <a href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>,
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </div>
                                     <form id="add_to_cart_form">
                                         <div class="product-variants">
                                           @foreach ($attributes as $attribute)
@@ -187,6 +198,7 @@
           
                                                 </div>
                                             </div> --}}
+                                            
                                            
                                               <input type="hidden" id="pid" class="qty" title="product" value="{{$item->id}}" name="pid">
                                                 @if ($item->is_stock())

@@ -257,6 +257,7 @@ class CheckoutController extends Controller
                 }
             } else {
                 if($payment['status']){
+                    
                     return redirect()->route('frontend.checkout.success');
                 }else{
                     Session::put('message',$payment['message']);
