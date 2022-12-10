@@ -92,7 +92,7 @@
                         <b>{{ __('Country : ') }}</b>{{ $ship['ship_country'] }}<br>
                     @endif
                     @if (isset($ship['ship_city']))
-                        <b>{{ __('City : ') }}</b>{{ $ship['ship_city'] }}<br>
+                        <b>{{ __('City : ') }}</b>{{ $ship['ship_state'] }}<br>
                     @endif
                     @if (isset($ship['ship_zip']))
                         <b>{{ __('Zip : ') }}</b>{{ $ship['ship_zip'] }}<br>
@@ -206,7 +206,7 @@
                                 $shipping = json_decode($order->shipping, true);
                                 $shipping_info = json_decode($order->shipping_info, true);
                                $zone = DB::table("geozones")->where('id',$shipping['id'])->first();
-                               $state = DB::table("states")->where('id',$shipping_info['ship_city'])->first();
+                               $state = DB::table("states")->where('id',$shipping_info['ship_state'])->first();
                                 
                             @endphp
                             <tr>

@@ -85,7 +85,7 @@ class ServiceController extends Controller
         $request->validate([
             'title'   => 'required|max:100',
             'details' => 'required',
-            'photo'   => 'required|image',
+            'photo'   => 'mimes:png,jpg,webp,jpeg',
         ]);
         $this->repository->update($service, $request);
         return redirect()->route('backend.service.index')->withSuccess(__('Service Updated Successfully.'));

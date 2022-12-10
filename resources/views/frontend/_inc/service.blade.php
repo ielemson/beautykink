@@ -1,11 +1,10 @@
-@if ($extra_settings->is_t2_service_section == 1)
 <div class="feature-area feature-about-area position-relative z-index-1 mt-20">
     <div class="container-fluid p-5">
       <div class="row">
         @foreach ($services as $service)
         <div class="col-md-6 col-lg-3">
           <div class="feature-icon-box-style2">
-            <div class="inner-content">
+            <a href="{{ $service->link}}"> <div class="inner-content">
               <div class="icon-box">
                 <img src="{{ asset($service->photo) }}" alt="{{ $service->title }}" class="icon-img">
               </div>
@@ -13,7 +12,8 @@
                 <h5 class="title">{{ $service->title }}</h5>
                 <p>{{ $service->details }}</p>
               </div>
-            </div>
+            </div></a>
+           
           </div>
         </div>
        @endforeach
@@ -29,4 +29,3 @@
       </div>
     </div>
   </div>
-@endif

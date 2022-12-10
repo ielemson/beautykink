@@ -189,6 +189,11 @@
   object-fit: contain;
   object-position: center;
 }
+.jumbotron-image {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
 </style>
 </head>
@@ -217,7 +222,8 @@
         @include('frontend._inc.header')
         <!--== End Header Wrapper ==-->
         <main class="main-content">
-            @yield('content')      
+            @yield('content') 
+            {{-- @include('frontend._inc.socialicons')      --}}
         </main>
 
         <!--== Start Footer Area Wrapper ==-->
@@ -361,17 +367,6 @@ var mainbs = {!! $mainbs !!};
             })
            </script>
         @endif
-
-        @if ($setting->is_announcement == 1)
-            <script>
-            $(document).ready(function(){
-            setTimeout(function() {
-            $('#announcementModal').modal('show');
-            },mainbs['announcement_delay']);
-            })
-            </script>
-        @endif
-
         @section('script')
         @include('frontend._inc.restock_form')
         @endsection

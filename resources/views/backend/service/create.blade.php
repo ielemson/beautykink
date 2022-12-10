@@ -54,7 +54,12 @@
                   </div>
 
                   <div class="form-group  col-md-12">
-                    <label for="details">{{ __('Details') }}</label>
+                    <label for="title">{{ __('Link') }} *</label>
+                    <input type="link" name="link" class="form-control" id="link" placeholder="{{ __('http://') }}" value="{{ old('link') }}">
+                  </div>
+
+                  <div class="form-group  col-md-12">
+                    <label for="details">{{ __('Short Details') }}</label>
                     <textarea name='details' class='form-control' placeholder="{{ __('Enter Details') }}" rows="5">{{ old('details') }}</textarea>
                   </div>
 

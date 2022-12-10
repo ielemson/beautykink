@@ -560,4 +560,26 @@
     stylePreloader();
   });
 
+  $("#announcementModal").on("hide.bs.modal", function () {
+    sessionStorage.setItem("announcement", "closed");
+});
 })(window.jQuery);
+
+
+$(window).on('load', function (event) {
+
+  // Preloader
+  // $('#preloader').fadeOut(500);
+
+  // announcement
+  if (mainbs.is_announcement ==1) {
+      let announcement = sessionStorage.getItem('announcement') != null ? false : true;
+      if(announcement){
+setTimeout(function() {
+  $('#announcementModal').modal('show');
+  },mainbs.announcement_delay);  
+      }
+
+      }
+
+});

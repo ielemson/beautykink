@@ -39,7 +39,9 @@ function renderStarRating($rating, $maxRating = 5)
 @endphp
 @isset($category->photo)
 <section class="product-area">
-  <div class="page-header-area bg-img" data-bg-img="{{asset($category->photo)}}">
+<div class="row">
+  <div class="col-md-10 mx-auto mt-10">
+     <div class="page-header-area jumbotron-image bg-img" data-bg-img="{{asset($category->photo)}}">
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
@@ -51,6 +53,9 @@ function renderStarRating($rating, $maxRating = 5)
     </div>
   </div>
   <h6 class="title mt-20 text-center">{{$category->description}}</h6>
+  </div>
+</div> 
+
 @endisset
 @else
 @php
@@ -202,4 +207,5 @@ function renderStarRating($rating, $maxRating = 5)
   </div>
 </section>
 @endsection
+
 

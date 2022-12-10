@@ -55,15 +55,20 @@
                   </div>
 
                   <div class="form-group  col-md-12">
+                    <label for="title">{{ __('Link') }} *</label>
+                    <input type="link" name="link" class="form-control" id="link" placeholder="{{ __('http://') }}" value="{{ $service->link }}">
+                  </div>
+
+                  <div class="form-group  col-md-12">
                     <label for="details">{{ __('Details') }}</label>
-                    <textarea name='details' class='form-control' placeholder="{{ __('Enter Details') }}" rows="5">{{ $service->details }}</textarea>
+                    <textarea name='details' class='form-control' rows="2" placeholder="{{ __('Enter Details') }}" rows="5">{{ $service->details }}</textarea>
                   </div>
 
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <a href="{{ route("backend.service.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
-                  <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                  <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                 </div>
               </form>
             </div>

@@ -87,9 +87,9 @@ class ImageHelper
             // $photo = time() . '-' . $file->getClientOriginalName();
             // $file->move(public_path($path), $photo);
             $photo = time() . '.' . $file->getClientOriginalExtension();
-            $prodImg = Image::make($file)->resize(360, 360);
+            $cateImg = Image::make($file)->resize(360, 360);
             $photo_save_path = public_path($path) . "/". $photo;
-            $prodImg->save($photo_save_path);
+            $cateImg->save($photo_save_path);
 
             return [
                 $path. '/' . $photo,
@@ -128,27 +128,20 @@ class ImageHelper
         return $path . '/' . $name;
     }
 
+    //  <------------- HANDLE CATEGORY IMAGE UPLOADS --------------------->
     public static function handleUpdatedUploadedCategoryImage($file, $path, $data, $field){
-
-        // $name = time() . '-.' . $file->getClientOriginalExtension();
-
-        // $file->move(public_path($path), $name);
-
-        // if ($data[$field] != null) {
-        //     if (file_exists($data[$field])) {
-        //         unlink($data[$field]);
-        //     }
-        // }
-
-        // return $path . '/' . $name;
 
         $thumb = time() .'.'.$file->getClientOriginalExtension();
         $image = Image::make($file)->resize(150, 150);
         $thumb_save_path = public_path($path) . "/thumbnails" . "/" . $thumb;
         $image->save($thumb_save_path);
 
-        $photo = time() .'.'. $file->getClientOriginalExtension();
-        $file->move(public_path($path), $photo);
+        // $photo = time() .'.'. $file->getClientOriginalExtension();
+        // $file->move(public_path($path), $photo);
+        $photo = time() . '.' . $file->getClientOriginalExtension();
+        $prodImg = Image::make($file)->resize(1920, 800);
+        $photo_save_path = public_path($path) . "/". $photo;
+        $prodImg->save($photo_save_path);
 
         if($data['thumbnail']){
             if(file_exists($data['thumbnail'])){

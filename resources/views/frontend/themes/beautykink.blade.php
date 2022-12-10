@@ -10,6 +10,7 @@
 
 
 @section('content')
+{{-- @include('frontend._inc.socialicons') --}}
     @php
         function renderStarRating($rating, $maxRating = 5)
         {
@@ -41,9 +42,12 @@
     @endif
 
     {{-- banner first end --}}
+    @if ($extra_settings->is_t2_service_section == 1)
     {{-- service information area --}}
     @include('frontend._inc.service')
     {{-- service  information area --}}  
+    @endif
+    
     @if ($extra_settings->is_t2_bestseller_product == 1)
     {{-- Best Seller Product Starts --}}
     @include('frontend.catalog.bestseller')

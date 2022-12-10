@@ -88,7 +88,7 @@
                                 href="javascript:;">Add to cart
                             </a>
                             @else
-                                 <a class="btn-product-add add_to_cart" data-id="{{ $flahsitem->id }}"
+                                 <a class="btn-product-add add_to_cart" data-id="{{ $flashItem->id }}"
                                 href="javascript:;">Add to cart</a>
                             @endif
                             {{-- <a class="btn-quick-view quick_view" href="javascript:;" quick-view-data-id="{{ $item->id }}" title="view product" onclick="Quickview({{ $item->id }})">Quick View</a> --}}

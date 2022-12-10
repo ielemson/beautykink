@@ -918,18 +918,10 @@ $(document).on('click','.wishlist_store',function(e){
 $(window).on('load', function (event) {
 
     // Preloader
-    $('#preloader').fadeOut(500);
+    // $('#preloader').fadeOut(500);
 
     // announcement
-    if (mainbs.is_announcement == 1) {
-        // trigger announcement banner base on sessionStorage
-        let announcement = sessionStorage.getItem('announcement') != null ? false : true;
-        if (announcement) {
-            setTimeout(function () {
-                $('.announcement-banner').trigger('click');
-            }, mainbs.announcement_delay * 1000);
-        }
-    }
+  
 
 });
 
