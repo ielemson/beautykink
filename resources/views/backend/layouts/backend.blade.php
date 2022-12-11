@@ -43,6 +43,8 @@
   <link rel="stylesheet" href="{{ asset('backend/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/plugins/tagify/tagify.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
+   <!--== JQUERY ALERT THEME CSS ==-->
+   <link rel="stylesheet" href="{{ asset('frontend/css/jquery-confirm.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -188,6 +190,7 @@
 <!-- Page specific script -->
 <script src="{{ asset('backend/js/custom.js') }}"></script>
 <script src=”https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js”></script>  
+<script src="{{ asset('frontend/js/jquery-confirm.min.js') }}"></script>
 @yield('script')
 @stack('scripts')
 </body>

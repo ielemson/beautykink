@@ -88,7 +88,8 @@
     @endif
  
        {{-- Instafeeds starts --}}
-       @include('frontend._inc.instafeeds')
+       {{-- @include('frontend._inc.instafeeds') --}}
+       @include('frontend._inc.insta_widgets')
     {{-- Divider starts --}}
     @include('frontend._inc.divider')
     {{-- Divider ends --}}

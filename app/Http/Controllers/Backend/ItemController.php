@@ -449,4 +449,11 @@ class ItemController extends Controller
 
     }
 
+    public function stock(){
+
+        $datas = Item::whereStock(0)->get();
+        return view('backend.item.stock',['datas'=>$datas]);
+        
+    }
+
 }

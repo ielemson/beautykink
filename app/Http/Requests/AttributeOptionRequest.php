@@ -30,7 +30,7 @@ class AttributeOptionRequest extends FormRequest
             'name' => 'required|max:100',
             'attribute_id' => 'required',
             'price' => 'required|numeric|max:9999999999',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:500',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:500',
         ];
     }
 

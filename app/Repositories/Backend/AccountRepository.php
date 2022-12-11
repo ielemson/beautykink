@@ -88,6 +88,11 @@ class AccountRepository
         return Order::whereOrderStatus('Pending')->count();
     }
 
+    public function getOutofStockProduct()
+    {
+        return Item::whereStock(0)->count();
+    }
+
     public function getDeliveredOrders()
     {
         return Order::whereOrderStatus('Delivered')->count();

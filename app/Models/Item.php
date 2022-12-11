@@ -51,6 +51,12 @@ class Item extends Model
         return $this->hasMany(CampaignItem::class);
     }
 
+    
+    public function reminders()
+    {
+        return $this->hasMany(RestockReminder::class,'prod_id');
+    }
+
     /**
      * Tax
     */

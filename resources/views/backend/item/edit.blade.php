@@ -165,13 +165,13 @@
                   </div>
 
                   <div class="form-group  col-md-6">
-                    <label for="exampleInputPassword1">{{ __('Meta Keywords') }}</label>
+                    <label for="meta_keywords">{{ __('Meta Keywords') }}</label>
                     <input type="text" name='meta_keywords' class='form-control tags' placeholder="{{ __('Enter Meta Keywords') }}" value="{{ $item->meta_keywords }}">
                   </div>
 
                   <div class="form-group  col-md-12">
-                    <label for="exampleInputPassword1">{{ __('Meta Description') }}</label>
-                    <textarea name='meta_descriptions' class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="5">{{ $item->meta_description }}</textarea>
+                    <label for="meta_description">{{ __('Meta Description') }}</label>
+                    <textarea name='meta_description' class='form-control' placeholder="{{ __('Enter Meta Description') }}" rows="5">{{ $item->meta_description }}</textarea>
                   </div>
 
                   {{-- <div class="form-group col-md-12">

@@ -116,6 +116,12 @@
             <p>{{ __('Product Reviews') }}</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('backend.item.stock') }}" class="nav-link {{ request()->segment(2) == 'stock' ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('Out of Stock') }}</p>
+          </a>
+        </li>
       </ul>
     </li>
 

@@ -92,6 +92,7 @@ class AccountController extends Controller
             'totalMonthEarning' => $this->repository->getMonthEarning(),
             'totalYearEarning' => $this->repository->getYearEarning(),
             'totalSystemUsers' => $this->repository->getSystemUser(),
+            'totalOutofStock' => $this->repository->getOutofStockProduct(),
             'order_days' => $days,
             'earning_days' => $earning_days,
             'order_sales' => $sales,

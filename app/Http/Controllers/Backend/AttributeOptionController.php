@@ -77,20 +77,36 @@ class AttributeOptionController extends Controller
                 // $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
                 // Image::make($file)->resize(50,50)->save($upload_location.$name_gen);
                 // $save_url = $upload_location.$name_gen;
-                $image = time().'.'.$request->image->extension();
+                $curr = Currency::where('is_default', 1)->first();
+                $input['price'] = $request->price / $curr->value;
+
+                if($request->file('image')){
+                    $image = time().'.'.$request->image->extension();
                 $path = public_path('uploads/items/attributes');
                 $request->image->move($path, $image);
 
-        $curr = Currency::where('is_default', 1)->first();
-        $input['price'] = $request->price / $curr->value;
-        $input = [
-            'name'=>$request->name,
-            'image'=>$image,
-            'attribute_id'=>$request->attribute_id,
-            'price'=>$request->price,
-            'keyword'=>$request->keyword,
+                $input = [
+                    'name'=>$request->name,
+                    'image'=>$image,
+                    'attribute_id'=>$request->attribute_id,
+                    'price'=>$request->price,
+                    'keyword'=>$request->keyword,
+        
+                ];
+                
+                }else{
+                    $input = [
+                        'name'=>$request->name,
+                        'image'=>'',
+                        'attribute_id'=>$request->attribute_id,
+                        'price'=>$request->price,
+                        'keyword'=>$request->keyword,
+            
+                    ];
+                }
 
-        ];
+      
+      
         AttributeOption::create($input);
 
         return redirect()->route('backend.option.index', $item->id)->withSuccess(__('New Attribute Option Added Successfully.'));

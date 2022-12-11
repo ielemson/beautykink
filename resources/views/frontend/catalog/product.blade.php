@@ -1,7 +1,7 @@
-@extends('frontend.layouts.beautykinkLayout',['ogImg'=>env('APP_URL').'/'.$item->photo])
+@extends('frontend.layouts.beautykinkLayout', ['ogImg' => env('APP_URL') . '/' . $item->photo])
 
 @section('title')
-    {{ __($item->name.' '.'Nigeria') }}
+    {{ __($item->name . ' ' . 'Nigeria') }}
 @endsection
 
 @section('meta')
@@ -53,11 +53,12 @@
                                                         <img src="{{ asset($gallery->photo) }}"
                                                             alt="slider-{{ $key }}"
                                                             style=" 
-                                                                width: 100%;
-                                                                height: auto;
-                                                                object-fit: cover;
-                                                                object-position: bottom;">
-                                                        <span class="product-flag-new">{{ ucfirst(str_replace('_', ' ', $item->is_type)) }}</span>
+width: 100%;
+height: auto;
+object-fit: cover;
+object-position: bottom;">
+                                                        <span
+                                                            class="product-flag-new">{{ ucfirst(str_replace('_', ' ', $item->is_type)) }}</span>
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -84,31 +85,36 @@
                                     <div class="product-info">
                                         <div class="star-content">
                                             {{-- <i class="ion-md-star"></i>
-                                            <i class="ion-md-star"></i>
-                                            <i class="ion-md-star"></i>
-                                            <i class="ion-md-star"></i> --}}
+<i class="ion-md-star"></i>
+<i class="ion-md-star"></i>
+<i class="ion-md-star"></i> --}}
                                             {{-- <i class="ion-md-star icon-color-gray"></i> --}}
                                             {!! renderStarRating($item->reviews->avg('rating')) !!}
                                         </div>
-                                   
+
                                         <ul class="comments-advices">
-                                            <li><a href="#description" class="reviews"><i class="fa fa-commenting-o"></i>Read
-                                                    reviews ({{count($reviews)}})</a></li>
-                                                    @auth
-                                                    <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  class="comment"><i class="fa fa-pencil-square-o"></i>Write a review</a></li>
-                                                    @endauth
+                                            <li><a href="#description" class="reviews"><i
+                                                        class="fa fa-commenting-o"></i>Read
+                                                    reviews ({{ count($reviews) }})</a></li>
+                                            @auth
+                                                <li><a href="javascript:;" data-bs-toggle="modal"
+                                                        data-bs-target="#staticBackdrop" class="comment"><i
+                                                            class="fa fa-pencil-square-o"></i>Write a review</a></li>
+                                            @endauth
                                             @if ($item->video)
                                                 <li>
-            {{-- <a class="popup-youtube" href="https://www.youtube.com/watch?v={{ $video }}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br> --}}
-            <a class="popup-youtube" href="{{ $item->video }}"><i class="fab fa-youtube fa-2x text-danger"></i> Play Video</a><br>
+                                                    {{-- <a class="popup-youtube" href="https://www.youtube.com/watch?v={{ $video }}"><i class="fa fa-youtube-play text-danger"></i> Play Video</a><br> --}}
+                                                    <a class="popup-youtube" href="{{ $item->video }}"><i
+                                                            class="fab fa-youtube fa-2x text-danger"></i> Play Video</a><br>
                                             @endif
                                         </ul>
                                     </div>
                                     @if ($item->is_type == 'flash_deal')
-                                    @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
-                                    <div class="ht-countdown ht-countdown-style1 mt-5 mb-10" data-date="{{ $item->date }}"></div>
+                                        @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
+                                            <div class="ht-countdown ht-countdown-style1 mt-5 mb-10"
+                                                data-date="{{ $item->date }}"></div>
+                                        @endif
                                     @endif
-                                @endif
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span
@@ -130,104 +136,121 @@
                                         </div>
                                     </div>
                                     <div class="pt-1 mb-1"><span class="text-medium">{{ __('Categories') }}:</span>
-                                        <a href="{{ route('frontend.catalog') . '?category=' . $item->category->slug }}">{{ $item->category->name }}</a>
+                                        <a
+                                            href="{{ route('frontend.catalog') . '?category=' . $item->category->slug }}">{{ $item->category->name }}</a>
                                         @if ($item->subcategory)
                                             /
-                                            <a href="{{ route('frontend.catalog') . '?subcategory=' . $item->subcategory->slug }}">{{ $item->subcategory->name }}</a>
+                                            <a
+                                                href="{{ route('frontend.catalog') . '?subcategory=' . $item->subcategory->slug }}">{{ $item->subcategory->name }}</a>
                                         @endif
                                         @if ($item->childcategory)
                                             /
-                                            <a href="{{ route('frontend.catalog') . '?childcategory=' . $item->childcategory->slug }}">{{ $item->childcategory->name }}</a>
+                                            <a
+                                                href="{{ route('frontend.catalog') . '?childcategory=' . $item->childcategory->slug }}">{{ $item->childcategory->name }}</a>
                                         @endif
                                     </div>
                                     <div class="pt-1 mb-1"><span class="text-medium">{{ __('Tags') }}:</span>
                                         @if ($item->tags)
                                             @foreach (explode(',', $item->tags) as $tag)
                                                 @if ($loop->last)
-                                                    <a href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>
+                                                    <a
+                                                        href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>
                                                 @else
-                                                    <a href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>,
+                                                    <a
+                                                        href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>,
                                                 @endif
                                             @endforeach
                                         @endif
                                     </div>
-                                    <form id="add_to_cart_form">
+                                    <form id="add_to_cart_form" syle="margin-top:5px">
+
                                         <div class="product-variants">
-                                          @foreach ($attributes as $attribute)
+                                            @foreach ($attributes as $attribute)
                                                 @if ($attribute->options->count() != 0)
                                                     @if (strtolower($attribute->name) == 'color')
-                                                        <div class="product-variants-item">
+                                                        <div class="product-variants-item mt-5">
                                                             <h6 class="title mb-20">{{ $attribute->name }}</h6>
                                                             @foreach ($attribute->options as $option)
-                                                                {{-- <option value="{{ $option->name }}" data-type="{{ $attribute->id }}"
-                                                                data-href="{{ $option->id }}"
-                                                                data-target="{{ PriceHelper::setConvertPrice($option->price) }}">
-                                                                <img src="https://beautykink.com/image/cache/catalog/BeautyKink/Glowgetta/glowgetta%20rose%20glow%20THUMB-50x50.jpg" alt="Rose Glow" class="img-thumbnail">
-                                                                {{ $option->name }}
-                                                                </option> --}}
-                                                     
-                                                                        <label>
-                                                                            <span class="radio-wrapper">
-                                                                                <input type="radio"
-                                                                                    name="attribute_name"
-                                                                                    value="{{ $option->name }}"
-                                                                                    id="radioid" required/>
-                                                                                </span>
-                                                                            <img src="{{ asset("uploads/items/attributes/$option->image") }}"
-                                                                                alt="{{$option->name}}" class="img-thumbnail" data-color="{{$option->image}}">
-                                                                            {{ $option->name }}
-                                                                        </label>
-                                                                    
+                                                                <label>
+                                                                    <span class="radio-wrapper">
+                                                                        <input type="radio" name="attribute_name"
+                                                                            value="{{ $option->name }}" id="radioid"
+                                                                            required />
+                                                                    </span>
+                                                                   @if ($option->image != '')
+                                                                   <img src="{{ asset("uploads/items/attributes/$option->image") }}"
+                                                                   alt="{{ $option->name }}" class="img-thumbnail"
+                                                                   data-color="{{ $option->image }}">
+                                                                   @endif
+                                                                    {{ $option->name }}
+                                                                </label>
                                                             @endforeach
                                                         </div>
                                                     @endif
+
+                                                    @if (strtolower($attribute->name) == 'size')
+                                                        <div class="product-variants-item">
+                                                            <h6 class="title">Size</h6>
+                                                            <select class="form-control-select" name="size" aria-label="S" required>
+                                                                @foreach ($attribute->options as $option)
+                                                                <option selected="">{{$option->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    @endif
+
                                                 @endif
                                             @endforeach
-    
                                         </div>
-    
+
                                         <div class="product-description">
                                             {!! $item->short_details !!}
                                         </div>
                                         <div class="product-quick-action">
                                             {{-- <div class="product-quick-qty">
-    
-                                                <div class="pro-qty">
-                                               
-                                                    <input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
-          
-                                                </div>
-                                            </div> --}}
-                                            
-                                           
-                                              <input type="hidden" id="pid" class="qty" title="product" value="{{$item->id}}" name="pid">
-                                                @if ($item->is_stock())
-                                                <button type="submit" class="btn-product-add btn-danger">Add to cart</button>
-                                                @else
-                                                <a class="btn-quick-view btn-block remind_me_when_restock" href="javascript:;" title="remind me on restock" data-id="{{$item->id}}">Remind me when restocked</a>
-                                                @endif
+
+<div class="pro-qty">
+
+<input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
+
+</div>
+</div> --}}
+
+
+                                            <input type="hidden" id="pid" class="qty" title="product"
+                                                value="{{ $item->id }}" name="pid">
+                                            @if ($item->is_stock())
+                                                <button type="submit" class="btn-product-add btn-danger">Add to
+                                                    cart</button>
+                                            @else
+                                                <a class="btn-quick-view btn-block remind_me_when_restock"
+                                                    href="javascript:;" title="remind me on restock"
+                                                    data-id="{{ $item->id }}">Remind me when restocked</a>
+                                            @endif
                                         </div>
                                     </form>
 
                                     <div class="product-wishlist-compare">
-                                        <a href="javascript:;" class="btn-wishlist add-wishlist" data-id="{{$item->id}}"><i class="icon-heart"></i>Add to
+                                        <a href="javascript:;" class="btn-wishlist add-wishlist"
+                                            data-id="{{ $item->id }}"><i class="icon-heart"></i>Add to
                                             wishlist</a>
-                                        <a href="javascript:;" class="btn-compare add-compare" data-id="{{$item->id}}"><i class="icon-shuffle"></i>Add to
+                                        <a href="javascript:;" class="btn-compare add-compare"
+                                            data-id="{{ $item->id }}"><i class="icon-shuffle"></i>Add to
                                             compare</a>
                                     </div>
                                     <div class="social-sharing">
                                         <span>Share</span>
                                         <div class="social-icons">
                                             {{-- @php
-                                                $links = json_decode($setting->social_link, true)['links'];
-                                                $icons = json_decode($setting->social_link, true)['icons'];
-                                            @endphp
-                                            @foreach ($links as $link_key => $link)
-                                                <a href="{{ $link }}"><i class="{{ $icons[$link_key] }}"></i></a>
-                                            @endforeach --}}
-                                            {!! Share::page(url('/product/'. $item->slug))->facebook()->telegram()->twitter()->linkedin()->whatsapp() !!}
+$links = json_decode($setting->social_link, true)['links'];
+$icons = json_decode($setting->social_link, true)['icons'];
+@endphp
+@foreach ($links as $link_key => $link)
+<a href="{{ $link }}"><i class="{{ $icons[$link_key] }}"></i></a>
+@endforeach --}}
+                                            {!! Share::page(url('/product/' . $item->slug))->facebook()->telegram()->twitter()->linkedin()->whatsapp() !!}
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <!--== End Product Info Area ==-->
@@ -237,14 +260,14 @@
                 </div>
             </div>
             {{-- Write Product Review --}}
-            @include('frontend._inc.product_review',['item_id'=>$item->id ])
+            @include('frontend._inc.product_review', ['item_id' => $item->id])
             @auth
-            @include('frontend._inc.review_modal')
+                @include('frontend._inc.review_modal')
             @endauth
-         
+
             {{-- Write Product Review --}}
         </div>
-        
+
     </section>
 
     {{-- Similar Products --}}
@@ -257,15 +280,16 @@
         integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <style>
-        .error{
-        color: #FF0000; 
-        font-weight: 600;
+    <style>
+        .error {
+            color: #FF0000;
+            font-weight: 600;
         }
+
         .modal-header {
-    background-color: #f5f5f5;
-}
-        </style>
+            background-color: #f5f5f5;
+        }
+    </style>
 @endsection
 
 @section('script')
@@ -273,110 +297,106 @@
         integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script>
-             // Product Details Page Add to Cart ::::::::::::::::::::::::::
-    $(document).ready(function() {
-        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-            disableOn: 700,
-            type: 'iframe',
-            mainClass: 'mfp-fade',
-            removalDelay: 160,
-            preloader: true,
-            fixedContentPos: true,
-            focus: '#username',
-            //   modal: true
+    <script>
+        // Product Details Page Add to Cart ::::::::::::::::::::::::::
+        $(document).ready(function() {
+            $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+                disableOn: 700,
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: true,
+                fixedContentPos: true,
+                focus: '#username',
+                //   modal: true
+            });
         });
-    });
-        </script>
-
-<script>
-
-    if ($("#leaveReview").length > 0) {
-    $("#leaveReview").validate({
-    rules: {
-    name: {
-    required: true,
-    maxlength: 50
-    },
-    email: {
-    required: true,
-    maxlength: 50,
-    email: true,
-    },  
-    review: {
-    required: true,
-    maxlength: 300
-    },   
-    rating: {
-    required: true,
-    maxlength: 300
-    },   
-    subject: {
-    required: true,
-    maxlength: 300
-    },   
-    },
-    messages: {
-    name: {
-    required: "Please enter name",
-    maxlength: "Your name maxlength should be 50 characters long."
-    },
-    email: {
-    required: "Please enter valid email",
-    email: "Please enter valid email",
-    maxlength: "The email name should less than or equal to 50 characters",
-    },   
-    message: {
-    required: "Please enter message",
-    maxlength: "Your message name maxlength should be 300 characters long."
-    },
-    },
-    submitHandler: function(form) {
-    $.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
-    $('#submit').html('Please Wait...');
-    $("#submit"). attr("disabled", true);
-    $.ajax({
-    url: "{{ route('frontend.review.submit') }}",
-    type: "POST",
-    data: $('#leaveReview').serialize(),
-    success: function( response ) {
-        // console.log(response)
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-        })
-    if(response.errors){
-        Toast.fire({
-            icon: 'error',
-            title: response.errors[0],
-        })
-    }else{
-        Toast.fire({
-            icon: 'success',
-            title: response,
-        })
-        $("#staticBackdrop").modal("hide");
-        $('#review-subject').val('')
-        $('#review-message').val('')
-    }
-    $('#submit').html('Submit');
-    $("#submit"). attr("disabled", false);
-    // alert('Ajax form has been submitted successfully');
-    // document.getElementById("contactUsForm").reset(); 
-    }
-    });
-    }
-    })
-    }
     </script>
-@include('frontend._inc.restock_form')
 
+    <script>
+        if ($("#leaveReview").length > 0) {
+            $("#leaveReview").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    email: {
+                        required: true,
+                        maxlength: 50,
+                        email: true,
+                    },
+                    review: {
+                        required: true,
+                        maxlength: 300
+                    },
+                    rating: {
+                        required: true,
+                        maxlength: 300
+                    },
+                    subject: {
+                        required: true,
+                        maxlength: 300
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter name",
+                        maxlength: "Your name maxlength should be 50 characters long."
+                    },
+                    email: {
+                        required: "Please enter valid email",
+                        email: "Please enter valid email",
+                        maxlength: "The email name should less than or equal to 50 characters",
+                    },
+                    message: {
+                        required: "Please enter message",
+                        maxlength: "Your message name maxlength should be 300 characters long."
+                    },
+                },
+                submitHandler: function(form) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $('#submit').html('Please Wait...');
+                    $("#submit").attr("disabled", true);
+                    $.ajax({
+                        url: "{{ route('frontend.review.submit') }}",
+                        type: "POST",
+                        data: $('#leaveReview').serialize(),
+                        success: function(response) {
+                            // console.log(response)
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                            if (response.errors) {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: response.errors[0],
+                                })
+                            } else {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: response,
+                                })
+                                $("#staticBackdrop").modal("hide");
+                                $('#review-subject').val('')
+                                $('#review-message').val('')
+                            }
+                            $('#submit').html('Submit');
+                            $("#submit").attr("disabled", false);
+                            // alert('Ajax form has been submitted successfully');
+                            // document.getElementById("contactUsForm").reset(); 
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+    @include('frontend._inc.restock_form')
 @endsection
-
-

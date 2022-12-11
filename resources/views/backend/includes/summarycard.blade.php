@@ -57,13 +57,13 @@
 
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
+                <h3>{{$totalOutofStock}}</h3>
+                <p>Products out of stock</p>
             </div>
             <div class="icon">
                 <i class="fas fa-chart-pie"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{route('backend.item.stock')}}" class="small-box-footer">
                 More info
                 <i class="fas fa-arrow-circle-right"></i>
             </a>
