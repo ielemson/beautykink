@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShippingServiceRequest;
 use App\Models\Currency;
 use App\Models\ShippingService;
-use App\Models\{Country, State, City, GeoZone};
+use App\Models\{Country, State, City, GeoZone, ShippingMethod};
 use Illuminate\Http\Request;
 
 class ShippingServiceController extends Controller
@@ -40,7 +40,7 @@ class ShippingServiceController extends Controller
     */
     public function create()
     {
-        $data['zones'] = GeoZone::where('status',1)->get(["zone", "id"]);
+        $data['methods'] = ShippingMethod::where('status',1)->get();
         $data['countries'] = Country::get(["name", "id"]);
         // dd($data);
         return view('backend.shipping.create',$data);
@@ -53,7 +53,7 @@ class ShippingServiceController extends Controller
     // }
     public function fetchState(Request $request)
     {
-        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id"]);
+        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id","country_id"]);
         return response()->json($data);
     }
 
@@ -92,13 +92,14 @@ class ShippingServiceController extends Controller
     */
     public function store(ShippingServiceRequest $request)
     {
-        $input = $request->all();
-        $curr = Currency::where('is_default', 1)->first();
-        $input['price'] = $request->price / $curr->value;
+        $shippingModel = new ShippingService;
+        $shippingModel->status = 0;
+        $shippingModel->country_id = $request->country_id;
+        $shippingModel->shipping_method_id = json_encode($request->shipping_method_id, true);
+        $shippingModel->state_id = $request->state_id;
+        $shippingModel->save();
 
-        ShippingService::create($input);
-
-        return redirect()->route('backend.shipping.index')->withSuccess(__('New Shipping Service Added Successfully.'));
+        return redirect()->route('backend.shipping.index')->withSuccess(__('New Shipping Method Added Successfully.'));
     }
 
     /**
@@ -109,9 +110,11 @@ class ShippingServiceController extends Controller
     */
     public function edit(ShippingService $shipping)
     {
-        $zones = GeoZone::where('status',1)->get(["zone", "id"]);
+        $states = State::get(["name", "id"]);
         $countries = Country::get(["name", "id"]);
-        return view('backend.shipping.edit', compact('shipping','zones','countries'));
+        $methods = ShippingMethod::where('status',1)->get();
+        // dd($methods);
+        return view('backend.shipping.edit', compact('shipping','countries','states','methods'));
     }
 
     /**
@@ -138,11 +141,12 @@ class ShippingServiceController extends Controller
     */
     public function update(ShippingServiceRequest $request, ShippingService $shipping)
     {
-        $input = $request->all();
-        // $curr = Currency::where('is_default', 1)->first();
-        // $input['price'] = $request->price / $curr->value;
-
-        $shipping->update($input);
+        $shippingModel = ShippingService::find($shipping->id);
+        $shippingModel->status = 0;
+        $shippingModel->country_id = $request->country_id;
+        $shippingModel->shipping_method_id = json_encode($request->shipping_method_id, true);
+        $shippingModel->state_id = $request->state_id;
+        $shippingModel->save();
 
         return redirect()->route('backend.shipping.index')->withSuccess(__('Shipping Service Updated Successfully.'));
     }

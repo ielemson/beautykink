@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Shipping Geozones') }}</h1>
+            <h1>{{ __('Shipping') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -29,13 +29,12 @@
                   <thead>
                   <tr>
                     <th>{{ __('#') }}</th>
-                    <th>{{ __('Zone') }}</th>
                     <th>{{ __('Country') }}</th>
-                    <th>{{ __('States Covered') }}</th>
-                    <th>{{ __('Shipping Status') }}</th>
-                    <th>{{ __('Shipping Cost') }}</th>
+                    <th>{{ __('State') }}</th>
+                    {{-- <th>{{ __('Zone') }}</th> --}}
+                    <th>{{ __('Shipping Method') }}</th>
+                    <th>{{ __('Price') }}</th>
                     <th>{{ __('Status') }}</th>
-                    
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\GeoZone;
+use App\Models\ShippingService;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,8 @@ class GeoZoneController extends Controller
      */
     public function index()
     {
-        $datas = GeoZone::all();
+        // $datas = GeoZone::all();
+        $datas = ShippingService::orderBy('id', 'desc')->get();
         return view('backend.geozone.index',compact('datas'));
     }
 
@@ -112,7 +114,7 @@ class GeoZoneController extends Controller
 
     public function status($id, $status)
     {
-        GeoZone::find($id)->update([ 'status' => $status ]);
+        ShippingService::find($id)->update([ 'status' => $status ]);
         return redirect()->route('backend.geozone.index')->withSuccess(__('Status Updated Successfully.'));
     }
 
@@ -124,10 +126,11 @@ class GeoZoneController extends Controller
      */
     public function edit($id)
     {
-        $geozone = GeoZone::find($id);
+        // $geozone = GeoZone::find($id);
         $states = State::all();
         $countries = Country::all();
-        return view('backend.geozone.edit',compact('geozone','states','countries'));
+        $shippingervice = ShippingService::where('id',$id)->first();
+        return view('backend.geozone.edit',compact('states','countries','shippingervice'));
     }
 
     /**
@@ -139,19 +142,26 @@ class GeoZoneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $geozone = GeoZone::find($id);
-        $request->except('state_ids');
-        $state_ids = json_encode($request->state_ids,true);
-        $request->merge(['state_ids' => $state_ids]);
-        // dd($request->all());
-       $geozone->zone = $request->zone;
-       $geozone->country_id = $request->country_id;
-       $geozone->state_ids = $request->state_ids;
-       $geozone->shipping_status = $request->shipping_status;
-       $geozone->status = $request->status;
-       $geozone->shipping_cost = $request->shipping_cost;
-       $geozone->status = 0;
-       $geozone->save();
+    //     $geozone = GeoZone::find($id);
+    //     $request->except('state_ids');
+    //     $state_ids = json_encode($request->state_ids,true);
+    //     $request->merge(['state_ids' => $state_ids]);
+    //     // dd($request->all());
+    //    $geozone->zone = $request->zone;
+    //    $geozone->country_id = $request->country_id;
+    //    $geozone->state_ids = $request->state_ids;
+    //    $geozone->shipping_status = $request->shipping_status;
+    //    $geozone->status = $request->status;
+    //    $geozone->shipping_cost = $request->shipping_cost;
+    //    $geozone->status = 0;
+    //    $geozone->save();
+        $shippingModel = ShippingService::find($id);
+        $shippingModel->method = $request->method;
+            $shippingModel->price = $request->price;
+            $shippingModel->status = 0;
+            $shippingModel->country_id = $request->country_id;
+            $shippingModel->state_id = $request->state_ids;
+            $shippingModel->save();
        return redirect()->route('backend.geozone.index')->withSuccess(__('Shipping Zone updated.'));
     }
 

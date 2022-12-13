@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Edit Shipping Method') }}</h1>
+            <h1>{{ __('Create New Shipping Method') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -23,39 +23,13 @@
             <div class="card">
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('backend.geozone.update',$shippingervice->id) }}" method="POST" id="quickForm">
+              <form action="{{ route('backend.shippingmethod.store') }}" method="POST">
                 @csrf
                 <div class="card-body row">
                     <div class="col-md-12">
                         @include('alerts.alerts')
                     </div>
-{{-- 
-                  <div class="form-group  col-md-4">
-                    <label for="name">{{ __('Zone') }} *</label>
-                    <input type="text" name="zone" id="" class="form-control" placeholder="enter zone e.g southeast">
-                  </div> --}}
-                  <div class="form-group  col-md-4">
-                    <label for="name">{{ __('Country') }} *</label>
-                    <select class="form-control"  data-placeholder="Select State"
-                        style="width: 100%;" name="country_id" required>
-                        @foreach ($countries as $country)
-                            <option value="{{ $country->id }}" {{$country->id == $shippingervice->country_id ? "selcted":""}}>{{ $country->name }}</option>
-                        @endforeach
-
-                    </select>
-                  </div>
-
-                  <div class="form-group  col-md-4">
-                    <label for="title">{{ __('Select State') }} </label>
-                    <select class="select2bs4" data-placeholder="Select State"
-                        style="width: 100%;" name="state_ids" required>
-                        @foreach ($states as $state)
-                            <option value="{{ $state->id }}" {{$state->id == $shippingervice->state_id ? "selected":''}}>{{ $state->name }}</option>
-                        @endforeach
-
-                    </select>
-                </div>
-                 
+                            
                   <div class="form-group  col-md-4">
                     <label for="title">{{ __('Shipping Rate') }} </label>
                     <small>({{ __('Set 0 to make it free') }})</small>
@@ -65,12 +39,12 @@
                           {{ PriceHelper::adminCurrency() }}
                       </div>
                   </div>
-               <input type="number" min="0" name="price" class="form-control" placeholder="shipping cost" value="{{$shippingervice->price}}" required>
+               <input type="number" min="0" name="price" class="form-control" placeholder="shipping cost" required>
                 </div>
                 </div>
                 <div class="form-group  col-md-6">
                   <label for="title">{{ __('Shipping method') }} </label>
-                 <textarea name="method" required class="form-control"  rows="2" required placeholder="e.g STANDARD SHIPPING (3-5 working days)">{{$shippingervice->method}}</textarea>
+                 <textarea name="name" required class="form-control"  required placeholder="e.g STANDARD SHIPPING (3-5 working days)"></textarea>
               </div>
                 </div>
                 <!-- /.card-body -->

@@ -229,7 +229,13 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{{ route('backend.geozone.index') }}" class="nav-link">
+          <a href="{{ route('backend.shipping.index') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('Shipping') }}</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('backend.shippingmethod.index') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Shipping Method') }}</p>
           </a>

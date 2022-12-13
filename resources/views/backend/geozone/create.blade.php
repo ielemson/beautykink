@@ -23,7 +23,7 @@
             <div class="card">
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('backend.geozone.store') }}" method="POST" id="quickForm" enctype="multipart/form-data">
+              <form action="{{ route('backend.shipping.store') }}" method="POST">
                 @csrf
                 <div class="card-body row">
                     <div class="col-md-12">
@@ -37,7 +37,7 @@
                   <div class="form-group  col-md-4">
                     <label for="name">{{ __('Country') }} *</label>
                     <select class="form-control"  data-placeholder="Select State"
-                        style="width: 100%;" name="country_id">
+                        style="width: 100%;" name="country_id" required>
                         @foreach ($countries as $country)
                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                         @endforeach
@@ -48,7 +48,7 @@
                   <div class="form-group  col-md-4">
                     <label for="title">{{ __('Select State') }} </label>
                     <select class="select2bs4" multiple="multiple" data-placeholder="Select State"
-                        style="width: 100%;" name="state_ids[]">
+                        style="width: 100%;" name="state_ids[]" required>
                         @foreach ($states as $state)
                             <option value="{{ $state->id }}">{{ $state->name }}</option>
                         @endforeach
@@ -65,14 +65,12 @@
                           {{ PriceHelper::adminCurrency() }}
                       </div>
                   </div>
-
-                  
-                    <input type="number" min="0" name="shipping_cost" class="form-control" placeholder="shipping cost">
+               <input type="number" min="0" name="price" class="form-control" placeholder="shipping cost" required>
                 </div>
                 </div>
                 <div class="form-group  col-md-6">
                   <label for="title">{{ __('Shipping method') }} </label>
-                 <textarea name="shipping_method" id="" class="form-control"  rows="2" required placeholder="e.g STANDARD SHIPPING (3-5 working days)"></textarea>
+                 <textarea name="method" required class="form-control"  rows="2" required placeholder="e.g STANDARD SHIPPING (3-5 working days)"></textarea>
               </div>
                 </div>
                 <!-- /.card-body -->

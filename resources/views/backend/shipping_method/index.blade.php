@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Shipping') }}</h1>
+            <h1>{{ __('Shipping Methods') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
               @include('alerts.alerts')
             <div class="card">
               <div class="card-header text-right">
-                <a href="{{ route('backend.shipping.create') }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ __('Add') }}</a>
+                <a href="{{ route('backend.shippingmethod.create') }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ __('Add') }}</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -29,17 +29,13 @@
                   <thead>
                   <tr>
                     <th>{{ __('#') }}</th>
-                    <th>{{ __('Country') }}</th>
-                    <th>{{ __('State') }}</th>
-                    {{-- <th>{{ __('Zone') }}</th> --}}
                     <th>{{ __('Shipping Method') }}</th>
-                    {{-- <th>{{ __('Price') }}</th> --}}
-                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Price') }}</th>
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @include('backend.shipping.table', compact('datas'))
+                    @include('backend.shipping_method.table', compact('datas'))
                   </tbody>
                 </table>
               </div>

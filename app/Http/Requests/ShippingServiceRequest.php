@@ -24,8 +24,10 @@ class ShippingServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'price' => 'required|numeric|max:9999999999',
+            'method' => 'nullable',
+            'state_id' => 'required|unique:shipping_services,state_id',
+            'country_id' => 'required',
+            'price' => 'numeric|max:9999999999',
         ];
     }
 
@@ -37,7 +39,10 @@ class ShippingServiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => __('Title field is required')
+            'price.required' => __('Shipping Rate is required'),
+            'country_id.required' => __('Shipping Country is required'),
+            'state_id.required' => __('Shipping State is required'),
+            'state_id.unique' => __('Duplicate State is not allowed')
         ];
     }
 }

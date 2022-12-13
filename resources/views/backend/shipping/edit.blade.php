@@ -31,11 +31,8 @@
                         @include('alerts.alerts')
                     </div>
 
-                  <div class="form-group  col-md-6">
-                    <label for="title">{{ __('Title') }} *</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="{{ __('Enter Title') }}" value="{{ $shipping->title }}" data-id="{{$shipping->id}}" required>
-                  </div>
-
+                
+                  
                   <div class="form-group  col-md-6">
                     <label for="title">{{ __('Select Country') }} *</label>
                     <select name="country_id"  class="form-control select2bs4 select2-hidden-accessible" id="country_id" style="width:100%" required>
@@ -48,37 +45,31 @@
                     </select>
                   </div>
 
-                  <div class="form-group  col-md-6">
-                    <label for="title">{{ __('Select Shipping Zone') }} *</label>
-                    <select name="zone_id"  class="form-control select2bs4 select2-hidden-accessible" id="zone-dd" style="width:100%" data-placeholder="Select Shipping Zone" required>
-                    </select>
-                  </div>
-                 
+                  
                   <div class="form-group  col-md-6">
                     <label for="title">{{ __('State Covered') }} *</label>
-                     <select class="select2bs4 select2-hidden-accessible"  data-dropdown-css-class="select2-purple" multiple="multiple" id="city-dd" data-placeholder="Selected City"
-                      style="width: 100%;" disabled>
+                     <select name="state_id" class="select2bs4 select2-hidden-accessible"  data-dropdown-css-class="select2-purple" id="state_data" data-placeholder="Selected States"
+                      style="width: 100%;">
                     </select>
                   </div>
-
-                  <div class="form-group  col-md-6">
-                      <label for="price">{{ __('Shipping Cost') }} </label>
-                      {{-- <small>({{ __('Set 0 to make it free') }})</small> --}}
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                {{ PriceHelper::adminCurrency() }}
-                            </div>
-                        </div>
-                        <input type="number" name="price"  min="0" step="0.1" id="shipping_cost" class="form-control" placeholder="{{ __('Shipping Cost') }}" readonly>
-                    </div>
+                  <div class="form-group  col-md-12">
+                    <label for="title">{{ __('Attach Shipping Method') }} *</label>
+                    <select name="shipping_method_id[]"  class="form-control select2bs4 select2-hidden-accessible" multiple="multiple" style="width:100%" required data-placeholder="Select Shipping Method">
+                      {{-- <option value="">Select Shipping Method</option> --}}
+                      @foreach ($methods as $method)
+                      <option value="{{$method->id}}" @if (in_array($method->id,json_decode($shipping->shipping_method_id,true)))
+                        {{'selected'}} @endif>
+                          {{$method->name}}
+                      </option>
+                      @endforeach
+                    </select>
                   </div>
 
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <a href="{{ route("backend.shipping.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
-                  <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                  <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
               </form>
             </div>
@@ -101,38 +92,48 @@
 
 @section('script')
   <script>
-   $(document).ready(function () {
-    // <------------When Country is selected------------------>
+     $(document).ready(function () {
+
+      // setTimeout(() => {
+        var  idCountry = $( "#country_id option:selected" ).val();
+        var page_data = {{ Js::from($shipping) }}
+        // console.log(page_data.country_id)
+        // var Selected;
+      $.ajax({
+                    url: "{{url('/admin/api/fetch-states')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+
+                      
+                      console.log(result)
+                        $('#state_data').html('<option value="">Select Zone</option>');
+                        $.each(result.states, function (key, value) {
+                        
+                          // let Check = idCountry == value.country_id ? 'selected':''
+                          if (page_data.state_id == value.id) {
+                            Selected = 'selected';
+                          }else{
+                            var Selected  = "";
+                          }
+                            $("#state_data").append('<option '+Selected+' value="' + value
+                                .id +'">' + value.name + '</option>');
+                        });
+                        // $('#city-dd').html('<option value="">Select Country</option>');
+                    }
+                });
+      // }, 300);
+            
             $('#country_id').on('change', function () {
                 var idCountry = this.value;
-                $("#zone-dd").html('');
-                $("#city-dd").html('');
-                $.ajax({
-                    url: "{{url('/admin/api/fetch-shipping-zones')}}",
-                    type: "POST",
-                    data: {
-                        country_id: idCountry,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-                    success: function (result) {
-                    //   console.log(result)
-                        $('#zone-dd').html('<option value="">Select Zone</option>');
-                        $.each(result.zones, function (key, value) {
-                            $("#zone-dd").append('<option value="' + value
-                                .id + '">' + value.zone + '</option>');
-                        });
-                        $('#city-dd').html('<option value="">Select Country</option>');
-                    }
-                });
-            });
-
-            var idCountry = $("#country_id").val();
-            // console.log(idCountry)
-                // $("#zone-dd").html('');
+                $("#state_data").html('');
                 // $("#city-dd").html('');
                 $.ajax({
-                    url: "{{url('/admin/api/fetch-shipping-zones')}}",
+                    url: "{{url('/admin/api/fetch-states')}}",
                     type: "POST",
                     data: {
                         country_id: idCountry,
@@ -140,38 +141,17 @@
                     },
                     dataType: 'json',
                     success: function (result) {
-                    //   console.log(result)
-                        $('#zone-dd').html('<option value="">Select Zone</option>');
-                        $.each(result.zones, function (key, value) {
-                            $("#zone-dd").append('<option value="' + value
-                                .id + '">' + value.zone + '</option>');
+                      // console.log(result)
+                        $('#state_data').html('<option value="">Select Zone</option>');
+                        $.each(result.states, function (key, value) {
+                            $("#state_data").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
                         });
                         $('#city-dd').html('<option value="">Select Country</option>');
                     }
                 });
-// <---------------------When zone is selected ------------------>
-            $('#zone-dd').on('change', function () {
-                var idZone = this.value;
-                $("#city-dd").html('');
-                $.ajax({
-                    url: "{{url('/admin/api/fetch-zones')}}",
-                    type: "POST",
-                    data: {
-                        zone_id: idZone,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-                    success: function (res) {
-                      console.log(res)
-                      $("#shipping_cost").val(res.cost)
-                        $('#city-dd').html('<option value="">Select City</option>');
-                        $.each(res.states, function (key, value) {
-                            $("#city-dd").append('<option selected value="' + value
-                                .id + '">' + value.name + '</option>');
-                        });
-                    }
-                });
             });
+            
         });
   </script>
 @endsection

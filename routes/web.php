@@ -62,6 +62,7 @@ use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Frontend\HomeCustomizeController;
 use App\Http\Controllers\Backend\AttributeOptionController;
+use App\Http\Controllers\Backend\ShippingMethodController;
 use App\Http\Controllers\Backend\ShippingServiceController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TodoController;
@@ -302,11 +303,22 @@ Route::prefix('admin')->group(function(){
             'store' => 'backend.shipping.store',
             'edit' => 'backend.shipping.edit',
             'update' => 'backend.shipping.update',
+        ]);  
+        Route::get('shipping/method/destroy/{id}', [ShippingMethodController::class, 'destroy'])->name('backend.shippingmethod.destroy');
+        Route::get('shipping/method/{id}/{status}', [ShippingMethodController::class, 'status'])->name('backend.shippingmethod.status');
+      
+        Route::resource('shippingmethod', ShippingMethodController::class)->except(['show'])->names([
+            'index' => 'backend.shippingmethod.index',
+            'create' => 'backend.shippingmethod.create',
+            'store' => 'backend.shippingmethod.store',
+            'edit' => 'backend.shippingmethod.edit',
+            'update' => 'backend.shippingmethod.update'
         ]);
         Route::get('/shipping/destroy/{id}', [ShippingServiceController::class, 'destroy'])->name('backend.shipping.destroy');
         Route::post('/api/fetch-shipping-zones', [ShippingServiceController::class, 'fetchShippingZones']);
         Route::post('/api/fetch-cities', [ShippingServiceController::class, 'fetchCity']);
         Route::post('/api/fetch-zones', [ShippingServiceController::class, 'fetchZones']);
+        Route::post('/api/fetch-states', [ShippingServiceController::class, 'fetchState']);
         //------------ TAX SETTING ------------
         Route::get('tax/status/{id}/{status}', [TaxController::class, 'status'])->name('backend.tax.status');
         Route::resource('tax', TaxController::class)->except(['show'])->names([
