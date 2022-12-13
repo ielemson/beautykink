@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Create New Shipping Zones') }}</h1>
+            <h1>{{ __('Create New Shipping Method') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -29,11 +29,11 @@
                     <div class="col-md-12">
                         @include('alerts.alerts')
                     </div>
-
+{{-- 
                   <div class="form-group  col-md-4">
                     <label for="name">{{ __('Zone') }} *</label>
                     <input type="text" name="zone" id="" class="form-control" placeholder="enter zone e.g southeast">
-                  </div>
+                  </div> --}}
                   <div class="form-group  col-md-4">
                     <label for="name">{{ __('Country') }} *</label>
                     <select class="form-control"  data-placeholder="Select State"
@@ -55,19 +55,9 @@
 
                     </select>
                 </div>
+                 
                   <div class="form-group  col-md-4">
-                    <label for="title">{{ __('Shipping Status') }} </label>
-                    <select class="form-control"
-                        style="width: 100%;" name="shipping_status" required>
-                      
-                            <option value=" ">{{ __('Select Shipping Status') }}</option>
-                            <option value="free">{{ __('Free') }}</option>
-                            <option value="paid">{{ __('Paid') }}</option>
-                       
-                    </select>
-                </div>
-                  <div class="form-group  col-md-4">
-                    <label for="title">{{ __('Shipping Cost') }} </label>
+                    <label for="title">{{ __('Shipping Rate') }} </label>
                     <small>({{ __('Set 0 to make it free') }})</small>
                     <div class="input-group mb-3">
                     <div class="input-group-append">
@@ -75,10 +65,15 @@
                           {{ PriceHelper::adminCurrency() }}
                       </div>
                   </div>
+
+                  
                     <input type="number" min="0" name="shipping_cost" class="form-control" placeholder="shipping cost">
                 </div>
                 </div>
-
+                <div class="form-group  col-md-6">
+                  <label for="title">{{ __('Shipping method') }} </label>
+                 <textarea name="shipping_method" id="" class="form-control"  rows="2" required placeholder="e.g STANDARD SHIPPING (3-5 working days)"></textarea>
+              </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

@@ -221,9 +221,9 @@
     {{-- Country & Geozone --}}
     <li class="nav-item">
       <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-map"></i>
+        <i class="nav-icon fas fa-shipping-fast"></i>
         <p>
-          {{ __('Country & GeoZone') }}
+          {{ __('Shipping') }}
           <i class="fas fa-angle-left right"></i>
         </p>
       </a>
@@ -231,7 +231,7 @@
         <li class="nav-item">
           <a href="{{ route('backend.geozone.index') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
-            <p>{{ __('Geozone') }}</p>
+            <p>{{ __('Shipping Method') }}</p>
           </a>
         </li>
         <li class="nav-item">
