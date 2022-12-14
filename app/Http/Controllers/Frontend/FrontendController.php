@@ -25,6 +25,7 @@ use App\Http\Requests\SubscribeRequest;
 use App\Models\AboutUs;
 use App\Models\GeoZone;
 use App\Models\RestockReminder;
+use App\Models\ShippingMethod;
 use App\Models\ShippingService;
 use App\Models\Testimonial;
 use App\Models\TrackOrder;
@@ -701,19 +702,23 @@ class FrontendController extends Controller
     }
 
      // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
-     public function getShippingInfo($id=null)
+     public function getShippingInfo(Request $request)
      {
         //  if ($id != 0) {
-            if($id){
-                  $shipping = GeoZone::where('id', $id)->first();
-            
-             Session::put('shipping_price', $shipping->shipping_cost);
-             Session::put('shipping_id', $shipping->id); 
-            }else{
+            // return $request->all();
+            // if($id){
+                  $shipping_method = ShippingMethod::where('id', $request->shipping_method_id)->first();
+                  $shipping_service = ShippingService::where('state_id',$request->shipping_method_state_id)->first();
+                    // $shipping = ShippingService:where('')
+             Session::put('shipping_price', $shipping_method->price);
+             Session::put('shipping_id', $shipping_service->id); 
+             Session::put('shipping_method_id', $shipping_method->id); 
+             Session::put('shipping_state_id', $shipping_service->state_id); 
+            // }else{
                 
-                $shipping_price = 0;
-                $shipping_id = '';
-            }
+            //     $shipping_price = 0;
+            //     $shipping_id = '';
+            // }
           
         //  }
          $total = 0;

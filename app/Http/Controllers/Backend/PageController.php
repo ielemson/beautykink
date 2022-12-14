@@ -7,6 +7,8 @@ use App\Http\Requests\PageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class PageController extends Controller
 {
 
@@ -52,7 +54,11 @@ class PageController extends Controller
      */
     public function store(PageRequest $request)
     {
+        $request->except('slug');
+        $slug = strtolower($request->slug);
+        $request->merge(['slug' => $slug]);
         Page::create($request->all());
+
         return redirect()->route('backend.page.index')->withSuccess(__('New Page Added Successfully.'));
     }
 
@@ -96,6 +102,10 @@ class PageController extends Controller
      */
     public function update(PageRequest $request, Page $page)
     {
+        // $page->update($request->all());
+        $request->except('slug');
+        $slug = strtolower($request->slug);
+        $request->merge(['slug' => $slug]);
         $page->update($request->all());
         return redirect()->route('backend.page.index')->withSuccess(__('Page Updated Successfully.'));
     }

@@ -22,6 +22,7 @@
         <div class="card text-center">
             <div class="card-body padding-top-2x">
                 <h3 class="card-title text-success">{{ __('Thank you for your order') }}!</h3>
+                <i class="fas fa-trophy fa-4x text-success text-center" ></i>
                 <p class="card-text">{{ __('Your order has been placed and will be processed as soon as possible.') }}</p>
                 <p class="card-text">{{ __('Make sure you make note of your order number, which is') }} <span class="text-medium">{{ $order->id }}</span></p>
                 <p class="card-text">{{ __('You will be receiving an email shortly with confirmation of your order.') }}</p>

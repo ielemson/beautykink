@@ -121,7 +121,7 @@
                 </div>
               </div>
               {{-- Shoppping Cart Summary Starts --}}
-              @include('frontend.checkout.cartsummary')
+              @include('frontend.checkout.payment_cart_summary')
               {{-- Shoppping Cart Summary Ends --}}
             </div>
           </div>

@@ -74,7 +74,8 @@
               </div>
              
                  {{-- Cart summary --}}
-                 @include('frontend.checkout.cartsummary',['cart_count'=>$cart_qty,'cart'=>$cart,'proceed'=>'<h5><small>Checkout to select shipping options</small></h5>'])
+                 {{-- @include('frontend.checkout.payment_cart_summary') --}}
+                 @include('frontend.checkout.payment_cart_summary',['cart_count'=>$cart_qty,'cart'=>$cart,'proceed'=>'<h5><small>Checkout to select shipping options</small></h5>'])
                  {{-- Cart summary --}}
                 
             </div>

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.beautykinkLayout',['home_classs'=>'product-inner-wrapper'])
 
 @section('title')
-    {{ __('Billing') }}
+    {{ __('Checkout') }}
 @endsection
 
 @section('content')
@@ -12,8 +12,11 @@
        <section class="product-area">
         <div class="container" data-padding-top="62">
           <div class="shopping-cart-wrap">
-            <div class="row">
-              <div class="col-lg-8">
+            <div class="row"> 
+              {{-- Form Starts --}}
+              <form id="checkoutBilling" action="{{ route('frontend.checkout.store') }}" method="POST">
+                @csrf
+                <div class="col-lg-8">
                 <div class="shopping-checkout-content">
                   <div class="checkout-accordion" id="accordionExample">
                     <div class="row">
@@ -55,13 +58,11 @@
                           <div class="checkout-accordion" >
                             
                             <div class="checkout-accordion-item">
-                                 <div class="checkout-accordion-body" data-margin-top="14">
+                                 <div class="checkout-accordion-body">
                                   <div class="personal-addresses">
-                                    <p class="p-text"><b>Shipping Address</b></p>
+                                    {{-- <p class="p-text"><b>Shipping Address</b></p> --}}
                                     <div class="delivery-address-form">
-                                      <form id="checkoutBilling" action="{{ route('frontend.checkout.store') }}" method="POST">
-                                        @csrf
-                                        
+                                    
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
@@ -107,21 +108,21 @@
                                             </div>
                                             <div class="row">
 
-                                              <div class="col-sm-2">
+                                              <div class="col-sm-4">
                                                   <div class="form-group">
-                                                      <label for="checkout-zip">{{ __('Zip Code') }}</label>
-                                                      <input class="form-control" name="bill_zip" type="text" id="checkout-zip">
+                                                      <label for="checkout-zip">{{ __('Post Code') }} *</label>
+                                                      <input class="form-control" name="bill_zip" type="text" id="checkout-zip" required>
                                                   </div>
                                               </div>
 
                                               @if ((Session::has('free_shipping')))
                                                 
                                               @else
-                                                 <div class="col-sm-3">
+                                                 <div class="col-sm-4">
                                                   <div class="form-group">
-                                                      <label for="checkout-country">{{ __('Select Country') }}*</label>
+                                                      <label for="checkout-country">{{ __('Country') }}*</label>
                                                       <select class="form-control" required name="bill_country" id="billing-country" required>
-                                                          <option value="" >{{ __('Choose Country') }}</option>
+                                                          <option value="" selected>{{ __('Choose Country') }}</option>
                                                           @foreach (DB::table('countries')->get() as $country)
                                                               <option value="{{ $country->id }}" >{{ $country->name }}</option>
                                                           @endforeach
@@ -129,31 +130,34 @@
                                                   </div>
                                               </div>
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                               <div class="form-group">
-                                                <label for="checkout-country">{{ __('Shipping Zone') }}*</label>
-                                                <select class="form-control" name="bill_zone" id="bill_zone" required>
+                                                <label for="checkout-country">{{ __('Region / State') }}*</label>
+                                                <select class="form-control" name="bill_state" id="bill_state" required>
                                                 </select>
                                             </div>
                                             </div>
                                             
-                                            <div class="col-sm-4">
+                                            {{-- <div class="col-sm-12">
                                               <div class="form-group">
-                                                <label for="checkout-country">{{ __('Select State') }}*</label>
+                                                <label for="checkout-country">{{ __('Shipping method') }}* <small>Please select the preferred shipping method to use on this order.</small></label>
                                                 <select class="form-control" name="bill_state" id="shipping_location" required>
                                                 </select>
                                             </div>
-                                            </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                              <div class="custom-control custom-checkbox">
+                                                  <input class="custom-control-input" type="checkbox" id="terms_and_conditions" name="terms_and_conditions" required>
+                                                  <label class="custom-control-label" for="terms_and_conditions">{{ __('I have read and agree to the') }} <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#termsAndConditionModal">Terms & Conditions</a> </label>
+                                              </div>
+                                              
+                                          </div> 
+
+                                           {{-- Here goes shipping method --}}
                                               @endif
                                              
                                              </div>
-{{--                         
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="same_address" name="same_ship_address" {{ Session::has('shipping_address') ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="same_address">{{ __('Same as billing address') }}</label>
-                                            </div>
-                                        </div> --}}
+                       
                                         <div class="d-flex justify-content-between paddin-top-1x mt-4">
                                         
                                           <div class="form-group row">
@@ -163,11 +167,11 @@
                                           </div>
                                           <div class="form-group row">
                                             <div class="col-md-12 text-end">
-                                              <button type="submit" class="btn-submit"><span class="hidden-xs-down">{{ __('Continue') }}</span> <i class="fa fa-arrow-right"></i> </button>
+                                              <button type="submit" class="btn-submit contiue"><span class="hidden-xs-down btn_text">{{ __('Continue') }}</span> <i class="fa fa-arrow-right"></i> </button>
                                             </div>
                                           </div>
                                         </div>
-                                    </form>
+                                    
                                     </div>
                                   </div>
                                 </div>
@@ -178,22 +182,26 @@
                         {{-- Billing Form Ends Here--}}
                     </div>
                   </div>
-                 
-                </div>
+                 </div>
               </div>
               {{-- Shoppping Cart Summary Starts --}}
               @include('frontend.checkout.cartsummary')
               {{-- Shoppping Cart Summary Ends --}}
+            
             </div>
+          </form>
+            {{-- Form Ends --}}
           </div>
         </div>
+        @include('frontend.checkout.terms_modal')
       </section>
       <!--== End Product Area Wrapper ==-->
   
         <!--== Start Contact Info Area Wrapper ==-->
     @include('frontend._inc.divider',[])
     <!--== End Contact Info Area Wrapper ==-->
-    
+    {{-- include the terms and condition modal --}}
+
 @endsection
 
 {{-- @section('styleplugins')
@@ -202,68 +210,125 @@
 
 @section('extra_script')
 <script>
-    $(document).ready(function(){
-        $('#billing-country').on('change', function () {
-                var idCountry = this.value;
-          // Fetch shipping info
-          $("#shipping_location").html('');
-          $("#bill_zone").html('');
-                $.ajax({
-                    url: "{{url('/guest/api/fetch-zones')}}",
-                    type: "POST",
-                    data: {
-                        country_id: idCountry,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-                    success: function (res) {
-                        // console.log(res.zones.length)
-                        if(res.zones.length != 0){
-                       $("#shipping_location").html('');
-                            
-                            $('#bill_zone').html('<option value="">Available Zone(s)</option>');
-                            $.each(res.zones, function (key, value) {
-                              let amount = value.shipping_cost == 0 ? ' - Free': ' - &#8358;'+value.shipping_cost ;
-                               $("#bill_zone").append('<option value="' + value
-                            .id + '">' + value.zone + amount + '</option>');
-                            });
-                           
-                        }else{
-                            
-                            $('#bill_zone').html('<option value="">No shipping service found.</option>');
-                        
-                        }
-                       
-                    }
-                });
-         });
+  $(document).ready(function(){
+    $("#shipping_method_list").slideUp("fast")
+      $('#billing-country').on('change', function () {
+              var idCountry = this.value;
+        // Fetch shipping info
+        // $("#shipping_location").html('');
+        $("#bill_state").html('');
+              $.ajax({
+                  url: "{{url('/guest/api/fetch-states')}}",
+                  type: "POST",
+                  data: {
+                      country_id: idCountry,
+                      _token: '{{csrf_token()}}'
+                  },
+                  dataType: 'json',
+                  success: function (res) {
+                      // console.log(res)
+                      if(res.states.length != 0){
+                      $("#shipping_location").html('');
+                          
+                          $('#bill_state').html('<option value="">Available Region</option>');
+                          $.each(res.states, function (key, value) {
+                            // let amount = value.shipping_cost == 0 ? ' - Free': ' - &#8358;'+value.shipping_cost ;
+                              $("#bill_state").append('<option value="' + value
+                          .id + '">' + value.name+ '</option>');
+                          });
+                          
+                      }else{
+                          
+                          $('#bill_state').html('<option value="">No shipping region found.</option>');
+                      
+                      }
+                      
+                  }
+              });
+        });
 
-         $("#bill_zone").on("change",function(){
-          // Fetch city info 
-          // $("#bill_city").html('');
-          var idZone = this.value;
-          // console.log(idState)
-                $.ajax({
-                    url: "{{url('/guest/api/fetch-zone')}}",
-                    type: "POST",
-                    data: {
-                        zone_id: idZone,
-                        _token: '{{csrf_token()}}'
+        $("#bill_state").on("change",function(){
+        $('#shipping_method').html('');
+        var idState = this.value;
+        // console.log(idState)
+              $.ajax({
+                  url: "{{url('/checkout/fetch/shipping/method')}}",
+                  type: "POST",
+                  data: {
+                      state_id: idState,
+                      _token: '{{csrf_token()}}'
+                  },
+                  dataType: 'json',
+                          beforeSend: function () { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                      $('.spinner').html(`<i class="fas fa-spinner fa-spin fa-2x mx-auto"></i>`)
+                  },
+                  success: function (res) {
+                  
+                  if (res.datas != null) {
+                        $('#shipping_method').html('<option value="">Available Shipping Method</option>');
+                        $.each(res.datas, function (key, value) { $("#shipping_method").append(`<option value="${value.id}">${value.name} - ₦${value.price}</option>`
+                          );
+                        // $.each(res.datas, function (key, value) { $("#shipping_method").append(`
+                        // <div class="form-check">
+                        //     <input class="form-check-input" type="radio" name="shipping_method" value="${value.id}" id="flexCheckDefault${value.id}" class="form-control shipping_method ">
+                        //     <label class="form-check-label" for="flexCheckDefault${value.id}">
+                        //    ${value.name} - ₦${value.price}
+                        //     </label>
+                        //   </div>`
+                        //   );
+                          });
+                    $('.contiue').prop("disabled", false);
+                    $('.btn_text').html('Continue');
+                  }else{
+                    $("#shipping_method").append(`<option value="" selected>No Shipping Method Found</option`)
+                    $('.contiue').prop("disabled", true);
+                    $('.btn_text').html('Disabled');
+                  }   
                     },
-                    dataType: 'json',
-                    success: function (res) {
-                        // console.log(res)
-                       
-                            $('#shipping_location').html('<option value="">Available State(s)</option>');
-                            $.each(res.states, function (key, value) { $("#shipping_location").append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
-                            });
-                           
-                       
-                       
-                    }
-                });
-         })
-    })
+                    complete: function () { 
+                    // Set our complete callback, adding the .hidden class and hiding the spinner.
+                    $('.spinner').html(``)
+                    $("#shipping_method_list").slideDown("slow")
+
+                    // console.log('completed')
+                },
+              });
+        })
+
+        // SELECT SHIPPING SERVICES:::::::::::::::::
+  $('#shipping_method').on('change', function (e) {
+      var shipping_method = $( "#shipping_method option:selected" ).val();
+      var shipping_method_state_id = $("#bill_state option:selected" ).val();
+      
+
+  $.ajax({
+    url: "{{url('/checkout/add_shipping')}}",
+                  type: "POST",
+                  data: {
+                    shipping_method_id: shipping_method,
+                    shipping_method_state_id: shipping_method_state_id,
+                      _token: '{{csrf_token()}}'
+                  },
+      beforeSend: function () { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                      $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                      $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                  },
+      // url: '/checkout/add_shipping' + '/' + shipping_method,
+
+      success: function (data) {
+          // console.log(data)
+          let amount = '&#8358;' + data.shippPrice
+          // let amount = '&#8358;' + data.shippPrice
+          // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
+        
+          $('.shipping_value').html(amount)
+          $('.orderTotal').html('&#8358;' + data.cartTotal)
+          $('.flutterPayTotal').val(data.cartTotal)
+                  
+      }
+  });
+        
+  });
+  })
 </script>
 @endsection

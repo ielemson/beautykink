@@ -18,7 +18,9 @@ use App\Models\City;
 use App\Models\GeoZone;
 use App\Models\Order;
 use App\Models\Setting;
+use App\Models\ShippingMethod;
 use App\Models\State;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -346,6 +348,12 @@ class GuestCheckoutController extends Controller
         return response()->json(['locations'=>$shippingLocation]);
     }
 
+    public function fetchStates(Request $request)
+    {
+        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id","country_id"]);
+        return response()->json($data);
+    }
+    
     public function fetchCity(Request $request)
     {
         $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
@@ -362,5 +370,36 @@ class GuestCheckoutController extends Controller
         $state_ids = json_decode($data['zone']['state_ids']);
         $data['states'] = State::whereIn('id',$state_ids)->get();
         return response()->json($data);
+    }
+
+
+    public function fetchShippingMethod(Request $request){
+        
+        try {
+            // Get the shpping info
+        $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
+        // decode the state ids from the shipping info
+        $methodIds =  json_decode($data['shipping_method_id']);
+        
+
+            $shippingMethods = ShippingMethod::whereIn("id",$methodIds)->get();
+        } catch (Exception $e) {
+              
+            // $message = $e->getMessage();
+            // var_dump('Exception Message: '. $message);
+  
+            // $code = $e->getCode();       
+            // var_dump('Exception Code: '. $code);
+  
+            // $string = $e->__toString();       
+            // var_dump('Exception String: '. $string);
+            return response()->json(['error'=>'error'],200);
+            exit;
+        }
+
+        return response()->json([
+            'datas'=>$shippingMethods
+        ],200);
+       
     }
 }

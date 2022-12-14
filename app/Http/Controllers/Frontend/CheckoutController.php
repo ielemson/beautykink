@@ -20,7 +20,9 @@ use Mollie\Laravel\Facades\Mollie;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PaymentRequest;
+use App\Models\ShippingMethod;
 use App\Traits\CashOnDeliveryCheckout;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 class CheckoutController extends Controller
@@ -77,6 +79,11 @@ class CheckoutController extends Controller
     public function billingStore(Request $request)
     {
      
+        // dd($request->all());
+        $shippingMethods = ShippingMethod::where("id",$request->shipping_method)->first();
+        if(!$shippingMethods){
+            return redirect()->back()->withError(__('Invalid shipping method selected'));
+        }
         Session::put('billing_address', $request->all());
 
                 $shipping = [
@@ -88,9 +95,11 @@ class CheckoutController extends Controller
                     'ship_address1'   => $request->bill_address1,
                     'ship_address2'   => $request->bill_address2,
                     'ship_zip'        => $request->bill_zip,
-                    'ship_state'       => $request->bill_state,
+                    'ship_state'      => $request->bill_state,
                     'ship_zone'       => $request->bill_zone,
-                    'ship_county'     => $request->bill_country
+                    'ship_county'              => $request->bill_country,
+                    'terms_and_conditions'     => $request->terms_and_conditions,
+                    'shipping_method'          => $request->shipping_method
                 ];
             
             Session::put('shipping_address', $shipping);
@@ -319,6 +328,35 @@ class CheckoutController extends Controller
         }
     }
 
+    public function fetchShippingMethod(Request $request){
+        
+        try {
+            // Get the shpping info
+        $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
+        // decode the state ids from the shipping info
+        $methodIds =  json_decode($data['shipping_method_id']);
+        
+
+            $shippingMethods = ShippingMethod::whereIn("id",$methodIds)->get();
+        } catch (Exception $e) {
+              
+            // $message = $e->getMessage();
+            // var_dump('Exception Message: '. $message);
+  
+            // $code = $e->getCode();       
+            // var_dump('Exception Code: '. $code);
+  
+            // $string = $e->__toString();       
+            // var_dump('Exception String: '. $string);
+            return response()->json(['error'=>'error'],200);
+            exit;
+        }
+
+        return response()->json([
+            'datas'=>$shippingMethods
+        ],200);
+       
+    }
     // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
    
 }

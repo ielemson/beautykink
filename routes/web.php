@@ -745,7 +745,10 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::post('/guest/api/fetch-shipping', [GuestCheckoutController::class, 'fetchShippingLocation'])->name('frontend.guest.fetchshippinglocation');
         Route::post('/guest/api/fetch-zones', [GuestCheckoutController::class, 'fetchZones']);
         Route::post('/guest/api/fetch-zone', [GuestCheckoutController::class, 'fetchZone']);
-        
+        Route::post('/guest/api/fetch-states', [GuestCheckoutController::class, 'fetchStates']);
+
+        Route::post('/guest/checkout/fetch/shipping/method', [GuestCheckoutController::class, 'fetchShippingMethod']);
+        // Route::post('/guest/checkout/add_shipping', [FrontendController::class, 'getShippingInfo']);
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
 
         //------------ Checkout ------------
@@ -756,6 +759,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/checkout/review/payment', [CheckoutController::class, 'payment'])->name('frontend.checkout.payment');
         Route::post('/checkout-submit', [CheckoutController::class, 'checkout'])->name('frontend.checkout.submit');
         Route::get('/checkout/success', [FrontendController::class, 'paymentSuccess'])->name('frontend.checkout.success');
+        Route::post('/checkout/fetch/shipping/method', [CheckoutController::class, 'fetchShippingMethod']);
         // The route that the button calls to initialize payment
             Route::post('/checkout/flutterpay', [FlutterwaveController::class, 'initialize'])->name('pay');
             // The callback url after a payment
@@ -764,7 +768,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         // Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
         // Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
         // Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
-        Route::get('/checkout/add_shipping/{id?}', [FrontendController::class, 'getShippingInfo'])->name('frontend.checkout.getShippingInfo');
+        Route::post('/checkout/add_shipping', [FrontendController::class, 'getShippingInfo']);
 
 
         Route::post('/paytm/notify', [PaytmController::class, 'notify'])->name('frontend.paytm.notify');

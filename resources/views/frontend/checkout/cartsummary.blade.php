@@ -63,4 +63,50 @@
             @endforeach
           </ul>
     </div> --}}
+
+    
+
+    <div class="block-reassurance">
+      {{-- <ul>
+        <li>
+          <h4 class="panel-title">
+            <span class="icon">
+              <i class="fa fa-truck"></i>
+            </span>
+         
+          </h4>
+          <span>Security Policy (Edit With Customer Reassurance Module)</span>
+        </li>
+       
+      </ul> --}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <span class="icon">
+              <i class="fa fa-truck"></i>
+            </span>
+            <span class="text">Shipping method </span>
+          </h4>
+        </div>
+        <div class="panel-body">
+          
+            <p class="description">Please select the preferred shipping method to use on this order.</p>
+          
+          <div id="shipping_method_list">
+            
+              <strong class="title">Shipping Rate *</strong>
+              <div class="spinner mx-auto" style="text-align:center"></div>
+              {{-- <div id="shipping_method"></div>  --}}
+              <div class="col-sm-12 shipingmethod_data">
+                <div class="form-group">
+                  {{-- <label for="checkout-country">{{ __('Shipping Zone') }}*</label> --}}
+                  <select class="form-control" name="shipping_method" id="shipping_method" class="form-control" required>
+                  </select>
+              </div>
+              </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
