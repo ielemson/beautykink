@@ -35,7 +35,7 @@ function renderStarRating($rating, $maxRating = 5)
 
 
 
-  <div class="container pb-55">
+  <div class="container pb-55 mt-60">
     <div class="row">
       <div class="col-md-12 text-center">
         
