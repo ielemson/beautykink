@@ -477,33 +477,33 @@ $('body').on('click', '.remove_from_compare', function () {
 
     
 
-    $( document ).ready(function() {
+    // $( document ).ready(function() {
 
-        var ship_id = $( "#bill_zone option:selected" ).val();
-        // console.log(ship_id)
-        if(!ship_id){
-            ship_id = '';
-        }
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '/checkout/add_shipping' + '/' + ship_id,
-            success: function (data) {
-                // console.log(data)
-                $('.shipping_value').html('&#8358;' + data.shippPrice)
-                $('.orderTotal').html('&#8358;' + data.cartTotal)
-                $('#flutterPayTotal').val(data.cartTotal)
+    //     var ship_id = $( "#bill_zone option:selected" ).val();
+    //     // console.log(ship_id)
+    //     if(!ship_id){
+    //         ship_id = '';
+    //     }
+    //     $.ajax({
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         url: '/checkout/add_shipping' + '/' + ship_id,
+    //         success: function (data) {
+    //             // console.log(data)
+    //             $('.shipping_value').html('&#8358;' + data.shippPrice)
+    //             $('.orderTotal').html('&#8358;' + data.cartTotal)
+    //             $('#flutterPayTotal').val(data.cartTotal)
                         
-            }
-        });
+    //         }
+    //     });
         
-    //     $.get('/checkout/add_shipping' + '/' + ship_id, function (data) {
-    //         // console.log(data)
-    //     $('.shipping_value').html('&#8358;' + data.shippPrice)
-    //     $('.orderTotal').html('&#8358;' + data.cartTotal)
+    // //     $.get('/checkout/add_shipping' + '/' + ship_id, function (data) {
+    // //         // console.log(data)
+    // //     $('.shipping_value').html('&#8358;' + data.shippPrice)
+    // //     $('.orderTotal').html('&#8358;' + data.cartTotal)
             
-    // })
-    });
+    // // })
+    // });
     // SELECT SHIPPING SERVICES:::::::::::::::::
 
 })(window.jQuery);

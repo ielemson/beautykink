@@ -11,11 +11,13 @@
        <!--== End Page Header Area Wrapper ==-->
        <section class="product-area">
         <div class="container" data-padding-top="62">
-          <div class="shopping-cart-wrap">
-            <div class="row"> 
-              {{-- Form Starts --}}
+          <div class="shopping-cart-wrap"> 
+                {{-- Form Starts --}}
               <form id="checkoutBilling" action="{{ route('frontend.checkout.store') }}" method="POST">
                 @csrf
+            <div class="row">  
+           
+           
                 <div class="col-lg-8">
                 <div class="shopping-checkout-content">
                   <div class="checkout-accordion" id="accordionExample">
@@ -323,7 +325,7 @@
         
           $('.shipping_value').html(amount)
           $('.orderTotal').html('&#8358;' + data.cartTotal)
-          $('.flutterPayTotal').val(data.cartTotal)
+          // $('.flutterPayTotal').val(data.cartTotal)
                   
       }
   });

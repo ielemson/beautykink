@@ -176,6 +176,7 @@ class FlutterwaveController extends Controller
         $order_data['shipping_info']      = json_encode(Session::get('shipping_address'), true);
         $order_data['billing_info']       = json_encode(Session::get('billing_address'), true);
         $order_data['payment_method']     = $data['data']['narration'];
+        // $order_data['payment_method']     = 'Bank Transfer';
         $order_data['payment_type']       = $data['data']['payment_type'];
         $order_data['app_fee']            = $data['data']['app_fee'];
         $order_data['charged_amount']     = $data['data']['charged_amount'];
@@ -186,7 +187,7 @@ class FlutterwaveController extends Controller
         $order_data['transaction_number'] = Str::random(10);
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
         $order_data['currency_value']     = PriceHelper::setCurrencyValue();
-        $order_data['payment_status']     = 'Unpaid';
+        $order_data['payment_status']     = 'Paid';
         $order_data['txnid']              = $data['data']['tx_ref'];
         $order_data['order_status']       = 'Pending';
         $order                            = Order::create($order_data);
@@ -224,10 +225,12 @@ class FlutterwaveController extends Controller
         Session::forget('cart');
         Session::forget('discount');
         Session::forget('coupon');
-        Session::forget('shipping_price');
         Session::forget('shipping_id');
+        Session::forget('shipping_state_id');
+        Session::forget('shipping_price');
         Session::forget('shipping_address');
         Session::forget('billing_address');
+        Session::forget('free_shipping');
 
         return redirect()->route('frontend.checkout.success');
         // return [
@@ -238,13 +241,15 @@ class FlutterwaveController extends Controller
         }
         elseif ($status ==  'cancelled'){
             //Put desired action/code after transaction has been cancelled here
-        Session::forget('cart');
-        Session::forget('discount');
-        Session::forget('coupon');
-        Session::forget('shipping_id');
-        Session::forget('shipping_price');
-        Session::forget('shipping_address');
-        Session::forget('billing_address');
+            Session::forget('cart');
+            Session::forget('discount');
+            Session::forget('coupon');
+            Session::forget('shipping_id');
+            Session::forget('shipping_state_id');
+            Session::forget('shipping_price');
+            Session::forget('shipping_address');
+            Session::forget('billing_address');
+            Session::forget('free_shipping');
             return view('frontend.checkout.cancel');
         }
         else{

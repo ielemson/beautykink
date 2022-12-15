@@ -94,6 +94,7 @@
         <div class="card text-center">
           <div class="card-body padding-top-2x">
             <h3 class="card-title">{{ __('Your shopping cart is empty.') }}</h3>
+            <i class="fas fa-shopping-cart-empty" style="font-size: 3rem"></i>
           <button class="btn-theme" onclick="window.location.href='{{ route('frontend.catalog') }}'"><i class="icon-package pr-2"></i> {{ __('View our products') }}</button></div>
           </div>
         </div>

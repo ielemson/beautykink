@@ -731,6 +731,7 @@ class FrontendController extends Controller
          $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
          $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
          $cart_total = ($total - $coupon) + $shippingPrice;
+         Session::put('flutterPayTotal',$cart_total);
          return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total], 200);
      }
 
