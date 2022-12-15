@@ -30,16 +30,16 @@
                   <tr>
                     <th>{{ __('#') }}</th>
                     <th>{{ __('Country') }}</th>
-                    <th>{{ __('State') }}</th>
+                    <th>{{ __('Zone') }}</th>
                     {{-- <th>{{ __('Zone') }}</th> --}}
-                    <th>{{ __('Shipping Method') }}</th>
-                    <th>{{ __('Price') }}</th>
+                    {{-- <th>{{ __('Shipping Method') }}</th> --}}
+                    {{-- <th>{{ __('States') }}</th> --}}
                     <th>{{ __('Status') }}</th>
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @include('backend.geozone.table', compact('datas'))
+                    @include('backend.geozone.table', compact('geozones'))
                   </tbody>
                 </table>
               </div>

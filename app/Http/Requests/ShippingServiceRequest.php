@@ -25,7 +25,7 @@ class ShippingServiceRequest extends FormRequest
     {
         return [
             'method' => 'nullable',
-            'state_id' => 'required|unique:shipping_services,state_id',
+            'state_id' => 'required',
             'country_id' => 'required',
             'price' => 'numeric|max:9999999999',
         ];

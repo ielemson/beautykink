@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Helpers\EmailHelper;
 use App\Helpers\PriceHelper;
 use App\Models\Notification;
+use App\Models\ShippingMethod;
 use App\Models\ShippingService;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -148,11 +149,14 @@ class FlutterwaveController extends Controller
         // dd($cart);
         $shipping = [];
         
-        $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
+        $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
         
-        if ($shipping = ShippingService::where('id',$shipping_id)->exists()) {
-            $shipping = ShippingService::where('id',$shipping_id)->first();
+        if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
+            $shipping = ShippingMethod::where('id',$shipping_id)->first();
+            $shipping['price'] = $shipping->price;
+            $shipping['shipping_state_id'] = Session::get('shipping_state_id');
         }
+
 
         $discount = [];
         if (Session::has('coupon')) {

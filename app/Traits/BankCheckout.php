@@ -73,48 +73,35 @@ trait BankCheckout
         $setting = Setting::first();
         $cart = Cart::content();
         $cartArr = [];
-        // dd($cart);
-        // $total_tax = 0;
-        // $cart_total = 0;
-        // $total = 0;
-        // $option_price = 0;
-      
+        
         foreach ($cart as $key => $item) {
-            // $total += $item['main_price'] * $item['qty'];
-            // $option_price += $item['attribute_price'];
-            // $cart_total = $total + $option_price;
-            // $item = Item::findOrFail($key);
-            // if ($item->tax) {
-            //     $total_tax += $item->taxCalculate($item);
-            // }
+            
             array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'attribute_name'=>$item->options->attribute_name,'attribute_color'=>$item->options->attribute_color,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
         }
 
         // dd($cart);
         $shipping = [];
         
-        $shipping_method_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
+        $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
         
-        if ($shipping_method = ShippingMethod::where('id',$shipping_method_id)->exists()) {
-            $shipping_method = ShippingMethod::where('id',$shipping_method_id)->first();
-            $shipping_method['price'] = $shipping_method->price;
-            $shipping_method['shipping_state_id'] = Session::get('shipping_state_id');
+        if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
+            $shipping = ShippingMethod::where('id',$shipping_id)->first();
+            $shipping['price'] = $shipping->price;
+            $shipping['shipping_state_id'] = Session::get('shipping_state_id');
         }
 
         $discount = [];
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-        // $data['cart_total'] = 
-        // $data['cart_count'] = Cart::count();
-        // $data['grand_total'] = Cart::subtotal();
+       
         $grand_total = Cart::total();
         // $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
         $total_amount = $grand_total;
 
         $order_data['cart']               = json_encode($cartArr, true);
         $order_data['discount']           = json_encode($discount, true);
-        $order_data['shipping']           = json_encode($shipping_method, true);
+        $order_data['shipping']           = json_encode($shipping, true);
         $order_data['tax']                = 0;
         $order_data['shipping_info']      = json_encode(Session::get('shipping_address'), true);
         $order_data['billing_info']       = json_encode(Session::get('billing_address'), true);

@@ -483,6 +483,7 @@ Route::prefix('admin')->group(function(){
     Route::get('geozone/edit/{id}', [GeoZoneController::class, 'edit'])->name('backend.geozone.edit');
     Route::get('geozone/destory/{id}', [GeoZoneController::class, 'destroy'])->name('backend.geozone.destroy');
     Route::post('geozone/update/{id}', [GeoZoneController::class, 'update'])->name('backend.geozone.update');
+    Route::post('geozone/zone/store', [GeoZoneController::class, 'store_zone'])->name('backend.geozone.store_zone');
     Route::post('geozone/country/destroy', [GeoZoneController::class, 'destroy_country'])->name('backend.geozone.country.destroy');
     // State for geoone
     Route::get('geozone/state', [GeoZoneController::class, 'state'])->name('backend.geozone.state');
@@ -733,6 +734,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::get('/catalog/category/{catId}', [CatalogController::class, 'filterByCategory'])->name('frontend.category.view');
         Route::get('/catalog/subcategory/{subcatId}', [CatalogController::class, 'filterBySubcategory'])->name('frontend.subcategory.view');
         Route::get('/catalog/childcategory/{childcatId}', [CatalogController::class, 'filterByChildcategory'])->name('frontend.childcategory.view');
+        Route::get('/catalog/tag/{tag}', [CatalogController::class, 'filterByTag'])->name('frontend.catalog.tag');
 
         // GUEST CHECKOUT CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::
         Route::get('/guest/checkout/billing/address', [GuestCheckoutController::class, 'ShippingAddress'])->name('frontend.guest.checkout');

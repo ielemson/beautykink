@@ -1,14 +1,11 @@
-@foreach ($datas as $data)
+@foreach ($zones as $data)
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $data->country->name }}</td> 
-        <td>{{ $data->state->name}}</td>
+        <td>{{ $data->name}}</td>
         {{-- <td>{{ $data->zone->zone}}</td> --}}
        
-        <td>
-            {{$data->method}}
-        </td>
-        <td>{{$data->price }}</td>
+      
         <td>
             <div class="input-group-prepend">
                 <button type="button" class="btn btn-{{ $data->status == 1 ? 'success' : 'danger' }} btn-sm dropdown-toggle" data-toggle="dropdown">

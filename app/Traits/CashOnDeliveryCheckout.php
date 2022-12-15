@@ -12,6 +12,7 @@ use App\Helpers\EmailHelper;
 use App\Helpers\PriceHelper;
 use App\Models\GeoZone;
 use App\Models\Notification;
+use App\Models\ShippingMethod;
 use App\Models\ShippingService;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -63,7 +64,7 @@ trait CashOnDeliveryCheckout
                 'ship_county'     => 'Nigeria'
             ];  
 
-            $user->update($input);
+            $guestUser->update($input);
             
 
         }
@@ -73,32 +74,20 @@ trait CashOnDeliveryCheckout
         $setting = Setting::first();
         $cart = Cart::content();
         $cartArr = [];
-        // dd($cart);
-        // $total_tax = 0;
-        // $cart_total = 0;
-        // $total = 0;
-        // $option_price = 0;
-      
+        
         foreach ($cart as $key => $item) {
-            // $total += $item['main_price'] * $item['qty'];
-            // $option_price += $item['attribute_price'];
-            // $cart_total = $total + $option_price;
-            // $item = Item::findOrFail($key);
-            // if ($item->tax) {
-            //     $total_tax += $item->taxCalculate($item);
-            // }
+          
             array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'attribute_name'=>$item->options->attribute_name,'attribute_color'=>$item->options->attribute_color,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
         }
 
-        // dd($cart);
         $shipping = [];
         
-        $shipping_id = Session::has('shipping_id') ? Session::get('shipping_id'): 0;
+        $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
         
-        if ($shipping = GeoZone::where('id',$shipping_id)->exists()) {
-            $shipping = GeoZone::where('id',$shipping_id)->first();
-            $shipping['price'] = $shipping->shipping_cost;
-            $shipping['zone_id'] = $shipping->id;
+        if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
+            $shipping = ShippingMethod::where('id',$shipping_id)->first();
+            $shipping['price'] = $shipping->price;
+            $shipping['shipping_state_id'] = Session::get('shipping_state_id');
         }
 
         $discount = [];
@@ -118,7 +107,7 @@ trait CashOnDeliveryCheckout
         $order_data['tax']                = 0;
         $order_data['shipping_info']      = json_encode(Session::get('shipping_address'), true);
         $order_data['billing_info']       = json_encode(Session::get('billing_address'), true);
-        $order_data['payment_method']     = 'Cash On Delivery';
+        $order_data['payment_method']     = 'Bank Transfer';
         $order_data['user_id']            = $user->id;
         $order_data['transaction_number'] = Str::random(10);
         $order_data['currency_sign']      = PriceHelper::setCurrencySign();
@@ -162,6 +151,7 @@ trait CashOnDeliveryCheckout
         Session::forget('discount');
         Session::forget('coupon');
         Session::forget('shipping_id');
+        Session::forget('shipping_state_id');
         Session::forget('shipping_price');
         Session::forget('shipping_address');
         Session::forget('billing_address');
@@ -170,5 +160,4 @@ trait CashOnDeliveryCheckout
             'status' => true
         ];
     }
-
 }

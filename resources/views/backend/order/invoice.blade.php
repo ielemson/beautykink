@@ -64,7 +64,12 @@
                         <b>{{ __('Address : ') }}</b>{{ $bill['bill_address1'] }}<br>
                     @endif
                     @if (isset($bill['bill_country']))
-                        <b>{{ __('Country : ') }}</b>{{ $bill['bill_country'] }}<br>
+                        <b>{{ __('Country : ') }}</b>
+                        @php
+                          $country = DB::table('countries')->where('id',$bill['bill_country'])->first();
+                        @endphp
+                        {{ $country->name}}
+                        <br>
                     @endif
                     @if (isset($bill['bill_city']))
                         <b>{{ __('City : ') }}</b>{{ $bill['bill_city'] }}<br>
@@ -89,7 +94,13 @@
                         <b>{{ __('Address : ') }}</b>{{ $ship['ship_address1'] }}<br>
                     @endif
                     @if (isset($ship['ship_country']))
-                        <b>{{ __('Country : ') }}</b>{{ $ship['ship_country'] }}<br>
+                        <b>{{ __('Country : ') }}</b>
+                        @php
+                        $country = DB::table('countries')->where('id',$ship['ship_country'])->first();
+                      @endphp
+                      {{ $country->name}}
+                        {{-- {{ $ship['ship_country'] }} --}}
+                        <br>
                     @endif
                     @if (isset($ship['ship_city']))
                         <b>{{ __('City : ') }}</b>{{ $ship['ship_state'] }}<br>

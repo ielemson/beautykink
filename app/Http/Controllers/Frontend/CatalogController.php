@@ -213,4 +213,12 @@ class CatalogController extends Controller
        
         return view('frontend.catalog.index',compact('items','categories','category'));
     }
+
+    public function filterByTag($tag){
+        $items =  Item::where('tags', 'like', '%' . $tag . '%')->paginate(10);
+        $categories =  Category::whereStatus(1)->orderBy('serial', 'asc')->withCount(['items' => function($query) {
+            $query->where('status', 1);
+        }])->get();
+        return view('frontend.catalog.tag',compact('items','categories'));
+    }
 }

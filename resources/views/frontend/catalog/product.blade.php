@@ -154,10 +154,10 @@ object-position: bottom;">
                                             @foreach (explode(',', $item->tags) as $tag)
                                                 @if ($loop->last)
                                                     <a
-                                                        href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>
+                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ $tag }}</a>
                                                 @else
                                                     <a
-                                                        href="{{ route('frontend.catalog') . '?tag=' . $tag }}">{{ $tag }}</a>,
+                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ $tag }}</a>,
                                                 @endif
                                             @endforeach
                                         @endif

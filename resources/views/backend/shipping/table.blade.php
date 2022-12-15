@@ -2,7 +2,17 @@
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $data->country->name }}</td> 
-        <td>{{ $data->state->name}}</td>
+        <td>
+            {{ $data->state->name}}
+            {{-- @php
+            $state_ids = json_decode($data->state_id,true);
+            $states = DB::table('states')->whereIn('id',$state_ids)->get();
+        @endphp
+          @foreach ($states as $state)
+                
+          <span class="badge badge-pill badge-primary">{{strtolower($state->name)}}</span>
+      @endforeach --}}
+        </td>
         {{-- <td>{{ $data->zone->zone}}</td> --}}
        
         <td>

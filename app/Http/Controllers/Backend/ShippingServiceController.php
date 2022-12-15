@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShippingServiceRequest;
 use App\Models\Currency;
 use App\Models\ShippingService;
-use App\Models\{Country, State, City, GeoZone, ShippingMethod};
+use App\Models\{Country, State, City, GeoZone, ShippingMethod, Zone};
 use Illuminate\Http\Request;
 
 class ShippingServiceController extends Controller
@@ -65,13 +65,16 @@ class ShippingServiceController extends Controller
 
     public function fetchZones(Request $request)
     {
-        $data['cities'] = GeoZone::where("id",$request->zone_id)->first();
-        $state_ds = json_decode($data['cities']['state_ids']);
-        $states = State::whereIn('id',$state_ds)->get();
-        return response()->json([
-            'states'=>$states,
-            'cost'=>$data['cities']['shipping_cost']
-        ]);
+        // $data['cities'] = GeoZone::where("id",$request->zone_id)->first();
+        // $state_ds = json_decode($data['cities']['state_ids']);
+        // $states = State::whereIn('id',$state_ds)->get();
+        // return response()->json([
+        //     'states'=>$states,
+        //     'cost'=>$data['cities']['shipping_cost']
+        // ]);
+
+        $data['zones'] = Zone::where('country_id',$request->country_id)->get(['name','id']);
+        return response()->json($data);
     }
 
     public function fetchShippingZones(Request $request)
@@ -92,12 +95,15 @@ class ShippingServiceController extends Controller
     */
     public function store(ShippingServiceRequest $request)
     {
+       foreach($request->state_id as $id){
         $shippingModel = new ShippingService;
         $shippingModel->status = 0;
         $shippingModel->country_id = $request->country_id;
         $shippingModel->shipping_method_id = json_encode($request->shipping_method_id, true);
-        $shippingModel->state_id = $request->state_id;
+        $shippingModel->state_id = $id;
+        // $shippingModel->state_id = json_encode($request->state_id,true);?\
         $shippingModel->save();
+       }
 
         return redirect()->route('backend.shipping.index')->withSuccess(__('New Shipping Method Added Successfully.'));
     }
