@@ -221,7 +221,7 @@ class FrontendController extends Controller
             'brands'                 => Brand::whereStatus(1)->whereIsPopular(1)->get(),
             'products'               => Item::with('category')->whereStatus(1),
             'new_products'           => Item::with('category')->where('is_type','new')->whereStatus(1),
-            'highlights'             => Highlight::all(),
+            'highlights'             => Highlight::where('status',1)->get(),
             'home_page4_banner'      => json_decode($home_customize->home_page4, true),
             'popular_category_home4' => $popular_category_home4,
 
