@@ -733,8 +733,8 @@ section .container-fluid {
   position: absolute;
   top: 50%;
   text-align: center;
-  opacity: 0;
-  visibility: hidden;
+  /* opacity: 0; */
+  /* visibility: hidden; */
   width: 50px;
   transform: translate(0px, -50%);
   -webkit-transform: translate(0px, -50%);

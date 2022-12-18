@@ -23,7 +23,8 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
 use App\Models\AboutUs;
-use App\Models\GeoZone;
+// use App\Models\GeoZone;
+use App\Models\Highlight;
 use App\Models\RestockReminder;
 use App\Models\ShippingMethod;
 use App\Models\ShippingService;
@@ -55,7 +56,7 @@ class FrontendController extends Controller
     {
         
         $setting = Setting::first();
-     
+    //  dd(Highlighter::all());
         // feature category
         $home_customize = HomeCustomize::first();
         $feature_category_ids = json_decode($home_customize->feature_category, true);
@@ -220,6 +221,7 @@ class FrontendController extends Controller
             'brands'                 => Brand::whereStatus(1)->whereIsPopular(1)->get(),
             'products'               => Item::with('category')->whereStatus(1),
             'new_products'           => Item::with('category')->where('is_type','new')->whereStatus(1),
+            'highlights'             => Highlight::all(),
             'home_page4_banner'      => json_decode($home_customize->home_page4, true),
             'popular_category_home4' => $popular_category_home4,
 
@@ -416,7 +418,7 @@ class FrontendController extends Controller
     // ------------ Extra Index ------------------
     public function product($slug)
     {
-        $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->firstOrFail();
+        $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->with('highlight')->firstOrFail();
         // dd($item);
         $buttons = \Share::page('https://dev.beautykink.com', $item->name,)->facebook()->telegram()->twitter()->whatsapp();
 

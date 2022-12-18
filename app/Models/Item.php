@@ -166,4 +166,16 @@ class Item extends Model
     {
         return Wishlist::whereItemId($this->id)->first()->id;
     }
+
+    public function highlights()
+    {
+        return $this->belongsToMany(Highlight::class);
+    }
+
+    public function highlight()
+    {
+        // return $this->belongsTo(ItemHiglight::class);
+        return $this->belongsTo(Highlight::class)->withDefault();
+    }
+
 }

@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Create New Shipping Method') }}</h1>
+            <h1>{{ __('Highlight Product') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -23,33 +23,33 @@
             <div class="card">
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('backend.shippingmethod.store') }}" method="POST">
+              <form action="{{route('backend.highlight.store')}}" method="POST">
                 @csrf
+                @method('POST')
                 <div class="card-body row">
                     <div class="col-md-12">
                         @include('alerts.alerts')
                     </div>
-                            
-                  <div class="form-group  col-md-4">
-                    <label for="title">{{ __('Shipping Rate') }} </label>
-                    <small>({{ __('Set 0 to make it free') }})</small>
-                    <div class="input-group mb-3">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                          {{ PriceHelper::adminCurrency() }}
-                      </div>
+
+                <div class="form-group col-md-6">
+                    <label for="date">{{ __('Create New Highight') }} *</label>
+                      <div >
+                          <input type="text" name="name" class="form-control" placeholder="Create new highlight"  required/>
+                        
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="date">{{ __('Highight Description') }} *</label>
+                      <div>
+                          <textarea type="text" name="description" class="form-control" rows="1" placeholder="Higlight description" required></textarea>
+                        
+                    </div>
+                </div>
+
                   </div>
-               <input type="number" min="0" name="price" class="form-control" placeholder="shipping cost" required>
-                </div>
-                </div>
-                <div class="form-group  col-md-6">
-                  <label for="title">{{ __('Shipping method') }} </label>
-                 <textarea name="name" required class="form-control" rows="1" required placeholder="e.g STANDARD SHIPPING (3-5 working days)"></textarea>
-              </div>
-                </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <a href="{{ route("backend.shippingmethod.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
+                    <a href="{{ route("backend.highlight.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
                   <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
               </form>

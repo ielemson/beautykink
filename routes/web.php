@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\GeoZoneController;
-use App\Http\Controllers\Backend\HighlighController;
+use App\Http\Controllers\Backend\HighlighterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Backend\OrderController;
@@ -159,17 +159,21 @@ Route::prefix('admin')->group(function(){
     Route::get('/notifications/delete/{id}', [NotificationController::class, 'deleteNotification'])->name('backend.notification.delete');
     Route::get('/notifications/clear', [NotificationController::class, 'clearNotifications'])->name('backend.notifications.clear');
 
-    // ------ Manage Products Permissions -------
-    Route::group(['middleware' => 'permissions:Manage Products'], function(){
-
-        // -------------------- HIGHLIGHT-------------------------
-        Route::resource('highlight', HighlighController::class)->except(['show'])->names([
+  Route::get('/highlight/status/{id}/{status}', [HighlighterController::class, 'status'])->name('backend.highlight.status');
+  Route::get('/highlight/destroy/{id}', [HighlighterController::class, 'destroy'])->name('backend.highlight.destroy');
+  Route::resource('highlight', HighlighterController::class)->except(['show'])->names([
             'index' => 'backend.highlight.index',
             'create' => 'backend.highlight.create',
             'store' => 'backend.highlight.store',
             'edit' => 'backend.highlight.edit',
             'update' => 'backend.highlight.update',
         ]);
+    // ------ Manage Products Permissions -------
+    Route::group(['middleware' => 'permissions:Manage Products'], function(){
+
+        // -------------------- HIGHLIGHT-------------------------
+        
+      
 
         //------------ ITEM ------------
         Route::get('/item/add', [ItemController::class, 'add'])->name('backend.item.add');
@@ -187,9 +191,12 @@ Route::prefix('admin')->group(function(){
         ]);
         Route::get('/item/destroy/{id}', [ItemController::class, 'destroy'])->name('backend.item.destroy');
 
-        //------------ ITEM HIGHLIGHT ------------
+        //------------ ITEM HIGHLIGHT ------------        
+        Route::post('/item/highlight/updater/{id}', [ItemController::class, 'highlightItemUpdate'])->name('backend.item.highlight.updater');
         Route::get('/item/highlight/{item}', [ItemController::class, 'highlight'])->name('backend.item.highlight');
         Route::post('/item/highlight/update/{item}', [ItemController::class, 'highlightUpdate'])->name('backend.item.highlight.update');
+        Route::post('/item/highlight/store', [ItemController::class, 'highlightStore'])->name('backend.item.highlight.store');
+
 
         //------------ ITEM GALLERY ------------
         Route::get('/item/galleries/{item}', [ItemController::class, 'galleries'])->name('backend.item.gallery');

@@ -53,12 +53,14 @@
                                                         <img src="{{ asset($gallery->photo) }}"
                                                             alt="slider-{{ $key }}"
                                                             style=" 
-width: 100%;
-height: auto;
-object-fit: cover;
-object-position: bottom;">
-                                                        <span
-                                                            class="product-flag-new">{{ ucfirst(str_replace('_', ' ', $item->is_type)) }}</span>
+                                                                width: 100%;
+                                                                height: auto;
+                                                                object-fit: cover;
+                                                                object-position: bottom;">
+                                                                
+                                                        {{-- <span
+                                                            class="product-flag-new">{{$item->highlight->name }}
+                                                        </span> --}}
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -109,12 +111,12 @@ object-position: bottom;">
                                             @endif
                                         </ul>
                                     </div>
-                                    @if ($item->is_type == 'flash_deal')
+                                    {{-- @if ($item->is_type == 'flash_deal')
                                         @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
                                             <div class="ht-countdown ht-countdown-style1 mt-5 mb-10"
                                                 data-date="{{ $item->date }}"></div>
                                         @endif
-                                    @endif
+                                    @endif --}}
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span

@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GalleryRequest;
+use App\Models\Highlight;
 use App\Models\ChildCategory;
 use App\Models\Gallery;
+use App\Models\ItemHiglight;
 use Intervention\Image\Facades\Image;
 use App\Repositories\Backend\ItemRepository;
 use Carbon\Carbon;
@@ -300,8 +302,11 @@ class ItemController extends Controller
     */
     public function highlight(Item $item)
     {
-        return view('backend.item.highlight', [
+        // dd(ItemHiglight::where('item_id',$item->id)->pluck('highlight_id')->toArray());
+        return view('backend.item.higlight.index', [
             'item' => $item,
+            'higlights' => Highlight::where('status',1)->get(),
+            'itemhiglights_ids' => ItemHiglight::where('item_id',$item->id)->pluck('highlight_id')->toArray()
         ]);
     }
 
@@ -454,6 +459,31 @@ class ItemController extends Controller
         $datas = Item::whereStock(0)->get();
         return view('backend.item.stock',['datas'=>$datas]);
         
+    }
+
+    
+    public function highlightStore(Request $request){
+        // return $request->all();
+        foreach ($request->highlight_id as $key => $id) {
+            $highlightProduct = new ItemHiglight();
+            $highlightProduct->highlight_id = $id;
+            $highlightProduct->item_id = $request->product_id;
+            $highlightProduct->save();
+        }
+        return redirect()->route('backend.item.index')->withSuccess(__('Prouct atttached to highlight Successfully.'));
+
+    }
+    public function highlightItemUpdate(Request $request,$id){
+        // return ItemHiglight::where('item_id',$id)->get();
+        // dd($id);
+        foreach ($request->highlight_id as $key => $id) {
+            ItemHiglight::where('highlight_id',$id)->delete();
+            // $highlightProduct->highlight_id = $id;
+            // $highlightProduct->item_id = $request->product_id;
+            // $highlightProduct->save();
+        }
+        return redirect()->route('backend.item.index')->withSuccess(__('Prouct detttached from highlight Successfully.'));
+
     }
 
 }

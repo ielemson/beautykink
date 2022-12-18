@@ -1,4 +1,4 @@
-@if ($setting->theme == 'theme1')
+{{-- @if ($setting->theme == 'theme1')
 
     @includeIf('frontend.themes.beautykink')
 
@@ -14,4 +14,6 @@
 
     @includeIf('frontend.themes.theme4')
 
-@endif
+@endif --}}
+
+@include('frontend.themes.beautykink')

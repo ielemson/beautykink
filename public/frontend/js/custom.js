@@ -201,7 +201,7 @@
       // Product Slider Js
         var product = $(".product-slider");
         product.owlCarousel({
-          autoplay: false,
+          autoplay: true,
           smartSpeed: 1000,
           nav: true,
           dots: false,

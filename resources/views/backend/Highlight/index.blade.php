@@ -1,13 +1,13 @@
 @extends('backend.layouts.backend')
 @section('content')
-      <!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('Highlight Product') }}</h1>
+            <h1>{{ __('Shipping') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -17,63 +17,55 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
-            <!-- jquery validation -->
+          <div class="col-12">
+              @include('alerts.alerts')
             <div class="card">
+              <div class="card-header text-right">
+                <a href="{{ route('backend.highlight.create') }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{ __('Add') }}</a>
+              </div>
               <!-- /.card-header -->
-              <!-- form start -->
-              <form action="" method="POST" id="quickForm" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
-                <div class="card-body row">
-                    <div class="col-md-12">
-                        @include('alerts.alerts')
-                    </div>
-{{-- 
-                  <div class="form-group  col-md-6">
-                    <label for="is_type">{{ __('Select Type') }} *</label>
-                    <select name="is_type" id="is_type"  class="form-control select2">
-                        <option value="" disabled>{{__('Select One')}}</option>
-                        <option value="new" {{$item->is_type == 'new' ? 'selected' : ''}} >{{ __('New Product') }}</option>
-                        <option value="feature" {{$item->is_type == 'feature' ? 'selected' : ''}} >{{ __('Feature Product') }}</option>
-                        <option value="top" {{$item->is_type == 'top' ? 'selected' : ''}} >{{ __('Top Product') }}</option>
-                        <option value="best" {{$item->is_type == 'best' ? 'selected' : ''}} >{{ __('Best Product') }}</option>
-                        <option value="flash_deal" {{$item->is_type == 'flash_deal' ? 'selected' : ''}} >{{ __('Flash Deal Product') }}</option>
-                    </select>
-                  </div> --}}
-
-                <div class="form-group col-md-3 show-datepicket">
-                    <label for="date">{{ __('Start Date') }} *</label>
-                      <div class="input-group date date-picker" data-target-input="nearest">
-                          <input type="text" name="name" class="form-control  flash-deal-datepicker datetimepicker-input" placeholder="Create new Highl" />
-                        
-                    </div>
-                </div>
-
-           
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <a href="{{ route("backend.item.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
-                  <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                </div>
-              </form>
+              <div class="card-body">
+                <table id="admin-table" class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>{{ __('#') }}</th>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Description') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Actions') }}</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @include('backend.highlight.table')
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
-            </div>
-          <!--/.col (left) -->
-          <!-- right column -->
-          <div class="col-md-6">
 
           </div>
-          <!--/.col (right) -->
+          <!-- /.col -->
         </div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+@endsection
+
+
+@section('script')
+    <script>
+        // $('document').ready(function(){
+        //   $('.select2').select2()
+        // })
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    </script>
 @endsection

@@ -52,7 +52,7 @@ function renderStarRating($rating, $maxRating = 5)
       </div>
     </div>
   </div>
-  <h6 class="title mt-20 text-center">{{$category->description}}</h6>
+  <h6 class="title mt-20">{{$category->description}}</h6>
   </div>
 </div> 
 
@@ -131,13 +131,14 @@ function renderStarRating($rating, $maxRating = 5)
                   <a class="active"  id="list-care-tab" data-bs-toggle="pill" href="#list-care" role="tab" aria-controls="list-care" aria-selected="true"><i class="fa fa-list"></i></a>
                 </li>
               </ul>
-              <div class="total-products">
-                <p class="hidden-sm-down"> @if ($items->count() > 1)
+              {{-- <div class="total-products">
+                <p class="hidden-sm-down"> 
+                  @if ($items->count() > 1)
                   There are {{$items->count()}} products
                   @endif
                   There is {{$items->count()}} product
               </p>
-              </div>
+              </div> --}}
             </div>
             <div class="col-8 col-sm-8 col-md-6">
               <div class="row">
@@ -188,16 +189,17 @@ function renderStarRating($rating, $maxRating = 5)
            @endif
           <div class="row">
             <div class="col-12">
-              <div class="pagination-content-wrap">
+              {{-- <div class="pagination-content-wrap">
                 <nav class="pagination-nav">
-                  {{-- <ul class="pagination justify-content-center">
-                    <li><a class="active" href="#/">1</a></li>
-                    <li><a href="#/">2</a></li>
-                    <li><a href="#/"><i class="icon-arrow-right"></i></a></li>
-                  </ul> --}}
-                  {{ $items->links() }}
-                </nav>
+                  <ul class="pagination justify-content-center">
+                   {{ $items->links() }}
+                  </ul>
+                 </nav>
+              </div> --}}
+              <div class="pagination justify-content-center">
+              {{ $items->links('frontend._inc.pagination') }}
               </div>
+              
             </div>
           </div>
         </div>

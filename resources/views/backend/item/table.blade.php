@@ -20,29 +20,34 @@
             </div>
         </td>
         <td>
-            <span class="badge badge-info">
+            {{-- <span class="badge badge-info">
                 @if ($data->is_type == 'new')
                     {{ __('New') }}
                 @else
                     {{ $data->is_type ? ucfirst(str_replace('_', '', $data->is_type)) : __('New') }}
                 @endif
+            </span> --}}
+            @foreach ($data->highlights as $highlight)
+            <span class="badge badge-info">
+                {{$highlight->name}}
             </span>
+            @endforeach
         </td>
-        <td>{{ ucfirst($data->item_type) }}</td>
+        {{-- <td>{{ ucfirst($data->item_type) }}</td> --}}
         <td>
             <div class="input-group-prepend">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                     {{  __('Options') }}
                 </button>
                 <div class="dropdown-menu">
-
-                    @if ($data->item_type == 'normal')
-                    <a class="dropdown-item" href="{{ route('backend.item.edit',$data->id) }}">
+                      <a class="dropdown-item" href="{{ route('backend.item.edit',$data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Edit') }}
                     </a>
                     <a class="dropdown-item" href="{{ route('backend.item.copy',$data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Copy') }}
                     </a>
+                    {{-- @if ($data->item_type == 'normal')
+                  
                     @elseif ($data->item_type == 'digital')
                         <a class="dropdown-item" href="{{ route('backend.digital.item.edit', $data->id) }}">
                             <i class="fas fa-angle-double-right"></i> {{ __('Edit') }}
@@ -61,7 +66,7 @@
                         <a class="dropdown-item" href="{{ route('backend.attribute.index', $data->id) }}">
                             <i class="fas fa-angle-double-right"></i> {{ __('Attributes') }}
                         </a>
-                    @endif
+                    @endif --}}
                     <a class="dropdown-item" href="{{ route('backend.item.gallery', $data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Gallery Images') }}
                     </a>

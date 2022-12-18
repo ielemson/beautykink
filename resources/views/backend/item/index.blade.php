@@ -98,7 +98,7 @@
                     <th>{{ __('Price') }}</th>
                     <th>{{ __('Status') }}</th>
                     <th>{{ __('Type') }}</th>
-                    <th>{{ __('Item Type') }}</th>
+                    {{-- <th>{{ __('Item Type') }}</th> --}}
                     <th>{{ __('Actions') }}</th>
                   </tr>
                   </thead>

@@ -48,15 +48,44 @@
     {{-- service  information area --}}  
     @endif
     
-    {{-- @if ($extra_settings->is_t2_bestseller_product == 1) --}}
+    @if ($extra_settings->is_t2_bestseller_product == 1)
     {{-- Best Seller Product Starts --}}
-    @foreach ($highlights as $highlight)
-         @include('frontend.catalog.items')
-    @endforeach
-   
+    @include('frontend.catalog.bestseller')
     {{-- Best Seller Product Ends --}}
-    {{-- @endif --}}
+    @endif
 
+    @if ($extra_settings->is_t2_new_product == 1)
+    {{--  New Product Arrivals Starts --}}
+    @include('frontend.catalog.latest')
+    {{--  New Product Arrivals Ends --}}
+    @endif
+
+    @if ($extra_settings->is_t2_featured_product == 1)
+    {{--  Top Rated Product Starts --}}
+    @include('frontend.catalog.featured')
+    {{--  New Product Arrivals Ends --}}
+    @endif
+    @if ($extra_settings->is_t2_sale_product == 1)
+    {{-- Flash deal products starts --}}
+    @include('frontend.catalog.sale')
+    {{-- Flash deal products ends --}}
+    @endif
+
+    @if ($extra_settings->is_t2_flashdeal == 1)
+    {{-- Flash deal products starts --}}
+    @include('frontend.catalog.flashdeal')
+    {{-- Flash deal products ends --}}
+    @endif
+    {{-- All Product starts --}}
+    {{-- @include('frontend.catalog.allproducts') --}}
+    {{-- All Product ends --}}
+    
+ 
+    @if ($setting->is_testimonial ==1)
+           {{-- Testimonial starts --}}
+    @include('frontend._inc.testimonial')
+    {{-- Testimonial ends --}}
+    @endif
  
        {{-- Instafeeds starts --}}
        @include('frontend._inc.instafeeds')

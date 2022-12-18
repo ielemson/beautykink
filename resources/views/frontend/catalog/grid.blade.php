@@ -19,14 +19,17 @@
             </div>
           </div>
           <ul class="product-flag">
-            <li class="new">
+            
                 @if ($item->is_stock())
-                {{   ucfirst(str_replace('_',' ',$item->is_type))   }}
+                {{-- {{   ucfirst(str_replace('_',' ',$item->is_type))   }} --}}
+                {{-- {{$item->highlight->name }} --}}
                    
                 @else
-                {{ __('out of stock') }}
+                <li class="new">
+                {{ __('out of stock') }} 
+               </li>
                 @endif
-            </li>
+           
            
                 @if ($item->previous_price && $item->previous_price != 0)
                 <li class="discount">

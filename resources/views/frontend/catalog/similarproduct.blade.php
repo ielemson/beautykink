@@ -38,9 +38,9 @@
                             </div>
                             <ul class="product-flag">
                                 @if ($related->is_stock())
-                                    <li class="{{ strtolower($related->is_type) }}">
+                                    {{-- <li class="{{ strtolower($related->is_type) }}">
                                         {{ ucfirst(str_replace('_', ' ', $related->is_type)) }}
-                                    </li>
+                                    </li> --}}
                                 @else
                                     <li class="new">{{ __('out of stock') }}</li>
                                 @endif

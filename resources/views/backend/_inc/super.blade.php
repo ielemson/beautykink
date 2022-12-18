@@ -71,7 +71,7 @@
       </ul>
     </li>
 
-    <li class="nav-item {{ request()->segment(2) == 'brand' || (request()->segment(2) == 'item' && request()->segment(3) == 'add') || (request()->segment(2) == 'item' && request()->segment(3) == 'create') || (request()->segment(2) == 'item' && request()->segment(3) == '') || (request()->segment(2) == 'digital' && request()->segment(3) == 'create') || (request()->segment(2) == 'license' && request()->segment(3) == 'create') || request()->segment(2) == 'campaign' || request()->segment(2) == 'bulk' || request()->segment(2) == 'review' ? 'menu-open' : '' }}">
+    <li class="nav-item {{ request()->segment(2) == 'brand' || (request()->segment(2) == 'item' && request()->segment(3) == 'add') || (request()->segment(2) == 'item' && request()->segment(3) == 'create') || (request()->segment(2) == 'item' && request()->segment(3) == '') || (request()->segment(2) == 'digital' && request()->segment(3) == 'create') || (request()->segment(3) == 'stock' && request()->segment(3) == 'create') || request()->segment(2) == 'highlight' || request()->segment(2) == 'bulk' || request()->segment(2) == 'review' ? 'menu-open' : '' }}">
       <a href="#" class="nav-link {{ request()->segment(2) == 'brand' || (request()->segment(2) == 'item' && request()->segment(3) == 'add') || (request()->segment(2) == 'item' && request()->segment(3) == 'create') || (request()->segment(2) == 'item' && request()->segment(3) == '') || (request()->segment(2) == 'digital' && request()->segment(3) == 'create') || (request()->segment(2) == 'license' && request()->segment(3) == 'create') || request()->segment(2) == 'campaign' || request()->segment(2) == 'bulk' || request()->segment(2) == 'review' ? 'active' : '' }}">
         <i class="nav-icon fab fa-product-hunt"></i>
         <p>
@@ -80,12 +80,12 @@
         </p>
       </a>
       <ul class="nav nav-treeview">
-        {{-- <li class="nav-item">
-          <a href="{{ route('backend.brand.index') }}" class="nav-link {{ request()->segment(2) == 'brand' ? 'active' : '' }}"">
+        <li class="nav-item">
+          <a href="{{ route('backend.highlight.index') }}" class="nav-link {{ request()->segment(2) == 'highlight' ? 'active' : '' }}"">
             <i class="far fa-circle nav-icon"></i>
-            <p>{{ __('Brands') }}</p>
+            <p>{{ __('Product Higlight') }}</p>
           </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
           <a href="{{ route('backend.item.create') }}" class="nav-link {{ (request()->segment(2) == 'item' && request()->segment(3) == 'add') || (request()->segment(2) == 'item' && request()->segment(3) == 'create') || (request()->segment(2) == 'digital' && request()->segment(3) == 'create') || (request()->segment(2) == 'license' && request()->segment(3) == 'create') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
@@ -117,7 +117,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('backend.item.stock') }}" class="nav-link {{ request()->segment(2) == 'stock' ? 'active' : '' }}">
+          <a href="{{ route('backend.item.stock') }}" class="nav-link {{ request()->segment(3) == 'stock' ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Out of Stock') }}</p>
           </a>
@@ -175,7 +175,7 @@
     </li>
 
     {{-- Ecommerce Starts --}}
-    <li class="nav-item {{ request()->segment(2) == 'code' || request()->segment(2) == 'shipping' || request()->segment(2) == 'tax' || request()->segment(2) == 'currency' || (request()->segment(2) == 'setting' && request()->segment(3) == 'payment') ? 'menu-open' : '' }}">
+    <li class="nav-item {{ request()->segment(2) == 'code' || request()->segment(2) == 'tax' || request()->segment(2) == 'currency' || (request()->segment(2) == 'setting' && request()->segment(3) == 'payment') ? 'menu-open' : '' }}">
       <a href="#" class="nav-link {{ request()->segment(2) == 'code' || request()->segment(2) == 'shipping' || request()->segment(2) == 'tax' || request()->segment(2) == 'currency' || (request()->segment(2) == 'setting' && request()->segment(3) == 'payment') ? 'active' : '' }}">
         <i class="nav-icon fas fa-newspaper"></i>
         <p>
@@ -219,7 +219,7 @@
     {{-- Ecommerce Ends --}}
 
     {{-- Country & Geozone --}}
-    <li class="nav-item">
+    <li class="nav-item {{ request()->segment(2) == 'shippingmethod' || request()->segment(2) == 'shipping' || request()->segment(3) == 'country' || request()->segment(3) == 'state' ? 'menu-open' : '' }}">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-shipping-fast"></i>
         <p>
@@ -229,13 +229,13 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{{ route('backend.shipping.index') }}" class="nav-link">
+          <a href="{{ route('backend.shipping.index') }}" class="nav-link {{ (request()->segment(2) == 'shipping') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Shipping') }}</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('backend.shippingmethod.index') }}" class="nav-link">
+          <a href="{{ route('backend.shippingmethod.index') }}" class="nav-link {{ (request()->segment(2) == 'shippingmethod') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Shipping Method') }}</p>
           </a>
@@ -247,13 +247,13 @@
           </a>
         </li> --}}
         <li class="nav-item">
-          <a href="{{ route('backend.geozone.country') }}" class="nav-link">
+          <a href="{{ route('backend.geozone.country') }}" class="nav-link {{ (request()->segment(3) == 'country') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Country') }}</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('backend.geozone.state') }}" class="nav-link">
+          <a href="{{ route('backend.geozone.state') }}" class="nav-link {{ (request()->segment(3) == 'state') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('State') }}</p>
           </a>
