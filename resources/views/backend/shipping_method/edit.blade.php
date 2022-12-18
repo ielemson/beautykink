@@ -50,7 +50,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <a href="{{ route("backend.geozone.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
+                    <a href="{{ route("backend.shippingmethod.index") }}" class="btn btn-danger"><i class="fas fa-chevron-left"></i> {{ __('Back') }}</a>
                   <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
               </form>

@@ -46,6 +46,11 @@
                     <a class="dropdown-item" href="{{ route('backend.item.copy',$data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Copy') }}
                     </a>
+
+                    <a class="dropdown-item" href="{{ route('backend.attribute.index', $data->id) }}">
+                        <i class="fas fa-angle-double-right"></i> {{ __('Attributes') }}
+                    </a>
+
                     {{-- @if ($data->item_type == 'normal')
                   
                     @elseif ($data->item_type == 'digital')
@@ -67,6 +72,7 @@
                             <i class="fas fa-angle-double-right"></i> {{ __('Attributes') }}
                         </a>
                     @endif --}}
+                    
                     <a class="dropdown-item" href="{{ route('backend.item.gallery', $data->id) }}">
                         <i class="fas fa-angle-double-right"></i> {{ __('Gallery Images') }}
                     </a>
