@@ -184,12 +184,21 @@
                                     <sup class="shop-count compare_count">0</sup>
                                 </a>
                             </div>
+                            @if (Auth::check())
                             <div class="shop-button-item">
-                                <a class="shop-button" href="">
+                                <a class="shop-button" href="{{ route('user.wishlist.index') }}">
                                     <i class="icon-heart icon"></i>
-                                    <sup class="shop-count wishlist_count">0</sup>
+                                    <sup class="shop-count wishlist_count">{{ Auth::user()->wishlists->count() }}</sup>
                                 </a>
                             </div>
+                            @else
+                            <div class="shop-button-item">
+                                <a class="shop-button" href="{{ route('user.wishlist.index') }}">
+                                    <i class="icon-heart icon"></i>
+                                    <sup class="shop-count ">0</sup>
+                                </a>
+                            </div>
+                            @endif
                             {{-- HEADER CART STARTS --}}
                             @include('frontend._inc.header_cart')
                             {{-- HEADER CART ENDS --}}

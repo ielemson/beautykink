@@ -90,4 +90,8 @@ class WishlistController extends Controller
         $wishlist = Wishlist::where('user_id', $user->id)->delete();
         return redirect()->back()->withSuccess(__('Products Successfully Removed From Wishlist.'));
     }
+
+    public function fetchWishList(){
+        return response()->json(['wishList'=> Wishlist::where('user_id', Auth::user()->id)->count()]);
+    }
 }

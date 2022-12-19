@@ -367,9 +367,9 @@ var mainbs = {!! $mainbs !!};
             })
            </script>
         @endif
-        @section('script')
+        {{-- @section('script') --}}
         @include('frontend._inc.restock_form')
-        @endsection
+        {{-- @endsection --}}
 </body>
 
 </html>

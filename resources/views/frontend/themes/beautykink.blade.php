@@ -71,3 +71,4 @@
     @include('frontend._inc.announcement')
     {{-- Announcement Modal Ends Here  --}}
 @endsection
+

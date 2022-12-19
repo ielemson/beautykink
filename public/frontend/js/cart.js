@@ -28,7 +28,7 @@
                 $('.sub_total').html('&#8358;' + response.sub_total);
                 $('.cart_total').html('&#8358;' + response.cart_total);
                 $('.cart-count').html(response.cart_qty);
-                $('.wishlist_count').html(response.wishlist);
+                // $('.wishlist_count').html(response.wishlist);
                 $('.compare_count').html(response.compare);
                 $('.popup-product-list').html(miniCart);
 
@@ -104,11 +104,12 @@ $('body').on('click', '.add_to_cart', function () {
 //Add to wish list starts here ::::::::::::::::::::::::  
     $('body').on('click', '.add-wishlist', function () {
         var id = $(this).attr("data-id");
-        var qty = 1;
+        // var qty = 1;
         // alert(id)
         // alert("The data-id of clicked item is: " + dataId);
-        $.get('/add/whishlist' + '/' + id + '/' + qty, function (data) {
-            miniCart()
+        $.get('/user/wishlist/store' + '/' + id, function (data) {
+            console.log(data)
+            // miniCart()
             // start message
             const Toast = Swal.mixin({
                 toast: true,
@@ -117,17 +118,31 @@ $('body').on('click', '.add_to_cart', function () {
                 showConfirmButton: false,
                 timer: 3000
             })
-            if ($.isEmptyObject(data.error)) {
+            if (data.status == 0) {
+                
                 Toast.fire({
+                            icon: 'error',
+                            title: 'Kindly Login First!',
+                        })
+                    
+                        setTimeout(() => {
+                            location.href = `${data.link}`
+                        }, 3500);
+            }else{
+                   Toast.fire({
                     icon: 'success',
-                    title: data.success,
+                    title: data.message,
                 })
-            } else {
-                Toast.fire({
-                    icon: 'error',
-                    title: data.error,
-                })
+                $('.wishlist_count').html(data.count)
             }
+            // if ($.isEmptyObject(data.error)) {
+            //  
+            // } else {
+            //     Toast.fire({
+            //         icon: 'error',
+            //         title: data.error,
+            //     })
+            // }
             // end message
         })
     });  

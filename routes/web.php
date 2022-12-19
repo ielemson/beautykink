@@ -653,6 +653,7 @@ Route::group(['middleware' => 'maintainance'], function(){
 
             //------------ Wishlist ------------
             Route::get('/wishlists', [WishlistController::class, 'index'])->name('user.wishlist.index');
+            Route::get('/wishlists/fetch', [WishlistController::class, 'fetchWishList'])->name('user.wishlist.fetch');
             Route::get('/wishlist/store/{id}', [WishlistController::class, 'store'])->name('user.wishlist.store');
             Route::get('/wishlist/delete/{id}', [WishlistController::class, 'delete'])->name('user.wishlist.delete');
             Route::get('/wishlists/delete/all', [WishlistController::class, 'deleteAll'])->name('user.wishlist.delete.all');
