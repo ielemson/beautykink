@@ -140,7 +140,7 @@ function renderStarRating($rating, $maxRating = 5)
               </p>
               </div> --}}
             </div>
-            <div class="col-8 col-sm-8 col-md-6">
+            {{-- <div class="col-8 col-sm-8 col-md-6">
               <div class="row">
                 <div class="col-sm-3">
                   <div class="sort-by-text">
@@ -149,17 +149,16 @@ function renderStarRating($rating, $maxRating = 5)
                 </div>
                 <div class="col-sm-9">
                   <div class="sort-by-form">
-                    <select class="form-select" aria-label="Relevance">
-                      <option selected>Relevance</option>
-                      <option value="1">Name, A to Z</option>
-                      <option value="2">Name, Z to A</option>
-                      <option value="3">Price, low to high</option>
-                      <option value="4">Price, high to low</option>
-                    </select>
+                    
+                    <select class="form-select" id="sorting">
+                      <option value="">{{ __('All Products') }}</option>
+                      <option value="low_to_high" {{ request()->input('low_to_high') ? 'selected' : '' }}>{{ __('Low - High Price') }}</option>
+                      <option value="high_to_low" {{ request()->input('high_to_low') ? 'selected' : '' }}>{{ __('High - Low Price') }}</option>
+                  </select>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
         <div class="product-body-wrap">
@@ -189,17 +188,9 @@ function renderStarRating($rating, $maxRating = 5)
            @endif
           <div class="row">
             <div class="col-12">
-              {{-- <div class="pagination-content-wrap">
-                <nav class="pagination-nav">
-                  <ul class="pagination justify-content-center">
-                   {{ $items->links() }}
-                  </ul>
-                 </nav>
-              </div> --}}
-              <div class="pagination justify-content-center">
+            
+            </div> <div class="pagination justify-content-center" style="margin-top:20px">
               {{ $items->links('frontend._inc.pagination') }}
-              </div>
-              
             </div>
           </div>
         </div>
@@ -208,6 +199,26 @@ function renderStarRating($rating, $maxRating = 5)
     </div>
   </div>
 </section>
+
+<form id="search_form" class="d-none" action="{{ route('frontend.catalog') }}" method="GET">
+
+  <input type="text" name="maxPrice" id="maxPrice" value="{{ request()->input('maxPrice') ? request()->input('maxPrice') : '' }}">
+  <input type="text" name="minPrice" id="minPrice" value="{{ request()->input('minPrice') ? request()->input('minPrice') : '' }}">
+  <input type="text" name="brand" id="brand" value="{{ isset($brand) ? $brand->slug : '' }}">
+  <input type="text" name="brand" id="brand" value="{{ isset($brand) ? $brand->slug : '' }}">
+  <input type="text" name="category" id="category" value="{{ isset($category) ? $category->slug : '' }}">
+  <input type="text" name="quick_filter" id="quick_filter" value="">
+  <input type="text" name="childcategory" id="childcategory" value="{{ isset($childcategory) ? $childcategory->slug : '' }}">
+  <input type="text" name="page" id="page" value="{{ isset($page) ? $page : '' }}">
+  <input type="text" name="attribute" id="attribute" value="{{ isset($attribute) ? $attribute : '' }}">
+  <input type="text" name="option" id="option" value="{{ isset($option) ? $option : '' }}">
+  <input type="text" name="subcategory" id="subcategory" value="{{ isset($subcategory) ? $subcategory->slug : '' }}">
+  <input type="text" name="sorting" id="sorting" value="{{ isset($sorting) ? $sorting : '' }}">
+  <input type="text" name="view_check" id="view_check" value="{{ isset($view_check) ? $view_check : '' }}">
+
+
+  <button type="submit" id="search_button" class="d-none"></button>
+</form>
 @endsection
 
 

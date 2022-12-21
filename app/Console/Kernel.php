@@ -3,8 +3,10 @@
 namespace App\Console;
 
 use Dymantic\InstagramFeed\Profile;
+use Exception;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,12 +19,26 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        // $schedule->call( function(){
-        //     Profile::where('username','beautykink')->first()->refreshFeed(15);
-        // })->twiceDaily();
-        $schedule->command('instafeed:refresh')
-        ->hourly();
-        $schedule->command('instagram-feed:refresh-tokens')->monthlyOn(15,'03:00');
+
+        // $schedule->command('instafeed:refresh')->hourly();
+
+        try {   
+            
+        //     $schedule->call(function () {
+
+        //     Profile::where('username', 'beautykink')->first()->refreshFeed(15);
+        // })->everyMinute();
+
+        $schedule->command('instafeed:refresh')->everyFourHours();
+        $schedule->command('email_notify:cron')->everyFourHours();
+
+            //code...
+        } catch (Exception $e) {
+            Log::error("Failed retrieving instagram feed", ['message' => $e->getMessage()]);
+            //throw $th;
+        }
+
+        $schedule->command('instagram-feed:refresh-tokens')->monthlyOn(15, '03:00');
     }
 
     /**
@@ -32,7 +48,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

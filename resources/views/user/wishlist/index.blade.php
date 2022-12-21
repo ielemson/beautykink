@@ -33,7 +33,7 @@
                                     <tr>
                                         <th>{{ __('Wishlist Products') }}</th>
                                         @if ($wishlist_items->count() > 0)
-                                            <th class="text-center"><a class="btn btn-sm btn-primary" href="{{ route('user.wishlist.delete.all') }}">{{ __('Clear Wishlist') }}</a></th>
+                                            <th class="text-center"><a class="btn btn-primary margin-bottom-none  btn-sm" href="{{ route('user.wishlist.delete.all') }}"><b>{{ __('Clear Wishlist') }}</b></a></th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -55,7 +55,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a class="remove-from-cart" href="{{ route('user.wishlist.delete', $product->getWishlistItemId()) }}" data-toggle="tooltip" title="Remove item"><i class="icon-x"></i></a></td>
+                                                <td class="text-center"><a class="fa fa-times fa-2x" href="{{ route('user.wishlist.delete', $product->getWishlistItemId()) }}" data-toggle="tooltip" title="Remove item"><i class="icon-x"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @else
