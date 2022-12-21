@@ -202,7 +202,7 @@
         var product = $(".product-slider");
         product.owlCarousel({
           autoplay: true,
-          loop:true,
+          // loop:true,
           smartSpeed: 1000,
           nav: true,
           dots: false,
