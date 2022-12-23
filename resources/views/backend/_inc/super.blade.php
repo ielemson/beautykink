@@ -375,6 +375,29 @@
       </ul>
     </li>
 
+    {{-- <li class="nav-item {{ request()->segment(2) == 'customer' || request()->segment(3) == 'message' ? 'menu-open' : '' }}">
+      <a href="#" class="nav-link {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'active' : '' }}">
+        <i class="nav-icon fas fa-envelope"></i>
+        <p>
+          {{ __('Customer Messages') }}
+          <i class="fas fa-angle-left right"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ route('backend.customer.restock.message') }}" class="nav-link {{ request()->segment(4) == 'restock' ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('Restock Message') }}</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('backend.customer.order.message') }}" class="nav-link {{ request()->segment(4) == 'order' ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('Order Message') }}</p>
+          </a>
+        </li>
+      </ul>
+    </li> --}}
     {{-- <li class="nav-item {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'menu-open' : '' }}">
       <a href="#" class="nav-link {{ request()->segment(2) == 'fcategory' || request()->segment(2) == 'faq' ? 'active' : '' }}">
         <i class="nav-icon fas fa-question-circle"></i>

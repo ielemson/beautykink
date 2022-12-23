@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>{{ __('All Products') }}</h1>
+            <h1>{{ __('Restock Products') }}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -19,30 +19,27 @@
         <div class="row">
           <div class="col-12">
               @include('alerts.alerts')
-          
+              
               <!-- /.card -->
             <div class="card">
+              
               <div class="card-header text-right">
-                  {{-- <a href="{{ route('backend.csv.export') }}" type="button" class="btn btn-info btn-sm"><i class="fa fa-file-csv"></i> {{ __('CSV Export') }}</a> --}}
-                  <form action="{{ route('backend.bulk.delete') }}" method="GET" class="d-inline-block">
-                      <input type="hidden" name="ids[]" id="bulk_delete" value="">
-                      <input type="hidden" name="table" value="items">
-                      <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> {{ __('Bulk Delete') }}</button>
-                  </form>
+                <div class="spinner"></div>     
+                {{-- <a href="{{route('backend.customer.restock.message')}}" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> {{ __('Create Restock Message') }}</a> --}}
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body table-responsive">
                 <table id="admin-table" class="table table-bordered">
                   <thead>
                   <tr>
-                    <th><input type="checkbox" name="" data-target="product-bulk-delete" class=" bulk_all_delete" id=""></th>
+                    {{-- <th><input type="checkbox" name="" data-target="product-bulk-delete" class=" bulk_all_delete" id=""></th> --}}
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Name') }}</th>
-                    <th>{{ __('Price') }}</th>
-                    <th>{{ __('Status') }}</th>
-                    <th>{{ __('Type') }}</th>
-                    <th>{{ __('Reminders') }}</th>
-                    <th>{{ __('Actions') }}</th>
+                    {{-- <th>{{ __('Price') }}</th> --}}
+                    {{-- <th>{{ __('Status') }}</th> --}}
+                    {{-- <th>{{ __('Type') }}</th> --}}
+                    <th>{{ __('No. of Reminders') }}</th>
+                    <th>{{ __('Action') }}</th>
                   </tr>
                   </thead>
                   <tbody>

@@ -66,6 +66,8 @@ use App\Http\Controllers\Backend\ShippingMethodController;
 use App\Http\Controllers\Backend\ShippingServiceController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TodoController;
+use App\Http\Controllers\Backend\RestockController;
+use App\Http\Controllers\Backend\CustomerMessagesController;
 use App\Http\Controllers\Frontend\FlutterwaveController;
 use App\Http\Controllers\Frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
@@ -203,6 +205,15 @@ Route::prefix('admin')->group(function(){
         Route::post('/item/galleries/update/{item}', [ItemController::class, 'galleriesUpdate'])->name('backend.item.galleries.update');
         Route::get('/item/galleries/destory/{gallery_id}', [ItemController::class, 'galleryDelete'])->name('backend.item.gallery.delete');
 
+        // ------------------- ITEM RESTOCK -------------------------//
+        Route::post('/item/restock', [RestockController::class,'restockItem'])->name('backend.item.restock');
+        // ------------------- ITEM RESTOCK -------------------------//
+
+        // -------------------- CUSTOMER CUSTOM MESSAGES ----------------//
+        Route::get('/customer/message/restock',[CustomerMessagesController::class,'restock_message'])->name('backend.customer.restock.message');
+        Route::post('/customer/message/restock',[CustomerMessagesController::class,'restock_message_store'])->name('backend.customer.restock.message_store');
+        Route::post('/customer/message/order',[CustomerMessagesController::class,'order_message_store'])->name('backend.customer.order.message_store');
+        Route::get('/customer/message/order',[CustomerMessagesController::class,'order_message'])->name('backend.customer.order.message');
         //------------ BULK PRODUCT UPLOAD ------------
         Route::get('/product/csv/export', [CsvProductController::class, 'export'])->name('backend.csv.export');
         Route::get('/bulk/product/index', [CsvProductController::class, 'index'])->name('backend.bulk.product.index');

@@ -28,27 +28,52 @@
                             $.alert('provide a valid number');
                             return false;
                         }
-                        $.alert('Your new stock is ' + stock);
-                        // $.ajax({
-                        // type:'POST',
-                        // url:"{{ route('frontend.remind_on_restock.submit') }}",
-                        // data:{ email:email,id:id},
-                        // success:function(data){
-                        // // initialize the toast
-                        // const Toast = Swal.mixin({
-                        // toast: true,
-                        // position: 'top-end',
-                        // showConfirmButton: false,
-                        // timer: 3000
-                        // })
-                        // Toast.fire({
-                        // icon: 'success',
-                        // title: data.message,
-                        // })
+                        // $.alert('Your new stock is ' + stock);
+                        $.ajax({
+                        type:'POST',
+                        url:"{{ route('backend.item.restock') }}",
+                        data:{ stock:stock,id:id},
+                        beforeSend: function () { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                      $('.spinner').html(`         
+                      <span class="float-left">Sending Email <i class="fas fa-spinner fa-spin "></i></span>
+                        `)
+                         },
+                        success:function(data){
+                            // console.log(data)
+                        // initialize the toast
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                        
+                        if (data.success) {
+                            Toast.fire({
+                        icon: 'success',
+                        title: data.success,
+                        })
+
+                        setTimeout(() => {
+                            location.reload()
+                        }, 3000);
+                        }else{
+                            Toast.fire({
+                        icon: 'error',
+                        title: data.error,
+                        })
+                        }
                       
                         
-                        // }
-                        // });
+                        },
+                        complete: function () { 
+                    // Set our complete callback, adding the .hidden class and hiding the spinner.
+                    $('.spinner').html(``)
+                    // $("#shipping_method_list").slideDown("slow")
+
+                    // console.log('completed')
+                },
+                        });
                     }
                 },
                 cancel: function() {

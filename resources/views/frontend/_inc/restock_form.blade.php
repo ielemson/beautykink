@@ -25,7 +25,10 @@
                     btnClass: 'btn-blue',
                     action: function() {
                         var email = this.$content.find('.name').val();
-                        if (!email) {
+                        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                        let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+                        const emailRegex =  new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/, "gm");
+                        if (!email || !email.match(emailRegex)) {
                             $.alert('provide a valid email');
                             return false;
                         }
@@ -40,14 +43,21 @@
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 3500
                         })
                         Toast.fire({
                         icon: 'success',
                         title: data.message,
                         })
-                      
-                        
+                        },
+                        error:function(data){
+                            var errors = $.parseJSON(data.responseText);
+                            $.each(errors, function (key, error) {
+                                Toast.fire({
+                        icon: 'error',
+                        title: error.email,
+                        })
+                            });
                         }
                         });
                     }

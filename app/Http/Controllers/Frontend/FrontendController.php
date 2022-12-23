@@ -686,9 +686,14 @@ class FrontendController extends Controller
     }
 
     public function restock_reminder(Request $request){
-        $input = $request->all();
-        $check = RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->first();
-        if($check){
+        // $input = $request->all();
+
+        $request->validate([
+            'email'=>'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
+        ]);
+
+        // $check = RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->first();
+        if(RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->exists()){
              return response()->json([
             'message'=>'We have you on the list'
         ],200);
