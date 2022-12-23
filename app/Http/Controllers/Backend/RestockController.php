@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Helpers\EmailHelper;
+// use App\Helpers\EmailHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\CustomerRestockMail;
-use App\Models\CustomerMessages;
+// use App\Models\CustomerMessages;
 use App\Models\EmailTemplate;
 use App\Models\Item;
 use App\Models\RestockReminder;
-use App\Models\User;
+// use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,9 +49,9 @@ class RestockController extends Controller
          if (RestockReminder::where('prod_id',$request->id)->exists()) {
 
             $item = Item::where('id',$request->id)->first();
-            $msg = CustomerMessages::first();
+            // $msg = CustomerMessages::first();
 
-            $subject = 'We have restocked'.' '.$item->name;
+            // $subject = 'We have restocked'.' '.$item->name;
             $url = env('APP_URL');
             // $msg     = 'Visit the link to see the product'.$url.'/product'.'/'.$item->slug;
             foreach (RestockReminder::where('prod_id',$request->id)->get() as $user) {
