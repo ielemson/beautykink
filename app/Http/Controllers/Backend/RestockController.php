@@ -52,7 +52,13 @@ class RestockController extends Controller
             // $msg = CustomerMessages::first();
 
             // $subject = 'We have restocked'.' '.$item->name;
-            $url = env('APP_URL');
+            if (app()->environment('production')) {
+                //code goes here
+                $url = "https://dev.beautykink.com/";
+            }else{
+                $url = "http://localhost:8000/";
+            }
+            // $url = env('APP_URL');
             // $msg     = 'Visit the link to see the product'.$url.'/product'.'/'.$item->slug;
             foreach (RestockReminder::where('prod_id',$request->id)->get() as $user) {
                 $template = EmailTemplate::whereType('Restock')->first();
@@ -60,7 +66,7 @@ class RestockController extends Controller
                     'email'      => $user->email,
                     'subject'    => $template->subject,
                     'body'       => preg_replace("/{product_name}/", $item->name, $template->body),
-                    'url'        => $url.'/product'.'/'.$item->slug
+                    'url'        => $url.'product'.'/'.$item->slug
                 ];
 
                 Mail::to($user->email)->send(new CustomerRestockMail($emailData));
