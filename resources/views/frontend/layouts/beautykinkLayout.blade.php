@@ -195,6 +195,11 @@
             background-size: cover;
         }
 
+
+        .intSJi{
+            /* border: 2px solid rebeccapurple; */
+            margin-bottom: 50px !important
+        }
 </style>
 </head>
 
@@ -230,9 +235,10 @@
         @include('frontend._inc.footer')
         <!--== End Footer Area Wrapper ==-->
 
+        @if ($setting->is_scroll_to_top == 1)
         <!--== Scroll Top Button ==-->
         <div id="scroll-to-top" class="scroll-to-top"><span class="ion-md-arrow-up"></span></div>
-
+        @endif
         <!--== Start Side Menu ==-->
         <aside class="off-canvas-wrapper">
             <div class="off-canvas-inner">
@@ -323,6 +329,9 @@ var mainbs = {!! $mainbs !!};
 
     @if ($setting->is_facebook_messenger == '1')
         {!! $setting->facebook_messenger !!}
+    @endif
+    @if ($setting->is_whatsapp_widget == 1)
+        {!! $setting->whatsapp_widget_messenger !!}
     @endif
 
     <script type="text/javascript">

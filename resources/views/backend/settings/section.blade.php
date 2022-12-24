@@ -57,16 +57,16 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group  col-md-3">
+                                    {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_flashdeal" class="" name="is_t2_flashdeal" value="1" {{ $extra_settings->is_t2_flashdeal == 1 ? 'checked' : '' }}>
                                                 <label for="is_t2_flashdeal">{{ __('Flash Deal') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     
-                                    <div class="form-group  col-md-3">
+                                    {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_new_product" class="" name="is_t2_new_product" value="1" {{ $extra_settings->is_t2_new_product == 1 ? 'checked' : '' }}>
@@ -82,9 +82,9 @@
                                                 <label for="is_t2_sale_product">{{ __('Sale Product Section') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     
-                                    <div class="form-group  col-md-3">
+                                    {{-- <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_featured_product" class="" name="is_t2_featured_product" value="1" {{ $extra_settings->is_t2_featured_product == 1 ? 'checked' : '' }}>
@@ -100,13 +100,21 @@
                                                 <label for="is_t2_bestseller_product">{{ __('Bestseller Product Section') }}</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     
                                     <div class="form-group  col-md-3">
                                         <div class="form-group clearfix">
                                             <div class="icheck-success d-inline">
                                                 <input type="checkbox" id="is_t2_currency" class="" name="is_t2_currency" value="1" {{ $extra_settings->is_t2_currency == 1 ? 'checked' : '' }}>
                                                 <label for="is_t2_currency">{{ __('Show Currency') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  col-md-3">
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" id="is_scroll_to_top" class="" name="is_scroll_to_top" value="1" {{ $extra_settings->is_scroll_to_top == 1 ? 'checked' : '' }}>
+                                                <label for="is_scroll_to_top">{{ __('Show Scroll To Top') }}</label>
                                             </div>
                                         </div>
                                     </div>

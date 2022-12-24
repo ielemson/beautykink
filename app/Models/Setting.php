@@ -115,6 +115,9 @@ class Setting extends Model
         'is_pages',
         'footer_img',
         'is_testimonial',
-        'whatsapp_phone'
+        'whatsapp_phone',
+        'is_whatsapp_widget',
+        'whatsapp_widget_messenger',
+        'is_scroll_to_top'
     ];
 }

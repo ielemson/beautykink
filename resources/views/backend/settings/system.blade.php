@@ -515,6 +515,25 @@
                                   </div>
                                 <div class="col-md-3"></div>
 
+                                
+                                <div class="col-md-3"></div>
+                                <div class="form-group  col-md-6">
+                                    <div class="form-group clearfix">
+                                        <div class="icheck-success d-inline">
+                                        <input type="checkbox" id="is_whatsapp_widget" class="" name="is_whatsapp_widget" value="1" {{ $setting->is_whatsapp_widget == 1 ? 'checked' : '' }}>
+                                        <label for="is_whatsapp_widget">{{ __('Display Whatsapp Widget') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+
+                                <div class="col-md-3"></div>
+                                <div class="form-group  col-md-6">
+                                    <label for="whatsapp_widget_messenger">{{ __('Whatsapp Widget') }} *</label>
+                                    <textarea name='whatsapp_widget_messenger' class='form-control' id="whatsapp_widget_messenger" placeholder="{{ __('Whatsapp Widget') }}" rows="5">{{ $setting->whatsapp_widget_messenger }}</textarea>
+                                  </div>
+                                <div class="col-md-3"></div>
+
                                   <div class="col-md-3"></div>
                                   <div class="form-group  col-md-6">
                                     <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>

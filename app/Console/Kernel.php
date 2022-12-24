@@ -29,8 +29,8 @@ class Kernel extends ConsoleKernel
         //     Profile::where('username', 'beautykink')->first()->refreshFeed(15);
         // })->everyMinute();
 
-        $schedule->command('instafeed:refresh')->everyFourHours();
-        $schedule->command('email_notify:cron')->everyFourHours();
+        $schedule->command('instafeed:refresh')->everyMinute();
+        // $schedule->command('email_notify:cron')->everyMinute();
 
             //code...
         } catch (Exception $e) {
