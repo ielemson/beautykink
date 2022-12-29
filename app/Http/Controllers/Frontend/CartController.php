@@ -211,41 +211,49 @@ class CartController extends Controller
 
         $product = Item::where('id', $id)->first();
 
-        if ($product->is_type =="flash_deal") {
+
+        if ($product->stock > 0) {
+
+            if ($product->is_type =="flash_deal") {
             
-            $endDate = Carbon::parse($product->end_date);
-
-            if ($endDate->isPast()) {
-                return response()->json(['error' => 'Flash deal expired!.'], 200);
+                $endDate = Carbon::parse($product->end_date);
+    
+                if ($endDate->isPast()) {
+                    return response()->json(['error' => 'Flash deal expired!.'], 200);
+                }
+    
             }
+    
+            if ($attribute_name) {
+                $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
+                $attribute_color = $atrributename->image;
+            }
+            
+            // Check for previous coupon in session and delete it
+            if (Session::has('coupon')) {
+                Session::forget('coupon');
+            }
+    
+            Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $qty,
+                'price' => $product->discount_price,
+                'options' => [
+                    'image' => $product->photo,
+                    'thumbnail' => $product->thumbnail,
+                    'slug' => $product->slug,
+                    'attribute_name' => $attribute_name ?? '',
+                    'attribute_color' => $attribute_color ?? '',
+                ]
+            ]);
+    
+            return response()->json(['success' => 'Item added to cart.'], 200);
+        }else{
+            return response()->json(['error' => 'Product is out of stock!.'], 200);
 
-        }
-
-        if ($attribute_name) {
-            $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-            $attribute_color = $atrributename->image;
         }
         
-        // Check for previous coupon in session and delete it
-        if (Session::has('coupon')) {
-            Session::forget('coupon');
-        }
-
-        Cart::add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => $qty,
-            'price' => $product->discount_price,
-            'options' => [
-                'image' => $product->photo,
-                'thumbnail' => $product->thumbnail,
-                'slug' => $product->slug,
-                'attribute_name' => $attribute_name ?? '',
-                'attribute_color' => $attribute_color ?? '',
-            ]
-        ]);
-
-        return response()->json(['success' => 'Item added to cart.'], 200);
     }
 
     // ADD TO WISHLIST

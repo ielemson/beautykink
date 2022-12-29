@@ -51,6 +51,7 @@
          url:"{{ route('frontend.promo.submit') }}",
          data:{ code:code},
          success:function(data){
+            console.log(data)
           // initialize the toast
           const Toast = Swal.mixin({
               toast: true,
@@ -58,7 +59,7 @@
               showConfirmButton: false,
               timer: 3500
           })
-        console.log(data)
+        // console.log(data)
        
         if(data.status == false){
             Toast.fire({
@@ -71,7 +72,7 @@
                   title: data.message,
               }) 
             // Reload Page
-            location.reload()
+            // location.reload()
         }
          }
       });

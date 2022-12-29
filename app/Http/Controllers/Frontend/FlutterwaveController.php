@@ -47,7 +47,8 @@ class FlutterwaveController extends Controller
 
             "customizations" => [
                 "title" => 'BeautyKink',
-                "description" => "BeautyKink Ecommerce Store"
+                "description" => "BeautyKink Ecommerce Store",
+                "logo" => "https://dev.beautykink.com/uploads/setting/1666611203-slider.png"
             ]
         ];
 

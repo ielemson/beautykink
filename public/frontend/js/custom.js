@@ -169,9 +169,9 @@
       // Image Slider Js
         var product = $(".images-col3-slider");
         product.owlCarousel({
-          autoplay: false,
+          autoplay: true,
           smartSpeed: 1000,
-          nav: false,
+          nav: true,
           dots: false,
           margin: 30,
           responsive: {
