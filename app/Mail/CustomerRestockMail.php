@@ -41,6 +41,6 @@ class CustomerRestockMail extends Mailable
         ->from($address)
         ->replyTo($address)
         ->subject($subject)
-        ->with(['MsgToCustomer' => $this->data['body'],'CustomerEmail'=>$this->data['email'],'link'=>$this->data['url'],'MsgSubj'=>$subject]);
+        ->with(['MsgToCustomer' => $this->data['body'],'CustomerEmail'=>$this->data['email'],'link'=>$this->data['url'],'img'=>$this->data['img'],'MsgSubj'=>$subject]);
     }
 }

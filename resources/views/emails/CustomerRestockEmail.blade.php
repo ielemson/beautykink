@@ -2,12 +2,9 @@
 {!! $MsgSubj !!}
 
 {!! $MsgToCustomer !!}
-
-@component('mail::button', ['url' => $link])
-View Product
-@endcomponent
-
-Thanks,<br>
+<a style="align-items: center" href="{{ $link }}">
+<img src="{{asset($img)}}" style="width:100%; text-align:center !important;" alt="Product"></a>
+<br/><br/>Thanks,<br/>
 {{ config('app.name') }}
 
 @endcomponent

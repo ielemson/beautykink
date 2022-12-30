@@ -66,6 +66,7 @@ class RestockController extends Controller
                     'email'      => $user->email,
                     'subject'    => $template->subject,
                     'body'       => preg_replace("/{product_name}/", $item->name, $template->body),
+                    'img'       => $url.$item->photo,
                     'url'        => $url.'product'.'/'.$item->slug
                 ];
 
