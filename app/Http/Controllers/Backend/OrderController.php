@@ -100,11 +100,11 @@ class OrderController extends Controller
         // dd($order->user_id);
 // dd($id.' '.$field.' '.$value);
 
-// if ($field == 'payment_status') {
-//     if ($order['payment_status'] == 'Paid') {
-//         return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
-//     }
-// }
+if ($field == 'payment_status') {
+    if ($order['payment_status'] == 'Paid') {
+        return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
+    }
+}
 
     if ($field == 'order_status') {
     
