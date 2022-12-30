@@ -43,26 +43,26 @@
                                             placeholder="{{ __('Enter Code') }}" value="{{ old('code_name') }}" required>
                                     </div>
 
-                                    <div class="form-group  col-md-6">
+                                    {{-- <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Products') }} </label>
-                                        <select class="select2bs4" multiple="multiple" data-placeholder="Select Product"
-                                            style="width: 100%;" name="product[]">
+                                        <select class="select2bs4"  data-placeholder="Select Product"
+                                            style="width: 100%;" name="product">
                                             @foreach ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
 
                                         </select>
-                                    </div>
-                                    <div class="form-group  col-md-6">
+                                    </div> --}}
+                                    {{-- <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Category') }} </label>
-                                        <select class="select2bs4" multiple="multiple" data-placeholder="Select Category"
-                                            style="width: 100%;" name="category[]">
+                                        <select class="select2bs4"  data-placeholder="Select Category"
+                                            style="width: 100%;" name="category">
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
 
                                         </select>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Date Start') }} *</label>
                                         <div class="input-group date date-picker" data-target-input="nearest">

@@ -65,7 +65,6 @@ trait BankCheckout
 
             $guestUser->update($input);
             
-
         }
 
         }

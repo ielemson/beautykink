@@ -59,6 +59,10 @@
                                     <td>{product_name}</td>
                                     <td>{{ __('Product Name') }} <small class="text-danger"><b>{{__('Applicable to restock message only')}}</b></small></td>
                                 </tr>
+                                <tr>
+                                    <td>{order_id}</td>
+                                    <td>{{ __('Order ID') }} <small class="text-danger"><b>{{__('Applicable to orders only')}}</b></small></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -13,7 +13,7 @@
         </td>
         <td>
             <div class="input-group-prepend">
-                <button type="button" class="btn btn-{{ $data->payment_status == 'Paid' ? 'success' : 'danger' }} btn-sm dropdown-toggle" data-toggle="dropdown">
+                <button {{$data->order_status === "Canceled" ? "disabled" : ""}} type="button" class="btn btn-{{ $data->payment_status == 'Paid' ? 'success' : 'danger' }} btn-sm dropdown-toggle" data-toggle="dropdown">
                   {{ $data->payment_status == 'Paid' ? __('Paid') : __('Unpaid') }}
                 </button>
                 <div class="dropdown-menu">

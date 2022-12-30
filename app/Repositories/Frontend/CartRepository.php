@@ -175,20 +175,20 @@ class CartRepository
             }
 
             // Check if product is part of promo 
-            if ($promo_code->product != null) {
+            // if ($promo_code->product != null) { b 
 
-                $couponItemIds = array_map('intval', json_decode($promo_code->product));
-                $couponItemIdsCollect = collect($couponItemIds);
-                $item_Ids = [];
-                foreach (Cart::content() as $key => $item) {
-                $item_Ids[] = $item->id;
-                }
+            //     $couponItemIds = array_map('intval', json_decode($promo_code->product));
+            //     $couponItemIdsCollect = collect($couponItemIds);
+            //     $item_Ids = [];
+            //     foreach (Cart::content() as $key => $item) {
+            //     $item_Ids[] = $item->id;
+            //     }
 
-                $result = array_intersect($couponItemIds,$item_Ids);
-                return $item_Ids;
-                // return $couponItemIdsCollect->contains($item_Ids);
+            //     $result = array_intersect($couponItemIds,$item_Ids);
+            //     return $item_Ids;
+            //     // return $couponItemIdsCollect->contains($item_Ids);
 
-            }
+            // }
 
             // Check if user login is required
             if ($promo_code->no_of_times_per_user > 0) {

@@ -6,10 +6,15 @@ use App\Helpers\SmsHelper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\CustomerRestockMail;
+use App\Mail\OrderProgressEmail;
+use App\Models\EmailTemplate;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PromoCode;
 use App\Models\TrackOrder;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -91,38 +96,32 @@ class OrderController extends Controller
     public function status($id, $field, $value)
     {
         $order = Order::findOrFail($id);
+        $user =  User::where('id',$order->user_id)->first();
+        // dd($order->user_id);
+// dd($id.' '.$field.' '.$value);
 
-        if ($field == 'payment_status') {
-            if ($order['payment_status'] == 'Paid') {
-                return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
-            }
-        }
+if ($field == 'payment_status') {
+    if ($order['payment_status'] == 'Paid') {
+        return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
+    }
+}
 
-        if ($field == 'order_status') {
-            if ($order['order_status'] == 'Delivered') {
-                return redirect()->route('backend.order.index')->withError(__('Order is already Delivered.'));
-            }
-        }
-        if ($field == 'order_status') {
-            if ($order['payment_status'] == 'Unpaid' && $value="In Progress") {
-                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
-            }
-        }
-        if ($field == 'order_status') {
-            if ($order['payment_status'] == 'Unpaid' && $value="Verified") {
-                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
-            }
-        }
-        if ($field == 'order_status') {
-            if ($order['payment_status'] == 'Unpaid' && $value="Shipped") {
-                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
-            }
-        }
-        if ($field == 'order_status') {
-            if ($order['payment_status'] == 'Unpaid' && $value="Delivered") {
-                return redirect()->route('backend.order.index')->withError(__('Payment not confirmed.'));
-            }
-        }
+    if ($field == 'order_status') {
+    
+    if ($value == 'In Progress' && $order['payment_status'] === 'Unpaid') { 
+    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    }
+    if ($value == 'Verified' && $order['payment_status'] === 'Unpaid') { 
+    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    }
+    if ($value == 'Shipped' && $order['payment_status'] === 'Unpaid') { 
+    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    }
+    if ($value == 'Delivered' && $order['payment_status'] === 'Unpaid') { 
+    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    }
+
+    }
 
         $order->update([ $field => $value ]);
 
@@ -130,11 +129,68 @@ class OrderController extends Controller
             $this->setPromoCode($order);
         }
         $this->setTrackOrder($order);
-        $sms = new SmsHelper();
-        $user_number = $order->user->phone;
-        if ($user_number) {
-            $sms->sendSms($user_number, "'order_status'");
+
+        // $sms = new SmsHelper();
+        // $user_number = $order->user->phone;
+        // if ($user_number) {
+        //     $sms->sendSms($user_number, "'order_status'");
+        // }
+        switch($value) {
+            case('In Progress'):
+ 
+                $template = EmailTemplate::whereType('Order_In_Progress')->first();
+                $emailData = [
+                    'email'      => $user->email,
+                    'subject'    => $template->subject,
+                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
+        
+                ];
+ 
+                break;
+ 
+            case('Verified'):
+                 
+                $template = EmailTemplate::whereType('Order_Verified')->first();
+                $emailData = [
+                    'email'      => $user->email,
+                    'subject'    => $template->subject,
+                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
+        
+                ];
+ 
+                break;
+
+            case('Shipped'):
+                 
+                $template = EmailTemplate::whereType('Order_Shipped')->first();
+                $emailData = [
+                    'email'      => $user->email,
+                    'subject'    => $template->subject,
+                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
+        
+                ];
+ 
+                break;
+
+            case('Delivered'):
+                 
+                $template = EmailTemplate::whereType('Order_delivered')->first();
+                $emailData = [
+                    'email'      => $user->email,
+                    'subject'    => $template->subject,
+                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
+        
+                ];
+ 
+                break;
+ 
+            default:
+
+            return;
         }
+        
+
+        Mail::to($user->email)->send(new OrderProgressEmail($emailData));
 
         return redirect()->route('backend.order.index')->withSuccess(__('Status Updated Successfully'));
     }

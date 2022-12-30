@@ -42,7 +42,7 @@
                                             placeholder="{{ __('Enter Code') }}" value="{{ $code->code_name }}" required>
                                     </div>
                                     
-                                    <div class="form-group  col-md-6">
+                                    {{-- <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Products') }} </label>
                                        
 
@@ -69,9 +69,9 @@
                                       
                                         </select>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                   
-                                    <div class="form-group  col-md-6">
+                                    {{-- <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Category') }} </label>
                                         @if ($code->category == "null")
                                         <select class="select2bs4" multiple="multiple" data-placeholder="Select Category"
@@ -91,7 +91,7 @@
                                         @endforeach
                                     </select>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group  col-md-6">
                                         <label for="title">{{ __('Date Start') }} *</label>
                                         <div class="input-group date date-picker" data-target-input="nearest">
