@@ -660,7 +660,7 @@ class FrontendController extends Controller
                     ]);
         }
         return response()->json([
-            'error'=>"You have subscribed successfully"
+            'error'=>"An error has occured"
         ]);
     }
     // ------------ Subscribe End ------

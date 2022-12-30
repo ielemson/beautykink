@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -25,8 +26,12 @@ class SubscribeRequest extends FormRequest
      */
     public function rules()
     {
+        $setting = Setting::first();
+        $captcha_check = $setting->recaptcha == 1 ? 'required' : '';
+
         return [
-            'email' => 'required|unique:subscribers,email'
+            'email' => 'required|unique:subscribers,email',
+            'g_recaptcha_response'  => $captcha_check,
         ];
     }
 
@@ -40,6 +45,7 @@ class SubscribeRequest extends FormRequest
         return [
             'email.required' => __('Email field is requried'),
             'email.unique' => __('This email has already been taken.'),
+            'g_recaptcha_response.required' => __('Please verify you are human'),
         ];
     }
 

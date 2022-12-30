@@ -74,15 +74,31 @@
                   <h4 class="title hidden-sm-down" data-margin-bottom="32">Sign Up For Newsletter</h4>
                   <h4 class="title2 hidden-md-up collapsed" data-bs-toggle="collapse" data-bs-target="#dividerId-2">Sign Up For Newsletter</h4>
                   <div id="dividerId-2" class="collapse">
-                    <div class="newsletter-content-wrap">
+                    <div class="newsletter-content-wrap"> <form method="POST" action="{{ route('frontend.subscriber.submit') }}">
                       <div class="newsletter-form">
-                        <form method="POST" action="{{ route('frontend.subscriber.submit') }}">
+                       
                           @csrf
                           <input type="email" name="email" class="form-control" placeholder="Your email address" required>
+                          
+                
                           <button class="btn btn-submit btn-subscriber" type="submit">Sign up</button>
-                        </form>
+                     
+                      </div>  
+                      @if ($setting->recaptcha == 1)
+                      <div class="col-lg-6 col-md-6 mt-5 mx-auto">
+                          {!! NoCaptcha::renderJs() !!}
+                          {!! NoCaptcha::display() !!}
+                          @if ($errors->has('g-recaptcha-response'))
+                              @php
+                                  $errmsg = $errors->first('g-recaptcha-response');
+                              @endphp
+                              <p class="text-danger mb-0">{{ __("$errmsg") }}</p>
+                          @endif
                       </div>
+                  @endif
+                     </form>
                     </div>
+                  
                     <p>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</p>
                   </div>
                 </div>
@@ -108,10 +124,12 @@
       
         e.preventDefault();
         var email = $("input[name=email]").val();
+        var response = grecaptcha.getResponse();
+        // console.log(response)
         $.ajax({
            type:'POST',
            url:"{{ route('frontend.subscriber.submit') }}",
-           data:{ email:email},
+           data:{ email:email,g_recaptcha_response:response},
            success:function(data){
             // initialize the toast
             const Toast = Swal.mixin({
@@ -126,7 +144,20 @@
                     title: data.success,
                 })
              $("input[name=email]").val('')
-           }
+             grecaptcha.reset()
+           },
+           error: function(jqXhr, json, errorThrown){// this are default for ajax errors 
+        var errors = jqXhr.responseJSON;
+        // var errorsHtml = '';
+        $.each(errors['errors'], function (index, value) {
+           
+        Toast.fire({
+                    icon: 'error',
+                    title: value,
+                })
+        });
+
+      }
         });
   
     });

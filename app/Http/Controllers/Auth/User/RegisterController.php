@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Repositories\Frontend\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class RegisterController extends Controller
 {
@@ -19,6 +21,12 @@ class RegisterController extends Controller
     */
     public function __construct(UserRepository $repository) {
         $this->repository = $repository;
+
+        $setting = Setting::first();
+        if ( $setting->recaptcha == 1 ) {
+            Config::set('captcha.sitekey', $setting->google_recaptcha_site_key);
+            Config::set('captcha.secret', $setting->google_recaptcha_secret_key);
+        }
     }
 
     /**
@@ -29,6 +37,7 @@ class RegisterController extends Controller
     */
     public function register(UserRequest $request)
     {
+        // dd($request->all());
         $this->repository->register($request);
         return redirect()->route('user.login')->withSuccess(__('Account Registered Successfully!'));
     }
