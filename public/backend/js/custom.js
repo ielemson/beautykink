@@ -88,6 +88,16 @@
 
     // Action Alert
     $(document).on('click',".confirm-action", function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+       var  update_type = $(this).data('update_type');
+       var  id = $(this).data('id');
+       var  field = $(this).data('field');
         Swal.fire({
             title: $(this).data('title'),
             text: $(this).data('text'),
@@ -99,9 +109,82 @@
             cancelButtonText: $(this).data('cancel_btn')
             })
             .then((result) => {
+
+                // console.log(update_type)
                 if (result.value) {
+                    console.log(update_type)
+                    if(update_type == "Shipped" || update_type == "Delivered" ){
+                         Swal.fire({
+                        title: 'Enter Message For Customer',
+                        html: `
+                        <input type="text" id="subject" class="subject form-control mb-2" placeholder="Subject">
+                        <textarea type="text" id="msg" class="msg form-control" rows="2" placeholder="Compose message"></textarea>`,
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: $(this).data('ok_btn'),
+                        cancelButtonText: $(this).data('cancel_btn'),
+                        focusConfirm: false,
+                        preConfirm: () => {
+                          const msg = Swal.getPopup().querySelector('#msg').value
+                          const sub = Swal.getPopup().querySelector('#subject').value
+                          if (!msg) {
+                            Swal.showValidationMessage(`Input field is empty`)
+                          }
+                          return { msg: msg,sub:sub}
+                        }
+                      }).then((result) => {
+                       
+                        var url = $(this).data('action')
+
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            // icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3500
+                        })
+
+                      
+                        $.ajax({
+                           type:'POST',
+                            url:url,
+                            data:{id:id, field:field, value:update_type,msg:result.value.msg,sub:result.value.sub},
+
+                            success:function(response)
+                            {
+                                Toast.fire({
+                                icon: `${response.type}`,
+                                title: response.message,
+                                })
+
+                                setTimeout(() => {
+                                response.type =="success" ? location.reload():''
+                                    
+                                }, 3500);
+
+                                },
+                            error: function(response) {
+                               
+                            }
+                        });
+
+                      })
+                    // }
+                    // else if(update_type == "Shipped"){
+
+                    }else{
                     window.location = $(this).data('href');
+
+                    }
+                    // console.log(result)
+
+                 
                 }
+
+               
+
         });
     });
 

@@ -153,6 +153,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/order/print/{id}', [OrderController::class, 'printOrder'])->name('backend.order.print');
         Route::get('/order/invoice/{id}', [OrderController::class, 'invoice'])->name('backend.order.invoice');
         Route::get('/order/status/{id}/{field}/{value}', [OrderController::class, 'status'])->name('backend.order.status');
+        Route::post('/order/status/update', [OrderController::class, 'status_update'])->name('backend.order.status.update');
     });
 
     // ------ Manage Products Permissions -------
