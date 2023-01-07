@@ -4,6 +4,7 @@
             <input type="checkbox" name="" class="bulk-item" value="{{ $data->id }}">
         </td>
         <td>{{ $data->id }}</td>
+        <td>{{  $data->user->displayName() }}</td>
         <td>
             @if ($setting->currency_direction == 1)
                 {{ $data->currency_sign }}{{ PriceHelper::orderTotal($data) }}

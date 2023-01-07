@@ -31,6 +31,7 @@ class Order extends Model
         'charged_amount',
         'flw_ref',
         'processor_response',
+        'shipping_type'
     ];
 
     /**

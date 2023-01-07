@@ -4,6 +4,7 @@
         <td>{{ $data->country->name }}</td> 
         <td>
             {{ $data->state->name}}
+            
             {{-- @php
             $state_ids = json_decode($data->state_id,true);
             $states = DB::table('states')->whereIn('id',$state_ids)->get();

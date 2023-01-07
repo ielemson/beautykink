@@ -76,6 +76,7 @@
                   <tr>
                     <th><input type="checkbox" name="" data-target="product-bulk-delete" class=" bulk_all_delete" id=""></th>
                     <th>{{ __('Order ID') }}</th>
+                    <th>{{ __('Email') }}</th>
                     <th>{{ __('Total Amount') }}</th>
                     <th>{{ __('Payment Status') }}</th>
                     <th>{{ __('Order Status') }}</th>

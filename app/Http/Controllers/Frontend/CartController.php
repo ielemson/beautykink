@@ -369,11 +369,15 @@ class CartController extends Controller
         Cart::remove($rowId);
 
        if(Cart::count() == 0){
-        Session::forget('free_shipping');
         Session::forget('discount');
         Session::forget('coupon');
         Session::forget('shipping_id');
+        Session::forget('shipping_state_id');
         Session::forget('shipping_price');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
+        Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
        }
 
         return response()->json(['success' => 'Item removed successfully'], 200);
@@ -383,6 +387,23 @@ class CartController extends Controller
     {
         $cartItem = Cart::content()->where('id', $pid)->first();
         return response()->json(['cart' => $cartItem], 200);
+    }
+
+    public function paymentCancel(){
+        
+        Cart::destroy();
+        // Session::forget('cart');
+        Session::forget('discount');
+        Session::forget('coupon');
+        Session::forget('shipping_id');
+        Session::forget('free_shipping_id');
+        Session::forget('shipping_state_id');
+        Session::forget('shipping_price');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
+        Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
+        return back()->with('success', __('Payment Canceled Successfully.'));
     }
     // NEW MODIFIED ROUTES FOR CART CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::::::
 }

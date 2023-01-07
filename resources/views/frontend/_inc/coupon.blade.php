@@ -17,7 +17,7 @@
 
             <div class="text-right column text-lg">
                 <span class="text-muted">{{ __('Subtotal') }}: </span>
-                <span class="text-gray-dark">&#8358;{{ PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0)}}</span>
+                <span class="text-gray-dark">@money(PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0),'NGN')</span>
             </div>
 
         </div>

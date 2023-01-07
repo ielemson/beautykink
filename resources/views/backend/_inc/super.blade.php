@@ -223,7 +223,7 @@
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-shipping-fast"></i>
         <p>
-          {{ __('Geozone & Shipping') }}
+          {{ __('Zone & Shipping') }}
           <i class="fas fa-angle-left right"></i>
         </p>
       </a>
@@ -232,6 +232,12 @@
           <a href="{{ route('backend.shipping.index') }}" class="nav-link {{ (request()->segment(2) == 'shipping') ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>{{ __('Shipping') }}</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('backend.freeshipping.index') }}" class="nav-link {{ (request()->segment(3) == 'free') ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>{{ __('Free Shipping') }}</p>
           </a>
         </li>
         <li class="nav-item">

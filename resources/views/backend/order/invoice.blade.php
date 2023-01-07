@@ -153,21 +153,15 @@
                                         --
                                     @endif --}}
                                     @if ($item['attribute_name'])
-                                             color: {{$item['attribute_name']}}
+                                        {{$item['attribute_name']}}
                                         @else
-
-                                        None
-
-                                    @endif
+                                          --
+                                       @endif
                                     
                                 </td>
                                 <td>{{ $item['qty'] }}</td>
                                 <td>
-                                    @if ($setting->currency_direction == 1)
-                                        {{ $order->currency_sign }}{{ round($item['main_price'] * $order->currency_value, 2) }}
-                                    @else
-                                        {{ round($item['main_price'] * $order->currency_value, 2) }}{{ $order->currency_sign }}
-                                    @endif
+                                  @money(round($item['main_price'] * $order->currency_value, 2),'NGN')
                                 </td>
                             </tr>
                         @endforeach
@@ -216,8 +210,8 @@
                             @php
                                 $shipping = json_decode($order->shipping, true);
                                 $shipping_info = json_decode($order->shipping_info, true);
-                               $zone = DB::table("states")->where('id',$shipping['id'])->first();
-                               $state = DB::table("states")->where('id',$shipping['shipping_state_id'])->first();
+                              //  $zone = DB::table("states")->where('id',$shipping['id'])->first();
+                              //  $state = DB::table("states")->where('id',$shipping['shipping_state_id'])->first();
                                 
                             @endphp
                             <tr>

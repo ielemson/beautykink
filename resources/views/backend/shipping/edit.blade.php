@@ -44,7 +44,6 @@
                       @endforeach
                     </select>
                   </div>
-
                   
                   <div class="form-group  col-md-6">
                     <label for="title">{{ __('State Covered') }} *</label>

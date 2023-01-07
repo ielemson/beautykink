@@ -10,6 +10,7 @@ use App\Models\TrackOrder;
 use Illuminate\Support\Str;
 use App\Helpers\EmailHelper;
 use App\Helpers\PriceHelper;
+use App\Models\FreeShipping;
 use App\Models\GeoZone;
 use App\Models\Notification;
 use App\Models\ShippingMethod;
@@ -82,12 +83,31 @@ trait CashOnDeliveryCheckout
 
         $shipping = [];
         
-        $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
+        // $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
+        
+        // if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
+        //     $shipping = ShippingMethod::where('id',$shipping_id)->first();
+        //     $shipping['price'] = $shipping->price;
+        //     $shipping['shipping_state_id'] = Session::get('shipping_state_id');
+        // }
+
+        $shipping = [];
+
+        if(Session::has('free_shipping_id')){
+            $shipping = FreeShipping::where('id',Session::get('free_shipping_id'))->first();
+            $shipping['price'] = 0;
+            $shipping['state_id'] = Session::get('free_shipping_state_id');
+
+        }else{
+
+             $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
         
         if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
             $shipping = ShippingMethod::where('id',$shipping_id)->first();
             $shipping['price'] = $shipping->price;
             $shipping['shipping_state_id'] = Session::get('shipping_state_id');
+        }
+
         }
 
         $discount = [];
@@ -115,6 +135,7 @@ trait CashOnDeliveryCheckout
         $order_data['payment_status']     = 'Unpaid';
         // $order_data['txnid']              = $data['txn_id'];
         $order_data['order_status']       = 'Pending';
+        $order_data['shipping_type']     = Session::has('free_shipping_id') ? 'Free': 'Paid';
         $order                            = Order::create($order_data);
         TrackOrder::create([
             'title'    => 'Pending',
@@ -156,6 +177,8 @@ trait CashOnDeliveryCheckout
         Session::forget('shipping_address');
         Session::forget('billing_address');
         Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
+        Session::forget('free_shipping_id');
         return [
             'status' => true
         ];

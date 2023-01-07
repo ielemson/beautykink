@@ -120,13 +120,13 @@
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span
-                                                class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                                class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price), 'NGN')</span>
                                         @endif
 
-                                        <span class="price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                        <span class="price">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
                                         @if ($item->previous_price != 0)
                                             <span class="discount-percentage">Save
-                                                {{ PriceHelper::discountPercentage($item) }}</span>
+                                                @money(PriceHelper::discountPercentage($item),'NGN')</span>
                                         @endif
 
                                         <div class="tax-label">

@@ -67,18 +67,7 @@
     
 
     <div class="block-reassurance">
-      {{-- <ul>
-        <li>
-          <h4 class="panel-title">
-            <span class="icon">
-              <i class="fa fa-truck"></i>
-            </span>
-         
-          </h4>
-          <span>Security Policy (Edit With Customer Reassurance Module)</span>
-        </li>
-       
-      </ul> --}}
+    {{-- <input type="hidden" name="free_shipping_id" id="free_shipping_id"> --}}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -92,20 +81,22 @@
           
             <p class="description">Please select the preferred shipping method to use on this order.</p>
           
+          <div id="shipping_method_free" style="display: none">
+            
+              <strong class="title">Free Shipping *</strong>
+              <div class="spinner mx-auto" style="text-align:center"></div>
+             <span id="embed_free_shipping"></span>
+              
+          </div>
           <div id="shipping_method_list">
             
               <strong class="title">Shipping Rate *</strong>
               <div class="spinner mx-auto" style="text-align:center"></div>
-              {{-- <div id="shipping_method"></div>  --}}
-              <div class="col-sm-12 shipingmethod_data">
-                <div class="form-group">
-                  {{-- <label for="checkout-country">{{ __('Shipping Zone') }}*</label> --}}
-                  <select class="form-control" name="shipping_method" id="shipping_method" class="form-control" required>
-                  </select>
-              </div>
-              </div>
+             <span id="embed_shipping_list"></span>
               
           </div>
+          <span id="No_shipping_method" class="text"></span>
+         
         </div>
       </div>
     </div>

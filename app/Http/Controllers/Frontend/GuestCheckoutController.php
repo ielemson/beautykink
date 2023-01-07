@@ -15,6 +15,7 @@ use App\Traits\PaystackCheckout;
 use App\Traits\CashOnDeliveryCheckout;
 use App\Http\Requests\PaymentRequest;
 use App\Models\City;
+use App\Models\FreeShipping;
 use App\Models\GeoZone;
 use App\Models\Order;
 use App\Models\Setting;
@@ -377,28 +378,58 @@ class GuestCheckoutController extends Controller
         
         try {
             // Get the shpping info
-        $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
-        // decode the state ids from the shipping info
-        $methodIds =  json_decode($data['shipping_method_id']);
-        
-
+        $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->count();
+        if ($data) {
+            $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
+            $methodIds =  json_decode($data['shipping_method_id']);
             $shippingMethods = ShippingMethod::whereIn("id",$methodIds)->get();
+        }else{
+            $shippingMethods = [];
+        }
+      
+
+        // Get free shipping info
+        $free_shipping_state_count = FreeShipping::where([['is_status',1],['state_id',$request->state_id],['status','is']])->count();
+        // $free_shipping_outside_state = FreeShipping::where([['is_status',1],['state_id',$request->shipping_method_state_id],['status','is not']])->first();
+
+        if ($free_shipping_state_count) {
+
+           $free_shipping_state =  FreeShipping::where([['is_status',1],['state_id',$request->state_id],['status','is']])->first();
+        }else{
+
+            $free_shipping_state = FreeShipping::where([['is_status',1],['status','is not']])->first();
+        }
+
+        $total = 0;
+        $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += +$attribute_price;
+        }
+
+        $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+        $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+        $cart_total = ($total - $coupon) + $shippingPrice;
+        // Session::put('flutterPayTotal',$cart_total);
+
+        //    
+
+        // check if cart is greater than the free shipping amount
+        // $check_free_shipping = false;
+
+         $cart_total >= $free_shipping_state['amount'] ? $check_free_shipping = true : $check_free_shipping = false;
+
         } catch (Exception $e) {
               
-            // $message = $e->getMessage();
-            // var_dump('Exception Message: '. $message);
-  
-            // $code = $e->getCode();       
-            // var_dump('Exception Code: '. $code);
-  
-            // $string = $e->__toString();       
-            // var_dump('Exception String: '. $string);
+         
             return response()->json(['error'=>'error'],200);
             exit;
         }
 
         return response()->json([
-            'datas'=>$shippingMethods
+            'datas'=>$shippingMethods,
+            'free_shipping_state'=>$free_shipping_state,
+            'check_free_shipping'=>$check_free_shipping,
         ],200);
        
     }

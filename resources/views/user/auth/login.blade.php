@@ -48,7 +48,7 @@
                             
                                <div class="col-6 text-center">
                                 <a class="btn-forgot" href="javascript:;">Checkout as Guest?</a>
-                                <a href="{{route('frontend.guest.checkout')}}" class="btn-signin">Guest Checkout</a>
+                                <a href="{{route('frontend.guest.checkout')}}" class="btn-signin">Checkout</a>
                             </div>
                              
                             </div>

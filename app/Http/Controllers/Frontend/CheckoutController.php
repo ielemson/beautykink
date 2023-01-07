@@ -80,10 +80,10 @@ class CheckoutController extends Controller
     {
      
         // dd($request->all());
-        $shippingMethods = ShippingMethod::where("id",$request->shipping_method)->first();
-        if(!$shippingMethods){
-            return redirect()->back()->withError(__('Invalid shipping method selected'));
-        }
+        // $shippingMethods = ShippingMethod::where("id",$request->shipping_method)->first();
+        // if(!$shippingMethods || !Session::get('free_shipping_state')){
+        //     return redirect()->back()->withError(__('Invalid shipping method selected'));
+        // }
         Session::put('billing_address', $request->all());
 
                 $shipping = [
@@ -357,6 +357,8 @@ class CheckoutController extends Controller
         ],200);
        
     }
+
+    
     // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
    
 }

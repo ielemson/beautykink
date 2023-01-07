@@ -23,6 +23,8 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\SubscribeRequest;
 use App\Models\AboutUs;
+use App\Models\FreeShipping;
+// use App\Models\FreeShipping;
 // use App\Models\GeoZone;
 use App\Models\Highlight;
 use App\Models\RestockReminder;
@@ -34,6 +36,7 @@ use Illuminate\Support\Facades\Session;
 use App\Repositories\Frontend\FrontRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use \Dymantic\InstagramFeed\Profile;
+
 class FrontendController extends Controller
 {
     /**
@@ -41,8 +44,9 @@ class FrontendController extends Controller
      *
      * @param \App\Repositories\Frontend\FrontRepository $repository
      * @return void
-    */
-    public function __construct(FrontRepository $repository) {
+     */
+    public function __construct(FrontRepository $repository)
+    {
         $this->repository = $repository;
         $setting = Setting::first();
         if ($setting->recaptcha == 1) {
@@ -54,15 +58,15 @@ class FrontendController extends Controller
     // ------------ Home ------------------
     public function index()
     {
-        
+
         $setting = Setting::first();
-    //  dd(Highlighter::all());
+        //  dd(Highlighter::all());
         // feature category
         $home_customize = HomeCustomize::first();
         $feature_category_ids = json_decode($home_customize->feature_category, true);
         $feature_category_title = $feature_category_ids['feature_title'];
         $feature_category = [];
-        for ($i=1; $i <= 4 ; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             if (!in_array($feature_category_ids['category_id' . $i], $feature_category)) {
                 if ($feature_category_ids['category_id' . $i]) {
                     $feature_category[] = $feature_category_ids['category_id' . $i];
@@ -85,23 +89,23 @@ class FrontendController extends Controller
         $subcategory = $feature_category_ids['subcategory_id1'];
         $childcategory = $feature_category_ids['childcategory_id1'];
 
-        $feature_category_items = Item::when($category, function($query, $category) {
+        $feature_category_items = Item::when($category, function ($query, $category) {
             return $query->where('category_id', $category);
         })
-        ->when($childcategory, function ($query, $subcategory) {
-            return $query->where('subcategory_id', $subcategory);
-        })
-        ->when($childcategory, function ($query, $childcategory) {
-            return $query->where('childcategory_id', $childcategory);
-        })
-        ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
+            ->when($childcategory, function ($query, $subcategory) {
+                return $query->where('subcategory_id', $subcategory);
+            })
+            ->when($childcategory, function ($query, $childcategory) {
+                return $query->where('childcategory_id', $childcategory);
+            })
+            ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
         // feature category end
 
         // popular category
         $popular_category_ids = json_decode($home_customize->popular_category, true);
         $popular_category_title = $popular_category_ids['popular_title'];
         $popular_category = [];
-        for ($i=1; $i <= 4 ; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             if (!in_array($popular_category_ids['category_id' . $i], $popular_category)) {
                 if ($popular_category_ids['category_id' . $i]) {
                     $popular_category[] = $popular_category_ids['category_id' . $i];
@@ -132,23 +136,23 @@ class FrontendController extends Controller
         $subcategory = $popular_category_ids['subcategory_id1'];
         $childcategory = $popular_category_ids['childcategory_id1'];
 
-        $popular_category_items = Item::when($category, function($query, $category) {
+        $popular_category_items = Item::when($category, function ($query, $category) {
             return $query->where('category_id', $category);
         })
-        ->when($childcategory, function ($query, $subcategory) {
-            return $query->where('subcategory_id', $subcategory);
-        })
-        ->when($childcategory, function ($query, $childcategory) {
-            return $query->where('childcategory_id', $childcategory);
-        })
-        ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
+            ->when($childcategory, function ($query, $subcategory) {
+                return $query->where('subcategory_id', $subcategory);
+            })
+            ->when($childcategory, function ($query, $childcategory) {
+                return $query->where('childcategory_id', $childcategory);
+            })
+            ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
         // popular category end
 
         // two column category
         $two_column_category_ids = json_decode($home_customize->two_column_category, true);
 
         $two_column_category = [];
-        for ($i=1; $i <= 2 ; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             if (!in_array($two_column_category_ids['category_id' . $i], $two_column_category)) {
                 if ($two_column_category_ids['category_id' . $i]) {
                     $two_column_category[] = $two_column_category_ids['category_id' . $i];
@@ -196,7 +200,7 @@ class FrontendController extends Controller
         // dd($checktheme->theme);
         // if ($checktheme ->theme == 'theme1') {
         //     $sliders = Slider::where('home_page', 'theme1')->get();
-           
+
         // } elseif ($checktheme ->theme == 'theme2') {
         //     $sliders = Slider::where('home_page', 'theme2')->get();
         // } elseif ($checktheme ->theme == 'theme3') {
@@ -204,15 +208,15 @@ class FrontendController extends Controller
         // } else {
         //     $sliders = Slider::where('home_page', 'theme4')->get();
         // }
-        $sliders = Slider::orderBy('pos','asc')->get();
-        $testimonials = Testimonial::where('status',1)->get();
+        $sliders = Slider::orderBy('pos', 'asc')->get();
+        $testimonials = Testimonial::where('status', 1)->get();
         $buttons = \Share::page('https://dev.beautykink.com', 'Our insta-feeds',)->facebook()->telegram()->twitter()->whatsapp();
-    //   dd(Profile::where('username','beautykink')->first()->feed(12));
+        //   dd(Profile::where('username','beautykink')->first()->feed(12));
         return view('frontend.index', [
             'banner_first'           => json_decode($home_customize->banner_first, true),
             'sliders'                => $sliders,
             'campaign_items'         => CampaignItem::with('item')->whereStatus(1)->whereIsFeature(1)->orderBy('id', 'desc')->get(),
-            'insta_feeds'            => Profile::where('username','beautykink')->first()->feed(15),
+            'insta_feeds'            => Profile::where('username', 'beautykink')->first()->feed(15),
             'services'               => Service::orderBy('id', 'desc')->get(),
             'posts'                  => Post::with('category')->orderBy('id', 'desc')->take(8)->get(),
             'brands'                 => Brand::whereStatus(1)->get(),
@@ -220,8 +224,8 @@ class FrontendController extends Controller
             'banner_third'           => json_decode($home_customize->banner_third, true),
             'brands'                 => Brand::whereStatus(1)->whereIsPopular(1)->get(),
             'products'               => Item::with('category')->whereStatus(1),
-            'new_products'           => Item::with('category')->where('is_type','new')->whereStatus(1),
-            'highlights'             => Highlight::where('status',1)->get(),
+            'new_products'           => Item::with('category')->where('is_type', 'new')->whereStatus(1),
+            'highlights'             => Highlight::where('status', 1)->get(),
             'home_page4_banner'      => json_decode($home_customize->home_page4, true),
             'popular_category_home4' => $popular_category_home4,
 
@@ -240,7 +244,6 @@ class FrontendController extends Controller
             'testimonials' => $testimonials,
             'buttons' => $buttons,
         ]);
-
     }
     // ------------ Home End --------------
 
@@ -252,7 +255,7 @@ class FrontendController extends Controller
         $feature_category_ids = json_decode($home_customize->feature_category, true);
         $feature_category_title = $feature_category_ids['feature_title'];
         $feature_category = [];
-        for ($i=1; $i <= 4 ; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             if (!in_array($feature_category_ids['category_id' . $i], $feature_category)) {
                 if ($feature_category_ids['category_id' . $i]) {
                     $feature_category[] = $feature_category_ids['category_id' . $i];
@@ -275,23 +278,23 @@ class FrontendController extends Controller
         $subcategory = $feature_category_ids['subcategory_id1'];
         $childcategory = $feature_category_ids['childcategory_id1'];
 
-        $feature_category_items = Item::when($category, function($query, $category) {
+        $feature_category_items = Item::when($category, function ($query, $category) {
             return $query->where('category_id', $category);
         })
-        ->when($childcategory, function ($query, $subcategory) {
-            return $query->where('subcategory_id', $subcategory);
-        })
-        ->when($childcategory, function ($query, $childcategory) {
-            return $query->where('childcategory_id', $childcategory);
-        })
-        ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
+            ->when($childcategory, function ($query, $subcategory) {
+                return $query->where('subcategory_id', $subcategory);
+            })
+            ->when($childcategory, function ($query, $childcategory) {
+                return $query->where('childcategory_id', $childcategory);
+            })
+            ->whereStatus(1)->take(10)->orderBy('id', 'desc')->get();
         // feature category end
 
         // popular category
         $popular_category_ids = json_decode($home_customize->popular_category, true);
         $popular_category_title = $popular_category_ids['popular_title'];
         $popular_category = [];
-        for ($i=1; $i <= 4 ; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             if (!in_array($popular_category_ids['category_id' . $i], $popular_category)) {
                 if ($popular_category_ids['category_id' . $i]) {
                     $popular_category[] = $popular_category_ids['category_id' . $i];
@@ -314,23 +317,23 @@ class FrontendController extends Controller
         $subcategory = $popular_category_ids['subcategory_id1'];
         $childcategory = $popular_category_ids['childcategory_id1'];
 
-        $popular_category_items = Item::when($category, function($query, $category) {
+        $popular_category_items = Item::when($category, function ($query, $category) {
             return $query->where('category_id', $category);
         })
-        ->when($childcategory, function ($query, $subcategory) {
-            return $query->where('subcategory_id', $subcategory);
-        })
-        ->when($childcategory, function ($query, $childcategory) {
-            return $query->where('childcategory_id', $childcategory);
-        })
-        ->whereStatus(1)->orderBy('id', 'desc')->get();
+            ->when($childcategory, function ($query, $subcategory) {
+                return $query->where('subcategory_id', $subcategory);
+            })
+            ->when($childcategory, function ($query, $childcategory) {
+                return $query->where('childcategory_id', $childcategory);
+            })
+            ->whereStatus(1)->orderBy('id', 'desc')->get();
         // popular category end
 
         // two column category
         $two_column_category_ids = json_decode($home_customize->two_column_category, true);
 
         $two_column_category = [];
-        for ($i=1; $i <= 2 ; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             if (!in_array($two_column_category_ids['category_id' . $i], $two_column_category)) {
                 if ($two_column_category_ids['category_id' . $i]) {
                     $two_column_category[] = $two_column_category_ids['category_id' . $i];
@@ -397,7 +400,6 @@ class FrontendController extends Controller
             // two column cateogry
             'two_column_categoriess' => $two_column_categoriess
         ]);
-
     }
     // ------------ Extra Index End --------------
 
@@ -432,7 +434,7 @@ class FrontendController extends Controller
             'sec_details'   => json_decode($item->specification_description, true),
             'attributes'    => $item->attributes,
             'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get(),
-            'buttons'       =>$buttons
+            'buttons'       => $buttons
         ]);
     }
     // ------------ Extra Index End --------------
@@ -458,7 +460,7 @@ class FrontendController extends Controller
         foreach ($name as $nm) {
             $tagz .= $nm . ',';
         }
-        $tags = array_unique(explode(',',$tagz));
+        $tags = array_unique(explode(',', $tagz));
         if (Setting::first()->is_blog == 0) return back();
 
         if ($request->ajax()) return view('frontend.blog.list', ['posts' => $this->repository->displayPosts($request)]);
@@ -556,7 +558,7 @@ class FrontendController extends Controller
         // }
         $about = AboutUs::first();
         // dd($about);
-        return view('frontend.aboutus',compact('about'));
+        return view('frontend.aboutus', compact('about'));
     }
 
     public function contactEmail(Request $request)
@@ -609,16 +611,17 @@ class FrontendController extends Controller
 
     // ------------ Subscribe ----------
     public function subscribeSubmit(Request $request)
-    
+
     {
-        $request->validate([
-            'email' => 'required|unique:subscribers,email'
-        ],
-     [
-           'email.required' => __('Email field is requried'),
-            'email.unique' => __('This email has already been taken.'),
-     ]
-     );
+        $request->validate(
+            [
+                'email' => 'required|unique:subscribers,email'
+            ],
+            [
+                'email.required' => __('Email field is requried'),
+                'email.unique' => __('This email has already been taken.'),
+            ]
+        );
 
         Subscriber::create($request->all());
         // return response()->json(__('You Have Subscribed Successfully.'));
@@ -646,107 +649,128 @@ class FrontendController extends Controller
                 'error'   => 1
             ]);
         }
-
     }
     // ------------ Track Order End ------
 
     // ------------ Subscribe ----------
     public function subscriberSubmit(SubscribeRequest $request)
     {
-        
-        if(Subscriber::create($request->all())){
+
+        if (Subscriber::create($request->all())) {
             return response()->json([
-                        'success'=>"You have subscribed successfully"
-                    ]);
+                'success' => "You have subscribed successfully"
+            ]);
         }
         return response()->json([
-            'error'=>"An error has occured"
+            'error' => "An error has occured"
         ]);
     }
     // ------------ Subscribe End ------
 
     /**
      * Redirect to Maintainance Page.
-    */
+     */
     public function maintenance()
     {
         $setting = Setting::first();
-        if($setting->is_maintainance == 0) return redirect()->route('frontend.index');
+        if ($setting->is_maintainance == 0) return redirect()->route('frontend.index');
         return view('frontend.maintenance');
     }
 
     // Extra Methods
 
-    public function quick_view($id=null){
+    public function quick_view($id = null)
+    {
         $item = Item::with('category')->whereStatus(1)->whereId($id)->firstOrFail();
         return response([
-            'product'=>$item,
-            'galleries'=> $item->galleries,
+            'product' => $item,
+            'galleries' => $item->galleries,
         ]);
     }
 
-    public function restock_reminder(Request $request){
+    public function restock_reminder(Request $request)
+    {
         // $input = $request->all();
 
         $request->validate([
-            'email'=>'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
+            'email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
         ]);
 
         // $check = RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->first();
-        if(RestockReminder::where('email',$request->email)->where('prod_id',$request->id)->exists()){
-             return response()->json([
-            'message'=>'We have you on the list'
-        ],200);
+        if (RestockReminder::where('email', $request->email)->where('prod_id', $request->id)->exists()) {
+            return response()->json([
+                'message' => 'We have you on the list'
+            ], 200);
         }
-       RestockReminder::create([
-        'prod_id'=>$request->id,
-        'email'=>$request->email
-       ]);
+        RestockReminder::create([
+            'prod_id' => $request->id,
+            'email' => $request->email
+        ]);
 
-       return response()->json([
-        'message'=>'You email is well recieved'
-    ],200);
+        return response()->json([
+            'message' => 'You email is well recieved'
+        ], 200);
     }
 
-     // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
-     public function getShippingInfo(Request $request)
-     {
-        //  if ($id != 0) {
-            // return $request->all();
-            // if($id){
-                  $shipping_method = ShippingMethod::where('id', $request->shipping_method_id)->first();
-                  $shipping_service = ShippingService::where('state_id',$request->shipping_method_state_id)->first();
-                    // $shipping = ShippingService:where('')
-             Session::put('shipping_price', $shipping_method->price);
-             Session::put('shipping_id', $shipping_service->id); 
-             Session::put('shipping_method_id', $shipping_method->id); 
-             Session::put('shipping_state_id', $shipping_service->state_id); 
-            // }else{
-                
-            //     $shipping_price = 0;
-            //     $shipping_id = '';
-            // }
-          
-        //  }
-         $total = 0;
-         $attribute_price = 0;
-         foreach (Cart::content() as $key => $product) {
-             $total += $product->price * $product->qty;
-             $total += +$attribute_price;
-         }
- 
-         $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
-         $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
-         $cart_total = ($total - $coupon) + $shippingPrice;
-         Session::put('flutterPayTotal',$cart_total);
-         return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total], 200);
-     }
+    // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
+    public function getShippingInfo(Request $request)
+    {
 
-        /**
+        $shipping_method = ShippingMethod::where('id', $request->shipping_method_id)->first();
+        $shipping_service = ShippingService::where('state_id', $request->shipping_method_state_id)->first();
+
+        Session::put('shipping_price', $shipping_method->price);
+        Session::put('shipping_id', $shipping_service->id);
+        Session::put('shipping_method_id', $shipping_method->id);
+        Session::put('shipping_state_id', $request->shipping_method_state_id);
+
+
+        $total = 0;
+        $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += +$attribute_price;
+        }
+
+        $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+        $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+        $cart_total = ($total - $coupon) + $shippingPrice;
+        Session::put('flutterPayTotal', $cart_total);
+        return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total], 200);
+    }
+
+
+    // GET SHIPPING PRICE FOR USER CHECKOUT ::::::::::::::::::::
+    public function getFreeShippingInfo(Request $request)
+    {
+
+        
+            $free_shipping = FreeShipping::where('id',$request->free_shipping_method_id)->first();
+            Session::put('free_shipping_state', $free_shipping);
+            Session::put('free_shipping_id', $free_shipping['id']);
+            Session::put('shipping_price', 0);
+            Session::put('free_shipping_state_id', $request->free_shipping_method_id);
+        
+
+        $total = 0;
+        $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += +$attribute_price;
+        }
+
+        $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+        $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+        $cart_total = ($total - $coupon) + $shippingPrice;
+        Session::put('flutterPayTotal', $cart_total);
+        return response()->json(['shippPrice' => $shippingPrice, 'cartTotal' => $cart_total,'free_shipping'=>$free_shipping], 200);
+    }
+
+    /**
      * Show a page showing payment success
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function paymentSuccess()
     {
         if (Session::has('order_id')) {
@@ -772,7 +796,7 @@ class FrontendController extends Controller
      * Payment cancellation
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function paymentCancel()
     {
         $message = '';
@@ -785,9 +809,5 @@ class FrontendController extends Controller
         return redirect()->route('frontend.checkout.billing')->withError($message);
     }
 
-     // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
+    // CUSTOM METHODS :::::::::::::::::::::::::::::::::::::
 }
-
-
-
-

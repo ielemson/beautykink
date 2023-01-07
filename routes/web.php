@@ -68,6 +68,7 @@ use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TodoController;
 use App\Http\Controllers\Backend\RestockController;
 use App\Http\Controllers\Backend\CustomerMessagesController;
+use App\Http\Controllers\Backend\FreeShippingController;
 use App\Http\Controllers\Frontend\FlutterwaveController;
 use App\Http\Controllers\Frontend\GuestCheckoutController;
 use App\Http\Controllers\User\AccountController as UserAccountController;
@@ -333,10 +334,20 @@ Route::prefix('admin')->group(function(){
             'edit' => 'backend.shippingmethod.edit',
             'update' => 'backend.shippingmethod.update'
         ]);
+        Route::get('/shipping/free/{id}/{status}', [FreeShippingController::class, 'status'])->name('backend.freeshipping.status');
+        Route::get('/shipping/free/destroy/{id}', [FreeShippingController::class, 'destroy'])->name('backend.freeshipping.destroy');
+        Route::resource('shipping/free', FreeShippingController::class)->except(['show'])->names([
+            'index' => 'backend.freeshipping.index',
+            'create' => 'backend.freeshipping.create',
+            'store' => 'backend.freeshipping.store',
+            'edit' => 'backend.freeshipping.edit',
+            'update' => 'backend.freeshipping.update',
+           
+        ]);
         Route::get('/shipping/destroy/{id}', [ShippingServiceController::class, 'destroy'])->name('backend.shipping.destroy');
         Route::post('/api/fetch-shipping-zones', [ShippingServiceController::class, 'fetchShippingZones']);
         Route::post('/api/fetch-cities', [ShippingServiceController::class, 'fetchCity']);
-        Route::post('/api/fetch-zones', [ShippingServiceController::class, 'fetchZones']);
+        // Route::post('/api/fetch-zones', [ShippingServiceController::class, 'fetchZones']);
         Route::post('/api/fetch-states', [ShippingServiceController::class, 'fetchState']);
         //------------ TAX SETTING ------------
         Route::get('tax/status/{id}/{status}', [TaxController::class, 'status'])->name('backend.tax.status');
@@ -765,7 +776,7 @@ Route::group(['middleware' => 'maintainance'], function(){
         Route::post('/guest/checkout-submit', [GuestCheckoutController::class, 'checkout'])->name('frontend.guest.checkout.submit');
         Route::get('/guest/checkout/success', [GuestCheckoutController::class, 'paymentSuccess'])->name('frontend.guest.checkout.success');
         Route::post('/guest/api/fetch-shipping', [GuestCheckoutController::class, 'fetchShippingLocation'])->name('frontend.guest.fetchshippinglocation');
-        Route::post('/guest/api/fetch-zones', [GuestCheckoutController::class, 'fetchZones']);
+        // Route::post('/guest/api/fetch-zones', [GuestCheckoutController::class, 'fetchZones']);
         Route::post('/guest/api/fetch-zone', [GuestCheckoutController::class, 'fetchZone']);
         Route::post('/guest/api/fetch-states', [GuestCheckoutController::class, 'fetchStates']);
 
@@ -787,10 +798,11 @@ Route::group(['middleware' => 'maintainance'], function(){
             // The callback url after a payment
             Route::get('/rave/callback', [FlutterwaveController::class, 'callback'])->name('callback');
             
-        // Route::get('/checkout/cancel', [CheckoutController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
+        Route::get('/checkout/cancel', [CartController::class, 'paymentCancel'])->name('frontend.checkout.cancel');
         // Route::get('/paypal/checkout/redirect', [CheckoutController::class, 'paymentRedirect'])->name('frontend.checkout.redirect');
         // Route::get('/checkout/mollie/notify', [CheckoutController::class, 'mollieRedirect'])->name('frontend.checkout.mollie.redirect');
         Route::post('/checkout/add_shipping', [FrontendController::class, 'getShippingInfo']);
+        Route::post('/checkout/add_free_shipping', [FrontendController::class, 'getFreeShippingInfo']);
 
 
         Route::post('/paytm/notify', [PaytmController::class, 'notify'])->name('frontend.paytm.notify');

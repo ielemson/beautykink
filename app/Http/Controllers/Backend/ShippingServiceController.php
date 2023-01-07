@@ -30,6 +30,13 @@ class ShippingServiceController extends Controller
     public function index()
     {
         $datas = ShippingService::orderBy('id', 'desc')->get();
+        
+        // foreach ($datas as $shipping) {
+           
+        //         $states[] = $shipping->state_id;
+        //     }
+
+            // dd($states);
         return view('backend.shipping.index',compact('datas'));
     }
 
@@ -73,8 +80,8 @@ class ShippingServiceController extends Controller
         //     'cost'=>$data['cities']['shipping_cost']
         // ]);
 
-        $data['zones'] = Zone::where('country_id',$request->country_id)->get(['name','id']);
-        return response()->json($data);
+        // $data['zones'] = Zone::where('country_id',$request->country_id)->get(['name','id']);
+        // return response()->json($data);
     }
 
     public function fetchShippingZones(Request $request)

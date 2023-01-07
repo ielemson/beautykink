@@ -124,8 +124,8 @@
                                 @foreach (json_decode($order->cart, true) as $key => $item)
                                     @php
                                         $total += $item['main_price'] * $item['qty'];
-                                        $option_price += $item['attribute_price'];
-                                        $grandSubtotal = $total + $option_price;
+                                        // $option_price += $item['attribute_price'];
+                                        $grandSubtotal = $total;
                                         if (App\Models\Item::where('id', $key)->exists()) {
                                             $main_item = App\Models\Item::findOrFail($key);
                                         } else {
@@ -168,7 +168,7 @@
                                             </p>
                                         </td>
                                         <td class="">
-                                            @if ($item['attribute']['option_name'])
+                                            {{-- @if ($item['attribute']['option_name'])
                                                 @foreach ($item['attribute']['option_name'] as $optionkey => $option_name)
                                                     <span class="entry-meta"><b>{{ $option_name }}</b> :
                                                         @if ($setting->currency_direction == 1)
@@ -180,18 +180,19 @@
                                                 @endforeach
                                             @else
                                                 --
-                                            @endif
+                                            @endif --}}
+                                            @if ($item['attribute_name'])
+                                            {{$item['attribute_name']}}
+                                            @else
+                                            --
+                                           @endif
                                         </td>
                                         <td class="">
                                             {{ $item['qty'] }}
                                         </td>
 
                                         <td class=" text-right">
-                                            @if ($setting->currency_direction == 1)
-                                                {{ $order->currency_sign }}{{ round($item['main_price'] * $order->currency_value, 2) }}
-                                            @else
-                                                {{ round($item['main_price'] * $order->currency_value, 2) }}{{ $order->currency_sign }}
-                                            @endif
+                                            @money(round($item['main_price'] * $order->currency_value, 2),'NGN')
 
                                         </td>
                                     </tr>

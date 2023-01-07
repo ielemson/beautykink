@@ -51,9 +51,9 @@
                 <div class="prices">
                     @if ($list->previous_price != 0)
                     <span
-                        class="price-old">{{ PriceHelper::setPreviousPrice($list->previous_price) }}</span>
+                        class="price-old">@money(PriceHelper::setPreviousPrice($list->previous_price),'NGN')</span>
                 @endif
-                <span class="price text-black">{{ PriceHelper::grandCurrencyPrice($list) }}</span>
+                <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($list),'NGN')</span>
 
                 </div>
                 <ul class="product-desc-list">

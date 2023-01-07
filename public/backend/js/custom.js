@@ -115,7 +115,7 @@
                     console.log(update_type)
                     if(update_type == "Shipped" || update_type == "Delivered" ){
                          Swal.fire({
-                        title: 'Enter Message For Customer',
+                        title: `Enter Message For Customer`,
                         html: `
                         <input type="text" id="subject" class="subject form-control mb-2" placeholder="Subject">
                         <textarea type="text" id="msg" class="msg form-control" rows="2" placeholder="Compose message"></textarea>`,

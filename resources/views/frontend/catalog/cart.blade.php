@@ -32,7 +32,7 @@
                       <div class="col-8 col-md-4">
                         <div class="product-content">
                           <h5 class="title"><a href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
-                          <h6 class="product-price">&#8358;{{$item->price}}</h6>
+                          <h6 class="product-price">@money($item->price,'NGN')</h6>
                          
                           @if ($item->options->attribute_color != '')
                           Color: {{$item->options->attribute_name}} <img class="img-thumbnail" src="/uploads/items/attributes/{{$item->options->attribute_color}}" alt="{{$item->options->attribute_name}}" style="width: 25px; height:25px">
@@ -55,7 +55,7 @@
                                   </div>
                                 </div>
                                 <div class="col-md-6 col-xs-2 price">
-                                  <h6 class="product-price">&#8358;{{$item->price*$item->qty}}</h6>
+                                  <h6 class="product-price">@money($item->price*$item->qty,'NGN')</h6>
                                 </div>
                               </div>
                             </div>
@@ -91,11 +91,12 @@
      <!-- Page Content-->       
       @else
       <div class="container padding-bottom-2x mt-10">
-        <div class="card text-center">
-          <div class="card-body padding-top-2x">
+        <div class=" text-center">
+          <div class="padding-top-2x">
             <h3 class="card-title">{{ __('Your shopping cart is empty.') }}</h3>
             <i class="fas fa-shopping-cart-empty" style="font-size: 3rem"></i>
-          <button class="btn-theme" onclick="window.location.href='{{ route('frontend.catalog') }}'"><i class="icon-package pr-2"></i> {{ __('View our products') }}</button></div>
+            <img src="{{asset('frontend/img/cart/empty-cart.jpg')}}" alt="empty cart" class="img-fluid thumbnail" style="width:30%; height:auto;"> <br>
+          <button class="btn-theme" onclick="window.location.href='{{ route('frontend.catalog') }}'"><i class="icon-package pr-2"></i> {{ __('View more products') }}</button></div>
           </div>
         </div>
       @endif
