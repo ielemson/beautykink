@@ -375,12 +375,12 @@ class GuestCheckoutController extends Controller
 
 
     public function fetchShippingMethod(Request $request){
-        
+        // return $request->state_id;
         try {
             // Get the shpping info
         $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->count();
         if ($data) {
-            $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
+           $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
             $methodIds =  json_decode($data['shipping_method_id']);
             $shippingMethods = ShippingMethod::whereIn("id",$methodIds)->get();
         }else{
@@ -415,9 +415,14 @@ class GuestCheckoutController extends Controller
         //    
 
         // check if cart is greater than the free shipping amount
-        // $check_free_shipping = false;
-
-         $cart_total >= $free_shipping_state['amount'] ? $check_free_shipping = true : $check_free_shipping = false;
+        
+        $check_free_shipping = false;
+        
+        if($free_shipping_state_count){
+            
+             $cart_total >= $free_shipping_state['amount'] ? $check_free_shipping = true : $check_free_shipping = false;
+        }
+        
 
         } catch (Exception $e) {
               

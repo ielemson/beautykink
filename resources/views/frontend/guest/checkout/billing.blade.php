@@ -336,7 +336,7 @@
                     success: function(res) {
                         console.log(res)
 
-                        if (res.datas) {
+                        if (res.datas.length) {
                             console.log(res)
                           // check if cart is greater than
                           if (res.check_free_shipping == true) {
