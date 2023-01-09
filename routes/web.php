@@ -334,8 +334,10 @@ Route::prefix('admin')->group(function(){
             'edit' => 'backend.shippingmethod.edit',
             'update' => 'backend.shippingmethod.update'
         ]);
-        Route::get('/shipping/free/{id}/{status}', [FreeShippingController::class, 'status'])->name('backend.freeshipping.status');
+        
         Route::get('/shipping/free/destroy/{id}', [FreeShippingController::class, 'destroy'])->name('backend.freeshipping.destroy');
+        Route::get('/shipping/free/{id}/{status}', [FreeShippingController::class, 'status'])->name('backend.freeshipping.status');
+       
         Route::resource('shipping/free', FreeShippingController::class)->except(['show'])->names([
             'index' => 'backend.freeshipping.index',
             'create' => 'backend.freeshipping.create',
