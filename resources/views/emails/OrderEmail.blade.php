@@ -123,17 +123,19 @@
 					<div class="notices">
 						<div style="margin-bottom:2px">INSTRUCTIONS:</div>
 						<div class="notice">
-							Bank Transfer Instructions
-
-							Bank: UBA
-							
-							ACCT NAME: BK BEAUTY COMPANY
-							
-							ACCT NO: 2084216096
-							
-							Kindly make sure the name on your payment is the same with the name on your order for instant payment verification. Otherwise, kindly send proof of payment including your order number to contact@beautykink.com .
-							
-							Your order will not ship until we receive payment.		
+							<p>
+								Bank Transfer Instructions
+								<br/>
+								Bank: UBA
+								<br/>
+								ACCT NAME: BK BEAUTY COMPANY
+								<br/>
+								ACCT NO: 2084216096
+								<br/>
+								Kindly make sure the name on your payment is the same with the name on your order for instant payment verification. Otherwise, kindly send proof of payment including your order number to contact@beautykink.com .
+								<br/>
+								Your order will not ship until we receive payment.
+							</p>		
 					  </div>
 					</div>
 				</main>

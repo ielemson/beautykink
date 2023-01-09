@@ -420,7 +420,7 @@ class GuestCheckoutController extends Controller
         
         if($free_shipping_state_count){
             
-             $cart_total >= $free_shipping_state['amount'] ? $check_free_shipping = true : $check_free_shipping = false;
+             $total > $free_shipping_state['price'] ? $check_free_shipping = true : $check_free_shipping = false;
         }
         
 

@@ -83,10 +83,9 @@ class FlutterwaveController extends Controller
 
 
         $user = Auth::user();
+        $ship = Session::get('shipping_address');
         if(!$user){
 
-        $ship = Session::get('shipping_address');
-        // dd($ship);
         $guestEmail = $ship['ship_email'];
         $guestUser = User::where('email',$guestEmail)->first();
         if(!$guestUser){

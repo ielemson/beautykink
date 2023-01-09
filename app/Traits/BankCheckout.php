@@ -28,9 +28,8 @@ trait BankCheckout
     {
        
         $user = Auth::user();
-        if(!$user){
-
         $ship = Session::get('shipping_address');
+        if(!$user){
         // dd($ship);
         $guestEmail = $ship['ship_email'];
         $guestUser = User::where('email',$guestEmail)->first();
