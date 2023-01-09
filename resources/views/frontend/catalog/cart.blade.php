@@ -31,14 +31,17 @@
                       </div>
                       <div class="col-8 col-md-4">
                         <div class="product-content">
-                          <h5 class="title"><a href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
-                          <h6 class="product-price">@money($item->price,'NGN')</h6>
-                         
-                          @if ($item->options->attribute_color != '')
-                          Color: {{$item->options->attribute_name}} <img class="img-thumbnail" src="/uploads/items/attributes/{{$item->options->attribute_color}}" alt="{{$item->options->attribute_name}}" style="width: 25px; height:25px">
+                          @if ($item->qty > $item->options->stock)
+                             <h6 class="title"><small class="text-danger"><i class="fa fa-exclamation-circle"></i> {{$item->qty > $item->options->stock ? 'product not available in the desired quantity.' :" "}}</small></h6>
                           @endif
-                          
-                        </div>
+                         
+                          <h5 class="title"><a class="{{$item->qty > $item->options->stock ? 'text-danger' :" "}}" href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
+                          <h6 class="product-price">@money($item->price,'NGN')</h6>
+                           @if ($item->options->attribute_color != '')
+                          {{$item->options->attribute_name}}
+                          <img class="img-thumbnail" src="/uploads/items/attributes/{{$item->options->attribute_color}}" alt="{{$item->options->attribute_name}}" style="width: 25px; height:25px">
+                          @endif
+                          </div>
                       </div>
                       <div class="col-6 offset-4 offset-md-0 col-md-5">
                         <div class="product-info">

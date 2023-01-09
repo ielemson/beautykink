@@ -243,6 +243,7 @@ class CartController extends Controller
                     'image' => $product->photo,
                     'thumbnail' => $product->thumbnail,
                     'slug' => $product->slug,
+                    'stock' => $product->stock,
                     'attribute_name' => $attribute_name ?? '',
                     'attribute_color' => $attribute_color ?? '',
                 ]

@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Setting;
 use Illuminate\Support\Str;
 use App\Helpers\PriceHelper;
+use App\Mail\OrderEmail;
 use App\Models\FreeShipping;
 use App\Models\GeoZone;
 use App\Models\Notification;
@@ -19,6 +20,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Mail;
+
 trait BankCheckout
 {
     public function bankSubmit($data)
@@ -79,7 +82,7 @@ trait BankCheckout
             array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'attribute_name'=>$item->options->attribute_name,'attribute_color'=>$item->options->attribute_color,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
         }
 
-        // dd($cart);
+        // dd($cartArr);
         $shipping = [];
 
         if(Session::has('free_shipping_id')){
@@ -98,7 +101,15 @@ trait BankCheckout
         }
 
         }
-       
+        
+      $total = 0;
+
+      foreach ($cart as $key => $product) {
+        $total += $product->price * $product->qty;
+        // $total += + $attribute_price;
+    }
+
+    //   dd($total);
 
         $discount = [];
         if (Session::has('coupon')) {
@@ -136,17 +147,32 @@ trait BankCheckout
             'order_id' => $order->id
         ]);
 
+        $invoice = [
+            'order_id'=>$order->id,
+            'payment_method'=>$order->payment_method,
+            'payment_status'=>$order->payment_status,
+            'order_date'=>$order->created_at,
+        ];
+
         $email_data = [
             'to'                 => $user->email,
             'type'               => 'Order',
             'user_name'          => $user->displayName(),
+            'shipping_address'   => $ship['ship_address1'],
             'order_cost'         => $total_amount,
-            'transaction_number' => 'transaction_number',
+            'transaction_number' => $order->transaction_number,
             'site_title'         => $setting->title,
+            'cart'               => $cartArr,
+            'shipping'           => $shipping,
+            'shipping_info'      => Session::get('shipping_address'),
+            'grand_total'        => $total,
+            'invoice'           => $invoice
         ];
-
+// dd($email_data);
         $email = new EmailHelper();
-        $email->sendTemplateMail($email_data);
+        $email->sendTemplateMailOrder($email_data);
+
+       
 
         if ($discount) {
             $coupon_id = $discount['code']['id'];

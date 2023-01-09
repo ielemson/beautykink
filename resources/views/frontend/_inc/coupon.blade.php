@@ -19,8 +19,8 @@
                 <span class="text-muted">{{ __('Subtotal') }}: </span>
                 <span class="text-gray-dark">@money(PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0),'NGN')</span>
             </div>
+         </div>
 
-        </div>
         <div class="shopping-cart-footer">
             <div class="column">
                 <a class="btn-primary" href="{{ route('frontend.catalog') }}">
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="column">
-                <a class="btn btn-primary btn-sm" href="{{ route('frontend.checkout.billing') }}">{{ __('Checkout') }}</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('frontend.checkout.billing') }}">{{ __('Proceed to Checkout') }}</a>
             </div>
         </div>
     </div>

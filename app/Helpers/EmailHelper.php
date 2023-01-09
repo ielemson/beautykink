@@ -2,9 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Mail\OrderEmail;
 use App\Models\EmailTemplate;
 use App\Models\Setting;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class EmailHelper{
@@ -44,9 +46,36 @@ class EmailHelper{
             $this->mail->Subject = $template->subject;
             $this->mail->Body = $email_body;
             $this->mail->send();
+
+            
         }
         catch (Exception $e){
             // dd($e->getMessage());
+        }
+
+        return true;
+    }
+    public function sendTemplateMailOrder(array $emailData)
+    {
+        $template = EmailTemplate::whereType($emailData['type'])->first();
+        try{
+            $email_body = preg_replace("/{user_name}/", $emailData['user_name'], $template->body);
+            $email_body = preg_replace("/{order_cost}/", $emailData['order_cost'], $email_body);
+            $email_body = preg_replace("/{transaction_number}/", $emailData['transaction_number'], $email_body);
+            $email_body = preg_replace("/{site_title}/", $this->setting->title, $email_body);
+            $template->subject = preg_replace("/{transaction_number}/", $emailData['transaction_number'], $template->subject);
+
+            // $this->mail->setFrom($this->setting->email_from, $this->setting->email_from_name);
+            // $this->mail->addAddress($emailData['to']); order_info
+            // $this->mail->isHTML(true);
+            // $this->mail->Subject = $template->subject;
+            // $this->mail->Body = $email_body;
+            // $this->mail->send();
+            Mail::to($emailData['to'])->send(new OrderEmail($email_body,$template,$emailData['cart'],$emailData['shipping'],$emailData['grand_total'],$emailData['shipping_info'],$emailData['invoice']));
+                                                         // $email_body,$template,$cart,$shipping,$grand_total,$shipping_info,$invoice
+        }
+        catch (Exception $e){
+            dd($e->getMessage());
         }
 
         return true;
