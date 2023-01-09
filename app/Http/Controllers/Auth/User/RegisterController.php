@@ -40,7 +40,7 @@ class RegisterController extends Controller
     public function register(UserRequest $request)
     {
         $this->repository->register($request);
-        return redirect()->back()->withSuccess(__('Account Registered Successfully!'));
+        return redirect()->route('user.login')->withSuccess(__('Account Registered Successfully!'));
     }
 
     public function showForm()
