@@ -15,6 +15,7 @@
         <div class="col-12">
           <div class="product-slider owl-carousel owl-theme">
             @foreach ($related_items as $related)
+            @if ($related->status == 1)
             <div class="item">
                 <!--== Start Shop Item ==-->
                 <div class="product-item">
@@ -94,6 +95,7 @@
                 </div>
                 <!--== End Shop Item ==-->
             </div>
+            @endif
             @endforeach
           </div>
         </div>

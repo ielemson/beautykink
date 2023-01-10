@@ -1,4 +1,5 @@
 @foreach ($items as $item)
+@if ($item->status == 1)
 <div class="col-sm-6 col-md-4">
     <!--== Start Shop Item ==-->
     <div class="product-item">
@@ -82,4 +83,5 @@
     </div>
     <!--== End Shop Item ==-->
   </div>
+  @endif
   @endforeach

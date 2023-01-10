@@ -76,6 +76,9 @@
                                                                             <input class="form-control"
                                                                                 name="bill_first_name" type="text"
                                                                                 required id="checkout-fn">
+                                                                                @error('bill_first_name')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
@@ -85,6 +88,9 @@
                                                                             <input class="form-control"
                                                                                 name="bill_last_name" type="text"
                                                                                 required id="checkout-ln">
+                                                                                @error('bill_last_name')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -95,6 +101,9 @@
                                                                                 for="checkout-email">{{ __('E-mail Address') }}</label>
                                                                             <input class="form-control" name="bill_email"
                                                                                 type="email" required id="checkout-email">
+                                                                                @error('bill_email')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
@@ -103,6 +112,9 @@
                                                                                 for="checkout-phone">{{ __('Phone Number') }}</label>
                                                                             <input class="form-control" name="bill_phone"
                                                                                 type="text" id="checkout-phone" required>
+                                                                                @error('bill_phone')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -116,6 +128,9 @@
                                                                             <input class="form-control" name="bill_address1"
                                                                                 required type="text"
                                                                                 id="checkout-address1">
+                                                                                @error('bill_address1')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
@@ -151,6 +166,9 @@
                                                                                 for="checkout-zip">{{ __('Zip Code') }}</label>
                                                                             <input class="form-control" name="bill_zip"
                                                                                 type="text" id="checkout-zip">
+                                                                                @error('bill_zip')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
 
@@ -171,6 +189,9 @@
                                                                                             {{ $country->name }}</option>
                                                                                     @endforeach
                                                                                 </select>
+                                                                                @error('bill_country')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                             </div>
                                                                         </div>
 
@@ -182,6 +203,9 @@
                                                                                     name="bill_state" id="bill_state"
                                                                                     required>
                                                                                 </select>
+                                                                                @error('bill_state')
+                                                                                <p class="text-danger">{{ $message }}</p>
+                                                                            @enderror
                                                                             </div>
                                                                         </div>
 

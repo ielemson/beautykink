@@ -292,7 +292,7 @@
       // Product Discount Slider Js
         var productcategories = $(".discount-product-slider");
         productcategories.owlCarousel({
-          autoplay: false,
+          autoplay: true,
           smartSpeed: 1000,
           nav: true,
           dots: false,

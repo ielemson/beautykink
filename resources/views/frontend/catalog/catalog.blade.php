@@ -29,6 +29,7 @@ function renderStarRating($rating, $maxRating = 5)
 <div class="row">
     @if ($items->count() > 0)
     @foreach ($items as $item)
+    
         <div class="col-sm-6 col-md-4 col-lg-3 ">
             <!--== Start Shop Item ==-->
             <div class="product-item">

@@ -186,9 +186,9 @@ if ($request->field == 'payment_status') {
     // if ($request->value == 'In Progress' && $order['payment_status'] === 'Unpaid') { 
     // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
     // }
-    // if ($request->value == 'Verified' && $order['payment_status'] === 'Unpaid') { 
-    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
-    // }
+    if ($request->value == 'Verified' && $order['payment_status'] === 'Unpaid') { 
+        return response()->json(['message'=>'Approve payment first.','type'=>'error']);
+    }
     if ($request->value == 'Shipped' && $order['payment_status'] === 'Unpaid') { 
     // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
     return response()->json(['message'=>'Approve payment first.','type'=>'error']);

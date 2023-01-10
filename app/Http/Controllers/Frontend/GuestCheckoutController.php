@@ -17,6 +17,7 @@ use App\Http\Requests\PaymentRequest;
 use App\Models\City;
 use App\Models\FreeShipping;
 use App\Models\GeoZone;
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Models\ShippingMethod;
@@ -51,16 +52,27 @@ class GuestCheckoutController extends Controller
         // $this->__paypalConstruct();
         // $this->__mollieConstruct();
     }
-    
+
 
     // guest shiping address 
     public function ShippingAddress()
 
     {
         // Session::forget('shipping_id');
-        
+
         if (!Cart::count()) {
             return redirect()->route('frontend.cart');
+        }
+
+        $prodId = [];
+        foreach (Cart::content() as $cart) {
+            $prodId[] = $cart->id;
+
+            $check = Item::where('id', $cart->id)->first();
+
+            if ($cart->qty > $check->stock) {
+                return redirect()->route('frontend.cart')->withError(__('Total quantity has exceeded available stock.'));
+            }
         }
 
         // $data['user'] = Auth::user();
@@ -96,28 +108,52 @@ class GuestCheckoutController extends Controller
         return redirect()->route('frontend.guest.checkout.payment');
     }
 
- public function billingStore(Request $request)
+    public function billingStore(Request $request)
     {
+
+        $request->validate([
+            'bill_first_name' => 'required',
+            'bill_last_name' => 'required',
+            'bill_email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+            'bill_phone' => 'required|digits:11',
+            // 'bill_city' => 'required',
+            'bill_zip' => 'required',
+            'bill_address1' => 'required',
+            // 'bill_country' => 'required',
+
+        ], [
+            'bill_first_name.required' => 'First name is required',
+            'bill_last_name.required' => 'Last name is required',
+            'bill_email.required' => 'Email is required',
+            'bill_email.email' => 'Invalid email',
+            'bill_email.regex' => 'Invalid email',
+            'bill_phone.required' => 'Phone number is required',
+            'bill_phone.digits' => 'Phone number must be 11 digits',
+            // 'bill_city.required' => 'State is required',
+            'bill_zip.required' => 'Zip Code is required',
+            'bill_address1.required' => 'Address is required',
+            // 'bill_country.required' => 'Country is required',
+        ]);
         // dd($request->all());
         // Session::forget('shipping_address');
         Session::put('billing_address', $request->all());
         // dd(Session::get('shipping_address'));
         // if ($request->same_ship_address) {
-            // Session::put('billing_address', $request->all());
-                $shipping = [
-                    'ship_first_name' => $request->bill_first_name,
-                    'ship_last_name'  => $request->bill_last_name,
-                    'ship_email'      => $request->bill_email,
-                    'ship_phone'      => $request->bill_phone,
-                    'ship_company'    => $request->bill_company,
-                    'ship_address1'   => $request->bill_address1,
-                    'ship_address2'   => $request->bill_address2,
-                    'ship_zip'        => $request->bill_zip,
-                    'ship_state'       => $request->bill_city,
-                    'ship_country'     => $request->bill_country
-                ];
-            
-            Session::put('shipping_address', $shipping);
+        // Session::put('billing_address', $request->all());
+        $shipping = [
+            'ship_first_name' => $request->bill_first_name,
+            'ship_last_name'  => $request->bill_last_name,
+            'ship_email'      => $request->bill_email,
+            'ship_phone'      => $request->bill_phone,
+            'ship_company'    => $request->bill_company,
+            'ship_address1'   => $request->bill_address1,
+            'ship_address2'   => $request->bill_address2,
+            'ship_zip'        => $request->bill_zip,
+            'ship_state'       => $request->bill_city,
+            'ship_country'     => $request->bill_country
+        ];
+
+        Session::put('shipping_address', $shipping);
         // } else {
         //     Session::forget('shipping_address');
         // }
@@ -179,13 +215,13 @@ class GuestCheckoutController extends Controller
         // }
 
         $shipping = [];
-       
+
         $shipping = ShippingService::whereStatus(1)->get();
         $discount = [];
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-    
+
         $data['discount'] = $discount;
         $data['shipping'] = $shipping;
         // $data['tax'] = $total_tax;
@@ -263,7 +299,7 @@ class GuestCheckoutController extends Controller
 
     public function checkout(PaymentRequest $request)
     {
-       
+
         $input = $request->all();
 
         $checkout         = false;
@@ -280,14 +316,14 @@ class GuestCheckoutController extends Controller
         // $usd_supported = [ 'USD', 'EUR' ];
         // $paystack_supported = [ 'NGN' ];
         switch ($input['payment_method']) {
-            
-            // case 'Paystack':
-            //     if (!in_array($currency->name, $paystack_supported)) {
-            //         return redirect()->back()->withError(__('Currency Not Supported.'));
-            //     }
-            //     $checkout = true;
-            //     $payment = $this->paystackSubmit($input);
-            //     break;
+
+                // case 'Paystack':
+                //     if (!in_array($currency->name, $paystack_supported)) {
+                //         return redirect()->back()->withError(__('Currency Not Supported.'));
+                //     }
+                //     $checkout = true;
+                //     $payment = $this->paystackSubmit($input);
+                //     break;
 
             case 'Bank':
                 $checkout = true;
@@ -309,10 +345,10 @@ class GuestCheckoutController extends Controller
                     return redirect()->route('frontend.checkout.cancel');
                 }
             } else {
-                if($payment['status']){
+                if ($payment['status']) {
                     return redirect()->route('frontend.guest.checkout.success');
-                }else{
-                    Session::put('message',$payment['message']);
+                } else {
+                    Session::put('message', $payment['message']);
                     return redirect()->route('frontend.checkout.cancel');
                 }
             }
@@ -343,99 +379,98 @@ class GuestCheckoutController extends Controller
         return redirect()->route('frontend.index');
     }
 
-    public function fetchShippingLocation(Request $request){
+    public function fetchShippingLocation(Request $request)
+    {
 
-        $shippingLocation = ShippingService::where('state_id',$request->state_id)->get();
-        return response()->json(['locations'=>$shippingLocation]);
+        $shippingLocation = ShippingService::where('state_id', $request->state_id)->get();
+        return response()->json(['locations' => $shippingLocation]);
     }
 
     public function fetchStates(Request $request)
     {
-        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id","country_id"]);
+        $data['states'] = State::where("country_id", $request->country_id)->get(["name", "id", "country_id"]);
         return response()->json($data);
     }
-    
+
     public function fetchCity(Request $request)
     {
-        $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        $data['cities'] = City::where("state_id", $request->state_id)->get(["name", "id"]);
         return response()->json($data);
     }
     public function fetchZones(Request $request)
     {
-        $data['zones'] = GeoZone::where("country_id",$request->country_id)->where('status',1)->get(["zone","shipping_cost", "id"]);
+        $data['zones'] = GeoZone::where("country_id", $request->country_id)->where('status', 1)->get(["zone", "shipping_cost", "id"]);
         return response()->json($data);
     }
     public function fetchZone(Request $request)
     {
-        $data['zone'] = GeoZone::where("id",$request->zone_id)->where('status',1)->first();
+        $data['zone'] = GeoZone::where("id", $request->zone_id)->where('status', 1)->first();
         $state_ids = json_decode($data['zone']['state_ids']);
-        $data['states'] = State::whereIn('id',$state_ids)->get();
+        $data['states'] = State::whereIn('id', $state_ids)->get();
         return response()->json($data);
     }
 
 
-    public function fetchShippingMethod(Request $request){
+    public function fetchShippingMethod(Request $request)
+    {
         // return $request->state_id;
         try {
             // Get the shpping info
-        $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->count();
-        if ($data) {
-           $data = ShippingService::where("state_id",$request->state_id)->where('status',1)->first();
-            $methodIds =  json_decode($data['shipping_method_id']);
-            $shippingMethods = ShippingMethod::whereIn("id",$methodIds)->get();
-        }else{
-            $shippingMethods = [];
-        }
-      
+            $data = ShippingService::where("state_id", $request->state_id)->where('status', 1)->count();
+            if ($data) {
+                $data = ShippingService::where("state_id", $request->state_id)->where('status', 1)->first();
+                $methodIds =  json_decode($data['shipping_method_id']);
+                $shippingMethods = ShippingMethod::whereIn("id", $methodIds)->get();
+            } else {
+                $shippingMethods = [];
+            }
 
-        // Get free shipping info
-        $free_shipping_state_count = FreeShipping::where([['is_status',1],['state_id',$request->state_id],['status','is']])->count();
-        // $free_shipping_outside_state = FreeShipping::where([['is_status',1],['state_id',$request->shipping_method_state_id],['status','is not']])->first();
 
-        if ($free_shipping_state_count) {
+            // Get free shipping info
+            $free_shipping_state_count = FreeShipping::where([['is_status', 1], ['state_id', $request->state_id], ['status', 'is']])->count();
+            // $free_shipping_outside_state = FreeShipping::where([['is_status',1],['state_id',$request->shipping_method_state_id],['status','is not']])->first();
 
-           $free_shipping_state =  FreeShipping::where([['is_status',1],['state_id',$request->state_id],['status','is']])->first();
-        }else{
+            if ($free_shipping_state_count) {
 
-            $free_shipping_state = FreeShipping::where([['is_status',1],['status','is not']])->first();
-        }
+                $free_shipping_state =  FreeShipping::where([['is_status', 1], ['state_id', $request->state_id], ['status', 'is']])->first();
+            } else {
 
-        $total = 0;
-        $attribute_price = 0;
-        foreach (Cart::content() as $key => $product) {
-            $total += $product->price * $product->qty;
-            $total += +$attribute_price;
-        }
+                $free_shipping_state = FreeShipping::where([['is_status', 1], ['status', 'is not']])->first();
+            }
 
-        $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
-        $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
-        $cart_total = ($total - $coupon) + $shippingPrice;
-        // Session::put('flutterPayTotal',$cart_total);
+            $total = 0;
+            $attribute_price = 0;
+            foreach (Cart::content() as $key => $product) {
+                $total += $product->price * $product->qty;
+                $total += +$attribute_price;
+            }
 
-        //    
+            $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
+            $shippingPrice = Session::has('shipping_price') ? Session::get('shipping_price') : 0;
+            $cart_total = ($total - $coupon) + $shippingPrice;
+            // Session::put('flutterPayTotal',$cart_total);
 
-        // check if cart is greater than the free shipping amount
-        
-        $check_free_shipping = false;
-        
-        if($free_shipping_state_count){
-            
-             $total > $free_shipping_state['price'] ? $check_free_shipping = true : $check_free_shipping = false;
-        }
-        
+            //    
 
+            // check if cart is greater than the free shipping amount
+
+            $check_free_shipping = false;
+
+            if ($free_shipping_state_count) {
+
+                $total > $free_shipping_state['price'] ? $check_free_shipping = true : $check_free_shipping = false;
+            }
         } catch (Exception $e) {
-              
-         
-            return response()->json(['error'=>'error'],200);
+
+
+            return response()->json(['error' => 'error'], 200);
             exit;
         }
 
         return response()->json([
-            'datas'=>$shippingMethods,
-            'free_shipping_state'=>$free_shipping_state,
-            'check_free_shipping'=>$check_free_shipping,
-        ],200);
-       
+            'datas' => $shippingMethods,
+            'free_shipping_state' => $free_shipping_state,
+            'check_free_shipping' => $check_free_shipping,
+        ], 200);
     }
 }

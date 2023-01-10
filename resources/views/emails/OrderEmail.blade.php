@@ -225,7 +225,7 @@ footer {
 				{{$kinky->title}}
 				</a>
 		</h2>
-		<div>Lagos Island, Lagos Nigeria</div>
+		<div>Lagos Nigeria</div>
 		<div>{{$kinky->whatsapp_phone}}</div>
 		{{-- <div>{{$kinky->contact_email}}</div> --}}
         <div><a href="mailto:{{$kinky->contact_email}}">{{$kinky->contact_email}}</a></div>
@@ -233,18 +233,18 @@ footer {
       </div>
     </header>
     <main>
-      <div id="details" class="clearfix">
+      <div id="details" class="clearfix" style="padding: 10px">
         <div id="client">
-          <div class="to">INVOICE TO:</div>
+          <div class="to">Order:</div>
           <h2 class="name">{{$shipping_info['ship_first_name'].' '.$shipping_info['ship_last_name']}}</h2>
           <div class="address">{{$shipping_info['ship_address1']}}</div>
           <div class="email"><a href="mailto:{{$shipping_info['ship_email']}}">{{$shipping_info['ship_email']}}</a></div>
         </div>
-        <div id="invoice">
+        {{-- <div id="invoice">
           <h1>INVOICE {{$invoice['order_id']}}</h1>
 		  <div class="date">Date of Invoice: {{date_format($invoice['order_date'],'Y/m/d')}}</div>
 		  <div class="date">Payment Type: {{$invoice['payment_method']}}</div>
-        </div>
+        </div> --}}
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>

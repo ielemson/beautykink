@@ -105,6 +105,8 @@
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
+            // allowOutsideClick: false,
+            // allowEscapeKey: false,
             confirmButtonText: $(this).data('ok_btn'),
             cancelButtonText: $(this).data('cancel_btn')
             })
@@ -112,16 +114,17 @@
 
                 // console.log(update_type)
                 if (result.value) {
-                    console.log(update_type)
-                    if(update_type == "Shipped" || update_type == "Delivered" ){
+                    // console.log(update_type)
+                    if(update_type == "Shipped" || update_type == "Verified" || update_type == "Delivered" ){
                          Swal.fire({
                         title: `Enter Message For Customer`,
                         html: `
                         <input type="text" id="subject" class="subject form-control mb-2" placeholder="Subject">
-                        <textarea type="text" id="msg" class="msg form-control" rows="2" placeholder="Compose message"></textarea>`,
+                        <textarea type="text" id="msg" class="msg form-control summernote" rows="2" placeholder="Compose message"></textarea>`,
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
+                        allowOutsideClick:false,
                         confirmButtonText: $(this).data('ok_btn'),
                         cancelButtonText: $(this).data('cancel_btn'),
                         focusConfirm: false,
@@ -154,6 +157,7 @@
 
                             success:function(response)
                             {
+                                console.log(response)
                                 Toast.fire({
                                 icon: `${response.type}`,
                                 title: response.message,
@@ -166,7 +170,7 @@
 
                                 },
                             error: function(response) {
-                               
+                               console.log(response)
                             }
                         });
 
