@@ -96,10 +96,10 @@ class CheckoutController extends Controller
             'bill_last_name' => 'required',
             'bill_email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
             'bill_phone' => 'required|digits:11',
-            'bill_city' => 'required',
+            // 'bill_city' => 'required',
             'bill_zip' => 'required',
             'bill_address1' => 'required',
-            'bill_country' => 'required',
+            // 'bill_country' => 'required',
 
         ], [
             'bill_first_name.required' => 'First name is required',
@@ -109,10 +109,10 @@ class CheckoutController extends Controller
             'bill_email.regex' => 'Invalid email',
             'bill_phone.required' => 'Phone number is required',
             'bill_phone.digits' => 'Phone number must be 11 digits',
-            'bill_city.required' => 'State is required',
+            // 'bill_city.required' => 'State is required',
             'bill_zip.required' => 'Zip Code is required',
             'bill_address1.required' => 'Address is required',
-            'bill_country.required' => 'Country is required',
+            // 'bill_country.required' => 'Country is required',
         ]);
 
         // dd($request->all());
