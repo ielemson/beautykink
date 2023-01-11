@@ -107,9 +107,7 @@
                     },
                     dataType: 'json',
                     success: function (result) {
-
-                      
-                      console.log(result)
+                         // console.log(result)
                         $('#state_data').html('<option value="">Select Zone</option>');
                         $.each(result.states, function (key, value) {
                         

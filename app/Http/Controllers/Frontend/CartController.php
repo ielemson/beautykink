@@ -32,6 +32,10 @@ class CartController extends Controller
 
     public function index()
     {
+        // if (!Cart::count() > 0) {
+           
+        //     retr
+        // }
 
         $cart = Cart::content();
         $cart_qty = Cart::count();
@@ -42,11 +46,18 @@ class CartController extends Controller
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
+        $total = 0;
+        // $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            // $total += +$attribute_price;
+        }
 
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
             'cart_total' => $cart_total,
+            'total' => $total,
             'subtotal' => $subtotal,
             'discount' => $discount,
             'shipping' => $shipping

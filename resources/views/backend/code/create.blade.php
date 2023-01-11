@@ -68,7 +68,7 @@
                                         <div class="input-group date date-picker" data-target-input="nearest">
                                             <input type="text" name="start_date"
                                                 class="form-control  flash-deal-datepicker datetimepicker-input"
-                                                data-target=".date-picker" />
+                                                data-target=".date-picker" required />
                                             <div class="input-group-append" data-target=".date-picker"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -80,7 +80,7 @@
                                         <div class="input-group date date-picker2" data-target-input="nearest">
                                             <input type="text" name="end_date"
                                                 class="form-control  flash-deal-datepicker datetimepicker-input"
-                                                data-target=".date-picker2" />
+                                                data-target=".date-picker2" required/>
                                             <div class="input-group-append" data-target=".date-picker2"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -100,7 +100,20 @@
                                             id="no_of_times" placeholder="{{ __('Enter Number of Times') }}"
                                             value="{{ old('no_of_times_per_user') }}">
                                     </div>
+                                    <div class="form-group  col-md-6">
+                                        <label for="shipping">{{ __('Product Purchase') }} </label>
+                                        <label class="radio-inline ml-4"> 
+                                          <input type="radio" name="product_purchase" value="1">Yes </label>
+                                          <label class="radio-inline ml-4">          
+                                          <input type="radio" name="product_purchase" value="0" checked>No </label>
+                                    </div>
 
+                                    <div class="form-group  col-md-6">
+                                        {{-- <label for="shipping">{{ __('Product Amount') }} </label> --}}
+                                        <input type="hidden" name="product_amount" class="form-control " min="0"
+                                        step="0.1" id="product_amount" placeholder="{{ __('Enter product amount to be purchased') }}"
+                                        value="{{ old('product_amount') }}">
+                                    </div>
                                     <div class="form-group  col-md-3">
                                         <label for="type">{{ __('Discount Type') }} *</label>
                                         <select name="type" id="type" class="form-control select2" required>
@@ -114,8 +127,10 @@
                                         <label for="discount">{{ __('Discount') }} *</label>
                                         <input type="number" name="discount" class="form-control " min="0"
                                             step="0.1" id="discount" placeholder="{{ __('Enter Discount') }}"
-                                            value="{{ old('discount') }}">
+                                            value="{{ old('discount') }}" required>
                                     </div>
+
+                                    
                                     <div class="form-group  col-md-6">
                                         <label for="shipping">{{ __('Free Shipping') }} </label>
                                         <label class="radio-inline ml-4"> 
@@ -164,5 +179,23 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+        $(document).on("change", "input[name='product_purchase']", function () {
+
+        // $( "#free_shipping_method" ).prop( "checked", false );
+        var product_purchase = $("input[name='product_purchase']:checked").val();
+
+       if(product_purchase == 1){
+        $( "input[name='product_amount']" ).prop( "type", 'number' );
+        $( "input[name='product_amount']" ).prop( "required", true );
+       }
+
+       if (product_purchase == 0) {
+        $( "input[name='product_amount']" ).prop( "type", 'hidden' );
+        $( "input[name='product_amount']" ).prop( "required", false );
+
+       }
+
+});
     </script>
 @endsection

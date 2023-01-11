@@ -543,7 +543,7 @@
     // Email SMTP Checkbox
     $(document).on('change', '.email_smtp_check', function(){
         let smtp_check = $(this).attr('checked');
-        console.log(smtp_check);
+        // console.log(smtp_check);
     });
     $(function () {
         $(".email_smtp_check").click(function () {

@@ -108,7 +108,7 @@ $('body').on('click', '.add_to_cart', function () {
         // alert(id)
         // alert("The data-id of clicked item is: " + dataId);
         $.get('/user/wishlist/store' + '/' + id, function (data) {
-            console.log(data)
+            // console.log(data)
             // miniCart()
             // start message
             const Toast = Swal.mixin({

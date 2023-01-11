@@ -46,12 +46,13 @@
   $("#applyCoupon").submit(function(e){
       e.preventDefault();
       var code = $("input[name=code]").val();
+      var subtotal = "{{ Js::from($total) }}"
       $.ajax({
          type:'POST',
          url:"{{ route('frontend.promo.submit') }}",
-         data:{ code:code},
+         data:{ code:code,subtotal:subtotal},
          success:function(data){
-            console.log(data)
+            // console.log(data)
           // initialize the toast
           const Toast = Swal.mixin({
               toast: true,
@@ -59,7 +60,7 @@
               showConfirmButton: false,
               timer: 3500
           })
-        // console.log(data)
+        // console.log(subtotal)
        
         if(data.status == false){
             Toast.fire({
@@ -72,7 +73,7 @@
                   title: data.message,
               }) 
             // Reload Page
-            // location.reload()
+            location.reload()
         }
          }
       });

@@ -75,7 +75,7 @@
                                                                                 for="checkout-fn">{{ __('First Name') }}</label>
                                                                             <input class="form-control"
                                                                                 name="bill_first_name" type="text"
-                                                                                required id="checkout-fn">
+                                                                                required id="checkout-fn" value="{{old('bill_first_name')}}">
                                                                                 @error('bill_first_name')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -87,7 +87,7 @@
                                                                                 for="checkout-ln">{{ __('Last Name') }}</label>
                                                                             <input class="form-control"
                                                                                 name="bill_last_name" type="text"
-                                                                                required id="checkout-ln">
+                                                                                required id="checkout-ln" value="{{old('bill_last_name')}}">
                                                                                 @error('bill_last_name')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -100,7 +100,7 @@
                                                                             <label
                                                                                 for="checkout-email">{{ __('E-mail Address') }}</label>
                                                                             <input class="form-control" name="bill_email"
-                                                                                type="email" required id="checkout-email">
+                                                                                type="email" required id="checkout-email" value="{{old('bill_email')}}">
                                                                                 @error('bill_email')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -111,7 +111,7 @@
                                                                             <label
                                                                                 for="checkout-phone">{{ __('Phone Number') }}</label>
                                                                             <input class="form-control" name="bill_phone"
-                                                                                type="text" id="checkout-phone" required>
+                                                                                type="text" id="checkout-phone" required value="{{old('bill_phone')}}">
                                                                                 @error('bill_phone')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -127,7 +127,7 @@
                                                                                 1 *</label>
                                                                             <input class="form-control" name="bill_address1"
                                                                                 required type="text"
-                                                                                id="checkout-address1">
+                                                                                id="checkout-address1" value="{{old('bill_address1')}}">
                                                                                 @error('bill_address1')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -139,7 +139,7 @@
                                                                                 for="checkout-address2">{{ __('Address') }}
                                                                                 2</label>
                                                                             <input class="form-control" name="bill_address2"
-                                                                                type="text" id="checkout-address2">
+                                                                                type="text" id="checkout-address2" value="{{old('bill_address2')}}">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -165,7 +165,7 @@
                                                                             <label
                                                                                 for="checkout-zip">{{ __('Zip Code') }}</label>
                                                                             <input class="form-control" name="bill_zip"
-                                                                                type="text" id="checkout-zip">
+                                                                                type="text" id="checkout-zip" value="{{old('bill_zip')}}">
                                                                                 @error('bill_zip')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
@@ -358,10 +358,10 @@
                         // $('#shipping_method').append(`<option value="">Loading ...</option>`)
                     },
                     success: function(res) {
-                        console.log(res)
+                        // console.log(res)
 
                         if (res.datas.length) {
-                            console.log(res)
+                            // console.log(res)
                           // check if cart is greater than
                           if (res.check_free_shipping == true) {
                             $("#embed_free_shipping").html('')
@@ -454,7 +454,7 @@ $(document).on("change", "input[name='shipping_method']", function () {
       
 
                     success: function(data) {
-                        console.log(data)
+                        // console.log(data)
                         let amount = '&#8358;' + data.shippPrice
                         // let amount = '&#8358;' + data.shippPrice
                         // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
@@ -494,7 +494,7 @@ $(document).on("change", "input[name='free_shipping_method']", function () {
                    
 
                     success: function(data) {
-                       console.log(data)
+                    //    console.log(data)
                        let amount = '&#8358;' + data.shippPrice
                         // let amount = '&#8358;' + data.shippPrice
                         // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
