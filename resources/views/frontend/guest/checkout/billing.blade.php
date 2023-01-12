@@ -72,11 +72,12 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label
-                                                                                for="checkout-fn">{{ __('First Name') }}</label>
+                                                                                for="checkout-fn">{{ __('First Name') }} *</label>
                                                                             <input class="form-control"
                                                                                 name="bill_first_name" type="text"
-                                                                                required id="checkout-fn" value="{{old('bill_first_name')}}">
-                                                                                @error('bill_first_name')
+                                                                                required id="checkout-fn"
+                                                                                value="{{ old('bill_first_name') }}">
+                                                                            @error('bill_first_name')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -84,11 +85,12 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label
-                                                                                for="checkout-ln">{{ __('Last Name') }}</label>
+                                                                                for="checkout-ln">{{ __('Last Name') }} *</label>
                                                                             <input class="form-control"
                                                                                 name="bill_last_name" type="text"
-                                                                                required id="checkout-ln" value="{{old('bill_last_name')}}">
-                                                                                @error('bill_last_name')
+                                                                                required id="checkout-ln"
+                                                                                value="{{ old('bill_last_name') }}">
+                                                                            @error('bill_last_name')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -98,10 +100,11 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label
-                                                                                for="checkout-email">{{ __('E-mail Address') }}</label>
+                                                                                for="checkout-email">{{ __('E-mail Address') }} *</label>
                                                                             <input class="form-control" name="bill_email"
-                                                                                type="email" required id="checkout-email" value="{{old('bill_email')}}">
-                                                                                @error('bill_email')
+                                                                                type="email" required id="checkout-email"
+                                                                                value="{{ old('bill_email') }}">
+                                                                            @error('bill_email')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -109,10 +112,11 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label
-                                                                                for="checkout-phone">{{ __('Phone Number') }}</label>
+                                                                                for="checkout-phone">{{ __('Phone Number') }} *</label>
                                                                             <input class="form-control" name="bill_phone"
-                                                                                type="text" id="checkout-phone" required value="{{old('bill_phone')}}">
-                                                                                @error('bill_phone')
+                                                                                type="text" id="checkout-phone" required
+                                                                                value="{{ old('bill_phone') }}">
+                                                                            @error('bill_phone')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -127,8 +131,9 @@
                                                                                 1 *</label>
                                                                             <input class="form-control" name="bill_address1"
                                                                                 required type="text"
-                                                                                id="checkout-address1" value="{{old('bill_address1')}}">
-                                                                                @error('bill_address1')
+                                                                                id="checkout-address1"
+                                                                                value="{{ old('bill_address1') }}">
+                                                                            @error('bill_address1')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -139,7 +144,8 @@
                                                                                 for="checkout-address2">{{ __('Address') }}
                                                                                 2</label>
                                                                             <input class="form-control" name="bill_address2"
-                                                                                type="text" id="checkout-address2" value="{{old('bill_address2')}}">
+                                                                                type="text" id="checkout-address2"
+                                                                                value="{{ old('bill_address2') }}">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -163,10 +169,11 @@
                                                                     <div class="col-sm-4">
                                                                         <div class="form-group">
                                                                             <label
-                                                                                for="checkout-zip">{{ __('Zip Code') }}</label>
+                                                                                for="checkout-zip">{{ __('Zip Code') }} *</label>
                                                                             <input class="form-control" name="bill_zip"
-                                                                                type="text" id="checkout-zip" value="{{old('bill_zip')}}">
-                                                                                @error('bill_zip')
+                                                                                type="text" id="checkout-zip"
+                                                                                value="{{ old('bill_zip') }}">
+                                                                            @error('bill_zip')
                                                                                 <p class="text-danger">{{ $message }}</p>
                                                                             @enderror
                                                                         </div>
@@ -179,8 +186,8 @@
                                                                                 <label
                                                                                     for="checkout-country">{{ __('Country') }}*</label>
                                                                                 <select class="form-control" required
-                                                                                    name="bill_country" id="billing-country"
-                                                                                    required>
+                                                                                    name="bill_country"
+                                                                                    id="billing-country" required>
                                                                                     <option value="" selected>
                                                                                         {{ __('Choose Country') }}</option>
                                                                                     @foreach (DB::table('countries')->get() as $country)
@@ -190,8 +197,9 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                                 @error('bill_country')
-                                                                                <p class="text-danger">{{ $message }}</p>
-                                                                            @enderror
+                                                                                    <p class="text-danger">{{ $message }}
+                                                                                    </p>
+                                                                                @enderror
                                                                             </div>
                                                                         </div>
 
@@ -204,8 +212,9 @@
                                                                                     required>
                                                                                 </select>
                                                                                 @error('bill_state')
-                                                                                <p class="text-danger">{{ $message }}</p>
-                                                                            @enderror
+                                                                                    <p class="text-danger">{{ $message }}
+                                                                                    </p>
+                                                                                @enderror
                                                                             </div>
                                                                         </div>
 
@@ -255,7 +264,7 @@
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12 text-end">
                                                                             <button type="submit"
-                                                                                class="btn-submit btn_text"><span
+                                                                                class="btn-submit btn_text" disabled id="NextBtn"><span
                                                                                     class="hidden-xs-down">{{ __('Continue') }}</span>
                                                                                 <i class="fa fa-arrow-right"></i> </button>
                                                                         </div>
@@ -295,9 +304,9 @@
 @section('extra_script')
     <script>
         $(document).ready(function() {
-          $('.btn_text').prop("disabled", true);
-        //   $("#shipping_method_free").hide();
-// Trigger Drop-down on counry change -------- Starts
+
+            // $('.btn_text').prop("disabled", true);
+            // Trigger Drop-down on counry change -------- Starts
             $("#shipping_method_list").slideUp("fast")
             $('#billing-country').on('change', function() {
                 var idCountry = this.value;
@@ -334,10 +343,10 @@
                     }
                 });
             });
- // Trigger Drop-down on counry change -------- Ends
+            // Trigger Drop-down on counry change -------- Ends
 
 
- // Trigger Drop-down on state change -------- Starts
+            // Trigger Drop-down on state change -------- Starts
             $("#bill_state").on("change", function() {
                 $('#shipping_method').html('');
                 var idState = this.value;
@@ -362,31 +371,31 @@
 
                         if (res.datas.length) {
                             // console.log(res)
-                          // check if cart is greater than
-                          if (res.check_free_shipping == true) {
-                            $("#embed_free_shipping").html('')
-                             $("#shipping_method_free").toggle();
-                            // $(".d-none").toggleClass("block");
-                            $("#free_shipping_id").val(res.free_shipping_state.id)
-                            
-                             $("#embed_free_shipping").append(` 
+                            // check if cart is greater than
+                            if (res.check_free_shipping == true) {
+                                $("#embed_free_shipping").html('')
+                                $("#shipping_method_free").toggle();
+                                // $(".d-none").toggleClass("block");
+                                $("#free_shipping_id").val(res.free_shipping_state.id)
+
+                                $("#embed_free_shipping").append(` 
                               <div class="list-group mt-5">
                               <label class="list-group-item">
                               <input class="form-check-input free_shipping_method" type="radio" id="free_shipping_method" value="${res.free_shipping_state.id}" name="free_shipping_method" />
                               ${res.free_shipping_state.title} - Free ₦${0}
                               </label>
                               </div>`);
-                          }else{
-                            $('#embed_free_shipping').html('');
-                            $("#free_shipping_id").val('')
-                            $("#shipping_method_free").hide();
+                            } else {
+                                $('#embed_free_shipping').html('');
+                                $("#free_shipping_id").val('')
+                                $("#shipping_method_free").hide();
 
-                          }
+                            }
 
                             $('#embed_shipping_list').html('');
                             $('#No_shipping_method').html('');
                             $.each(res.datas, function(key, value) {
-                              $("#embed_shipping_list").append(` 
+                                $("#embed_shipping_list").append(` 
                               <div class="list-group mt-5">
                               <label class="list-group-item">
                               <input class="form-check-input shipping_method_radio" type="radio" id="${value.id}" value="${value.id}" name="shipping_method" />
@@ -395,6 +404,7 @@
                               </div>`);
 
                             });
+                            $('.shipping_method_radio').prop('required',true);
                             // $('.btn_text').prop("disabled", false);
                             // $('.btn_text').html('Continue');
 
@@ -419,94 +429,84 @@
                     },
                 });
             })
-// Trigger Drop-down on state change -------- Ends
+            // Trigger Drop-down on state change -------- Ends
+        })
 
-// Trigger shipping method for customer starts
-$(document).on("change", "input[name='shipping_method']", function () {
+        // Trigger shipping method for customer starts
+        $(document).on("change", "input[name='shipping_method']", function() {
 
-                     $( "#free_shipping_method" ).prop( "checked", false );
-     
-                var shipping_method = $("input[name='shipping_method']:checked").val();
-                // if (shipping_method) {
-                var shipping_method_state_id = $("#bill_state option:selected").val();
-                // }else{
-                //   shipping_method_state_id=''
-                // }
-                
-                // var free_shipping_id =   $("#free_shipping_id").val()
-                // console.log(free_shipping_id)
-                shipping_method !=null ?  $('.btn_text').prop("disabled", false) :  $('.btn_text').prop("disabled", true);
+            $("#free_shipping_method").prop("checked", false);
+            $('#NextBtn').prop('disabled',false);
 
-              
-                $.ajax({
-                    url: "{{ url('/checkout/add_shipping') }}",
-                    type: "POST",
-                    data: {
-                        shipping_method_id: shipping_method,
-                        shipping_method_state_id: shipping_method_state_id,
-                        // free_shipping_id: free_shipping_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
-                        $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                        $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                    },
-      
 
-                    success: function(data) {
-                        // console.log(data)
-                        let amount = '&#8358;' + data.shippPrice
-                        // let amount = '&#8358;' + data.shippPrice
-                        // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
+            var shipping_method = $("input[name='shipping_method']:checked").val();
+           
+            var shipping_method_state_id = $("#bill_state option:selected").val();
+           
+            // shipping_method != null ? $('.btn_text').prop("disabled", false) : $('.btn_text').prop("disabled",
+            // true);
 
-                        $('.shipping_value').html(amount.toLocaleString("en-US")+'.'+'00')
-                        $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US")+'.'+'00')
-                        $('.flutterPayTotal').val(data.cartTotal)
 
-                    }
-                });
-});
-})
-   
+            $.ajax({
+                url: "{{ url('/checkout/add_shipping') }}",
+                type: "POST",
+                data: {
+                    shipping_method_id: shipping_method,
+                    shipping_method_state_id: shipping_method_state_id,
+                    // free_shipping_id: free_shipping_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                beforeSend: function() { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                    $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                },
 
-// Trigger shipping method for customer starts
-$(document).on("change", "input[name='free_shipping_method']", function () {
+                success: function(data) {
+                    // console.log(data)
+                    let amount = '&#8358;' + data.shippPrice
+                    $('.shipping_value').html(amount.toLocaleString("en-US") + '.' + '00')
+                    $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US") + '.' +
+                        '00')
+                    $('.flutterPayTotal').val(data.cartTotal)
+                }
+            });
+        });
 
-                $(".shipping_method_radio").prop( "checked", false );
+        // Trigger shipping method for customer starts
+        $(document).on("change", "input[name='free_shipping_method']", function() {
+            $(".shipping_method_radio").prop("checked", false);
+            $('#NextBtn').prop('disabled',false);
 
-                var free_shipping_method_id = $("input[name='free_shipping_method']:checked").val();
-                var shipping_method_state_id = $("#bill_state option:selected").val();
-                free_shipping_method_id !=null ?  $('.btn_text').prop("disabled", false) :  $('.btn_text').prop("disabled", true);
-                $.ajax({
-                    url: "{{ url('/checkout/add_free_shipping') }}",
-                    type: "POST",
-                    data: {
-                        free_shipping_method_id: free_shipping_method_id,
-                        shipping_method_state_id: shipping_method_state_id,
-                        // free_shipping_id: free_shipping_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() {
-                         // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
-                         $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                        $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                    },
-                   
-
-                    success: function(data) {
+            var free_shipping_method_id = $("input[name='free_shipping_method']:checked").val();
+            var shipping_method_state_id = $("#bill_state option:selected").val();
+            
+            // free_shipping_method_id != null ? $('.btn_text').prop("disabled", false) : $('.btn_text').prop(
+            //     "disabled", true);
+            $.ajax({
+                url: "{{ url('/checkout/add_free_shipping') }}",
+                type: "POST",
+                data: {
+                    free_shipping_method_id: free_shipping_method_id,
+                    shipping_method_state_id: shipping_method_state_id,
+                    // free_shipping_id: free_shipping_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                beforeSend: function() {
+                    // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                    $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                },
+                success: function(data) {
                     //    console.log(data)
-                       let amount = '&#8358;' + data.shippPrice
-                        // let amount = '&#8358;' + data.shippPrice
-                        // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
-
-                        $('.shipping_value').html('<small><b>(Free Standard Shipping)</b></small>'+ ' '+amount.toLocaleString("en-US")+'.'+'00')
-                        $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US")+'.'+'00')
-                        $('.flutterPayTotal').val(data.cartTotal)
-                    }
-                });
-
-
-});
-// Trigger shipping method for customer ends
-    </script> 
+                    let amount = '&#8358;' + data.shippPrice
+                    $('.shipping_value').html('<small><b>(Free Standard Shipping)</b></small>' + ' ' +
+                        amount.toLocaleString("en-US") + '.' + '00')
+                    $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US") + '.' +
+                        '00')
+                    $('.flutterPayTotal').val(data.cartTotal)
+                }
+            });
+        });
+        // Trigger shipping method for customer ends
+    </script>
 @endsection
