@@ -169,7 +169,7 @@
                                           </div>
                                           <div class="form-group row">
                                             <div class="col-md-12 text-end">
-                                              <button type="submit" class="btn-submit contiue"><span class="hidden-xs-down btn_text">{{ __('Continue') }}</span> <i class="fa fa-arrow-right"></i> </button>
+                                              <button type="submit" class="btn-submit contiue" disabled id="NextBtn"><span class="hidden-xs-down btn_text">{{ __('Continue') }}</span> <i class="fa fa-arrow-right"></i> </button>
                                             </div>
                                           </div>
                                         </div>
@@ -210,12 +210,13 @@
 <link id="mainStyles" rel="stylesheet" media="screen" href="{{ asset('frontend/css/styles.min.css') }}">
 @endsection --}}
 
+
 @section('extra_script')
     <script>
         $(document).ready(function() {
-          $('.btn_text').prop("disabled", true);
-        //   $("#shipping_method_free").hide();
-// Trigger Drop-down on counry change -------- Starts
+
+            // $('.btn_text').prop("disabled", true);
+            // Trigger Drop-down on counry change -------- Starts
             $("#shipping_method_list").slideUp("fast")
             $('#billing-country').on('change', function() {
                 var idCountry = this.value;
@@ -252,10 +253,10 @@
                     }
                 });
             });
- // Trigger Drop-down on counry change -------- Ends
+            // Trigger Drop-down on counry change -------- Ends
 
 
- // Trigger Drop-down on state change -------- Starts
+            // Trigger Drop-down on state change -------- Starts
             $("#bill_state").on("change", function() {
                 $('#shipping_method').html('');
                 var idState = this.value;
@@ -276,35 +277,35 @@
                         // $('#shipping_method').append(`<option value="">Loading ...</option>`)
                     },
                     success: function(res) {
-                        console.log(res)
+                        // console.log(res)
 
                         if (res.datas.length) {
-                            console.log(res)
-                          // check if cart is greater than
-                          if (res.check_free_shipping == true) {
-                            $("#embed_free_shipping").html('')
-                             $("#shipping_method_free").toggle();
-                            // $(".d-none").toggleClass("block");
-                            $("#free_shipping_id").val(res.free_shipping_state.id)
-                            
-                             $("#embed_free_shipping").append(` 
+                            // console.log(res)
+                            // check if cart is greater than
+                            if (res.check_free_shipping == true) {
+                                $("#embed_free_shipping").html('')
+                                $("#shipping_method_free").toggle();
+                                // $(".d-none").toggleClass("block");
+                                $("#free_shipping_id").val(res.free_shipping_state.id)
+
+                                $("#embed_free_shipping").append(` 
                               <div class="list-group mt-5">
                               <label class="list-group-item">
                               <input class="form-check-input free_shipping_method" type="radio" id="free_shipping_method" value="${res.free_shipping_state.id}" name="free_shipping_method" />
                               ${res.free_shipping_state.title} - Free ₦${0}
                               </label>
                               </div>`);
-                          }else{
-                            $('#embed_free_shipping').html('');
-                            $("#free_shipping_id").val('')
-                            $("#shipping_method_free").hide();
+                            } else {
+                                $('#embed_free_shipping').html('');
+                                $("#free_shipping_id").val('')
+                                $("#shipping_method_free").hide();
 
-                          }
+                            }
 
                             $('#embed_shipping_list').html('');
                             $('#No_shipping_method').html('');
                             $.each(res.datas, function(key, value) {
-                              $("#embed_shipping_list").append(` 
+                                $("#embed_shipping_list").append(` 
                               <div class="list-group mt-5">
                               <label class="list-group-item">
                               <input class="form-check-input shipping_method_radio" type="radio" id="${value.id}" value="${value.id}" name="shipping_method" />
@@ -313,6 +314,7 @@
                               </div>`);
 
                             });
+                            $('.shipping_method_radio').prop('required',true);
                             // $('.btn_text').prop("disabled", false);
                             // $('.btn_text').html('Continue');
 
@@ -337,94 +339,84 @@
                     },
                 });
             })
-// Trigger Drop-down on state change -------- Ends
+            // Trigger Drop-down on state change -------- Ends
+        })
 
-// Trigger shipping method for customer starts
-$(document).on("change", "input[name='shipping_method']", function () {
+        // Trigger shipping method for customer starts
+        $(document).on("change", "input[name='shipping_method']", function() {
 
-                     $( "#free_shipping_method" ).prop( "checked", false );
-     
-                var shipping_method = $("input[name='shipping_method']:checked").val();
-                // if (shipping_method) {
-                var shipping_method_state_id = $("#bill_state option:selected").val();
-                // }else{
-                //   shipping_method_state_id=''
-                // }
-                
-                // var free_shipping_id =   $("#free_shipping_id").val()
-                // console.log(free_shipping_id)
-                shipping_method !=null ?  $('.btn_text').prop("disabled", false) :  $('.btn_text').prop("disabled", true);
-
-              
-                $.ajax({
-                    url: "{{ url('/checkout/add_shipping') }}",
-                    type: "POST",
-                    data: {
-                        shipping_method_id: shipping_method,
-                        shipping_method_state_id: shipping_method_state_id,
-                        // free_shipping_id: free_shipping_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
-                        $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                        $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                    },
-      
-
-                    success: function(data) {
-                        console.log(data)
-                        let amount = '&#8358;' + data.shippPrice
-                        // let amount = '&#8358;' + data.shippPrice
-                        // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
-
-                        $('.shipping_value').html(amount.toLocaleString("en-US")+'.'+'00')
-                        $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US")+'.'+'00')
-                        $('.flutterPayTotal').val(data.cartTotal)
-
-                    }
-                });
-});
-})
-   
-
-// Trigger shipping method for customer starts
-$(document).on("change", "input[name='free_shipping_method']", function () {
-
-                $(".shipping_method_radio").prop( "checked", false );
-
-                var free_shipping_method_id = $("input[name='free_shipping_method']:checked").val();
-                var shipping_method_state_id = $("#bill_state option:selected").val();
-                free_shipping_method_id !=null ?  $('.btn_text').prop("disabled", false) :  $('.btn_text').prop("disabled", true);
-                $.ajax({
-                    url: "{{ url('/checkout/add_free_shipping') }}",
-                    type: "POST",
-                    data: {
-                        free_shipping_method_id: free_shipping_method_id,
-                        shipping_method_state_id: shipping_method_state_id,
-                        // free_shipping_id: free_shipping_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    beforeSend: function() {
-                         // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
-                         $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                        $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
-                    },
-                   
-
-                    success: function(data) {
-                      //  console.log(data)
-                       let amount = '&#8358;' + data.shippPrice
-                        // let amount = '&#8358;' + data.shippPrice
-                        // let amount = data.shippPrice == 0 ? "Free": '&#8358;' + data.shippPrice
-
-                        $('.shipping_value').html(`<small><b>(${data.free_shipping.name})</b></small>`+' '+amount.toLocaleString("en-US")+'.'+'00')
-                        $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US")+'.'+'00')
-                        $('.flutterPayTotal').val(data.cartTotal)
-                    }
-                });
+            $("#free_shipping_method").prop("checked", false);
+            $('#NextBtn').prop('disabled',false);
 
 
-});
-// Trigger shipping method for customer ends
-    </script> 
+            var shipping_method = $("input[name='shipping_method']:checked").val();
+           
+            var shipping_method_state_id = $("#bill_state option:selected").val();
+           
+            // shipping_method != null ? $('.btn_text').prop("disabled", false) : $('.btn_text').prop("disabled",
+            // true);
+
+
+            $.ajax({
+                url: "{{ url('/checkout/add_shipping') }}",
+                type: "POST",
+                data: {
+                    shipping_method_id: shipping_method,
+                    shipping_method_state_id: shipping_method_state_id,
+                    // free_shipping_id: free_shipping_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                beforeSend: function() { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                    $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                },
+
+                success: function(data) {
+                    // console.log(data)
+                    let amount = '&#8358;' + data.shippPrice
+                    $('.shipping_value').html(amount.toLocaleString("en-US") + '.' + '00')
+                    $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US") + '.' +
+                        '00')
+                    $('.flutterPayTotal').val(data.cartTotal)
+                }
+            });
+        });
+
+        // Trigger shipping method for customer starts
+        $(document).on("change", "input[name='free_shipping_method']", function() {
+            $(".shipping_method_radio").prop("checked", false);
+            $('#NextBtn').prop('disabled',false);
+
+            var free_shipping_method_id = $("input[name='free_shipping_method']:checked").val();
+            var shipping_method_state_id = $("#bill_state option:selected").val();
+            
+            // free_shipping_method_id != null ? $('.btn_text').prop("disabled", false) : $('.btn_text').prop(
+            //     "disabled", true);
+            $.ajax({
+                url: "{{ url('/checkout/add_free_shipping') }}",
+                type: "POST",
+                data: {
+                    free_shipping_method_id: free_shipping_method_id,
+                    shipping_method_state_id: shipping_method_state_id,
+                    // free_shipping_id: free_shipping_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                beforeSend: function() {
+                    // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('.orderTotal').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                    $('.shipping_value').html(`<i class="fas fa-spinner fa-spinner"></i>`)
+                },
+                success: function(data) {
+                    //    console.log(data)
+                    let amount = '&#8358;' + data.shippPrice
+                    $('.shipping_value').html('<small><b>(Free Standard Shipping)</b></small>' + ' ' +
+                        amount.toLocaleString("en-US") + '.' + '00')
+                    $('.orderTotal').html('&#8358;' + data.cartTotal.toLocaleString("en-US") + '.' +
+                        '00')
+                    $('.flutterPayTotal').val(data.cartTotal)
+                }
+            });
+        });
+        // Trigger shipping method for customer ends
+    </script>
 @endsection
