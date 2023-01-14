@@ -209,7 +209,7 @@ class CatalogController extends Controller
             $query->where('status', 1);
         }])->get();
 
-        $items = Item::where('subcategory_id',$category->id)->paginate(10);
+        $items = Item::where('childcategory_id',$category->id)->paginate(10);
        
         return view('frontend.catalog.index',compact('items','categories','category'));
     }

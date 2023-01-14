@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class CustomerRestockMail extends Mailable
 {
@@ -32,7 +33,7 @@ class CustomerRestockMail extends Mailable
     public function build()
     {
         // $subject = 'Contact Us Message';
-        $address = 'info@beautykink.com';
+        $address = DB::table('settings')->first()->contact_email;
         $subject = $this->data['subject'];
         // $email = $this->data['email'];
         // $body = $this->data['body'];
@@ -41,6 +42,6 @@ class CustomerRestockMail extends Mailable
         ->from($address)
         ->replyTo($address)
         ->subject($subject)
-        ->with(['MsgToCustomer' => $this->data['body'],'CustomerEmail'=>$this->data['email'],'link'=>$this->data['url'],'MsgSubj'=>$subject]);
+        ->with(['MsgToCustomer' => $this->data['body'],'CustomerEmail'=>$this->data['email'],'link'=>$this->data['url'],'img'=>$this->data['img'],'MsgSubj'=>$subject]);
     }
 }

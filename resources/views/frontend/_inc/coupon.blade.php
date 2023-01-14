@@ -17,10 +17,10 @@
 
             <div class="text-right column text-lg">
                 <span class="text-muted">{{ __('Subtotal') }}: </span>
-                <span class="text-gray-dark">&#8358;{{ PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0)}}</span>
+                <span class="text-gray-dark">@money(PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0),'NGN')</span>
             </div>
+         </div>
 
-        </div>
         <div class="shopping-cart-footer">
             <div class="column">
                 <a class="btn-primary" href="{{ route('frontend.catalog') }}">
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="column">
-                <a class="btn btn-primary btn-sm" href="{{ route('frontend.checkout.billing') }}">{{ __('Checkout') }}</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('frontend.checkout.billing') }}">{{ __('Proceed to Checkout') }}</a>
             </div>
         </div>
     </div>
@@ -46,12 +46,13 @@
   $("#applyCoupon").submit(function(e){
       e.preventDefault();
       var code = $("input[name=code]").val();
+      var subtotal = "{{ Js::from($total) }}"
       $.ajax({
          type:'POST',
          url:"{{ route('frontend.promo.submit') }}",
-         data:{ code:code},
+         data:{ code:code,subtotal:subtotal},
          success:function(data){
-            console.log(data)
+            // console.log(data)
           // initialize the toast
           const Toast = Swal.mixin({
               toast: true,
@@ -59,7 +60,7 @@
               showConfirmButton: false,
               timer: 3500
           })
-        // console.log(data)
+        // console.log(subtotal)
        
         if(data.status == false){
             Toast.fire({
@@ -72,7 +73,7 @@
                   title: data.message,
               }) 
             // Reload Page
-            // location.reload()
+            location.reload()
         }
          }
       });

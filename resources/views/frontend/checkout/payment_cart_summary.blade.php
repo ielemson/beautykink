@@ -22,10 +22,11 @@
         <span class="label">Shipping</span>
         @if (Session::has('free_shipping'))
           Free Shipping
+        @elseif (Session::get('free_shipping_state'))
+        <small><b>({{Session::get('free_shipping_state')->name}})</b></small>
+        <span class="value">@money(0,'NGN')</span>
         @else
-        
-        <span class="value">&#8358;{{Session::has('shipping_price') ? Session::get('shipping_price'): 0;}}</span>
-          
+        <span class="value">@money(Session::has('shipping_price') ? Session::get('shipping_price'): 0, 'NGN')</span>
         @endif
       </div>
         </div>
@@ -45,9 +46,18 @@
           $cartPrice = PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0);
           $totalPrice = $shippingPrice + $cartPrice;
           @endphp
-          <span class="value">&#8358;{{$totalPrice}}</span>
+          <span class="value">
+            {{-- <x-money amount="{{$totalPrice}}" currency="NGN" /> --}}
+            @money($totalPrice, 'NGN')
+          </span>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="shopping-cart-summary mt-md-70">
+      
+      <div class="checkout-shopping">
+        <a class="btn-checkout" href="{{route('frontend.checkout.cancel')}}">Cancel Order</a>
       </div>
     </div>
     {{-- <div class="block-reassurance">

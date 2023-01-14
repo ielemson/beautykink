@@ -4866,7 +4866,7 @@ section .container-fluid {
   font-weight: 300;
   height: calc(2.5rem - 2px);
   padding: 2px 0.5rem 0;
-  width: 55px;
+  width: 100%;
 }
 .product-single-item .product-single-info .product-variants-item .product-color-select {
   margin-bottom: 0;

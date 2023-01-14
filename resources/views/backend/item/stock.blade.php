@@ -25,6 +25,7 @@
               
               <div class="card-header text-right">
                 <div class="spinner"></div>     
+                <a href="javascript:;" class="btn btn-primary btn-sm set_stock_limit"><i class="fa fa-pencil"></i> {{ __('Set Stock Limit') }}</a>
                 {{-- <a href="{{route('backend.customer.restock.message')}}" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> {{ __('Create Restock Message') }}</a> --}}
               </div>
               <!-- /.card-header -->
@@ -35,10 +36,10 @@
                     {{-- <th><input type="checkbox" name="" data-target="product-bulk-delete" class=" bulk_all_delete" id=""></th> --}}
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Name') }}</th>
-                    {{-- <th>{{ __('Price') }}</th> --}}
+                    <th>{{ __('Current Stock') }}</th>
                     {{-- <th>{{ __('Status') }}</th> --}}
                     {{-- <th>{{ __('Type') }}</th> --}}
-                    <th>{{ __('No. of Reminders') }}</th>
+                    <th>{{ __('Customer Email') }}</th>
                     <th>{{ __('Action') }}</th>
                   </tr>
                   </thead>

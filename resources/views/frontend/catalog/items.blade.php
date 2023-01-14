@@ -16,7 +16,7 @@
                 <div class="product-slider owl-carousel owl-theme">
 
                     @foreach ($highlight->items as $item)
-                    {{-- @if ($item->is_type == 'best') --}}
+                    @if ($item->status == 1)
                         <div class="item">
                             <!--== Start Shop Item ==-->
                             <div class="product-item">
@@ -64,10 +64,10 @@
                                                 @if ($item->previous_price != 0)
                                                     {{-- <del></del> --}}
                                                     <span class="price-old">
-                                                        {{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                                        @money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
                                                 @endif
                                                 <span class="price text-black">
-                                                    {{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                                    @money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
                                             </div>
                                         </div>
                                         <div class="product-footer">
@@ -96,7 +96,7 @@
                             </div>
                             <!--== End Shop Item ==-->
                         </div>
-                        {{-- @endif --}}
+                        @endif
                     @endforeach
                 </div>
             </div>

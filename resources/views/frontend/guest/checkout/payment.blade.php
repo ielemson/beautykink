@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <!-- Page Title-->
-    @include('frontend._inc.header_single_page',['title_1'=>'Checkout','title_2'=>'Review and Pay'])''
+    @include('frontend._inc.header_single_page',['title_1'=>'Checkout','title_2'=>'Review and Pay'])
       
     <!--== End Page Header Area Wrapper ==-->
       <section class="product-area">
@@ -119,10 +119,14 @@
                                                         {{-- @endif --}}
                                                     @endforeach
                                                   </div>
+                                                  
                                             </div>
                                         </div>
+
+                                        
                                        </div>
                                 </div>
+                                
                               </div>
                             </div>
                           </div>

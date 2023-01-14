@@ -1,4 +1,5 @@
 @foreach ($items as $item)
+@if ($item->status == 1)
 <div class="col-sm-6 col-md-4">
     <!--== Start Shop Item ==-->
     <div class="product-item">
@@ -55,9 +56,9 @@
             <div class="prices">
                @if ($item->previous_price != 0)
                                     <span
-                                        class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                        class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
                                 @endif
-                                <span class="price text-black">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
 
             </div>
           </div>
@@ -82,4 +83,5 @@
     </div>
     <!--== End Shop Item ==-->
   </div>
+  @endif
   @endforeach

@@ -118,6 +118,7 @@ class Setting extends Model
         'whatsapp_phone',
         'is_whatsapp_widget',
         'whatsapp_widget_messenger',
-        'is_scroll_to_top'
+        'is_scroll_to_top',
+        'item_stock_limit'
     ];
 }

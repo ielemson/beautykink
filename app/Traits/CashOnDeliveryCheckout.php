@@ -10,6 +10,7 @@ use App\Models\TrackOrder;
 use Illuminate\Support\Str;
 use App\Helpers\EmailHelper;
 use App\Helpers\PriceHelper;
+use App\Models\FreeShipping;
 use App\Models\GeoZone;
 use App\Models\Notification;
 use App\Models\ShippingMethod;
@@ -25,9 +26,10 @@ trait CashOnDeliveryCheckout
     {
        
         $user = Auth::user();
+        $ship = Session::get('shipping_address');
         if(!$user){
 
-        $ship = Session::get('shipping_address');
+        // $ship = Session::get('shipping_address');
         // dd($ship);
         $guestEmail = $ship['ship_email'];
         $guestUser = User::where('email',$guestEmail)->first();
@@ -77,18 +79,44 @@ trait CashOnDeliveryCheckout
         
         foreach ($cart as $key => $item) {
           
-            array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>0,'attribute_name'=>$item->options->attribute_name,'attribute_color'=>$item->options->attribute_color,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
+                 
+            array_push($cartArr, ['id'=>$item->id,'name'=>$item->name,'price'=>$item->price,'main_price'=>$item->price,'attribute_price'=>$item->options->attribute_price,'attribute_name'=>$item->options->attribute_name,'attribute_type'=>$item->options->attribute_type,'qty'=>$item->qty,'photo'=>$item->options->image,'slug'=>$item->options->slug]);
         }
 
         $shipping = [];
         
-        $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
+        // $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
+        
+        // if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
+        //     $shipping = ShippingMethod::where('id',$shipping_id)->first();
+        //     $shipping['price'] = $shipping->price;
+        //     $shipping['shipping_state_id'] = Session::get('shipping_state_id');
+        // }
+
+        $shipping = [];
+
+        if(Session::has('free_shipping_id')){
+            $shipping = FreeShipping::where('id',Session::get('free_shipping_id'))->first();
+            $shipping['price'] = 0;
+            $shipping['state_id'] = Session::get('free_shipping_state_id');
+
+        }else{
+
+             $shipping_id = Session::has('shipping_method_id') ? Session::get('shipping_method_id'): 0;
         
         if ($shipping = ShippingMethod::where('id',$shipping_id)->exists()) {
             $shipping = ShippingMethod::where('id',$shipping_id)->first();
             $shipping['price'] = $shipping->price;
             $shipping['shipping_state_id'] = Session::get('shipping_state_id');
         }
+
+        }
+        $total = 0;
+
+        foreach ($cart as $key => $product) {
+          $total += $product->price * $product->qty;
+        //   $total += $product->options->attribute_price;
+      }
 
         $discount = [];
         if (Session::has('coupon')) {
@@ -115,6 +143,7 @@ trait CashOnDeliveryCheckout
         $order_data['payment_status']     = 'Unpaid';
         // $order_data['txnid']              = $data['txn_id'];
         $order_data['order_status']       = 'Pending';
+        $order_data['shipping_type']     = Session::has('free_shipping_id') ? 'Free': 'Paid';
         $order                            = Order::create($order_data);
         TrackOrder::create([
             'title'    => 'Pending',
@@ -127,18 +156,41 @@ trait CashOnDeliveryCheckout
             'order_id' => $order->id
         ]);
 
+        // $email_data = [
+        //     'to'                 => $user->email,
+        //     'type'               => 'Order',
+        //     'user_name'          => $user->displayName(),
+        //     'order_cost'         => $total_amount,
+        //     'transaction_number' => 'transaction_number',
+        //     'site_title'         => $setting->title,
+        // ];
+
+        // $email = new EmailHelper();
+        // $email->sendTemplateMail($email_data);
+        $invoice = [
+            'order_id'=>$order->id,
+            'payment_method'=>$order->payment_method,
+            'payment_status'=>$order->payment_status,
+            'order_date'=>$order->created_at,
+        ];
+
         $email_data = [
             'to'                 => $user->email,
             'type'               => 'Order',
             'user_name'          => $user->displayName(),
+            'shipping_address'   => $ship['ship_address1'],
             'order_cost'         => $total_amount,
-            'transaction_number' => 'transaction_number',
+            'transaction_number' => $order->transaction_number,
             'site_title'         => $setting->title,
+            'cart'               => $cartArr,
+            'shipping'           => $shipping,
+            'shipping_info'      => Session::get('shipping_address'),
+            'grand_total'        => $total,
+            'invoice'           => $invoice
         ];
 
         $email = new EmailHelper();
-        $email->sendTemplateMail($email_data);
-
+        $email->sendTemplateMailOrder($email_data);
         if ($discount) {
             $coupon_id = $discount['code']['id'];
             $get_coupon = PromoCode::findOrFail($coupon_id);
@@ -156,6 +208,8 @@ trait CashOnDeliveryCheckout
         Session::forget('shipping_address');
         Session::forget('billing_address');
         Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
+        Session::forget('free_shipping_id');
         return [
             'status' => true
         ];

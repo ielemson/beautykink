@@ -26,13 +26,14 @@
                                 <th>{{ __('Date Addedd') }}</th>
                                 <th>{{ __('Payment Method') }}</th>
                                 <th>{{ __('Total') }}</th>
+                                <th>{{ __('View') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($recentOrders as $data)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('backend.order.index', $data->id) }}">{{ $data->id }}</a>
+                                        {{ $data->id }}
                                     </td>
 
                                     <td>
@@ -47,6 +48,7 @@
                                     
                                     <td>{{ $data->payment_method }}</td>
                                     <td>&#8358;{{ PriceHelper::orderTotal($data) }}</td>
+                                    <td><a href="{{ route('backend.order.index', $data->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>

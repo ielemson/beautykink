@@ -120,13 +120,13 @@
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span
-                                                class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                                class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price), 'NGN')</span>
                                         @endif
 
-                                        <span class="price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                        <span class="price">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
                                         @if ($item->previous_price != 0)
                                             <span class="discount-percentage">Save
-                                                {{ PriceHelper::discountPercentage($item) }}</span>
+                                                @money(PriceHelper::discountPercentage($item),'NGN')</span>
                                         @endif
 
                                         <div class="tax-label">
@@ -139,16 +139,16 @@
                                     </div>
                                     <div class="pt-1 mb-1"><span class="text-medium">{{ __('Categories') }}:</span>
                                         <a
-                                            href="{{ route('frontend.catalog') . '?category=' . $item->category->slug }}">{{ $item->category->name }}</a>
+                                            href="{{ route('frontend.category.view',$item->category->slug)}}">{{ strtolower($item->category->name )}}</a>
                                         @if ($item->subcategory)
                                             /
                                             <a
-                                                href="{{ route('frontend.catalog') . '?subcategory=' . $item->subcategory->slug }}">{{ $item->subcategory->name }}</a>
+                                                href="{{ route('frontend.subcategory.view',$item->subcategory->slug)}}">{{ strtolower($item->subcategory->name )}}</a>
                                         @endif
                                         @if ($item->childcategory)
                                             /
                                             <a
-                                                href="{{ route('frontend.catalog') . '?childcategory=' . $item->childcategory->slug }}">{{ $item->childcategory->name }}</a>
+                                                href="{{ route('frontend.childcategory.view',$item->childcategory->slug)}}">{{ strtolower($item->childcategory->name )}}</a>
                                         @endif
                                     </div>
                                     <div class="pt-1 mb-1"><span class="text-medium">{{ __('Tags') }}:</span>
@@ -156,33 +156,55 @@
                                             @foreach (explode(',', $item->tags) as $tag)
                                                 @if ($loop->last)
                                                     <a
-                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ $tag }}</a>
+                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ strtolower($tag) }}</a>
                                                 @else
                                                     <a
-                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ $tag }}</a>,
+                                                        href="{{ route('frontend.catalog.tag',$tag)}}">{{ strtolower($tag) }}</a>,
                                                 @endif
                                             @endforeach
                                         @endif
                                     </div>
-                                    <form id="add_to_cart_form" syle="margin-top:5px">
-
-                                        <div class="product-variants">
+                                    {{-- <form id="add_to_cart_form" syle="margin-top:5px"> --}}
+                                        <form  action="javascript:;" method="POST" id="addToCart" tabindex="-1">
+                                            @csrf
+                                        <div class="product-variants col-md-12">
                                             @foreach ($attributes as $attribute)
                                                 @if ($attribute->options->count() != 0)
-                                                    @if (strtolower($attribute->name) == 'color')
+                                                    @if (strtolower($attribute->type) == 'image')
                                                         <div class="product-variants-item mt-5">
                                                             <h6 class="title mb-20">{{ $attribute->name }}</h6>
                                                             @foreach ($attribute->options as $option)
                                                                 <label>
                                                                     <span class="radio-wrapper">
-                                                                        <input type="radio" name="attribute_name"
-                                                                            value="{{ $option->name }}" id="radioid"
+                                                                        <input type="radio" name="attribute_id"
+                                                                            value="{{ $option->id }}" id="radioid"
                                                                             required />
                                                                     </span>
                                                                    @if ($option->image != '')
                                                                    <img src="{{ asset("uploads/items/attributes/$option->image") }}"
                                                                    alt="{{ $option->name }}" class="img-thumbnail"
-                                                                   data-color="{{ $option->image }}">
+                                                                   data-color="{{ $option->image }}"/>
+                                                                   @endif
+                                                                    {{-- {{ $option->name }} --}}
+                                                                </label>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+
+                                                    @if (strtolower($attribute->type) == 'image text')
+                                                        <div class="product-variants-item mt-5">
+                                                            <h6 class="title mb-20">{{ $attribute->name }}</h6>
+                                                            @foreach ($attribute->options as $option)
+                                                                <label>
+                                                                    <span class="radio-wrapper">
+                                                                        <input type="radio" name="attribute_id"
+                                                                            value="{{ $option->id }}" id="radioid"
+                                                                            required />
+                                                                    </span>
+                                                                   @if ($option->image != '')
+                                                                   <img src="{{ asset("uploads/items/attributes/$option->image") }}"
+                                                                   alt="{{ $option->id }}" class="img-thumbnail"
+                                                                   data-color="{{ $option->image }}"/>
                                                                    @endif
                                                                     {{ $option->name }}
                                                                 </label>
@@ -190,12 +212,12 @@
                                                         </div>
                                                     @endif
 
-                                                    @if (strtolower($attribute->name) == 'size')
+                                                    @if (strtolower($attribute->type) == 'text')
                                                         <div class="product-variants-item">
-                                                            <h6 class="title">Size</h6>
-                                                            <select class="form-control-select" name="size" aria-label="S" required>
+                                                            <h6 class="title">{{ $attribute->name }}</h6>
+                                                            <select class="form-control-select" name="attribute_id" aria-label="S" required>
                                                                 @foreach ($attribute->options as $option)
-                                                                <option selected="">{{$option->name}}</option>
+                                                                <option value="{{$option->id}}">{{$option->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -209,21 +231,17 @@
                                             {!! $item->short_details !!}
                                         </div>
                                         <div class="product-quick-action">
-                                            {{-- <div class="product-quick-qty">
-
-<div class="pro-qty">
-
-<input type="text" id="quantity2" class="qty" title="Quantity" value="1" name="qty">
-
-</div>
-</div> --}}
-
-
-                                            <input type="hidden" id="pid" class="qty" title="product"
+                                           
+                                            <input type="hidden" id="pid" class="pid" 
                                                 value="{{ $item->id }}" name="pid">
+
+                                            <input type="hidden" id="qty" class="qty"
+                                                value="1" name="qty">
+
                                             @if ($item->is_stock())
-                                                <button type="submit" class="btn-product-add btn-danger">Add to
-                                                    cart</button>
+                                                <button type="submit" class="btn-product-add btn-danger" id="addToCartButton">Add to
+                                                    cart
+                                                </button>
                                             @else
                                                 <a class="btn-quick-view btn-block remind_me_when_restock"
                                                     href="javascript:;" title="remind me on restock"
@@ -243,13 +261,6 @@
                                     <div class="social-sharing">
                                         <span>Share</span>
                                         <div class="social-icons">
-                                            {{-- @php
-$links = json_decode($setting->social_link, true)['links'];
-$icons = json_decode($setting->social_link, true)['icons'];
-@endphp
-@foreach ($links as $link_key => $link)
-<a href="{{ $link }}"><i class="{{ $icons[$link_key] }}"></i></a>
-@endforeach --}}
                                             {!! Share::page(url('/product/' . $item->slug))->facebook()->telegram()->twitter()->linkedin()->whatsapp() !!}
                                         </div>
 

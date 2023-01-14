@@ -114,6 +114,7 @@
     }
 </style>
 @endif
+
     @yield('styleplugins')
 
     {{-- Google AdSense Start --}}

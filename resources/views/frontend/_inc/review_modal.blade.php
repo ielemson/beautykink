@@ -14,7 +14,7 @@
             
             @php
             $user = Auth::user();
-        @endphp
+           @endphp
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">

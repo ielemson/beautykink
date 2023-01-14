@@ -431,7 +431,7 @@
 
     <script>
         var mainbs = {!! $mainbs !!};
-        console.log(mainbs)
+        // console.log(mainbs)
     </script>
 
     <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->

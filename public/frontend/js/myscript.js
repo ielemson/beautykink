@@ -816,7 +816,7 @@ $(document).on('click','.wishlist_store',function(e){
                     type: "GET",
                     url: addToCartUrl,
                     success: function (data) {
-                       console.log(data);
+                    //    console.log(data);
                         $(".cart_count").text(data.qty);
                         $(".cart_view_header").load(
                             $("#header_cart_load").attr("data-target")

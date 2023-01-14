@@ -46,7 +46,7 @@
                   </div>
 
                   <div class="form-group  col-md-12">
-                    <label for="attr_image">{{ __('Image') }} *</label>
+                    <label for="attr_image">{{ __('Image') }} </label>
                     <input type="file" name="image" class="form-control" id="attr_image" placeholder="{{ __('Select image') }}" value="{{ old('image') }}">
                   </div>
 

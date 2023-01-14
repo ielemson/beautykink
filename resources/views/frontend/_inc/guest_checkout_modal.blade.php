@@ -57,11 +57,11 @@
     </div>
 
 
-    <form method="POST" action="{{route('pay')}}" id="paymentForm" style="visibility:hidden">
+    <form method="POST" action="{{route('pay')}}" id="paymentForm" style="visibility: hidden">
         {{ csrf_field() }}
     
         <input name="name" value="{{ $bill['bill_first_name'] }} {{ $bill['bill_last_name'] }}" />
         <input name="email" type="email"  value="{{ $bill['bill_email'] }}"/>
         <input name="phone" type="tel" value="{{ $bill['bill_phone'] }}" />
-        <input name="amount" type="number" id="flutterPayTotal" />
+        <input name="amount" type="number" id="flutterPayTotal"  value="{{Session::has('flutterPayTotal') ? Session::get('flutterPayTotal') : 0}}"/>
     </form>

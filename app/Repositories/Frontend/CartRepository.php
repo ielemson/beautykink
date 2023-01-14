@@ -159,11 +159,13 @@ class CartRepository
     public function promoStore($request)
     {
         $input = $request->all();
+            // return $input;
 
-        $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->where('status',1)->first();
+       $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->where('status',1)->count();
 
         if ($promo_code) {
 
+            $promo_code = PromoCode::whereCodeName($input['code'])->where('no_of_times', '>', 0)->where('status',1)->first();
             $endDate = Carbon::parse($promo_code->end_date);
 
             if ($endDate->isPast()) {
@@ -234,17 +236,29 @@ class CartRepository
                     ];
                 }
             }
+
+            // Check if shipping coupon is activated
             if ($promo_code->shipping == 1) {
                 Session::put('free_shipping', $promo_code->shipping);
                 // Session::forget('discount');
 
                 return [
                     'status'  => true,
-                    'message' => __('Free Shipping applied!')
+                    'message' => __('Free shipping coupon applied!')
                 ];
             }else{
                 Session::forget('free_shipping');
             }
+
+            if ($promo_code->product_purchase == 1 && !($input['subtotal'] > $promo_code->product_amount)) {
+                Session::forget('coupon');
+                    return [
+                                'status'  => false,
+                                'message' => __('Your total cart must be more than '.'₦'.$promo_code->product_amount)
+                            ];     
+               
+            }
+
             $cart = Cart::content();
             $cart_total = PriceHelper::cartTotal($cart);
             // dd($cart_total);

@@ -7,6 +7,7 @@
             <img src="{{ $data->thumbnail ? asset($data->thumbnail) : asset('backend/images/placeholder.png') }}" alt="Image Not Found">
         </td>
         <td>{{ $data->name }}</td>
+        <td>{{ $data->stock }}</td>
         {{-- <td>{{ PriceHelper::adminCurrencyPrice($data->discount_price) }}</td> --}}
         {{-- <td>
             <div class="input-group-prepend">
@@ -33,7 +34,15 @@
             </span>
             @endforeach --}}
         {{-- </td> --}}
-        <td>{{ ucfirst($data->reminders->count()) }}</td>
+        <td>
+        @if ($data->reminders->count() > 0)
+        @foreach ($data->reminders as $reminder)
+        <span class="badge badge-pill badge-primary">  {{$reminder->email}} </span>
+        @endforeach
+        @else
+           -- 
+        @endif
+        </td>
         <td>
             <a class="btn btn-primary btn-sm remind_me_when_restock" data-id={{$data->id}} href="javascript:;">
                 {{ __('Re-Stock') }}

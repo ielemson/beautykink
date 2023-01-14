@@ -43,12 +43,12 @@
                                <div class="form-group row mb-15">
                                 <div class="col-6 text-center">
                                     <a class="btn-forgot" href="{{ route('user.forgot') }}">Forgot your password?</a>
-                                    <button class="btn-signin" type="submit">Sign in</button>
+                                    <button class="btn-signin" type="submit">Sign in <i class="fa fa-user" aria-hidden="true"></i></button>
                                 </div>
                             
                                <div class="col-6 text-center">
                                 <a class="btn-forgot" href="javascript:;">Checkout as Guest?</a>
-                                <a href="{{route('frontend.guest.checkout')}}" class="btn-signin">Guest Checkout</a>
+                                <a href="{{route('frontend.guest.checkout')}}" class="btn-signin">Continue <i class="fa fa-arrow-right"></i> </a>
                             </div>
                              
                             </div>

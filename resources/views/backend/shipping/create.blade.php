@@ -46,7 +46,7 @@
 
                   
                   <div class="form-group  col-md-6">
-                    <label for="title">{{ __('State Covered') }} *</label>
+                    <label for="title">{{ __('Zone Covered') }} *</label>
                      <select name="state_id[]" class="select2bs4 select2-hidden-accessible" multiple="multiple"  data-dropdown-css-class="select2-purple" id="state_data" data-placeholder="Selected States"
                       style="width: 100%;">
                     </select>

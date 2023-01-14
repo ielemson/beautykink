@@ -1,6 +1,7 @@
 @foreach ($datas as $data)
     <tr>
         <td>{{ $data->name }}</td>
+        <td>{{ $data->type }}</td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-info btn-sm mr-1"

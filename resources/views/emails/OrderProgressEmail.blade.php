@@ -1,7 +1,8 @@
 @component('mail::message')
-{!! $MsgSubj !!}
 
-{!! $MsgToCustomer !!}
+<h1 style="text-align: center">{!! $MsgSubj !!}</h1>
+
+<p>{!! $MsgToCustomer !!}</p>
 
 @component('mail::button', ['url' => "https://dev.beautykink.com/user/login"])
 Login to your dashboard

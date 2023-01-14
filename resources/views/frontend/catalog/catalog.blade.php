@@ -29,6 +29,7 @@ function renderStarRating($rating, $maxRating = 5)
 <div class="row">
     @if ($items->count() > 0)
     @foreach ($items as $item)
+    
         <div class="col-sm-6 col-md-4 col-lg-3 ">
             <!--== Start Shop Item ==-->
             <div class="product-item">
@@ -78,9 +79,9 @@ function renderStarRating($rating, $maxRating = 5)
                             <div class="prices">
                                 @if ($item->previous_price != 0)
                                     <span
-                                        class="price-old">{{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
+                                        class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
                                 @endif
-                                <span class="price text-black">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
 
                             </div>
                         </div>

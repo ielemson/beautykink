@@ -31,9 +31,20 @@
                         @include('alerts.alerts')
                     </div>
 
-                  <div class="form-group  col-md-12">
+                  <div class="form-group  col-md-6">
                     <label for="name">{{ __('Name') }} *</label>
                     <input type="text" name="name" class="form-control" id="attr_name" placeholder="{{ __('Enter Name') }}" value="{{ $attribute->name }}" >
+                  </div>
+
+                  
+                  <div class="form-group  col-md-6">
+                    <label for="attribute_id">{{ __('Attribute Type') }} *</label>
+                        <select name="type" id="type"  class="form-control select2">
+                          <option value="" selected disabled>{{ __('Select Attribute Type') }}</option>
+                           <option value="{{__('Image')}}" {{$attribute->type =="Image" ? "selected":""}}>{{__('Image')}}</option>
+                           <option value="{{__('Image Text')}}" {{$attribute->type =="Image Text" ? "selected":""}}>{{__('Image & Text')}}</option>
+                           <option value="{{__('Text')}}" {{$attribute->type =="Text" ? "selected":""}}>{{__('Text')}}</option>
+                        </select>
                   </div>
                 </div>
 

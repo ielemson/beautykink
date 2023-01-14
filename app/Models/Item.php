@@ -119,28 +119,6 @@ class Item extends Model
     {
         $item = $this;
 
-        // license product stock check------------
-
-        if ($item->item_type == 'license') {
-            if ($item->license_key) {
-                $license_key = json_decode($item->license_key, true);
-                if (count($license_key) > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        }
-
-        // digital product stock check-------------
-
-        if ($item->item_type == 'digital') {
-            return true;
-        }
-
         // physical product stock check----------
 
         if ($item->item_type == 'normal') {

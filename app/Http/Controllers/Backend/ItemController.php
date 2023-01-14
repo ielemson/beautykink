@@ -16,6 +16,7 @@ use App\Models\Highlight;
 use App\Models\ChildCategory;
 use App\Models\Gallery;
 use App\Models\ItemHiglight;
+use App\Models\Setting;
 use Intervention\Image\Facades\Image;
 use App\Repositories\Backend\ItemRepository;
 use Carbon\Carbon;
@@ -456,7 +457,8 @@ class ItemController extends Controller
 
     public function stock(){
 
-        $datas = Item::whereStock(0)->get();
+        $data = Setting::first();
+        $datas = Item::where('stock' , '<', $data->item_stock_limit)->get();
         return view('backend.item.stock',['datas'=>$datas]);
         
     }

@@ -108,7 +108,7 @@ $('body').on('click', '.add_to_cart', function () {
         // alert(id)
         // alert("The data-id of clicked item is: " + dataId);
         $.get('/user/wishlist/store' + '/' + id, function (data) {
-            console.log(data)
+            // console.log(data)
             // miniCart()
             // start message
             const Toast = Swal.mixin({
@@ -378,45 +378,91 @@ $('body').on('click', '.remove_from_compare', function () {
     // Shopping Cart Page ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-    $('#add_to_cart_form').on('submit',function(e){
-        e.preventDefault();
+//     $('#add_to_cart_form').on('submit',function(e){
+//         e.preventDefault();
+//         // console.log()
     
-        //    var pid = $(this).attr("data-item-id");
-            var attribute_name = $("input[name='attribute_name']:checked").val();
-            var pid = $("input[name='pid']").val();
-            var qty = 1;
+//         //    var pid = $(this).attr("data-item-id");
+//             var attribute_id = $("input[name='attribute_id']:checked").val();
+//             var pid = $("input[name='pid']").val();
+//             var qty = 1;
 
-            if(attribute_name){
-                var url = '/cart/add' + '/' + pid + '/' + qty + '/' + attribute_name
-            }else{
-                var url = '/cart/add' + '/' + pid + '/' + qty
-            }
+//             if(attribute_id){
+//                 var url = '/cart/add' + '/' + pid + '/' + qty + '/' + attribute_id
+//             }else{
+//                 var url = '/cart/add' + '/' + pid + '/' + qty
+//             }
+// console.log(attribute_id)
+//             $.get(url, function (data) {
+//                 miniCart()
+//                 // start message
+//                 const Toast = Swal.mixin({
+//                     toast: true,
+//                     position: 'top-end',
+//                     // icon: 'success',
+//                     showConfirmButton: false,
+//                     timer: 3000
+//                 })
+//                 if ($.isEmptyObject(data.error)) {
+//                     Toast.fire({
+//                         icon: 'success',
+//                         title: data.success,
+//                     })
+//                 } else {
+//                     Toast.fire({
+//                         icon: 'error',
+//                         title: data.error,
+//                     })
+//                 }
+//                 // end message
+//             })
+//         });
+    
+             // Add to Cart Form ------------------------------------ Starts
+       
 
-            $.get(url, function (data) {
-                miniCart()
-                // start message
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    // icon: 'success',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
-                if ($.isEmptyObject(data.error)) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: data.success,
-                    })
-                } else {
-                    Toast.fire({
-                        icon: 'error',
-                        title: data.error,
-                    })
-                }
-                // end message
+    $('#addToCart').on('submit',function(e){
+        e.preventDefault();
+        
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('#addToCartButton').html('Please Wait...');
+    $("#addToCartButton").attr("disabled", true);
+    $.ajax({
+        url: "/form/cart/add",
+        // url: "{{ route('frontend.form.addcart') }}",
+        type: "POST",
+        data: $('#addToCart').serialize(),
+        success: function(data) {
+            miniCart()
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
             })
+            if ($.isEmptyObject(data.error)) {
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: data.success,
+                                    })
+                                } else {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: data.error,
+                                    })
+                                }
+            $('#addToCartButton').html('Add To Cart');
+            $("#addToCartButton").attr("disabled", false);
+            
+        }
+    });
         });
-    // Add to cart single product  ends here
+            // Add to Cart Form ------------------------------------ Ends
+
     // Product Details Page Add to Cart ::::::::::::::::::::::::::_>
 
     $('.qty-btn').on('click', function (e) {

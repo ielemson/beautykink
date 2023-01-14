@@ -32,6 +32,11 @@ class CartController extends Controller
 
     public function index()
     {
+        // dd(Cart::content());
+        // if (!Cart::count() > 0) {
+           
+        //     retr
+        // }
 
         $cart = Cart::content();
         $cart_qty = Cart::count();
@@ -42,11 +47,18 @@ class CartController extends Controller
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
+        $total = 0;
+        // $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += $product->attribute_price;
+        }
 
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
             'cart_total' => $cart_total,
+            'total' => $total,
             'subtotal' => $subtotal,
             'discount' => $discount,
             'shipping' => $shipping
@@ -214,20 +226,20 @@ class CartController extends Controller
 
         if ($product->stock > 0) {
 
-            if ($product->is_type =="flash_deal") {
+            // if ($product->is_type =="flash_deal") {
             
-                $endDate = Carbon::parse($product->end_date);
+            //     $endDate = Carbon::parse($product->end_date);
     
-                if ($endDate->isPast()) {
-                    return response()->json(['error' => 'Flash deal expired!.'], 200);
-                }
+            //     if ($endDate->isPast()) {
+            //         return response()->json(['error' => 'Flash deal expired!.'], 200);
+            //     }
     
-            }
+            // }
     
-            if ($attribute_name) {
-                $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-                $attribute_color = $atrributename->image;
-            }
+            // if ($attribute_name) {
+            //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
+            //     $attribute_color = $atrributename->image;
+            // }
             
             // Check for previous coupon in session and delete it
             if (Session::has('coupon')) {
@@ -243,8 +255,11 @@ class CartController extends Controller
                     'image' => $product->photo,
                     'thumbnail' => $product->thumbnail,
                     'slug' => $product->slug,
-                    'attribute_name' => $attribute_name ?? '',
-                    'attribute_color' => $attribute_color ?? '',
+                    'stock' => $product->stock,
+                    'attribute_price' => 0,
+                    'attribute_name' => "",
+                    'attribute_type' => "",
+                    'attribute_image' =>"",
                 ]
             ]);
     
@@ -256,19 +271,80 @@ class CartController extends Controller
         
     }
 
+    public function addCartForm(Request $request){
+
+        // return Cart::destroy();
+        $product = Item::where('id', $request->pid)->first();
+
+
+        if ($product->stock > 0) {
+
+            // if ($product->is_type =="flash_deal") {
+            
+            //     $endDate = Carbon::parse($product->end_date);
+    
+            //     if ($endDate->isPast()) {
+            //         return response()->json(['error' => 'Flash deal expired!.'], 200);
+            //     }
+    
+            // }
+    
+            // if ($attribute_name) {
+            //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
+            //     $attribute_color = $atrributename->image;
+            // }
+
+            if($request->attribute_id){
+                $attribute_options = DB::table('attribute_options')->where('id', $request->attribute_id)->first();
+                        $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first(); 
+            }
+         
+            
+            // Check for previous coupon in session and delete it
+            if (Session::has('coupon')) {
+                Session::forget('coupon');
+            }
+    
+            Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->qty,
+                'price' => $product->discount_price,
+                'options' => [
+                    'image' => $product->photo,
+                    'thumbnail' => $product->thumbnail,
+                    'slug' => $product->slug,
+                    'stock' => $product->stock,
+                    'attribute_price' => $attribute_options->price ?? 0,
+                    'attribute_name' => $attribute_options->name ?? '',
+                    'attribute_type' => $attribute->type ?? '',
+                    'attribute_image' => $attribute_options->image ?? '',
+                ]
+            ]);
+
+    // return Cart::content();
+
+            return response()->json(['success' => 'Item added to cart.'], 200);
+        }else{
+            return response()->json(['error' => 'Product is out of stock!.'], 200);
+
+        }
+
+        // return response()->json(['cart-request'=>$request->all()]);
+    }
     // ADD TO WISHLIST
     public function addToWishlist($id, $qty, $attribute_name = null)
     {
         // Cart::instance('wishlist')->add('sdjk922', 'Product 2', 1, 19.95, ['size' => 'medium']);
         $product = Item::where('id', $id)->first();
 
-        if ($attribute_name) {
-            $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-            $attribute_color = $atrributename->image;
-        }
-        // else{
-        //     $attribute_color = null;
+        // if ($attribute_name) {
+        //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
+        //     $attribute_color = $atrributename->image;
         // }
+        // // else{
+        // //     $attribute_color = null;
+        // // }
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }
@@ -281,8 +357,10 @@ class CartController extends Controller
             'options' => [
                 'image' => $product->photo,
                 'slug' => $product->slug,
-                'attribute_name' => $attribute_name ?? '',
-                'attribute_color' => $attribute_color ?? '',
+                'attribute_price' => 0,
+                    'attribute_name' =>  '',
+                    'attribute_type' =>  '',
+                    'attribute_image' => '',
             ]
         ]);
 
@@ -293,20 +371,19 @@ class CartController extends Controller
     // ADD TO COMPARE LSIT
     public function addToCompare($id, $qty, $attribute_name = null)
     {
-        // Cart::instance('wishlist')->add('sdjk922', 'Product 2', 1, 19.95, ['size' => 'medium']);
+      
         $product = Item::where('id', $id)->first();
 
-        if ($attribute_name) {
-            $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-            $attribute_color = $atrributename->image;
-        }
-        // else{
-        //     $attribute_color = null;
-        // }
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }
 
+        $items = Cart::instance('compare')->content();
+        foreach ($items as $key => $value) {
+            if($value->id == $id){
+                return response()->json(['error' => 'Item already exists.'], 200);
+            }
+        }
         Cart::instance('compare')->add([
             'id' => $product->id,
             'name' => $product->name,
@@ -315,8 +392,9 @@ class CartController extends Controller
             'options' => [
                 'image' => $product->photo,
                 'slug' => $product->slug,
-                'attribute_name' => $attribute_name ?? '',
-                'attribute_color' => $attribute_color ?? '',
+                    'attribute_name' =>  '',
+                    'attribute_type' =>  '',
+                    'attribute_image' => '',
             ]
         ]);
 
@@ -327,7 +405,7 @@ class CartController extends Controller
     public function compare()
     {
         $items = Cart::instance('compare')->content();
-        // dd($items);
+        // dd($items[0]['id']);
         return view('frontend.catalog.compare', compact('items'));
     }
     public function compareRemove($rowId)
@@ -369,11 +447,15 @@ class CartController extends Controller
         Cart::remove($rowId);
 
        if(Cart::count() == 0){
-        Session::forget('free_shipping');
         Session::forget('discount');
         Session::forget('coupon');
         Session::forget('shipping_id');
+        Session::forget('shipping_state_id');
         Session::forget('shipping_price');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
+        Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
        }
 
         return response()->json(['success' => 'Item removed successfully'], 200);
@@ -383,6 +465,23 @@ class CartController extends Controller
     {
         $cartItem = Cart::content()->where('id', $pid)->first();
         return response()->json(['cart' => $cartItem], 200);
+    }
+
+    public function paymentCancel(){
+        
+        Cart::destroy();
+        // Session::forget('cart');
+        Session::forget('discount');
+        Session::forget('coupon');
+        Session::forget('shipping_id');
+        Session::forget('free_shipping_id');
+        Session::forget('shipping_state_id');
+        Session::forget('shipping_price');
+        Session::forget('shipping_address');
+        Session::forget('billing_address');
+        Session::forget('free_shipping');
+        Session::forget('free_shipping_state');
+        return back()->with('success', __('Payment Canceled Successfully.'));
     }
     // NEW MODIFIED ROUTES FOR CART CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::::::
 }

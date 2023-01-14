@@ -31,6 +31,7 @@
                   <thead>
                   <tr>
                     <th width="20%">{{ __('Name') }}</th>
+                    <th width="20%">{{ __('Type') }}</th>
                     <th width="15%">{{ __('Actions') }}</th>
                   </tr>
                   </thead>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Helpers\SmsHelper;
+// use App\Helpers\SmsHelper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mail\CustomerRestockMail;
+// use App\Mail\CustomerRestockMail;
 use App\Mail\OrderProgressEmail;
 use App\Models\EmailTemplate;
+use App\Models\Item;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\PromoCode;
@@ -100,11 +101,11 @@ class OrderController extends Controller
         // dd($order->user_id);
 // dd($id.' '.$field.' '.$value);
 
-if ($field == 'payment_status') {
-    if ($order['payment_status'] == 'Paid') {
-        return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
-    }
-}
+// if ($field == 'payment_status') {
+//     if ($order['payment_status'] == 'Paid') {
+//         return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
+//     }
+// }
 
     if ($field == 'order_status') {
     
@@ -114,12 +115,12 @@ if ($field == 'payment_status') {
     if ($value == 'Verified' && $order['payment_status'] === 'Unpaid') { 
     return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
     }
-    if ($value == 'Shipped' && $order['payment_status'] === 'Unpaid') { 
-    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
-    }
-    if ($value == 'Delivered' && $order['payment_status'] === 'Unpaid') { 
-    return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
-    }
+    // if ($value == 'Shipped' && $order['payment_status'] === 'Unpaid') { 
+    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    // }
+    // if ($value == 'Delivered' && $order['payment_status'] === 'Unpaid') { 
+    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    // }
 
     }
 
@@ -127,6 +128,8 @@ if ($field == 'payment_status') {
 
         if ($order->payment_status == 'Paid') {
             $this->setPromoCode($order);
+            $this->deDuctFromStock($order);
+
         }
         $this->setTrackOrder($order);
 
@@ -135,66 +138,94 @@ if ($field == 'payment_status') {
         // if ($user_number) {
         //     $sms->sendSms($user_number, "'order_status'");
         // }
-        switch($value) {
-            case('In Progress'):
- 
-                $template = EmailTemplate::whereType('Order_In_Progress')->first();
-                $emailData = [
-                    'email'      => $user->email,
-                    'subject'    => $template->subject,
-                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
-        
-                ];
- 
-                break;
- 
-            case('Verified'):
-                 
-                $template = EmailTemplate::whereType('Order_Verified')->first();
-                $emailData = [
-                    'email'      => $user->email,
-                    'subject'    => $template->subject,
-                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
-        
-                ];
- 
-                break;
+      
+        if ($value == 'In Progress') {
+            
+            $template = EmailTemplate::whereType('Order_In_Progress')->first();
+            $emailData = [
+                'email'      => $user->email,
+                'subject'    => $template->subject,
+                'body'       => preg_replace("/{order_id}/", $id, $template->body),
+    
+            ];
+        Mail::to($user->email)->send(new OrderProgressEmail($emailData));
 
-            case('Shipped'):
-                 
-                $template = EmailTemplate::whereType('Order_Shipped')->first();
-                $emailData = [
-                    'email'      => $user->email,
-                    'subject'    => $template->subject,
-                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
-        
-                ];
- 
-                break;
+        }
+        if ($value == 'Verified') {
 
-            case('Delivered'):
-                 
-                $template = EmailTemplate::whereType('Order_delivered')->first();
-                $emailData = [
-                    'email'      => $user->email,
-                    'subject'    => $template->subject,
-                    'body'       => preg_replace("/{order_id}/", $id, $template->body),
-        
-                ];
- 
-                break;
- 
-            default:
+            $template = EmailTemplate::whereType('Order_Verified')->first();
+            $emailData = [
+                'email'      => $user->email,
+                'subject'    => $template->subject,
+                'body'       => preg_replace("/{order_id}/", $id, $template->body),
+    
+            ];
+        Mail::to($user->email)->send(new OrderProgressEmail($emailData));
 
-            return;
         }
         
 
-        Mail::to($user->email)->send(new OrderProgressEmail($emailData));
 
         return redirect()->route('backend.order.index')->withSuccess(__('Status Updated Successfully'));
     }
 
+
+    public function status_update(Request $request){
+
+        $order = Order::findOrFail($request->id);
+        $user =  User::where('id',$order->user_id)->first();
+        // dd($order->user_id);
+// dd($id.' '.$field.' '.$value);
+
+// if ($request->field == 'payment_status') {
+//     if ($order['payment_status'] == 'Paid') {
+//         // return redirect()->route('backend.order.index')->withError(__('Order is already Paid.'));
+//         return response()->json(['message'=>'Order is already Paid.']);
+//     }
+// }
+
+    if ($request->field == 'order_status') {
+    
+    // if ($request->value == 'In Progress' && $order['payment_status'] === 'Unpaid') { 
+    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    // }
+    if ($request->value == 'Verified' && $order['payment_status'] === 'Unpaid') { 
+        return response()->json(['message'=>'Approve payment first.','type'=>'error']);
+    }
+    if ($request->value == 'Shipped' && $order['payment_status'] === 'Unpaid') { 
+    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    return response()->json(['message'=>'Approve payment first.','type'=>'error']);
+    }
+    if ($request->value == 'Delivered' && $order['payment_status'] === 'Unpaid') { 
+    // return redirect()->route('backend.order.index')->withError(__('Approve payment first'));
+    return response()->json(['message'=>'Approve payment first.','type'=>'error']);
+    }
+
+    }
+
+        $order->update([ $request->field=> $request->value ]);
+
+        if ($order->payment_status == 'Paid') {
+            $this->setPromoCode($order);
+        }
+        $this->setTrackOrder($order);
+
+       
+        // if ($request->value == "Verified" ||) {
+            
+            // $template = EmailTemplate::whereType('Order_In_Progress')->first();
+            $emailData = [
+                'email'      => $user->email,
+                'subject'    => $request->sub,
+                'body'       => $request->msg
+    
+            ];
+        // }
+        Mail::to($user->email)->send(new OrderProgressEmail($emailData));
+
+        // return redirect()->route('backend.order.index')->withSuccess(__('Status Updated Successfully'));
+        return response()->json(['message'=>'Status Updated Successfully.','type'=>'success']);
+    }
     /**
      * Set order status in track order
      *
@@ -269,6 +300,22 @@ if ($field == 'payment_status') {
             $code = PromoCode::find($discount['code']['id']);
             $code->no_of_times--;
             $code->update();
+        }
+    }
+
+    public function deDuctFromStock($order)
+    {
+        $cart = json_decode($order->cart, true);
+        // dd($cart);
+        if ($cart != null) {
+            foreach ($cart as $key => $prod) {
+               $product = Item::find($prod['id']);
+               $newStock = ($product->stock-$prod['qty']);
+               $product->stock = $newStock;
+               $product->save();
+            }
+            // $product = PromoCode::find($discount['code']['id']);
+          
         }
     }
 

@@ -116,7 +116,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                  {{-- @if ($code->product_purchase == 0) --}}
+                                  <div class="form-group  col-md-6">
+                                    <label for="shipping">{{ __('Product Purchase') }} </label>
+                                    <label class="radio-inline ml-4"> 
+                                      <input type="radio" name="product_purchase" value="1" {{$code->product_purchase == 1 ? 'checked': ''}}>Yes </label>
+                                      <label class="radio-inline ml-4">          
+                                      <input type="radio" name="product_purchase" value="0" {{$code->product_purchase == 0 ? 'checked': ''}}>No </label>
+                                </div>
 
+                                <div class="form-group  col-md-6">
+                                    {{-- <label for="shipping">{{ __('Product Amount') }} </label> --}}
+                                    <input type="number" name="product_amount" class="form-control " min="0"
+                                    step="0.1" id="product_amount" placeholder="{{ __('Enter product amount to be purchased') }}"
+                                    value="{{ $code->product_amount }}">
+                                </div>
+                                  {{-- @endif --}}
                                     <div class="form-group  col-md-6">
                                         <label for="no_of_times">{{ __('Uses Per Coupon') }} *</label>
                                         <input type="number" name="no_of_times" class="form-control " min="1"
@@ -185,4 +200,55 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+
+@section('script')
+    <script>
+        // $('document').ready(function(){
+        //   $('.select2').select2()
+        // })
+
+        //Initialize Select2 Elements
+        // $('.select2bs4').select2({
+        //     theme: 'bootstrap4'
+        // })
+
+        $(document).ready(function(){
+
+        // $( "#free_shipping_method" ).prop( "checked", false );
+        var product_purchase = $("input[name='product_purchase']:checked").val();
+
+       if(product_purchase == 1){
+        $( "input[name='product_amount']" ).prop( "type", 'number' );
+        $( "input[name='product_amount']" ).prop( "required", true );
+       }
+
+       if (product_purchase == 0) {
+        $( "input[name='product_amount']" ).prop( "type", 'hidden' );
+        $( "input[name='product_amount']" ).prop( "required", false );
+
+       }
+
+});
+
+        $(document).on("change", "input[name='product_purchase']", function () {
+
+        // $( "#free_shipping_method" ).prop( "checked", false );
+        var product_purchase = $("input[name='product_purchase']:checked").val();
+        // console.log(product_purchase)
+
+        if(product_purchase == 1){
+        $( "input[name='product_amount']" ).prop( "type", 'number' );
+        $( "input[name='product_amount']" ).prop( "required", true );
+        }
+
+        if (product_purchase == 0) {
+        $( "input[name='product_amount']" ).prop( "type", 'hidden' );
+        $( "input[name='product_amount']" ).prop( "required", false );
+
+        }
+
+        });
+</script>
 @endsection

@@ -9,6 +9,7 @@ use App\Mail\CustomerRestockMail;
 use App\Models\EmailTemplate;
 use App\Models\Item;
 use App\Models\RestockReminder;
+use App\Models\Setting;
 // use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -66,6 +67,7 @@ class RestockController extends Controller
                     'email'      => $user->email,
                     'subject'    => $template->subject,
                     'body'       => preg_replace("/{product_name}/", $item->name, $template->body),
+                    'img'       => $url.$item->photo,
                     'url'        => $url.'product'.'/'.$item->slug
                 ];
 
@@ -98,6 +100,14 @@ class RestockController extends Controller
         //
     }
 
+    public function itemRestockLimit(Request $request)
+    {
+        // $this->repository->update($request);
+        $data = Setting::first();
+        $input = $request->all();
+        $data->update($input);
+        return response()->json(['success'=>'Restock Limit Set!']);
+    }
     /**
      * Show the form for editing the specified resource.
      *
