@@ -81,6 +81,7 @@ class EmailHelper{
 
         return true;
     }
+   
 
     public function sendCustomMail(array $emailData)
     {
