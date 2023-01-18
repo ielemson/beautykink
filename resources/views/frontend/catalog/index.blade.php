@@ -78,9 +78,9 @@ function renderStarRating($rating, $maxRating = 5)
         <div class="page-header-content">
           <nav class="breadcrumb-area">
             <ul class="breadcrumb">
-              <li><a href="index.html">Home</a></li>
+              <li><a href="{{url('/')}}">Home</a></li>
               <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
-              <li><a href="index.html">Shop</a></li>
+              <li><a href="{{route('frontend.catalog')}}">Catalog</a></li>
               <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
               <li>Product Single</li>
             </ul>
