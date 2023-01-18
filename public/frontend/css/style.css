@@ -159,7 +159,12 @@ table p {
 /*-------- Background Style Css --------*/
 .bg-img {
   background: no-repeat center center;
-  background-size: cover;
+  /* background-size: cover; */
+  background-size: cover !important;
+  /* background-position: center center !important; */
+  /* background-repeat: no-repeat !important; */
+  /* background-size: 1160px 290px; */
+  /* border:2px solid red !important; */
 }
 .bg-img-tr {
   background: no-repeat top right;

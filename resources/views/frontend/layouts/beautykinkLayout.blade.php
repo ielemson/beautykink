@@ -26,6 +26,7 @@
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset($setting->favicon) }}">
 
     <style>
+
 /* Custom Mobile menu :::::::::::::::::::::::::::: */
 .mobile-nav {
   /* background: #fff; */
