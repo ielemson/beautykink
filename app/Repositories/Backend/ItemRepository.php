@@ -8,6 +8,7 @@ use App\Helpers\ImageHelper;
 use App\Http\Requests\ItemRequest;
 use Intervention\Image\Facades\Image;
 use App\Models\Gallery;
+use App\Models\ItemHiglight;
 
 class ItemRepository {
 
@@ -94,6 +95,15 @@ class ItemRepository {
         $galleryImg->item_id = $prouct_create->id;
         $galleryImg->photo = $images_name_gallery;
         $galleryImg->save();
+
+        foreach ($request->highlight_id as $key => $id) {
+            $highlightProduct = new ItemHiglight();
+            $highlightProduct->highlight_id = $id;
+            $highlightProduct->item_id = $prouct_create->id;
+            $highlightProduct->save();
+        }
+
+
     }
 
     /**

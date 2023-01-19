@@ -89,7 +89,7 @@
             <div class="card">
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('backend.item.highlight.updater',$item->id) }}" method="POST">
+              <form action="{{ route('backend.Itemhighlight.update') }}" method="POST">
                 @csrf
                 {{-- @method('PUT') --}}
                 <div class="card-body row">

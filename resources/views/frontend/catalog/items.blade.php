@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-8 m-auto">
                 <div class="section-title text-center">
-                    <h2 class="title">{{$highlight->name}}</h2>
+                    <h2 class="title">{{strtoupper($highlight->name)}}</h2>
                     <div class="desc">
                         <p>{{$highlight->description}}</p>
                     </div>
