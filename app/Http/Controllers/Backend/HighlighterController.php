@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Highlight;
-use App\Models\ItemHiglight;
 use Illuminate\Http\Request;
 
 class HighlighterController extends Controller
@@ -104,12 +103,8 @@ class HighlighterController extends Controller
      */
     public function destroy($id)
     {
-        if (ItemHiglight::where('highlight_id',$id)->exists()) {
-            
-            return redirect()->route('backend.highlight.index')->withError(__('Product higlight is currently in use.'));
-        }
-        $highlight = Highlight::findOrFail($id);
-        $highlight->delete();
+        $faq = Highlight::findOrFail($id);
+        $faq->delete();
         return redirect()->route('backend.highlight.index')->withSuccess(__('Product Higlight Deleted Successfully.'));
     }
 }

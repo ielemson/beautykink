@@ -17,28 +17,28 @@ $(function ($) {
 
     $(document).ready(function () {
 
-        // lazy();
+        lazy();
 
         // announcement banner magnific popup
-        // if (mainbs.is_announcement == 1) {
-        //     $('.announcement-banner').magnificPopup({
-        //         type: 'inline',
-        //         midClick: true,
-        //         mainClass: 'mfp-fade',
-        //         callbacks: {
-        //             open: function () {
-        //                 $.magnificPopup.instance.close = function () {
-        //                     // Do whatever else you need to do here
-        //                     sessionStorage.setItem("announcement", "closed");
-        //                     // console.log(sessionStorage.getItem('announcement'));
+        if (mainbs.is_announcement == 1) {
+            $('.announcement-banner').magnificPopup({
+                type: 'inline',
+                midClick: true,
+                mainClass: 'mfp-fade',
+                callbacks: {
+                    open: function () {
+                        $.magnificPopup.instance.close = function () {
+                            // Do whatever else you need to do here
+                            sessionStorage.setItem("announcement", "closed");
+                            // console.log(sessionStorage.getItem('announcement'));
 
-        //                     // Call the original close method to close the announcement
-        //                     $.magnificPopup.proto.close.call(this);
-        //                 };
-        //             }
-        //         }
-        //     });
-        // }
+                            // Call the original close method to close the announcement
+                            $.magnificPopup.proto.close.call(this);
+                        };
+                    }
+                }
+            });
+        }
 
         // Mobile Category
         $('#category_list .has-children .category_search span').on('click', function(e){

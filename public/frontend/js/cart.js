@@ -48,10 +48,8 @@
 $('body').on('click', '.add_to_cart', function () {
     var id = $(this).attr("data-id");
     var qty = 1;
-    // console.table(id+''+qty)
     // alert("The data-id of clicked item is: " + dataId);
     $.get('/cart/add' + '/' + id + '/' + qty, function (data) {
-        console.log(data)
         miniCart()
         // start message
         const Toast = Swal.mixin({
@@ -82,21 +80,21 @@ $('body').on('click', '.add_to_cart', function () {
         var slug = $(this).attr("data-slug");
         // console.log(slug)
             // start message
-            // const Toast = Swal.mixin({
-            //     toast: true,
-            //     position: 'top-end',
-            //     // icon: 'success',
-            //     showConfirmButton: false,
-            //     timer: 3000
-            // })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                // icon: 'success',
+                showConfirmButton: false,
+                timer: 3000
+            })
             
-            // Toast.fire({
-            //     icon: 'error',
-            //     title: 'select product attribute first',
-            // })
-            // setTimeout(() => {
+            Toast.fire({
+                icon: 'error',
+                title: 'select product attribute first',
+            })
+            setTimeout(() => {
                 location.href="/product/"+slug
-            // }, 3000);
+            }, 3000);
             // end message
       
     });

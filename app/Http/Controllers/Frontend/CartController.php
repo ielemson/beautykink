@@ -51,9 +51,9 @@ class CartController extends Controller
         // $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += $product->attribute_price;
+            $total += $product->options->attribute_price;
         }
-
+// dd($total);
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
@@ -222,13 +222,6 @@ class CartController extends Controller
     {
 
         $product = Item::where('id', $id)->first();
-        
-        // $prodAtrib = DB::table('attributes')->where('item_id',$product->id)->count();
-
-        // if ($prodAtrib > 0) {
-            
-        //     return view('user.auth.login');
-        // }
 
 
         if ($product->stock > 0) {
@@ -247,8 +240,6 @@ class CartController extends Controller
             //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
             //     $attribute_color = $atrributename->image;
             // }
-
-
             
             // Check for previous coupon in session and delete it
             if (Session::has('coupon')) {

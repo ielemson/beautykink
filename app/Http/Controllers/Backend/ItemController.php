@@ -130,7 +130,6 @@ class ItemController extends Controller
             'categories' => Category::whereStatus(1)->get(),
             'brands' => Brand::whereStatus(1)->get(),
             'taxes' => Tax::whereStatus(1)->get(),
-            'higlights' => Highlight::whereStatus(1)->get(),
         ]);
     }
 
@@ -145,7 +144,7 @@ class ItemController extends Controller
         $request->except('slug');
         $slug = strtolower($request->slug);
         $request->merge(['slug' => $slug]);
-        // dd($request->highlight_id);
+        // dd($request);
         $this->repository->store($request);
         return redirect()->route('backend.item.index')->withSuccess(__('New Product Added Successfully.'));
     }
@@ -476,12 +475,11 @@ class ItemController extends Controller
         return redirect()->route('backend.item.index')->withSuccess(__('Prouct atttached to highlight Successfully.'));
 
     }
-    public function highlightItemUpdate(Request $request){
-        // dd($request->all());
+    public function highlightItemUpdate(Request $request,$id){
         // return ItemHiglight::where('item_id',$id)->get();
         // dd($id);
         foreach ($request->highlight_id as $key => $id) {
-            ItemHiglight::where('item_id',$request->product_id)->where('highlight_id',$id)->delete();
+            ItemHiglight::where('highlight_id',$id)->delete();
             // $highlightProduct->highlight_id = $id;
             // $highlightProduct->item_id = $request->product_id;
             // $highlightProduct->save();

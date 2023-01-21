@@ -10,7 +10,7 @@
           </div>
           <div class="card-block-item">
             <span class="label">Cart Subtotal</span>
-            <span class="value">&#8358;{{$cart_total}}</span>
+            <span class="value">@money(PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0),'NGN')</span>
           </div>
           @if ($discount)
         <div class="card-block-item">
