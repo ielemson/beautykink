@@ -29,17 +29,15 @@
                     <div class="col-md-12">
                         @include('alerts.alerts')
                     </div>
-                 {{-- Category Banner Starts ::::::::::: --}}
-                 <div class="col-md-12">
-                  <div class="form-group col-md-12">
-                    <label for="exampleInputEmail1">{{ __('Set Category Banner') }} *</label>
+                  <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">{{ __('Set Image') }} *</label>
                     <br>
                     <img src="{{ asset('backend/images/placeholder.png') }}" class="admin-image-preview" alt="">
                     <br>
-                    <span>{{ __('Image Size Should Be 1050 x 486.') }}</span>
+                    <span>{{ __('Image Size Should Be 60 x 60.') }}</span>
                   </div>
                   <div class="col-md-8"></div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label for="file">{{ __('Upload Image...') }}</label>
                     <div class="input-group">
                         <div class="custom-file">
@@ -48,30 +46,6 @@
                         </div>
                       </div>
                   </div>
-                </div>
-                 {{-- Category Banner Ends ::::::::::: --}}
-
-                 {{-- Category Thumbnail Starts ::::::::::: --}}
-                 <div class="col-md-12">
-                  <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">{{ __('Set Category Thumbnail') }} *</label>
-                    <br>
-                    <img src="{{ asset('backend/images/placeholder.png') }}" class="admin-image-preview-thumbnail" alt="">
-                    <br>
-                    <span>{{ __('Image Size Should Be 150 x 150.') }}</span>
-                  </div>
-                  <div class="col-md-8"></div>
-                  <div class="form-group col-md-6">
-                    <label for="file">{{ __('Upload Image...') }}</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" name="thumbnail" class="custom-file-input upload-thumbnail" id="file" aria-label="File browser">
-                          <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                 {{-- Category Thumbnail Ends ::::::::::: --}}
                   <div class="col-md-8"></div>
 
                   <div class="form-group  col-md-12">

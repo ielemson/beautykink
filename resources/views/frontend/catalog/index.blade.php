@@ -39,7 +39,7 @@ function renderStarRating($rating, $maxRating = 5)
 @endphp
 @isset($category->photo)
 <section class="product-area">
-{{-- <div class="row">
+<div class="row">
   <div class="col-md-10 mx-auto mt-10">
      <div class="page-header-area jumbotron-image bg-img" data-bg-img="{{asset($category->photo)}}">
     <div class="container">
@@ -54,42 +54,7 @@ function renderStarRating($rating, $maxRating = 5)
   </div>
   <h6 class="title mt-20">{{$category->description}}</h6>
   </div>
-</div>  --}}
-
-<!-- Bootstrap Static Header -->
-{{-- <div style="background: url({{asset($category->photo)}})" class="jumbotron bg-cover">
-  <div class="container py-5 text-center">
-      <h1 class="display-4 font-weight-bold">Bootstrap static header</h1>
-      <p class="font-italic mb-0">Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.</p>
-      <p class="font-italic">
-        Snippe by
-          <a href="https://bootstrapious.com" class="text-white">
-              <u>Bootstrapious</u>
-          </a>
-      </p>
-      <a href="#" role="button" class="btn btn-primary px-5">See All Features</a>
-  </div>
-</div> --}}
-
-<div class="page-header-area bg-img bg-cover" data-bg-img="{{asset($category->photo)}}">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center">
-        <div class="page-header-content">
-          <nav class="breadcrumb-area">
-            <ul class="breadcrumb">
-              <li><a href="{{url('/')}}">Home</a></li>
-              <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
-              <li><a href="{{route('frontend.catalog')}}">Catalog</a></li>
-              <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
-              <li class="capitalize">{{ucwords(strtolower($category->name))}}</li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+</div> 
 
 @endisset
 @else

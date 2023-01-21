@@ -127,17 +127,6 @@
                     <input type="number" name='stock' id="stock" min="1" class='form-control' placeholder="{{ __('Total in stock') }}" value="{{ old('stock') }}">
                   </div>
 
-                  
-                  <div class="form-group  col-md-6">
-                    <label for="category_id">{{ __('Product Highlight') }} *</label>
-                    <select name="highlight_id[]" id="highlight_id" class="form-control select2" multiple="multiple" required>
-                        <option value="">{{ __('Select Higlight') }}</option>
-                        @foreach ($higlights as $higlight)
-                            <option value="{{ $higlight->id }}">{{ $higlight->name }}</option>
-                        @endforeach
-                    </select>
-                  </div>
-
                   <div class="form-group  col-md-12">
                     <label for="short_details">{{ __('Short Description') }} *</label>
                     <textarea name="short_details" id="short_details" class='form-control' placeholder="{{ __('Short Description') }}" rows="5">{{ old('short_details') }}</textarea>

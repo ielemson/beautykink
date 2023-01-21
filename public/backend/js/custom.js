@@ -6,10 +6,6 @@
         var path = $('.admin-image-preview');
         readURL(this,path);
     });
-    $(".thumbnail").on( "change", function(e) {
-        var path = $('.admin-image-preview-thumbnail');
-        readURL(this,path);
-    });
 
     $(".upload-photo2").on( "change", function(e) {
         var path = $('.admin-image-preview2');

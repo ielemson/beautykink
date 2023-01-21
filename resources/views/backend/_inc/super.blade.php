@@ -119,7 +119,7 @@
         <li class="nav-item">
           <a href="{{ route('backend.item.stock') }}" class="nav-link {{ request()->segment(3) == 'stock' ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
-            <p>{{ __('Manage Stock') }}</p>
+            <p>{{ __('Out of Stock') }}</p>
           </a>
         </li>
       </ul>
