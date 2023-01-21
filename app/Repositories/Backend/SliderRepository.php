@@ -32,11 +32,11 @@ class SliderRepository{
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/sliders', $slider, 'photo');
+            $input['photo'] = ImageHelper::handleSliderUpdatedUploadImage($file, 'uploads/sliders', $slider, 'photo');
         }
-        if ($file = $request->file('logo')) {
-            $input['logo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/sliders', $slider, 'logo');
-        }
+        // if ($file = $request->file('logo')) {
+        //     $input['logo'] = ImageHelper::handleUpdatedUploadedImage($file, 'uploads/sliders', $slider, 'logo');
+        // }
         $slider->update($input);
     }
 

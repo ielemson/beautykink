@@ -18,9 +18,10 @@ class CategoryRepository{
     {
         $input = $request->all();
         $input['slug'] = strtolower($input['slug']);
-        $imageCategory= ImageHelper::handleUploadedImage($request->file('photo'), 'uploads/categories');
-        $input['photo'] = $imageCategory[0];
-        $input['thumbnail'] = $imageCategory[1];
+        $input['photo']= ImageHelper::categoryImageUpload($request->file('photo'), 'uploads/categories');
+        $input['thumbnail']= ImageHelper::categoryThumbUpload($request->file('thumbnail'), 'uploads/categories/thumbnails');
+        // $input['photo'] = $imageCategory[0];
+        // $input['thumbnail'] = $imageCategory[1];
         Category::create($input);
     }
 
@@ -34,11 +35,27 @@ class CategoryRepository{
     {
         $input = $request->all();
         $input['slug'] = strtolower($input['slug']);
-        if($file = $request->file('photo')){
 
-            $imageCategory = ImageHelper::handleUpdatedUploadedCategoryImage($file, 'uploads/categories', $category, 'photo');
-            $input['photo'] = $imageCategory[0];
-            $input['thumbnail'] = $imageCategory[1];
+        if($request->file('photo') && $request->file('thumbnail')){
+
+            $input['photo'] = ImageHelper::categoryImageUpload($request->file('photo'), 'uploads/categories', $category);
+            $input['thumbnail'] = ImageHelper::categoryThumbUpload($request->file('thumbnail'), 'uploads/categories/thumbnails', $category);
+            //  = $imageCategory[0];
+            // $input['thumbnail'] = $imageCategory[1];
+        }
+        if($request->file('photo')){
+
+            $input['photo'] = ImageHelper::categoryImageUpload($request->file('photo'), 'uploads/categories', $category);
+            // $input['thumbnail'] = ImageHelper::categoryThumbUpload($request->file('thumbnail'), 'uploads/categories/thumbnails', $category);
+            //  = $imageCategory[0];
+            // $input['thumbnail'] = $imageCategory[1];
+        }
+        if($request->file('thumbnail')){
+
+            // $input['photo'] = ImageHelper::categoryImageUpload($request->file('photo'), 'uploads/categories', $category);
+            $input['thumbnail'] = ImageHelper::categoryThumbUpload($request->file('thumbnail'), 'uploads/categories/thumbnails', $category);
+            //  = $imageCategory[0];
+            // $input['thumbnail'] = $imageCategory[1];
         }
 
         $category->update($input);

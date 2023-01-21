@@ -2045,7 +2045,7 @@ section .container-fluid {
   margin: 0 15px;
 }
 .header-area.header-default .header-align .header-navigation-area .main-menu.nav .has-submenu .submenu-nav-mega .mega-menu-item .mega-title {
-  border-bottom: 1px solid #ebebeb;
+  /* border-bottom: 1px solid #ebebeb; */
   color: #1d1d1d;
   display: block;
   font-size: 19px;

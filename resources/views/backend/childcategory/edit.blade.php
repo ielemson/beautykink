@@ -30,7 +30,7 @@
                   <div class="col-md-12">
                         @include('alerts.alerts')
                   </div>
-                  <div class="form-group col-md-4">
+                  {{-- <div class="form-group col-md-4">
                     <label for="exampleInputEmail1">{{ __('Set Image') }} *</label>
                     <br>
                     <img src="{{ $childcategory->photo ? asset($childcategory->photo) : asset('backend/images/placeholder.png') }}" class="admin-image-preview" alt="">
@@ -46,7 +46,7 @@
                           <label class="custom-file-label" for="exampleInputFile">{{ __('Upload Image...') }}</label>
                         </div>
                       </div>
-                  </div>
+                  </div> --}}
                   <div class="form-group  col-md-12">
                     <label for="category_id">{{ __('Select Category') }} *</label>
                     <select name="category_id" id="category_id" data-href="{{ route('backend.get.subcategories') }}" class="form-control select2">

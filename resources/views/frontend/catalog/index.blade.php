@@ -82,7 +82,7 @@ function renderStarRating($rating, $maxRating = 5)
               <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
               <li><a href="{{route('frontend.catalog')}}">Catalog</a></li>
               <li class="breadcrumb-sep"><i class="fa fa-angle-right"></i></li>
-              <li>Product Single</li>
+              <li class="capitalize">{{ucwords(strtolower($category->name))}}</li>
             </ul>
           </nav>
         </div>

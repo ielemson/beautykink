@@ -1,7 +1,7 @@
 @foreach ($datas as $data)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        @if ($data->photo)
+        {{-- @if ($data->photo)
         <td>
         <img src="{{asset($data->photo)}}">
      </td>
@@ -9,7 +9,7 @@
      <td>
       No Photo
      </td>
-    @endif
+    @endif --}}
         <td>{{ $data->name }}</td>
         <td>{{ $data->category->name }}</td>
         <td>

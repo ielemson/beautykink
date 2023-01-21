@@ -54,6 +54,7 @@ class CategoryController extends Controller
     */
     public function store(CategoryRequest $request)
     {
+        // dd($request->all());
         $this->repository->store($request);
         return redirect()->route('backend.category.index')->withSuccess(__('New Category Added Successfully.'));
     }
