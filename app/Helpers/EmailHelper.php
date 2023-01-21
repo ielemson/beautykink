@@ -76,7 +76,7 @@ class EmailHelper{
                                                          // $email_body,$template,$cart,$shipping,$grand_total,$shipping_info,$invoice
         }
         catch (Exception $e){
-            // dd($e->getMessage());
+            dd($e->getMessage());
         }
 
         return true;

@@ -66,7 +66,7 @@ class FrontRepository{
         $orders = Order::where('user_id', $user->id)->get();
         $ck = 0;
         foreach ($orders as $order) {
-            return $cart = json_decode($order->cart, true);
+            $cart = json_decode($order->cart, true);
             foreach ($cart as $key => $product) {
                 if ($request->item_id == PriceHelper::getItemId($key)) {
                     $ck = 1;
@@ -75,13 +75,13 @@ class FrontRepository{
             }
         }
 
-        // if ($ck == 0) {
-        //     return [
-        //         'errors' => [
-        //             0 => __('Buy This Product First')
-        //         ]
-        //     ];
-        // }
+        if ($ck == 0) {
+            return [
+                'errors' => [
+                    0 => __('Buy This Product First')
+                ]
+            ];
+        }
 
         $user->reviews()->create($request->all());
         return __('Your Review Has Been Submitted Successfully.');

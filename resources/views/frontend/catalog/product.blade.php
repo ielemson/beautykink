@@ -391,7 +391,7 @@
                         type: "POST",
                         data: $('#leaveReview').serialize(),
                         success: function(response) {
-                            // console.log(response)
+                            console.log(response)
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',

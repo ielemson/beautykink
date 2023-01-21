@@ -80,18 +80,18 @@ $('body').on('click', '.add_to_cart', function () {
         var slug = $(this).attr("data-slug");
         // console.log(slug)
             // start message
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                // icon: 'success',
-                showConfirmButton: false,
-                timer: 3000
-            })
+            // const Toast = Swal.mixin({
+            //     toast: true,
+            //     position: 'top-end',
+            //     // icon: 'success',
+            //     showConfirmButton: false,
+            //     timer: 3000
+            // })
             
-            Toast.fire({
-                icon: 'error',
-                title: 'select product attribute first',
-            })
+            // Toast.fire({
+            //     icon: 'error',
+            //     title: 'select product attribute first',
+            // })
             setTimeout(() => {
                 location.href="/product/"+slug
             }, 3000);

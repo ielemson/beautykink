@@ -44,6 +44,7 @@
           <div class="product-info">
             <h4 class="title"><a href="{{ route('frontend.product', $item->slug) }}"></a></h4>{{ $item->name }}
             <div class="star-content">
+              
               {{-- <i class="ion-md-star"></i>
               <i class="ion-md-star"></i>
               <i class="ion-md-star"></i>
@@ -55,11 +56,10 @@
             </div>
             <div class="prices">
                @if ($item->previous_price != 0)
-                                    <span
-                                        class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
-                                @endif
-                                <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
-
+            <span
+            class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
+            @endif
+            <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
             </div>
           </div>
           <div class="product-footer">

@@ -1,18 +1,7 @@
 <div class="col-lg-4">
-    <div class="shopping-cart-summary mt-md-70">
-      <div class="cart-detailed-totals">
-        <div class="card-block">
-          <div class="card-block-item">
-            <span class="label">{{$cart_count}} items</span>
-          </div>
-          <div class="card-block-item">
-            <a href="{{route('frontend.cart')}}"><span class="label">show details</span></a>
-          </div>
-          <div class="card-block-item">
-            <span class="label">Cart Subtotal</span>
-            <span class="value">@money(PriceHelper::cartTotal($cart) - (Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0),'NGN')</span>
-          </div>
-          @if ($discount)
+  <div class="shopping-cart-summary mt-md-70">
+    <div class="cart-detailed-totals">
+      <div class="card-block">
         <div class="card-block-item">
           <span class="label">{{$cart_count}} items</span>
         </div>
