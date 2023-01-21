@@ -38,7 +38,10 @@
                           <h5 class="title">
                           <a class="{{$item->qty > $item->options->stock ? 'text-danger' :" "}}" href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
                           <h6 class="product-price">@money($item->price,'NGN')</h6>
-                          {{$item->options->attribute_name}}
+                          {{$item->options->attribute_name}} 
+                          @if ($item->options->attribute_price > 0)
+                            <small><b>@money($item->options->attribute_price,'NGN')</b></small>
+                          @endif
                            @if ($item->options->attribute_image != '')
                           <img class="img-thumbnail" src="/uploads/items/attributes/{{$item->options->attribute_image}}" alt="{{$item->options->attribute_name}}" style="width: 25px; height:25px">
                           @endif
@@ -59,7 +62,7 @@
                                   </div>
                                 </div>
                                 <div class="col-md-6 col-xs-2 price">
-                                  <h6 class="product-price">@money($item->price*$item->qty,'NGN')</h6>
+                                  <h6 class="product-price">@money(($item->price*$item->qty)+$item->options->attribute_price,'NGN')</h6>
                                 </div>
                               </div>
                             </div>

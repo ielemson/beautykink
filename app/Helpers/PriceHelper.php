@@ -275,10 +275,10 @@ class PriceHelper
     public static function cartTotal($cart)
     {
         $total = 0;
-        $attribute_price = 0;
+        // $attribute_price = 0;
         foreach ($cart as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += + $attribute_price;
+            $total += + $product->options->attribute_price;
         }
 
         if (Session::has('currency')) {
