@@ -44,6 +44,7 @@
           <div class="product-info">
             <h4 class="title"><a href="{{ route('frontend.product', $item->slug) }}"></a></h4>{{ $item->name }}
             <div class="star-content">
+              
               {{-- <i class="ion-md-star"></i>
               <i class="ion-md-star"></i>
               <i class="ion-md-star"></i>

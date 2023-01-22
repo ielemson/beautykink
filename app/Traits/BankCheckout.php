@@ -167,7 +167,7 @@ trait BankCheckout
             'grand_total'        => $total,
             'invoice'           => $invoice
         ];
-// dd($email_data);
+
         $email = new EmailHelper();
         $email->sendTemplateMailOrder($email_data);
 

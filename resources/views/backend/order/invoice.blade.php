@@ -154,6 +154,9 @@
                                     @endif --}}
                                     @if ($item['attribute_name'])
                                         {{$item['attribute_name']}}
+                                       @if ($item['attribute_price'] > 0)
+                                           - <small><b>@money($item['attribute_price'],'NGN')</b></small>
+                                       @endif
                                         @else
                                           --
                                        @endif

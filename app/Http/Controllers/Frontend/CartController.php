@@ -223,13 +223,6 @@ class CartController extends Controller
     {
 
         $product = Item::where('id', $id)->first();
-        
-        // $prodAtrib = DB::table('attributes')->where('item_id',$product->id)->count();
-
-        // if ($prodAtrib > 0) {
-            
-        //     return view('user.auth.login');
-        // }
 
 
         $setting = Setting::first();
@@ -249,8 +242,6 @@ class CartController extends Controller
             //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
             //     $attribute_color = $atrributename->image;
             // }
-
-
             
             // Check for previous coupon in session and delete it
             if (Session::has('coupon')) {

@@ -29,7 +29,7 @@
                   <thead>
                   <tr>
                     <th>{{ __('#') }}</th>
-                    {{-- <th>{{ __('Image') }}</th> --}}
+                    <th>{{ __('Image') }}</th>
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Category') }}</th>
                     <th>{{ __('Subcategory') }}</th>

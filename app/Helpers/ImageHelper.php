@@ -44,7 +44,6 @@ class ImageHelper
 
         }
     }
-    // Majorly Slider Image Starts:::::::::::::::::::::::::::::::::::::::::::::::::::::
     public static function handleSliderUploadedImage($file, $path, $delete = null){
         if ($file) {
             // Delete Image Which Exists In Directory
@@ -58,35 +57,15 @@ class ImageHelper
             // $file->move(public_path($path), $name);
             // return $path . "/" . $name;
 
-            $name = 'slider_'.time().'.'.$file->getClientOriginalExtension();
-            $SliderImg = Image::make($file)->resize(1920, 800);
+            $name = time() .'-slider'. '.'.$file->getClientOriginalExtension();
+            $galeryImg = Image::make($file)->resize(1000, 1000);
             $photo_save_path = public_path($path) ."/".$name;
-            $SliderImg->save($photo_save_path);
+            $galeryImg->save($photo_save_path);
             return $path . "/" . $name;
 
         }
     }
 
-
-    public static function handleSliderUpdatedUploadImage($file, $path, $data, $field){
-        // $name = time() . '-.' . $file->getClientOriginalExtension();
-
-        // $file->move(public_path($path), $name);
-        $name = 'slider_'.time().'.'.$file->getClientOriginalExtension();
-        $SliderImg = Image::make($file)->resize(1920, 800);
-        $photo_save_path = public_path($path) ."/".$name;
-        $SliderImg->save($photo_save_path);
-        return $path . "/" . $name;
-
-        if ($data[$field] != null) {
-            if (file_exists($data[$field])) {
-                unlink($data[$field]);
-            }
-        }
-
-        return $path . '/' . $name;
-    }
-  // Majorly Slider Image Ends:::::::::::::::::::::::::::::::::::::::::::::::::::::
     public static function itemHandleUploadedimage($file, $path, $delete = null){
         if ($file) {
             // Delete Image Which Exists In Directory
@@ -180,44 +159,6 @@ class ImageHelper
             $path. '/' . $photo,
             $path . '/thumbnails' . '/' . $thumb
         ];
-    }
-
-    public static function categoryImageUpload($file, $path, $delete = null){
-      
-        if ($file) {
-            // Delete Image Which Exists In Directory
-            if ($delete){
-                if (file_exists($delete)) {
-                    unlink($delete);
-                }
-            }
-
-            $name = 'catimg'.time().'.'.$file->getClientOriginalExtension();
-            $catImg = Image::make($file)->resize(1050, 486);
-            $photo_save_path = public_path($path) ."/".$name;
-            $catImg->save($photo_save_path);
-            return $path . "/" . $name;
-
-        }
-    }
-    // Cateory Thumbnail
-    public static function categoryThumbUpload($file, $path, $delete = null){
-      
-        if ($file) {
-            // Delete Image Which Exists In Directory
-            if ($delete){
-                if (file_exists($delete)) {
-                    unlink($delete);
-                }
-            }
-
-            $name = 'cat_thumb'.time().'.'.$file->getClientOriginalExtension();
-            $thumb = Image::make($file)->resize(150, 150);
-            $photo_save_path = public_path($path) ."/".$name;
-            $thumb->save($photo_save_path);
-            return $path . "/" . $name;
-
-        }
     }
 
     public static function itemHandleUpdatedUploadedImage($file, $path, $data, $field)

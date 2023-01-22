@@ -196,7 +196,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/item/destroy/{id}', [ItemController::class, 'destroy'])->name('backend.item.destroy');
 
         //------------ ITEM HIGHLIGHT ------------        
-        Route::post('/item/highlight/update', [ItemController::class, 'highlightItemUpdate'])->name('backend.Itemhighlight.update');
+        Route::post('/item/highlight/updater/{id}', [ItemController::class, 'highlightItemUpdate'])->name('backend.item.highlight.updater');
         Route::get('/item/highlight/{item}', [ItemController::class, 'highlight'])->name('backend.item.highlight');
         Route::post('/item/highlight/update/{item}', [ItemController::class, 'highlightUpdate'])->name('backend.item.highlight.update');
         Route::post('/item/highlight/store', [ItemController::class, 'highlightStore'])->name('backend.item.highlight.store');

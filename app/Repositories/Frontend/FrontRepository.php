@@ -66,7 +66,7 @@ class FrontRepository{
         $orders = Order::where('user_id', $user->id)->get();
         $ck = 0;
         foreach ($orders as $order) {
-            return $cart = json_decode($order->cart, true);
+            $cart = json_decode($order->cart, true);
             foreach ($cart as $key => $product) {
                 if ($request->item_id == PriceHelper::getItemId($key)) {
                     $ck = 1;

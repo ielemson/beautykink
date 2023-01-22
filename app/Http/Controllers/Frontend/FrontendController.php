@@ -726,7 +726,7 @@ class FrontendController extends Controller
 
 
         $total = 0;
-        $attribute_price = 0;
+        // $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
             $total += +$product->options->attribute_price * $product->qty;
@@ -753,7 +753,7 @@ class FrontendController extends Controller
         
 
         $total = 0;
-        $attribute_price = 0;
+        // $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
             $total += +$product->options->attribute_price * $product->qty;
