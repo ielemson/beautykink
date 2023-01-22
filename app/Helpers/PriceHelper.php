@@ -199,7 +199,7 @@ class PriceHelper
         $option_price = 0;
         foreach ($cart as $key => $item) {
             $total += $item['main_price'] * $item['qty'];
-            $option_price += $item['attribute_price'];
+            $option_price += $item['attribute_price'] * $item['qty'];
             $cart_total = $total + $option_price;
             if (Item::where('id', $key)->exists()){
                 $item = Item::findOrFail($key);
