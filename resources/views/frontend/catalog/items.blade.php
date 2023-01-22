@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-8 m-auto">
                 <div class="section-title text-center">
-                    <h2 class="title">{{$highlight->name}}</h2>
+                    <h2 class="title">{{strtolower($highlight->name)}}</h2>
                     <div class="desc">
                         <p>{{$highlight->description}}</p>
                     </div>
@@ -64,11 +64,10 @@
                                                 @if ($item->previous_price != 0)
                                                     {{-- <del></del> --}}
                                                     <span class="price-old">
-                                                        @money($item->previous_price,'NGN')</span>
+                                                        @money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
                                                 @endif
                                                 <span class="price text-black">
-                                                    @money($item->discount_price,'NGN')
-                                                </span>
+                                                    @money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
                                             </div>
                                         </div>
                                         <div class="product-footer">
