@@ -142,6 +142,7 @@ class ItemController extends Controller
     */
     public function store(ItemRequest $request)
     {
+        // dd($request->all());
         $request->except('slug');
         $slug = strtolower($request->slug);
         $request->merge(['slug' => $slug]);
@@ -170,6 +171,7 @@ class ItemController extends Controller
             'social_links' => json_decode($item->social_links, true),
             'specification_name' => json_decode($item->specification_name, true),
             'specification_description' => json_decode($item->specification_description, true),
+            'higlights' => Highlight::whereStatus(1)->get(),
         ]);
     }
 
@@ -182,7 +184,7 @@ class ItemController extends Controller
     */
     public function update(ItemRequest $request, Item $item)
     {
-        
+        // dd($request->all());
         if($request->has('photo')){
 
             $image = $request->file('photo');

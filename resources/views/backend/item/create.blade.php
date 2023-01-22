@@ -130,8 +130,8 @@
                   
                   <div class="form-group  col-md-6">
                     <label for="category_id">{{ __('Product Highlight') }} *</label>
-                    <select name="highlight_id[]" id="highlight_id" class="form-control select2" multiple="multiple" required>
-                        <option value="">{{ __('Select Higlight') }}</option>
+                    <select name="highlight_id[]" id="highlight_id" class="form-control Higlight" placeholder="Select Higlight" multiple="multiple" required>
+                        {{-- <option value="">{{ __('Select Higlight') }}</option> --}}
                         @foreach ($higlights as $higlight)
                             <option value="{{ $higlight->id }}">{{ $higlight->name }}</option>
                         @endforeach

@@ -64,10 +64,11 @@
                                                 @if ($item->previous_price != 0)
                                                     {{-- <del></del> --}}
                                                     <span class="price-old">
-                                                        @money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
+                                                        @money($item->previous_price,'NGN')</span>
                                                 @endif
                                                 <span class="price text-black">
-                                                    @money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
+                                                    @money($item->discount_price,'NGN')
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="product-footer">

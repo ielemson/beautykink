@@ -56,9 +56,9 @@
             <div class="prices">
                @if ($item->previous_price != 0)
                                     <span
-                                        class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price),'NGN')</span>
+                                        class="price-old">@money($item->previous_price,'NGN')</span>
                                 @endif
-                                <span class="price text-black">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
+                                <span class="price text-black">@money($item->discount_price,'NGN')</span>
 
             </div>
           </div>

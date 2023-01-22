@@ -278,7 +278,7 @@ class PriceHelper
         $attribute_price = 0;
         foreach ($cart as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += + $attribute_price;
+            $total += + $product->options->attribute_price * $product->qty;;
         }
 
         if (Session::has('currency')) {

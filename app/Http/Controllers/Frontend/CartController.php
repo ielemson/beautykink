@@ -8,11 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\ShippingService;
 use App\Repositories\Frontend\CartRepository;
-use Carbon\Carbon;
+// use Carbon\Carbon;
+use App\Models\Setting;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+// use Akaunting\Money;
 class CartController extends Controller
 {
     /**
@@ -37,6 +38,12 @@ class CartController extends Controller
            
         //     retr
         // }
+     $total = 0;
+        // $attribute_price = 0;
+        foreach (Cart::content() as $key => $product) {
+            $total += $product->price * $product->qty;
+            $total += $product->options->attribute_price * $product->qty;
+        }
 
         $cart = Cart::content();
         $cart_qty = Cart::count();
@@ -47,13 +54,7 @@ class CartController extends Controller
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-        $total = 0;
-        // $attribute_price = 0;
-        foreach (Cart::content() as $key => $product) {
-            $total += $product->price * $product->qty;
-            $total += $product->attribute_price;
-        }
-
+      
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
@@ -231,7 +232,8 @@ class CartController extends Controller
         // }
 
 
-        if ($product->stock > 0) {
+        $setting = Setting::first();
+        if ($product->stock > $setting->item_stock_limit) {
 
             // if ($product->is_type =="flash_deal") {
             
@@ -282,30 +284,15 @@ class CartController extends Controller
 
     public function addCartForm(Request $request){
 
+        // return $request->all();
         // return Cart::destroy();
         $product = Item::where('id', $request->pid)->first();
-
-
-        if ($product->stock > 0) {
-
-            // if ($product->is_type =="flash_deal") {
-            
-            //     $endDate = Carbon::parse($product->end_date);
-    
-            //     if ($endDate->isPast()) {
-            //         return response()->json(['error' => 'Flash deal expired!.'], 200);
-            //     }
-    
-            // }
-    
-            // if ($attribute_name) {
-            //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-            //     $attribute_color = $atrributename->image;
-            // }
+        $setting = Setting::first();
+        if ($product->stock > $setting->item_stock_limit) {
 
             if($request->attribute_id){
                 $attribute_options = DB::table('attribute_options')->where('id', $request->attribute_id)->first();
-                        $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first(); 
+                $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first(); 
             }
          
             
@@ -324,7 +311,7 @@ class CartController extends Controller
                     'thumbnail' => $product->thumbnail,
                     'slug' => $product->slug,
                     'stock' => $product->stock,
-                    'attribute_price' => $attribute_options->price ?? 0,
+                    'attribute_price' => $attribute_options->price,
                     'attribute_name' => $attribute_options->name ?? '',
                     'attribute_type' => $attribute->type ?? '',
                     'attribute_image' => $attribute_options->image ?? '',
@@ -426,18 +413,24 @@ class CartController extends Controller
     //  SHOW MY CART DETAILS
     public function myCart()
     {
+        $total = 0;
+
+        foreach (Cart::content() as $product) {
+        $total += $product->price * $product->qty;
+        $total += $product->options->attribute_price * $product->qty;;
+        }
 
         $carts = Cart::content();
         $cart_qty = Cart::count();
-        $cart_total = Cart::total();
         $subtotal = Cart::subtotal();
         $wishlist = Cart::instance('wishlist')->count();
         $compare = Cart::instance('compare')->count();
+       
 
         return response()->json([
             'carts' => $carts,
             'cart_qty' => $cart_qty,
-            'cart_total' => $cart_total,
+            'cart_total' => $total,
             'sub_total' => $subtotal,
             'wishlist' => $wishlist,
             'compare' => $compare

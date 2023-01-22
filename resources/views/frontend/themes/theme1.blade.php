@@ -358,7 +358,7 @@
                                                         @if ($item->previous_price != 0)
                                                             <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                         @endif
-                                                        {{ PriceHelper::grandCurrencyPrice($item) }}
+                                                        @money($item->discount_price,'NGN')
                                                     </h4>
                                                 </div>
                                                 <div class="product-button-group"><a class="product-button wishlist_store"
@@ -438,7 +438,7 @@
                                                                 <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                             @endif
 
-                                                            {{ PriceHelper::grandCurrencyPrice($item) }}
+                                                            @money($item->discount_price,'NGN')
                                                         </h4>
                                                         @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
                                                             <div class="countdown countdown-alt mb-3"

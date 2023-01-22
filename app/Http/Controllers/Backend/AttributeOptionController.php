@@ -77,6 +77,7 @@ class AttributeOptionController extends Controller
                 // $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
                 // Image::make($file)->resize(50,50)->save($upload_location.$name_gen);
                 // $save_url = $upload_location.$name_gen;
+
                 $curr = Currency::where('is_default', 1)->first();
                 $input['price'] = $request->price / $curr->value;
 
@@ -144,19 +145,42 @@ class AttributeOptionController extends Controller
         }
         // $input = $request->all();
         
+        if($request->file('image')){
+        $image = time().'.'.$request->image->extension();
+        $path = public_path('uploads/items/attributes');
+        $request->image->move($path, $image);
 
-                $image = time().'.'.$request->image->extension();
-                $path = public_path('uploads/items/attributes');
-                $request->image->move($path, $image);
-                
-                $input = [
-                    'name'=>$request->name,
-                    'image'=>$image,
-                    'attribute_id'=>$request->attribute_id,
-                    'price'=>$request->price,
-                    'keyword'=>$request->keyword,
+        $input = [
+            'name'=>$request->name,
+            'image'=>$image,
+            'attribute_id'=>$request->attribute_id,
+            'price'=>$request->price,
+            'keyword'=>$request->keyword,
+
+        ];
         
-                ];
+        }else{
+            $input = [
+                'name'=>$request->name,
+                // 'image'=>'',
+                'attribute_id'=>$request->attribute_id,
+                'price'=>$request->price,
+                'keyword'=>$request->keyword,
+    
+            ];
+        }
+                // $image = time().'.'.$request->image->extension();
+                // $path = public_path('uploads/items/attributes');
+                // $request->image->move($path, $image);
+                
+                // $input = [
+                //     'name'=>$request->name,
+                //     'image'=>$image,
+                //     'attribute_id'=>$request->attribute_id,
+                //     'price'=>$request->price,
+                //     'keyword'=>$request->keyword,
+        
+                // ];
 
         $curr = Currency::where('is_default', 1)->first();
         $input['price'] = $request->price / $curr->value;

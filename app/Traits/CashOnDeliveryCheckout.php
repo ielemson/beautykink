@@ -115,7 +115,7 @@ trait CashOnDeliveryCheckout
 
         foreach ($cart as $key => $product) {
           $total += $product->price * $product->qty;
-        //   $total += $product->options->attribute_price;
+        //   $total += $product->options->attribute_price * $product->qty;
       }
 
         $discount = [];

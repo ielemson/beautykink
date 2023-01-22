@@ -120,10 +120,10 @@
                                     <div class="prices">
                                         @if ($item->previous_price != 0)
                                             <span
-                                                class="price-old">@money(PriceHelper::setPreviousPrice($item->previous_price), 'NGN')</span>
+                                                class="price-old">@money($item->previous_price,'NGN')</span>
                                         @endif
 
-                                        <span class="price">@money(PriceHelper::grandCurrencyPrice($item),'NGN')</span>
+                                        <span class="price">@money($item->discount_price,'NGN')</span>
                                         @if ($item->previous_price != 0)
                                             <span class="discount-percentage">Save
                                                 @money(PriceHelper::discountPercentage($item),'NGN')</span>
@@ -172,7 +172,7 @@
                                                 @if ($attribute->options->count() != 0)
                                                     @if (strtolower($attribute->type) == 'image')
                                                         <div class="product-variants-item mt-5">
-                                                            <h6 class="title mb-20">{{ $attribute->name }}</h6>
+                                                            <h6 class="title mb-20">{{ strtolower(ucwords($attribute->name ))}}</h6>
                                                             @foreach ($attribute->options as $option)
                                                                 <label>
                                                                     <span class="radio-wrapper">
@@ -185,7 +185,9 @@
                                                                    alt="{{ $option->name }}" class="img-thumbnail"
                                                                    data-color="{{ $option->image }}"/>
                                                                    @endif
-                                                                    {{-- {{ $option->name }} --}}
+                                                                   @if ($option->price > 0)
+                                                                <small><b>   @money($option->price,'NGN')  </b></small> 
+                                                                   @endif
                                                                 </label>
                                                             @endforeach
                                                         </div>
@@ -207,6 +209,9 @@
                                                                    data-color="{{ $option->image }}"/>
                                                                    @endif
                                                                     {{ $option->name }}
+                                                                    @if ($option->price > 0)
+                                                                    <small><b>   @money($option->price,'NGN')  </b></small> 
+                                                                       @endif
                                                                 </label>
                                                             @endforeach
                                                         </div>
@@ -216,8 +221,14 @@
                                                         <div class="product-variants-item">
                                                             <h6 class="title">{{ $attribute->name }}</h6>
                                                             <select class="form-control-select" name="attribute_id" aria-label="S" required>
+                                                                <option value="" selected>Select Options</option>
                                                                 @foreach ($attribute->options as $option)
-                                                                <option value="{{$option->id}}">{{$option->name}}</option>
+                                                                <option value="{{$option->id}}">
+                                                                    {{$option->name}} 
+                                                                    @if ($option->price > 0)
+                                                                   -  <small><b>   @money($option->price,'NGN')  </b></small> 
+                                                                    @endif
+                                                                </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -380,7 +391,7 @@
                         type: "POST",
                         data: $('#leaveReview').serialize(),
                         success: function(response) {
-                            // console.log(response)
+                            console.log(response)
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',

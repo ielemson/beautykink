@@ -64,7 +64,7 @@
                             @if ($item->previous_price !=0)
                             <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
                             @endif
-                            {{PriceHelper::grandCurrencyPrice($item)}}
+                            @money($item->discount_price,'NGN')
                         </h4>
                     </div>
                     <div class="product-button-group">
@@ -123,7 +123,7 @@
                                             @if ($item->previous_price !=0)
                                             <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
                                             @endif
-                                            {{PriceHelper::grandCurrencyPrice($item)}}
+                                            @money($item->discount_price,'NGN')
                                         </h4>
                                         <p class="text-sm sort_details_show  text-muted hidden-xs-down my-1">
                                         {{ strlen(strip_tags($item->sort_details)) > 100 ? substr(strip_tags($item->sort_details), 0, 100) : strip_tags($item->sort_details) }}

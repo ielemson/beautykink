@@ -209,6 +209,9 @@
 
       //Initialize Select2 Elements
     $('.select2').select2()
+    $('.Higlight').select2({
+        placeholder:'Select Product Highlight'
+    })
 
     //Initialize Select2 Elements
     $('.select2bs4').select2({

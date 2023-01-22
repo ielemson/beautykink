@@ -9,7 +9,7 @@
             dataType: 'json',
             url: "/my-cart",
             success: function (response) {
-                // console.log(response)
+                console.log(response)
                 var miniCart = ""
                 $.each(response.carts, function (key, cart) {
                     miniCart += `
@@ -25,8 +25,8 @@
                 `;
                 });
 
-                $('.sub_total').html('&#8358;' + response.sub_total);
-                $('.cart_total').html('&#8358;' + response.cart_total);
+                $('.sub_total').html('&#8358;' + response.cart_total.toLocaleString("en-US"));
+                $('.cart_total').html('&#8358;' + response.cart_total.toLocaleString("en-US"));
                 $('.cart-count').html(response.cart_qty);
                 // $('.wishlist_count').html(response.wishlist);
                 $('.compare_count').html(response.compare);
@@ -51,7 +51,7 @@ $('body').on('click', '.add_to_cart', function () {
     // console.table(id+''+qty)
     // alert("The data-id of clicked item is: " + dataId);
     $.get('/cart/add' + '/' + id + '/' + qty, function (data) {
-        console.log(data)
+        // console.log(data)
         miniCart()
         // start message
         const Toast = Swal.mixin({
@@ -439,6 +439,7 @@ $('body').on('click', '.remove_from_compare', function () {
         type: "POST",
         data: $('#addToCart').serialize(),
         success: function(data) {
+            console.log(data)
             miniCart()
             const Toast = Swal.mixin({
                 toast: true,

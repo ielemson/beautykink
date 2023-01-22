@@ -73,7 +73,7 @@
                                     <br>
                                     <img src="{{ asset('backend/images/placeholder.png') }}" class="admin-image-preview2" alt="">
                                     <br>
-                                    <span>{{ __('Image Size Should Be 1000 x 530.') }}</span>
+                                    <span>{{ __('Image Size Should Be 1920 x 800.') }}</span>
                                 </div>
                                 <div class="col-md-8"></div>
                                 <div class="form-group col-md-4">

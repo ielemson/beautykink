@@ -75,13 +75,13 @@ class FrontRepository{
             }
         }
 
-        // if ($ck == 0) {
-        //     return [
-        //         'errors' => [
-        //             0 => __('Buy This Product First')
-        //         ]
-        //     ];
-        // }
+        if ($ck == 0) {
+            return [
+                'errors' => [
+                    0 => __('Buy This Product First')
+                ]
+            ];
+        }
 
         $user->reviews()->create($request->all());
         return __('Your Review Has Been Submitted Successfully.');

@@ -29,7 +29,7 @@
                     @if ($item->previous_price != 0)
                         <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                     @endif
-                    {{ PriceHelper::grandCurrencyPrice($item) }}
+                    @money($item->discount_price,'NGN')
                 </h4>
             </div>
             <div class="product-button-group"><a class="product-button wishlist_store"

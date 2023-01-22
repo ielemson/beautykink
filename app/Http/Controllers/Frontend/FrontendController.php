@@ -729,7 +729,7 @@ class FrontendController extends Controller
         $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += +$attribute_price;
+            $total += +$product->options->attribute_price * $product->qty;
         }
 
         $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
@@ -756,7 +756,7 @@ class FrontendController extends Controller
         $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += +$attribute_price;
+            $total += +$product->options->attribute_price * $product->qty;
         }
 
         $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;

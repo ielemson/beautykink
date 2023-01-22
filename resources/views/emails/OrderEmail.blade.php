@@ -190,14 +190,15 @@
           $no = 1;
         @endphp
         @foreach ($cart as $item)
-
-
         <tr>
           <td class="service">{{$no++}}</td>
           <td class="desc">  {{$item['name']}} 
             <br>
           @if($item['attribute_name'])
           {{$item['attribute_name']}}
+          @if ($item['attribute_price'] > 0)
+            - <small><b>@money($item['attribute_price'],'NGN')</b></small>
+          @endif
           @endif
           </td>
           <td class="unit">@money($item['main_price'],'NGN')</td>

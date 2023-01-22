@@ -67,7 +67,7 @@
                                                     {{ PriceHelper::setPreviousPrice($item->previous_price) }}</span>
                                             @endif
                                             <span class="price text-black">
-                                                {{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                                                @money($item->discount_price,'NGN')</span>
                                         </div>
                                     </div>
                                     <div class="product-footer">
