@@ -130,6 +130,7 @@ class ItemController extends Controller
             'categories' => Category::whereStatus(1)->get(),
             'brands' => Brand::whereStatus(1)->get(),
             'taxes' => Tax::whereStatus(1)->get(),
+            'higlights' => Highlight::where('status',1)->get(),
         ]);
     }
 
