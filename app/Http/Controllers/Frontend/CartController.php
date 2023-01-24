@@ -35,10 +35,10 @@ class CartController extends Controller
     {
         // dd(Cart::content());
         // if (!Cart::count() > 0) {
-           
+
         //     retr
         // }
-     $total = 0;
+        $total = 0;
         // $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
@@ -54,7 +54,7 @@ class CartController extends Controller
         if (Session::has('coupon')) {
             $discount = Session::get('coupon');
         }
-      
+
         return view('frontend.catalog.cart', [
             'cart' => $cart,
             'cart_qty' => $cart_qty,
@@ -221,103 +221,148 @@ class CartController extends Controller
     // NEW MODIFIED ROUTES FOR CART CONTROLLER :::::::::::::::::::::::::::::::::::::::::::::::::
     public function addCart($id, $qty, $attribute_name = null)
     {
-
         $product = Item::where('id', $id)->first();
-
-
         $setting = Setting::first();
-        if ($product->stock > $setting->item_stock_limit) {
 
-            // if ($product->is_type =="flash_deal") {
-            
-            //     $endDate = Carbon::parse($product->end_date);
-    
-            //     if ($endDate->isPast()) {
-            //         return response()->json(['error' => 'Flash deal expired!.'], 200);
-            //     }
-    
-            // }
-    
-            // if ($attribute_name) {
-            //     $atrributename = DB::table('attribute_options')->where('name', $attribute_name)->first();
-            //     $attribute_color = $atrributename->image;
-            // }
-            
-            // Check for previous coupon in session and delete it
-            if (Session::has('coupon')) {
-                Session::forget('coupon');
+        if ($setting->item_stock_limit > 0) {
+            if ($product->stock > $setting->item_stock_limit) {
+
+                // Check for previous coupon in session and delete it
+                if (Session::has('coupon')) {
+                    Session::forget('coupon');
+                }
+
+                Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                        'image' => $product->photo,
+                        'thumbnail' => $product->thumbnail,
+                        'slug' => $product->slug,
+                        'stock' => $product->stock,
+                        'attribute_price' => 0,
+                        'attribute_name' => "",
+                        'attribute_type' => "",
+                        'attribute_image' => "",
+                    ]
+                ]);
+
+                return response()->json(['success' => 'Item added to cart.'], 200);
+            } else {
+                return response()->json(['error' => 'Product is out of stock!.'], 200);
             }
-    
-            Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty' => $qty,
-                'price' => $product->discount_price,
-                'options' => [
-                    'image' => $product->photo,
-                    'thumbnail' => $product->thumbnail,
-                    'slug' => $product->slug,
-                    'stock' => $product->stock,
-                    'attribute_price' => 0,
-                    'attribute_name' => "",
-                    'attribute_type' => "",
-                    'attribute_image' =>"",
-                ]
-            ]);
-    
-            return response()->json(['success' => 'Item added to cart.'], 200);
-        }else{
-            return response()->json(['error' => 'Product is out of stock!.'], 200);
+        } else {
 
+            if ($product->stock > 0) {
+                if (Session::has('coupon')) {
+                    Session::forget('coupon');
+                }
+
+                Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                        'image' => $product->photo,
+                        'thumbnail' => $product->thumbnail,
+                        'slug' => $product->slug,
+                        'stock' => $product->stock,
+                        'attribute_price' => 0,
+                        'attribute_name' => "",
+                        'attribute_type' => "",
+                        'attribute_image' => "",
+                    ]
+                ]);
+                return response()->json(['success' => 'Item added to cart.'], 200);
+            } else {
+                return response()->json(['error' => 'Product is out of stock!.'], 200);
+            }
         }
-        
     }
 
-    public function addCartForm(Request $request){
+    public function addCartForm(Request $request)
+    {
 
-        // return $request->all();
-        // return Cart::destroy();
+
         $product = Item::where('id', $request->pid)->first();
         $setting = Setting::first();
-        if ($product->stock > $setting->item_stock_limit) {
 
-            if($request->attribute_id){
-                $attribute_options = DB::table('attribute_options')->where('id', $request->attribute_id)->first();
-                $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first(); 
+        if ($setting->item_stock_limit > 0) {
+            if ($product->stock > $setting->item_stock_limit) {
+                if ($request->attribute_id) {
+                    $attribute_options = DB::table('attribute_options')->where('id', $request->attribute_id)->first();
+                    $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first();
+                }
+
+
+                // Check for previous coupon in session and delete it
+                if (Session::has('coupon')) {
+                    Session::forget('coupon');
+                }
+
+                Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                        'image' => $product->photo,
+                        'thumbnail' => $product->thumbnail,
+                        'slug' => $product->slug,
+                        'stock' => $product->stock,
+                        'attribute_price' => $attribute_options->price,
+                        'attribute_name' => $attribute_options->name ?? '',
+                        'attribute_type' => $attribute->type ?? '',
+                        'attribute_image' => $attribute_options->image ?? '',
+                    ]
+                ]);
+
+                return response()->json(['success' => 'Item added to cart.'], 200);
+            } else {
+                return response()->json(['error' => 'Product is out of stock!.'], 200);
             }
-         
-            
-            // Check for previous coupon in session and delete it
-            if (Session::has('coupon')) {
-                Session::forget('coupon');
+        } else {
+
+            if ($product->stock > 0) {
+
+                if ($request->attribute_id) {
+                    $attribute_options = DB::table('attribute_options')->where('id', $request->attribute_id)->first();
+                    $attribute = DB::table('attributes')->where('id', $attribute_options->attribute_id)->first();
+                }
+
+
+                // Check for previous coupon in session and delete it
+                if (Session::has('coupon')) {
+                    Session::forget('coupon');
+                }
+
+                Cart::add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->qty,
+                    'price' => $product->discount_price,
+                    'options' => [
+                        'image' => $product->photo,
+                        'thumbnail' => $product->thumbnail,
+                        'slug' => $product->slug,
+                        'stock' => $product->stock,
+                        'attribute_price' => $attribute_options->price,
+                        'attribute_name' => $attribute_options->name ?? '',
+                        'attribute_type' => $attribute->type ?? '',
+                        'attribute_image' => $attribute_options->image ?? '',
+                    ]
+                ]);
+
+
+                // return response()->json(['success' => 'Item added to cart.'], 200);
+                return response()->json(['success' => 'Item added to cart.'], 200);
+            } else {
+                return response()->json(['error' => 'Product is out of stock!.'], 200);
             }
-    
-            Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty' => $request->qty,
-                'price' => $product->discount_price,
-                'options' => [
-                    'image' => $product->photo,
-                    'thumbnail' => $product->thumbnail,
-                    'slug' => $product->slug,
-                    'stock' => $product->stock,
-                    'attribute_price' => $attribute_options->price,
-                    'attribute_name' => $attribute_options->name ?? '',
-                    'attribute_type' => $attribute->type ?? '',
-                    'attribute_image' => $attribute_options->image ?? '',
-                ]
-            ]);
-
-    // return Cart::content();
-
-            return response()->json(['success' => 'Item added to cart.'], 200);
-        }else{
-            return response()->json(['error' => 'Product is out of stock!.'], 200);
-
         }
-
-        // return response()->json(['cart-request'=>$request->all()]);
     }
     // ADD TO WISHLIST
     public function addToWishlist($id, $qty, $attribute_name = null)
@@ -345,9 +390,9 @@ class CartController extends Controller
                 'image' => $product->photo,
                 'slug' => $product->slug,
                 'attribute_price' => 0,
-                    'attribute_name' =>  '',
-                    'attribute_type' =>  '',
-                    'attribute_image' => '',
+                'attribute_name' =>  '',
+                'attribute_type' =>  '',
+                'attribute_image' => '',
             ]
         ]);
 
@@ -358,7 +403,7 @@ class CartController extends Controller
     // ADD TO COMPARE LSIT
     public function addToCompare($id, $qty, $attribute_name = null)
     {
-      
+
         $product = Item::where('id', $id)->first();
 
         if (Session::has('coupon')) {
@@ -367,7 +412,7 @@ class CartController extends Controller
 
         $items = Cart::instance('compare')->content();
         foreach ($items as $key => $value) {
-            if($value->id == $id){
+            if ($value->id == $id) {
                 return response()->json(['error' => 'Item already exists.'], 200);
             }
         }
@@ -379,9 +424,9 @@ class CartController extends Controller
             'options' => [
                 'image' => $product->photo,
                 'slug' => $product->slug,
-                    'attribute_name' =>  '',
-                    'attribute_type' =>  '',
-                    'attribute_image' => '',
+                'attribute_name' =>  '',
+                'attribute_type' =>  '',
+                'attribute_image' => '',
             ]
         ]);
 
@@ -407,8 +452,8 @@ class CartController extends Controller
         $total = 0;
 
         foreach (Cart::content() as $product) {
-        $total += $product->price * $product->qty;
-        $total += $product->options->attribute_price * $product->qty;;
+            $total += $product->price * $product->qty;
+            $total += $product->options->attribute_price * $product->qty;;
         }
 
         $carts = Cart::content();
@@ -416,7 +461,7 @@ class CartController extends Controller
         $subtotal = Cart::subtotal();
         $wishlist = Cart::instance('wishlist')->count();
         $compare = Cart::instance('compare')->count();
-       
+
 
         return response()->json([
             'carts' => $carts,
@@ -439,17 +484,17 @@ class CartController extends Controller
     {
         Cart::remove($rowId);
 
-       if(Cart::count() == 0){
-        Session::forget('discount');
-        Session::forget('coupon');
-        Session::forget('shipping_id');
-        Session::forget('shipping_state_id');
-        Session::forget('shipping_price');
-        Session::forget('shipping_address');
-        Session::forget('billing_address');
-        Session::forget('free_shipping');
-        Session::forget('free_shipping_state');
-       }
+        if (Cart::count() == 0) {
+            Session::forget('discount');
+            Session::forget('coupon');
+            Session::forget('shipping_id');
+            Session::forget('shipping_state_id');
+            Session::forget('shipping_price');
+            Session::forget('shipping_address');
+            Session::forget('billing_address');
+            Session::forget('free_shipping');
+            Session::forget('free_shipping_state');
+        }
 
         return response()->json(['success' => 'Item removed successfully'], 200);
     }
@@ -460,8 +505,9 @@ class CartController extends Controller
         return response()->json(['cart' => $cartItem], 200);
     }
 
-    public function paymentCancel(){
-        
+    public function paymentCancel()
+    {
+
         Cart::destroy();
         // Session::forget('cart');
         Session::forget('discount');
