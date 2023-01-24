@@ -121,18 +121,41 @@ class Item extends Model
 
         // physical product stock check----------
 
-        if ($item->item_type == 'normal') {
-            if ($item->stock) {
-                if ($item->stock != 0) {
+        $stock_limit = Setting::first();
+        
+        // if ($item->item_type == 'normal') {
+            if ($stock_limit->item_stock_limit > 0)   {
+
+                if ($stock_limit->item_stock_limit > $item->stock) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                return false;
+                // return false;
+                if ($item->stock) {
+                    if ($item->stock != 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             }
 
-        }
+        // if ($item->item_type == 'normal') {
+        //     if ($item->stock) {
+        //         if ($item->stock != 0) {
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //     } else {
+        //         return false;
+        //     }
+
+        // }
     }
 
     /**
