@@ -460,9 +460,19 @@ class ItemController extends Controller
 
     public function stock(){
 
-        $data = Setting::first();
-        $datas = Item::where('stock' , '<', $data->item_stock_limit)->get();
-        return view('backend.item.stock',['datas'=>$datas]);
+        $setting = Setting::first();
+
+        if($setting->item_stock_limit > 0){
+
+            $datas = Item::where('stock' , '<', $setting->item_stock_limit)->get();
+
+        }else{
+
+        $datas = Item::where('stock', 0)->get();
+
+        }
+
+        return view('backend.item.stock',['datas'=>$datas,'setting'=>$setting]);
         
     }
 

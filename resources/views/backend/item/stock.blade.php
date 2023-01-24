@@ -25,7 +25,9 @@
               
               <div class="card-header text-right">
                 <div class="spinner"></div>     
-                <a href="javascript:;" class="btn btn-primary btn-sm set_stock_limit"><i class="fa fa-pencil"></i> {{ __('Set Stock Limit') }}</a>
+                <a href="javascript:;" class="btn btn-primary btn-sm set_stock_limit">
+                  <span class="badge badge-danger">{{$setting->item_stock_limit}}</span> 
+                 {{ __('Set Stock Limit') }}</a>
                 {{-- <a href="{{route('backend.customer.restock.message')}}" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> {{ __('Create Restock Message') }}</a> --}}
               </div>
               <!-- /.card-header -->
