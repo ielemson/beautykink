@@ -69,8 +69,13 @@ class GuestCheckoutController extends Controller
             $prodId[] = $cart->id;
 
             $check = Item::where('id', $cart->id)->first();
+            $setting = Setting::first();
 
-            if ($cart->qty > $check->stock) {
+            if ($setting->item_stock_limit > 0 && $cart->qty > $setting->item_stock_limit) {
+                return redirect()->route('frontend.cart')->withError(__('Total quantity has exceeded available stock.'));
+            }
+
+            if ($setting->item_stock_limit == 0 && $cart->qty > $check->stock) {
                 return redirect()->route('frontend.cart')->withError(__('Total quantity has exceeded available stock.'));
             }
         }
@@ -176,7 +181,7 @@ class GuestCheckoutController extends Controller
         $attribute_price = 0;
         foreach (Cart::content() as $key => $product) {
             $total += $product->price * $product->qty;
-            $total += +$attribute_price;
+           $total += $product->options->attribute_price * $product->qty;
         }
 
         $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;
@@ -439,10 +444,10 @@ class GuestCheckoutController extends Controller
             }
 
             $total = 0;
-            $attribute_price = 0;
+            // $attribute_price = 0;
             foreach (Cart::content() as $key => $product) {
                 $total += $product->price * $product->qty;
-                $total += +$attribute_price;
+               $total += $product->options->attribute_price * $product->qty;
             }
 
             $coupon = Session::has('coupon') ? round(Session::get('coupon')['discount'], 2) : 0;

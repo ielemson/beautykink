@@ -31,12 +31,24 @@
                       </div>
                       <div class="col-8 col-md-4">
                         <div class="product-content">
-                          @if ($item->qty > $item->options->stock)
+
+                          @php
+                            $setting = App\Models\Setting::first();
+                          @endphp
+
+                          @if ($setting->item_stock_limit > 0 && $item->qty > $setting->item_stock_limit)
+                          {{-- @if ($item->qty > $item->options->stock) --}}
+                             <h6 class="title"><small class="text-danger"><i class="fa fa-exclamation-circle"></i> {{$item->qty > $setting->item_stock_limit ? 'product not available in the desired quantity.' :" "}}</small></h6>
+                          
+                             <h5 class="title">
+                              <a class="{{$item->qty > $setting->item_stock_limit ? 'text-danger' :" "}}" href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
+                              
+                             @elseif ($setting->item_stock_limit == 0 && $item->qty > $item->options->stock)
                              <h6 class="title"><small class="text-danger"><i class="fa fa-exclamation-circle"></i> {{$item->qty > $item->options->stock ? 'product not available in the desired quantity.' :" "}}</small></h6>
-                          @endif
+                             <a class="{{$item->qty > $item->options->stock ? 'text-danger' :" "}}" href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}} - {{$item->qty}}</a></h5>
+                             @endif
                          
-                          <h5 class="title">
-                          <a class="{{$item->qty > $item->options->stock ? 'text-danger' :" "}}" href="{{ route('frontend.product', $item->options->slug) }}">{{$item->name}}</a></h5>
+                       
                           <h6 class="product-price">@money($item->price,'NGN')</h6>
                           {{$item->options->attribute_name}} 
                           @if ($item->options->attribute_price > 0)

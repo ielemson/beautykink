@@ -131,31 +131,19 @@ class Item extends Model
                 } else {
                     return false;
                 }
-            } else {
-                // return false;
-                if ($item->stock) {
-                    if ($item->stock != 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+            } 
+
+
+
+            if ($item->stock) {
+                if ($item->stock != 0) {
+                    return true;
                 } else {
                     return false;
                 }
+            } else {
+                return false;
             }
-
-        // if ($item->item_type == 'normal') {
-        //     if ($item->stock) {
-        //         if ($item->stock != 0) {
-        //             return true;
-        //         } else {
-        //             return false;
-        //         }
-        //     } else {
-        //         return false;
-        //     }
-
-        // }
     }
 
     /**

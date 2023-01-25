@@ -453,7 +453,7 @@ class CartController extends Controller
 
         foreach (Cart::content() as $product) {
             $total += $product->price * $product->qty;
-            $total += $product->options->attribute_price * $product->qty;;
+            $total += $product->options->attribute_price * $product->qty;
         }
 
         $carts = Cart::content();
