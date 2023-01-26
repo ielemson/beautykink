@@ -126,7 +126,7 @@ class Item extends Model
         // if ($item->item_type == 'normal') {
             if ($stock_limit->item_stock_limit > 0)   {
 
-                if ($stock_limit->item_stock_limit > $item->stock) {
+                if ( $item->stock > $stock_limit->item_stock_limit) {
                     return true;
                 } else {
                     return false;
@@ -135,7 +135,7 @@ class Item extends Model
 
 
 
-            if ($item->stock) {
+            if ($stock_limit->item_stock_limit == 0 && $item->stock) {
                 if ($item->stock != 0) {
                     return true;
                 } else {
